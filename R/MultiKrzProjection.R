@@ -39,6 +39,7 @@ function(mat.list,
                                                                    ret.dim.1, ret.dim.2)[1]},
                                         .parallel = parallel)
   }
+  if(is.null(names(mat.list))) {names(mat.list <- 1:length(mat.list))}
   comparisons.proj <- llply(names(mat.list),
                              CompareToNProj,
                              .progress="text", .parallel = parallel)
