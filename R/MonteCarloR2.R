@@ -8,11 +8,10 @@ function (cov.matrix, sample.size, iterations = 1000)
   #   sample.size: number of individuals to sample
   #   iterations: number of populations sampled
   # Return:
-  #   a vector with iterations + 1 entries; the first entry covesponds
-  #   to the actual r2 value calculated from the original matrix. The
-  #   remaining entries are values calculated from the resampling procedure.
+  # a vector whose entries are R2 values calculated from the
+  # resampling procedure.
 {
-  if(!require(mvtnorm))install.packages("mvtnorm")
+  if(!require(mvtnorm)) install.packages("mvtnorm")
   library(mvtnorm)
   n.traits <- dim (cov.matrix) [1]
   populations <- list ()
@@ -20,6 +19,5 @@ function (cov.matrix, sample.size, iterations = 1000)
     populations [[i]] <- rmvnorm (sample.size, sigma = cov.matrix, method = 'chol')
   it.matrices <- lapply (populations, cor)
   it.r2 <- sapply (it.matrices, CalcR2)
-  r2 <- c (CalcR2 (cov2cor(cov.matrix)), it.r2)
-  return (r2)
+  return (it.r2)
 }

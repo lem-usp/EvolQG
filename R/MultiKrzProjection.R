@@ -42,7 +42,7 @@ function(mat.list,
   if(is.null(names(mat.list))) {names(mat.list <- 1:length(mat.list))}
   comparisons.proj <- llply(names(mat.list),
                              CompareToNProj,
-                             .progress="text", .parallel = parallel)
+                             .parallel = parallel)
   if(full.results){
     names(comparisons.proj) = names(mat.list)
     return(comparisons.proj)
