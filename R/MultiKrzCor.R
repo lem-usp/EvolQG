@@ -17,7 +17,6 @@ function (matrix.list, repeat.vector = NULL)
   correlations <- array (0, c(n.matrix, n.matrix))
   for (i in 1:(n.matrix - 1)) {
     for (j in (i+1):n.matrix) {
-      cat (i, ' ', j, '\n')
       comparing.now <- KrzCor (matrix.list [[i]],
                                matrix.list [[j]])
       correlations [i, j] <- comparing.now
