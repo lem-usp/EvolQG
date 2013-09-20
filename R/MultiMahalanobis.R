@@ -15,7 +15,6 @@ function (mean.list, cov.matrix)
   distances <- array (0, c(n.means, n.means))
   for (i in 1:(n.means - 1)) {
     for (j in (i+1):n.means) {
-      cat (i, ' ', j, '\n')
       comparing.now <- mahalanobis (mean.list [[i]],
                                     mean.list [[j]],
                                     cov.matrix)
@@ -24,5 +23,5 @@ function (mean.list, cov.matrix)
   }
   rownames (distances) <- means.names
   colnames (distances) <- means.names
-  return (distances)
+  return (as.dist(distances))
 }
