@@ -21,7 +21,6 @@ function (matrix.list, MatrixCompFunc = RandomSkewers, repeat.vector = NULL, ite
   correlations <- probabilities
   for (i in 1:(n.matrix - 1)) {
     for (j in (i+1):n.matrix) {
-      cat (i, ' ', j, '\n')
       comparing.now <- MatrixCompFunc (matrix.list [[i]],
                                        matrix.list [[j]],
                                        iterations)
