@@ -8,6 +8,6 @@ test_that("MantelCor returns correct results",
             expect_that(results[1] >= -1, is_true())
             expect_that(results[2] <=  1, is_true())
             expect_that(results[2] >=  0, is_true())
-            expect_that(MantelCor(cor.matrix.1, cor.matrix.1), is_equivalent_to(c(1, 0)))
+            expect_that(MantelCor(cor.matrix.1, cor.matrix.1), is_equivalent_to(c(1, 0.001)))
           }
 )
