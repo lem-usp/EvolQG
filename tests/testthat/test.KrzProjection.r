@@ -32,7 +32,10 @@ test_that("KrzProjection returns correct results",
             cov.matrix.2 <- cov(matrix(rnorm(30*10), 30, 10))
             cov.matrix.3 <- cov(matrix(rnorm(30*10), 30, 10))
             mat.list <- list(cov.matrix.1, cov.matrix.2, cov.matrix.3)
-            expect_that(dim(KrzProjection(mat.list)), equals(c(6, 3)))
+            expect_that(dim(KrzProjection(mat.list)), equals(c(3, 3)))
+            expect_that(diag(KrzProjection(mat.list)), is_equivalent_to(c(0, 0, 0)))
+            expect_that(KrzProjection(mat.list)[1,2], equals(KrzProjection(mat.list[[1]], mat.list[[2]])[[1]]))
+            expect_that(KrzProjection(mat.list)[2,1], equals(KrzProjection(mat.list[[2]], mat.list[[1]])[[1]]))
             expect_that(length(KrzProjection(mat.list, full.results = T)), equals(3))
             expect_that(dim(KrzProjection(mat.list, full.results = T)), equals(NULL))
           }

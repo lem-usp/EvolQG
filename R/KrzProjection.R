@@ -38,7 +38,7 @@ KrzProjection.list <- function(mat.list,
                                full.results = F){
   # Calculates the modified Krzanowski correlation between matrices,
   # projecting the variance in each principal  components of the first
-  # matrix in to the ret.dim.2 components of the second.for a list of matrices
+  # matrix in to the ret.dim.2 components of the second for a list of matrices
   #
   # Args:
   #     cov.matrix.(1,2): covariance being compared
@@ -83,6 +83,9 @@ KrzProjection.list <- function(mat.list,
   else{
     comparisons.proj <- melt(comparisons.proj)
     comparisons.proj[,4] = names(mat.list)[(comparisons.proj[,4])]
+    comparisons.proj = comparisons.proj[,-2]
+    comparisons.proj = acast(comparisons.proj, L2~L1)
+    diag(comparisons.proj) = 0.
   }
-  return(comparisons.proj[,-2])
+  return(comparisons.proj)
 }
