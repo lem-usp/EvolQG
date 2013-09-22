@@ -1,27 +1,16 @@
-test_that("MantelCor returns correct results",
-          {
-            cor.matrix.1 <- cor(matrix(rnorm(30*10), 30, 10))
-            cor.matrix.2 <- cor(matrix(rnorm(30*10), 30, 10))
-            results <- MantelCor(cor.matrix.1, cor.matrix.2)
-            expect_that(length(results), equals(2))
-            expect_that(results[1] <=  1, is_true())
-            expect_that(results[1] >= -1, is_true())
-            expect_that(results[2] <=  1, is_true())
-            expect_that(results[2] >=  0, is_true())
-            expect_that(MantelCor(cor.matrix.1, cor.matrix.1), is_equivalent_to(c(1, 0.001)))
-          }
-)
-test_that("MantelCor returns corret results",
+test_that("RandomSkewers returns corret results",
           {
             cov.matrix.1 <- cov(matrix(rnorm(30*10), 30, 10))
             cov.matrix.2 <- cov(matrix(rnorm(30*10), 30, 10))
             cov.matrix.3 <- cov(matrix(rnorm(30*10), 30, 10))
             mat.list <- list(cov.matrix.1, cov.matrix.2, cov.matrix.3)
-            results.list <- MantelCor(mat.list)
+            set.seed(42)
+            results.list <- RandomSkewers(mat.list)
             results <- results.list[[1]]
             probabilities <- results.list[[2]]
             expect_that(results.list, is_a("list"))
-            results.list.2 <- MantelCor(mat.list, repeat.vector = c(0.8, 0.9, 0.85))
+            set.seed(42)
+            results.list.2 <- RandomSkewers(mat.list, repeat.vector = c(0.8, 0.9, 0.85))
             results.2 <- results.list.2[[1]]
             probabilities.2 <- results.list.2[[2]]
             expect_that(dim(results), equals(c(length(mat.list),length(mat.list))))
@@ -35,7 +24,6 @@ test_that("MantelCor returns corret results",
             lower.2  <- results.2[lower.tri(results.2)]
             expect_that(upper.2, equals(upper))
             expect_that(diag(results.2), equals(c(0.8, 0.9, 0.85)))
-            expect_that(sum(abs(lower.2) > abs(upper.2)), equals(length(mat.list)))
+            expect_that(sum(lower.2 > upper.2), equals(length(mat.list)))
           }
 )
-
