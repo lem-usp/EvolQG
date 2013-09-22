@@ -1,3 +1,18 @@
+test_that("RandomSkewers returns correct results",
+          {
+            cor.matrix.1 <- cor(matrix(rnorm(30*10), 30, 10))
+            cor.matrix.2 <- cor(matrix(rnorm(30*10), 30, 10))
+            results <- RandomSkewers(cor.matrix.1, cor.matrix.2)
+            expect_that(results, is_a("numeric"))
+            expect_that(length(results), equals(3))
+            expect_that(results[1] <=  1, is_true())
+            expect_that(results[1] >= -1, is_true())
+            expect_that(results[2] <=  1, is_true())
+            expect_that(results[2] >=  0, is_true())
+            expect_that(results[3] >=  0, is_true())
+          }
+)
+
 test_that("RandomSkewers returns corret results",
           {
             cov.matrix.1 <- cov(matrix(rnorm(30*10), 30, 10))
@@ -6,6 +21,7 @@ test_that("RandomSkewers returns corret results",
             mat.list <- list(cov.matrix.1, cov.matrix.2, cov.matrix.3)
             set.seed(42)
             results.list <- RandomSkewers(mat.list)
+            expect_that(results.list, is_a("list"))
             results <- results.list[[1]]
             probabilities <- results.list[[2]]
             expect_that(results.list, is_a("list"))
