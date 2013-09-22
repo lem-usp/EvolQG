@@ -1,4 +1,5 @@
-ComparisonMap <- function (matrix.list, MatrixCompFunc, repeat.vector = NULL, iterations = 10000)
+ComparisonMap <- function (matrix.list, MatrixCompFunc,
+                           repeat.vector = NULL)
   # Performs multiple comparisons between a set of covariance or
   # correlation matrices.
   #
@@ -6,7 +7,6 @@ ComparisonMap <- function (matrix.list, MatrixCompFunc, repeat.vector = NULL, it
   #  matrix.list: a list of covariance or correlation matrices
   #  MatrixCompFunc: function to use for comparison
   #  repeat.vector: vector of matrix repeatabilities
-  #  iterations: number of RandomSkewers or matrix permutations passed to MatrixCompFunc
   #
   # Return:
   #  a list with two matrices containing $\Gamma$-values or average random
@@ -21,8 +21,7 @@ ComparisonMap <- function (matrix.list, MatrixCompFunc, repeat.vector = NULL, it
   for (i in 1:(n.matrix - 1)) {
     for (j in (i+1):n.matrix) {
       comparing.now <- MatrixCompFunc (matrix.list [[i]],
-                                       matrix.list [[j]],
-                                       iterations)
+                                       matrix.list [[j]])
       correlations [i, j] <- comparing.now [1]
       probabilities [i, j] <- comparing.now [2]
       if (!is.null (repeat.vector))
@@ -41,7 +40,7 @@ ComparisonMap <- function (matrix.list, MatrixCompFunc, repeat.vector = NULL, it
 
 RandomSkewers <- function(x, ...) UseMethod("RandomSkewers")
 
-RandomSkewers.default <- function (cov.matrix.1, cov.matrix.2, iterations = 10000)
+RandomSkewers.default <- function (cov.matrix.1, cov.matrix.2, iterations = 1000)
   # Calculates covariance matrix correlation via random skewers
   # Args:
   #     cov.matrix.(1,2): Two covariance matrices to be compared
@@ -65,20 +64,22 @@ RandomSkewers.default <- function (cov.matrix.1, cov.matrix.2, iterations = 1000
   return(output)
 }
 
-RandomSkewers.list <- function (matrix.list, repeat.vector = NULL, iterations)
+RandomSkewers.list <- function (matrix.list, repeat.vector = NULL, iterations = 1000)
 {
-    out <- ComparisonMap(matrix.list, RandomSkewers.default, repeat.vector, iterations)
+    out <- ComparisonMap(matrix.list,
+                         function(x, y) RandomSkewers.default(x, y, iterations),
+                         repeat.vector = repeat.vector)
     return(out)
 }
 
-MantelCor <- function (x,..) UseMethod("MantelCor")
+MantelCor <- function (x, ...) UseMethod("MantelCor")
 
-MantelCor.default <- function (cor.matrix.1, cor.matrix.2, nit = 1000, mod = FALSE)
+MantelCor.default <- function (cor.matrix.1, cor.matrix.2, iterations = 1000, mod = FALSE)
   # Calculates matrix correlation with confidence intervals using mantel permutations
   #
   # Args:
   #     cor.matrix.(1,2): correlation matrices being compared
-  #     nit: number of permutations
+  #     iterations: number of permutations
   #     mod: for when testing binary modularity hipotesis
   # Return:
   #     matrix pearson correelation and significance.
@@ -86,7 +87,7 @@ MantelCor.default <- function (cor.matrix.1, cor.matrix.2, nit = 1000, mod = FAL
 {
   if(!require(vegan)) install.packages("vegan")
   library(vegan)
-  mantel.out <- mantel(cor.matrix.1, cor.matrix.2)
+  mantel.out <- mantel(cor.matrix.1, cor.matrix.2, permutations = iterations)
   correlation <- mantel.out$statistic
   prob <- mantel.out$signif
   if (mod == TRUE){
@@ -103,9 +104,11 @@ MantelCor.default <- function (cor.matrix.1, cor.matrix.2, nit = 1000, mod = FAL
   return (output)
 }
 
-MantelCor.list <- function (matrix.list, repeat.vector = NULL, iterations)
+MantelCor.list <- function (matrix.list, repeat.vector = NULL, iterations = 1000)
 {
-    out <- ComparisonMap(matrix.list, MantelCor.default, repeat.vector, iterations)
+    out <- ComparisonMap(matrix.list,
+                         function(x, y) MantelCor.default(x, y, iterations),
+                         repeat.vector = repeat.vector)
     return(out)
 }
 
@@ -144,6 +147,8 @@ KrzCor.list <- function (matrix.list, repeat.vector = NULL, ret.dim = NULL)
   #  if repeat.vector was also passed, values below the diagonal on the correlation matrix
   #  will contain corrected correlation values.
 {
-    out <- ComparisonMap(matrix.list, function(x, y, z) return(c(KrzCor.default, NA)), repeat.vector, ret.dim)
+    out <- ComparisonMap(matrix.list,
+                         function(x, y) return(c(KrzCor.default(x, y, ret.dim), NA)),
+                         repeat.vector = repeat.vector)
     return(out[[1]])
 }
