@@ -1,5 +1,4 @@
-MultiMahalanobis <-
-function (mean.list, cov.matrix)
+MultiMahalanobis <- function (mean.list, cov.matrix)
   # Calculates the Mahalanobis distance between a list of species means,
   # using a global covariance matrix
   #
