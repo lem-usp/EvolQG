@@ -1,5 +1,4 @@
-ComparisonMap <- function (matrix.list, MatrixCompFunc,
-                           repeat.vector = NULL)
+ComparisonMap <- function (matrix.list, MatrixCompFunc, repeat.vector = NULL, num.cores = 1){
   # Performs multiple comparisons between a set of covariance or
   # correlation matrices.
   #
@@ -13,23 +12,37 @@ ComparisonMap <- function (matrix.list, MatrixCompFunc,
   #  skewers correlation and probabilities according to permutation test.
   #  if repeat.vector was also passed, values below the diagonal on the correlation matrix
   #  will contain corrected correlation values.
-{
-  n.matrix <- length (matrix.list)
+  if(!require(plyr)) install.packages("plyr")
+  if(!require(reshape2)) install.packages("reshape2")
+  library(plyr)
+  library(reshape2)
+  if (num.cores > 1) {
+    if(!require(doMC)) install.packages("doMC")
+    if(!require(foreach)) install.packages("foreach")
+    library(doMC)
+    library(foreach)
+    registerDoMC(num.cores)
+    parallel = TRUE
+  }
+  else
+    parallel = FALSE
+  n.matrix <- length(matrix.list)
+  if(is.null(names(matrix.list))) {names(matrix.list) <- 1:n.matrix}
   matrix.names <- names (matrix.list)
+  CompareToN <- function(n) ldply(matrix.list[(n+1):n.matrix],
+                                  function(x) {MatrixCompFunc(x, matrix.list[[n]])[1:2]},
+                                  .parallel = parallel)
+  comparisons <- adply(1:(n.matrix-1), 1,  CompareToN, .parallel = parallel)
+  corrs <- acast(comparisons[-4], X1~.id)[,matrix.names[-1]]
+  probs <- acast(comparisons[-3], X1~.id)[,matrix.names[-1]]
   probabilities <- array (0, c(n.matrix, n.matrix))
   correlations <- probabilities
-  for (i in 1:(n.matrix - 1)) {
-    for (j in (i+1):n.matrix) {
-      comparing.now <- MatrixCompFunc (matrix.list [[i]],
-                                       matrix.list [[j]])
-      correlations [i, j] <- comparing.now [1]
-      probabilities [i, j] <- comparing.now [2]
-      if (!is.null (repeat.vector))
-        correlations [j, i] <- correlations [i, j] / sqrt (repeat.vector [i] * repeat.vector [j])
-    }
-  }
+  probabilities[upper.tri(probabilities)] <- probs[upper.tri(probs, diag=T)]
+  correlations[upper.tri(correlations)] <- corrs[upper.tri(probs, diag=T)]
   if (!is.null (repeat.vector)) {
+    repeat.matrix <- sqrt(outer(repeat.vector, repeat.vector))
     diag (correlations) <- repeat.vector
+    correlations[lower.tri(correlations)] <- t(correlations/repeat.matrix)[lower.tri(correlations)]
   }
   rownames (correlations) <- matrix.names
   colnames (correlations) <- matrix.names
