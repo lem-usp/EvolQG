@@ -18,6 +18,7 @@ TestModularity <- function (cor.matrix, modularity.hipot)
                       mod = TRUE)
     output[,N] <- tmp
   }
+  if(is.null(colnames(modularity.hipot))) colnames(modularity.hipot) <- 1:(no.hip-1)
   dimnames(output) <- list (names (tmp), c (colnames (modularity.hipot),"Full Integration"))
   return (output)
 }

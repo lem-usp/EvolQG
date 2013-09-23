@@ -91,6 +91,7 @@ MantelCor.default <- function (cor.matrix.1, cor.matrix.2, iterations = 1000, mo
   correlation <- mantel.out$statistic
   prob <- mantel.out$signif
   if (mod == TRUE){
+    index <- cor.matrix.2[lower.tri(cor.matrix.2)]
     avg.plus <- mean (cor.matrix.1 [lower.tri(cor.matrix.1)] [index != 0])
     avg.minus <- mean (cor.matrix.1 [lower.tri(cor.matrix.1)] [index == 0])
     avg.ratio <- avg.plus / avg.minus
