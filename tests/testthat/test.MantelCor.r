@@ -33,7 +33,7 @@ test_that("MantelCor returns corret results",
             upper.2  <- results.2[upper.tri(results.2)]
             lower.2  <- results.2[lower.tri(results.2)]
             expect_that(upper.2, equals(upper))
-            expect_that(diag(results.2), equals(c(0.8, 0.9, 0.85)))
+            expect_that(diag(results.2), is_equivalent_to(c(0.8, 0.9, 0.85)))
             expect_that(sum(abs(lower.2) > abs(upper.2)), equals(length(mat.list)))
           }
 )
