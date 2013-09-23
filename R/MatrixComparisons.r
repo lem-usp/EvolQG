@@ -41,8 +41,8 @@ ComparisonMap <- function (matrix.list, MatrixCompFunc, repeat.vector = NULL, nu
   correlations[upper.tri(correlations)] <- corrs[upper.tri(probs, diag=T)]
   if (!is.null (repeat.vector)) {
     repeat.matrix <- sqrt(outer(repeat.vector, repeat.vector))
-    diag (correlations) <- repeat.vector
     correlations[lower.tri(correlations)] <- t(correlations/repeat.matrix)[lower.tri(correlations)]
+    diag (correlations) <- repeat.vector
   }
   rownames (correlations) <- matrix.names
   colnames (correlations) <- matrix.names
