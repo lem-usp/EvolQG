@@ -18,10 +18,13 @@ test_that("MantelCor returns corret results",
             mat.list <- list(cov.matrix.1, cov.matrix.2, cov.matrix.3)
             results.list <- MantelCor(mat.list)
             results <- results.list[[1]]
+            expect_that(sum(is.na(results)), equals(0))
             probabilities <- results.list[[2]]
+            expect_that(sum(is.na(probabilities)), equals(0))
             expect_that(results.list, is_a("list"))
             results.list.2 <- MantelCor(mat.list, repeat.vector = c(0.8, 0.9, 0.85))
             results.2 <- results.list.2[[1]]
+            expect_that(sum(is.na(results.2)), equals(0))
             probabilities.2 <- results.list.2[[2]]
             expect_that(dim(results), equals(c(length(mat.list),length(mat.list))))
             upper  <- results[upper.tri(results)]

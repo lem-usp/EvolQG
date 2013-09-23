@@ -23,6 +23,8 @@ test_that("KrzCor returns correct results",
             mat.list <- list(cov.matrix.1, cov.matrix.2, cov.matrix.3)
             results <- KrzCor(mat.list)
             results.2 <- KrzCor(mat.list, repeat.vector = c(0.8, 0.9, 0.85))
+            expect_that(sum(is.na(results)), equals(0))
+            expect_that(sum(is.na(results.2)), equals(0))
             expect_that(dim(results), equals(c(length(mat.list),length(mat.list))))
             upper  <- results[upper.tri(results)]
             upper.bool = sapply(upper, function(x) isTRUE(x > 0 & x < 1))
