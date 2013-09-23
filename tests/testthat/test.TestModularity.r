@@ -8,7 +8,7 @@ test_that("TestModularity returns correct results",
             mod.test <- TestModularity(cor.matrix, rand.hipots)
             expect_that(dim(mod.test), equals(c(5, 4)))
             expect_that(colnames(mod.test), equals(c("1", "2", "3", "Full Integration")))
-            expect_that(rownames(mod.test), equals(c("R²", "Probability", "AVG+", "AVG-", "AVG Ratio")))
+            expect_that(rownames(mod.test), equals(c("Rsquared", "Probability", "AVG+", "AVG-", "AVG Ratio")))
             expect_that(sum(mod.test[1:4, 1:4] >= -1), equals(16))
             expect_that(sum(mod.test[1:4, 1:4] <= 1), equals(16))
             expect_that(mod.test[3,]/mod.test[4,], equals(mod.test[5,]))

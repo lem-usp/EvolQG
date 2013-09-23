@@ -93,17 +93,17 @@ RandomSkewers.default <- function (cov.matrix.1, cov.matrix.2, iterations = 1000
   return(output)
 }
 
-RandomSkewers.list <- function (matrix.list, y = NULL, repeat.vector = NULL, iterations = 1000, num.cores = 1)
+RandomSkewers.list <- function (matrix.list, cov.matrix = NULL, repeat.vector = NULL, iterations = 1000, num.cores = 1)
 {
-  if (is.null (y)) {
+  if (is.null (cov.matrix)) {
     out <- ComparisonMap(matrix.list,
-                         function(x, y) RandomSkewers.default(x, y, iterations),
+                         function(x, cov.matrix) RandomSkewers.default(x, cov.matrix, iterations),
                          repeat.vector = repeat.vector,
                          num.cores = num.cores)
   }
   else{
-    out <- SingleComparisonMap(matrix.list, y,
-                               function(x, y) RandomSkewers.default(x, y, iterations),
+    out <- SingleComparisonMap(matrix.list, cov.matrix,
+                               function(x, cov.matrix) RandomSkewers.default(x, cov.matrix, iterations),
                                num.cores = num.cores)
   }
   return(out)
@@ -141,17 +141,17 @@ MantelCor.default <- function (cor.matrix.1, cor.matrix.2, iterations = 1000, mo
   return (output)
 }
 
-MantelCor.list <- function (matrix.list, y = NULL, repeat.vector = NULL, iterations = 1000, num.cores = 1)
+MantelCor.list <- function (matrix.list, cor.matrix = NULL, repeat.vector = NULL, iterations = 1000, num.cores = 1)
 {
-  if (is.null (y)) {
+  if (is.null (cor.matrix)) {
     out <- ComparisonMap(matrix.list,
-                         function(x, y) MantelCor.default(x, y, iterations),
+                         function(x, cor.matrix) MantelCor.default(x, cor.matrix, iterations),
                          repeat.vector = repeat.vector,
                          num.cores = num.cores)
   }
   else{
-    out <- SingleComparisonMap(matrix.list, y,
-                               function(x, y) MantelCor.default(x, y, iterations),
+    out <- SingleComparisonMap(matrix.list, cor.matrix,
+                               function(x, cor.matrix) MantelCor.default(x, cor.matrix, iterations),
                                num.cores = num.cores)
   }
   return(out)
@@ -179,7 +179,7 @@ KrzCor.default <- function (cov.matrix.1, cov.matrix.2, ret.dim = NULL)
   return (SL)
 }
 
-KrzCor.list <- function (matrix.list, y = NULL, repeat.vector = NULL, ret.dim = NULL, num.cores = 1)
+KrzCor.list <- function (matrix.list, cov.matrix = NULL, repeat.vector = NULL, ret.dim = NULL, num.cores = 1)
   # Performs multiple comparisons between a set of covariance or
   # correlation matrices using Kzranowski Correlation.
   #
@@ -192,16 +192,16 @@ KrzCor.list <- function (matrix.list, y = NULL, repeat.vector = NULL, ret.dim = 
   #  if repeat.vector was also passed, values below the diagonal on the correlation matrix
   #  will contain corrected correlation values.
 {
-  if (is.null (y)) {
+  if (is.null (cov.matrix)) {
     out <- ComparisonMap(matrix.list,
-                         function(x, y) return(c(KrzCor.default(x, y, ret.dim), NA)),
+                         function(x, cov.matrix) return(c(KrzCor.default(x, cov.matrix, ret.dim), NA)),
                          repeat.vector = repeat.vector,
                          num.cores = num.cores)
     out <- out[[1]]
   }
   else{
-    out <- SingleComparisonMap(matrix.list, y,
-                         function(x, y) return(c(KrzCor.default(x, y, ret.dim), NA)),
+    out <- SingleComparisonMap(matrix.list, cov.matrix,
+                         function(x, cov.matrix) return(c(KrzCor.default(x, cov.matrix, ret.dim), NA)),
                                num.cores = num.cores)
     out <- out[,-length(out)]
   }
