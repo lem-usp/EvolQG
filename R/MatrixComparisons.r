@@ -132,11 +132,11 @@ MantelCor.default <- function (cor.matrix.1, cor.matrix.2, iterations = 1000, mo
     avg.minus <- mean (cor.matrix.1 [lower.tri(cor.matrix.1)] [index == 0])
     avg.ratio <- avg.plus / avg.minus
     output <- c(correlation, prob, avg.plus, avg.minus, avg.ratio)
-    names(output) <- c("R²", "Probability", "AVG+", "AVG-", "AVG Ratio")
+    names(output) <- c("Rsquared", "Probability", "AVG+", "AVG-", "AVG Ratio")
   }
   else{
     output <- c(correlation, prob)
-    names(output) <- c("R²", "Probability")
+    names(output) <- c("Rsquared", "Probability")
   }
   return (output)
 }
