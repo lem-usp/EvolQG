@@ -1,7 +1,7 @@
 test_that("KrzProjection returns correct results",
           {
-            cov.matrix.1 <- cov(matrix(rnorm(30*10), 30, 10))
-            cov.matrix.2 <- cov(matrix(rnorm(30*10), 30, 10))
+            cov.matrix.1 <- RandCorr(10)
+            cov.matrix.2 <- RandCorr(10)
             expect_that(dim(KrzProjection(cov.matrix.1, cov.matrix.2)), equals(NULL))
             expect_that(length(KrzProjection(cov.matrix.1, cov.matrix.2)), equals(2))
             expect_that(length(KrzProjection(cov.matrix.1,
@@ -28,15 +28,12 @@ test_that("KrzProjection returns correct results",
 
 test_that("KrzProjection returns correct results",
           {
-            cov.matrix.1 <- cov(matrix(rnorm(30*10), 30, 10))
-            cov.matrix.2 <- cov(matrix(rnorm(30*10), 30, 10))
-            cov.matrix.3 <- cov(matrix(rnorm(30*10), 30, 10))
-            mat.list <- list(cov.matrix.1, cov.matrix.2, cov.matrix.3)
-            expect_that(dim(KrzProjection(mat.list)), equals(c(3, 3)))
-            expect_that(diag(KrzProjection(mat.list)), is_equivalent_to(c(0, 0, 0)))
+            mat.list <- lapply(as.list(1:10), function(x) RandCorr(10))
+            expect_that(dim(KrzProjection(mat.list)), equals(c(length(mat.list), length(mat.list))))
+            expect_that(diag(KrzProjection(mat.list)), is_equivalent_to(rep(0, length(mat.list))))
             expect_that(KrzProjection(mat.list)[1,2], equals(KrzProjection(mat.list[[1]], mat.list[[2]])[[1]]))
             expect_that(KrzProjection(mat.list)[2,1], equals(KrzProjection(mat.list[[2]], mat.list[[1]])[[1]]))
-            expect_that(length(KrzProjection(mat.list, full.results = T)), equals(3))
+            expect_that(length(KrzProjection(mat.list, full.results = T)), equals(length(mat.list)))
             expect_that(dim(KrzProjection(mat.list, full.results = T)), equals(NULL))
           }
 )

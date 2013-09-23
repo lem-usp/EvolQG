@@ -1,7 +1,7 @@
 test_that("KrzCor returns correct results",
           {
-              cov.matrix.1 <- cov(matrix(rnorm(30*10), 30, 10))
-              cov.matrix.2 <- cov(matrix(rnorm(30*10), 30, 10))
+              cov.matrix.1 <- RandCorr(10)
+              cov.matrix.2 <- RandCorr(10)
               ret.dim = dim(cov.matrix.1)[1]/2 - 1
               EigenVectors <- function (x) return (eigen(x)$vectors[,1:ret.dim])
               A <- EigenVectors (cov.matrix.1)
@@ -17,12 +17,10 @@ test_that("KrzCor returns correct results",
 
 test_that("KrzCor returns correct results",
           {
-            cov.matrix.1 <- cov(matrix(rnorm(30*10), 30, 10))
-            cov.matrix.2 <- cov(matrix(rnorm(30*10), 30, 10))
-            cov.matrix.3 <- cov(matrix(rnorm(30*10), 30, 10))
-            mat.list <- list(cov.matrix.1, cov.matrix.2, cov.matrix.3)
+            mat.list <- lapply(as.list(1:10), function(x) RandCorr(10))
+            rep.vec <- runif(length(mat.list), 0.8, 0.9)
             results <- KrzCor(mat.list)
-            results.2 <- KrzCor(mat.list, repeat.vector = c(0.8, 0.9, 0.85))
+            results.2 <- KrzCor(mat.list, repeat.vector = rep.vec)
             expect_that(sum(is.na(results)), equals(0))
             expect_that(sum(is.na(results.2)), equals(0))
             expect_that(dim(results), equals(c(length(mat.list),length(mat.list))))
@@ -33,21 +31,17 @@ test_that("KrzCor returns correct results",
             lower.bool = sapply(lower, function(x) isTRUE(x == 0))
             expect_that(sum(lower.bool), equals(length(lower.bool)))
             upper.2  <- results.2[upper.tri(results.2)]
-            lower.2  <- results.2[lower.tri(results.2)]
+            lower.2  <- t(results.2)[upper.tri(results.2)]
             expect_that(upper.2, equals(upper))
-            expect_that(diag(results.2), is_equivalent_to(c(0.8, 0.9, 0.85)))
-            expect_that(sum(lower.2 > upper.2), equals(length(mat.list)))
+            expect_that(diag(results.2), is_equivalent_to(rep.vec))
+            expect_that(sum(lower.2 < upper.2), equals(0))
           }
 )
 
 test_that("KrzCor returns correct results on lists + matrices",
           {
-            cov.matrix.1 <- cov(matrix(rnorm(30*10), 30, 10))
-            cov.matrix.2 <- cov(matrix(rnorm(30*10), 30, 10))
-            cov.matrix.3 <- cov(matrix(rnorm(30*10), 30, 10))
-            mat.list <- list(cov.matrix.1, cov.matrix.2, cov.matrix.3)
-            y.matrix <- cov(matrix(rnorm(30*10), 30, 10))
-            set.seed(42)
+            mat.list <- lapply(as.list(1:10), function(x) RandCorr(10))
+            y.matrix <- RandCorr(10)
             results <- KrzCor(mat.list, y.matrix)
             expect_that(results, is_a("numeric"))
             expect_that(sum(is.na(results)), equals(0))
