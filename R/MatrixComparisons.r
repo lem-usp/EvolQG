@@ -77,11 +77,12 @@ RandomSkewers.default <- function (cov.matrix.1, cov.matrix.2, iterations = 1000
   return(output)
 }
 
-RandomSkewers.list <- function (matrix.list, repeat.vector = NULL, iterations = 1000)
+RandomSkewers.list <- function (matrix.list, repeat.vector = NULL, iterations = 1000, num.cores = 1)
 {
     out <- ComparisonMap(matrix.list,
                          function(x, y) RandomSkewers.default(x, y, iterations),
-                         repeat.vector = repeat.vector)
+                         repeat.vector = repeat.vector,
+                         num.cores = num.cores)
     return(out)
 }
 
@@ -118,11 +119,12 @@ MantelCor.default <- function (cor.matrix.1, cor.matrix.2, iterations = 1000, mo
   return (output)
 }
 
-MantelCor.list <- function (matrix.list, repeat.vector = NULL, iterations = 1000)
+MantelCor.list <- function (matrix.list, repeat.vector = NULL, iterations = 1000, num.cores = 1)
 {
     out <- ComparisonMap(matrix.list,
                          function(x, y) MantelCor.default(x, y, iterations),
-                         repeat.vector = repeat.vector)
+                         repeat.vector = repeat.vector,
+                         num.cores = 1)
     return(out)
 }
 
@@ -148,7 +150,7 @@ KrzCor.default <- function (cov.matrix.1, cov.matrix.2, ret.dim = NULL)
   return (SL)
 }
 
-KrzCor.list <- function (matrix.list, repeat.vector = NULL, ret.dim = NULL)
+KrzCor.list <- function (matrix.list, repeat.vector = NULL, ret.dim = NULL, num.cores = 1)
   # Performs multiple comparisons between a set of covariance or
   # correlation matrices using Kzranowski Correlation.
   #
@@ -163,6 +165,7 @@ KrzCor.list <- function (matrix.list, repeat.vector = NULL, ret.dim = NULL)
 {
     out <- ComparisonMap(matrix.list,
                          function(x, y) return(c(KrzCor.default(x, y, ret.dim), NA)),
-                         repeat.vector = repeat.vector)
+                         repeat.vector = repeat.vector,
+                         num.cores = num.cores)
     return(out[[1]])
 }
