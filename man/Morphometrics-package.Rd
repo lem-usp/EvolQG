@@ -3,40 +3,32 @@
 \alias{Morphometrics}
 \docType{package}
 \title{
-What the package does (short line)
-~~ package title ~~
+Morphometrics fucntions for matrix estimation and comparisons
 }
 \description{
-More about what it does (maybe more than one line)
-~~ A concise (1-5 lines) description of the package ~~
 }
 \details{
 \tabular{ll}{
 Package: \tab Morphometrics\cr
 Type: \tab Package\cr
-Version: \tab 1.0\cr
+Version: \tab 0.1\cr
 Date: \tab 2013-09-16\cr
-License: \tab What license is it under?\cr
+License: \tab MIT\cr
 }
-~~ An overview of how to use the package, including the most important ~~
-~~ functions ~~
+Random Skewers is pretty good
 }
 \author{
-Who wrote it
-
-Maintainer: Who to complain to <yourfault@somewhere.net>
-~~ The author and/or maintainer of the package ~~
+Maintainer: Diogo Melo <diogro@cecm.usp.br>
+Diogo Melo, Guilherme Garcia
 }
 \references{
-~~ Literature or other references for background information ~~
+    Marroig, Melo, Garcia 2012
+    Marroig et al 2011
 }
-~~ Optionally other standard keywords, one per line, from file KEYWORDS in ~~
-~~ the R documentation directory ~~
-\keyword{ package }
+\keyword{Morphometrics}
 \seealso{
-~~ Optional links to other man pages, e.g. ~~
-~~ \code{\link[<pkg>:<pkg>-package]{<pkg>}} ~~
+/*~~ \code{\link[<pkg>:<pkg>-package]{<pkg>}} ~~*/
 }
 \examples{
-~~ simple examples of the most important functions ~~
+    RandCorr(10)
 }

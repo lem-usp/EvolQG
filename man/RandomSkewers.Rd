@@ -2,7 +2,7 @@
 \alias{RandomSkewers}
 %- Also NEED an '\alias' for EACH other topic documented here.
 \title{
-%%  ~~function to do ... ~~
+Compare matrices via RandomSkewers
 }
 \description{
 %%  ~~ A concise (1-5 lines) description of what the function does. ~~

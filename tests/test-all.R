@@ -1,2 +1,2 @@
 library(testthat)
-test_check(morphometrics)
+test_dir("./testthat/")

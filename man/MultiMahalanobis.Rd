@@ -2,7 +2,7 @@
 \alias{MultiMahalanobis}
 %- Also NEED an '\alias' for EACH other topic documented here.
 \title{
-%%  ~~function to do ... ~~
+Calculate Mahalonabis distance for many vectors
 }
 \description{
 %%  ~~ A concise (1-5 lines) description of what the function does. ~~

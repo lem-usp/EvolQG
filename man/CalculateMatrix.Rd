@@ -2,7 +2,7 @@
 \alias{CalculateMatrix}
 %- Also NEED an '\alias' for EACH other topic documented here.
 \title{
-%%  ~~function to do ... ~~
+Calculate Covariance Matrix from LinearModel
 }
 \description{
 %%  ~~ A concise (1-5 lines) description of what the function does. ~~

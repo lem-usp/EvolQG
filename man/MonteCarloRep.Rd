@@ -2,7 +2,7 @@
 \alias{MonteCarloRep}
 %- Also NEED an '\alias' for EACH other topic documented here.
 \title{
-%%  ~~function to do ... ~~
+Parametric repeatabilities with covariance or correlation matrices
 }
 \description{
 %%  ~~ A concise (1-5 lines) description of what the function does. ~~
