@@ -1,6 +1,6 @@
 Rarefaction <- function(ind.data,
-                        StatFunc = cov,
-                        ComparisonFunc = function(x, y) RandomSkewers(x, y)[1],
+                        StatFunc,
+                        ComparisonFunc,
                         num.reps = 10)
 {
   library(plyr)
@@ -32,4 +32,30 @@ PlotRarefaction <- function(comparison.list, y.axis = "Statistic"){
   scale_y_continuous(y.axis) +
   theme_bw()
   return(rarefaction.plot)
+}
+
+RarefactionRandomSkewers <- function(ind.data, iterations = 1000, num.reps = 10){
+  comparison.list <- Rarefaction(ind.data,
+                                 cov,
+                                 function(x, y) RandomSkewers(x, y, iterations)[1],
+                                 num.rep=num.reps)
+  return(comparison.list)
+}
+
+RarefactionMantelCor <- function(ind.data, iterations = 1, num.reps = 10){
+  comparison.list <- Rarefaction(ind.data,
+                                 cor,
+                                 function(x, y) MantelCor(x, y, iterations)[1],
+                                 num.rep=num.reps)
+  return(comparison.list)
+}
+
+RarefactionKrzCor <- function(ind.data, correlation = F, ret.dim = NULL, num.reps = 10){
+  if(correlation) StatFunc <- cor
+  else StatFunc <- cov
+  comparison.list <- Rarefaction(ind.data,
+                                 StatFunc,
+                                 function(x, y) KrzCor(x, y, ret.dim),
+                                 num.rep=num.reps)
+  return(comparison.list)
 }
