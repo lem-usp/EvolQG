@@ -11,7 +11,6 @@ function (cov.matrix, sample.size, iterations = 1000)
   # a vector whose entries are R2 values calculated from the
   # resampling procedure.
 {
-  if(!require(mvtnorm)) install.packages("mvtnorm")
   library(mvtnorm)
   n.traits <- dim (cov.matrix) [1]
   populations <- list ()

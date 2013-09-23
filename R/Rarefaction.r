@@ -3,7 +3,6 @@ Rarefaction <- function(ind.data,
                         ComparisonFunc = function(x, y) RandomSkewers(x, y)[1],
                         num.reps = 10)
 {
-  if(!require(plyr)) install.packages("plyr")
   library(plyr)
   observed.stat = StatFunc(ind.data)
   num.ind = dim(ind.data)[1]
@@ -23,8 +22,6 @@ Rarefaction <- function(ind.data,
 }
 
 PlotRarefaction <- function(comparison.list, y.axis = "Statistic"){
-  if(!require(reshape2)) install.packages("reshape2")
-  if(!require(ggplot2)) install.packages("ggplot2")
   library(reshape2)
   library(ggplot2)
   plot.df = melt(comparison.list)
