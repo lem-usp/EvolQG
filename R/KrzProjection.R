@@ -84,7 +84,7 @@ KrzProjection.list <- function(mat.list,
     comparisons.proj <- melt(comparisons.proj)
     comparisons.proj[,4] = names(mat.list)[(comparisons.proj[,4])]
     comparisons.proj = comparisons.proj[,-2]
-    comparisons.proj = acast(comparisons.proj, L2~L1)
+    comparisons.proj = acast(comparisons.proj, L2~L1)[names(mat.list), names(mat.list)]
     diag(comparisons.proj) = 0.
   }
   return(comparisons.proj)
