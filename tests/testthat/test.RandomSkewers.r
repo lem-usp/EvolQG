@@ -58,5 +58,12 @@ test_that("RandomSkewers returns correct results on lists + matrices",
             results <- RandomSkewers(mat.list, y.matrix)
             expect_that(results, is_a("data.frame"))
             expect_that(sum(is.na(results)), equals(0))
+            expect_that(dim(results), equals(c(length(mat.list), 3)))
+            names(mat.list) <- 1:length(mat.list)
+            named.results <- RandomSkewers(mat.list, y.matrix)
+            expect_that(named.results, is_a("data.frame"))
+            expect_that(sum(is.na(named.results)), equals(0))
+            expect_that(dim(named.results), equals(c(length(mat.list), 4)))
+            expect_that(named.results[,".id"], equals(names(mat.list)))
           }
 )

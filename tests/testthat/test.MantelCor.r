@@ -41,3 +41,24 @@ test_that("MantelCor returns corret results",
           }
 )
 
+test_that("MantelCor returns correct results on lists + matrices",
+          {
+            cov.matrix.1 <- cov(matrix(rnorm(30*10), 30, 10))
+            cov.matrix.2 <- cov(matrix(rnorm(30*10), 30, 10))
+            cov.matrix.3 <- cov(matrix(rnorm(30*10), 30, 10))
+            mat.list <- list(cov.matrix.1, cov.matrix.2, cov.matrix.3)
+            y.matrix <- cov(matrix(rnorm(30*10), 30, 10))
+            set.seed(42)
+            results <- MantelCor(mat.list, y.matrix)
+            expect_that(results, is_a("data.frame"))
+            expect_that(sum(is.na(results)), equals(0))
+            expect_that(dim(results), equals(c(length(mat.list), 2)))
+            names(mat.list) <- 1:length(mat.list)
+            named.results <- MantelCor(mat.list, y.matrix)
+            expect_that(named.results, is_a("data.frame"))
+            expect_that(sum(is.na(named.results)), equals(0))
+            expect_that(dim(named.results), equals(c(length(mat.list), 3)))
+            expect_that(named.results[,".id"], equals(names(mat.list)))
+          }
+)
+
