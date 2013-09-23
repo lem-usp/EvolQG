@@ -2,7 +2,7 @@ test_that("KrzProjection returns correct results",
           {
             cov.matrix.1 <- RandCorr(10)
             cov.matrix.2 <- RandCorr(10)
-            expect_that(dim(KrzProjection(cov.matrix.1, cov.matrix.2)), equals(NULL))
+            expect_that(KrzProjection(cov.matrix.1, cov.matrix.2), is_a("list"))
             expect_that(length(KrzProjection(cov.matrix.1, cov.matrix.2)), equals(2))
             expect_that(length(KrzProjection(cov.matrix.1,
                                              cov.matrix.2,
@@ -34,7 +34,7 @@ test_that("KrzProjection returns correct results",
             expect_that(KrzProjection(mat.list)[1,2], equals(KrzProjection(mat.list[[1]], mat.list[[2]])[[1]]))
             expect_that(KrzProjection(mat.list)[2,1], equals(KrzProjection(mat.list[[2]], mat.list[[1]])[[1]]))
             expect_that(length(KrzProjection(mat.list, full.results = T)), equals(length(mat.list)))
-            expect_that(dim(KrzProjection(mat.list, full.results = T)), equals(NULL))
+            expect_that(KrzProjection(mat.list, full.results = T), is_a("list"))
           }
 )
 
