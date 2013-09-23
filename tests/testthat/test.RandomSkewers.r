@@ -1,4 +1,4 @@
-test_that("RandomSkewers returns correct results",
+test_that("RandomSkewers returns correct results on pairs of matrices",
           {
             cor.matrix.1 <- cor(matrix(rnorm(30*10), 30, 10))
             cor.matrix.2 <- cor(matrix(rnorm(30*10), 30, 10))
@@ -13,7 +13,7 @@ test_that("RandomSkewers returns correct results",
           }
 )
 
-test_that("RandomSkewers returns corret results",
+test_that("RandomSkewers returns correct results on lists",
           {
             cov.matrix.1 <- cov(matrix(rnorm(30*10), 30, 10))
             cov.matrix.2 <- cov(matrix(rnorm(30*10), 30, 10))
@@ -44,5 +44,19 @@ test_that("RandomSkewers returns corret results",
             expect_that(upper.2, equals(upper))
             expect_that(diag(results.2), is_equivalent_to(c(0.8, 0.9, 0.85)))
             expect_that(sum(lower.2 > upper.2), equals(length(mat.list)))
+          }
+)
+
+test_that("RandomSkewers returns correct results on lists + matrices",
+          {
+            cov.matrix.1 <- cov(matrix(rnorm(30*10), 30, 10))
+            cov.matrix.2 <- cov(matrix(rnorm(30*10), 30, 10))
+            cov.matrix.3 <- cov(matrix(rnorm(30*10), 30, 10))
+            mat.list <- list(cov.matrix.1, cov.matrix.2, cov.matrix.3)
+            y.matrix <- cov(matrix(rnorm(30*10), 30, 10))
+            set.seed(42)
+            results <- RandomSkewers(mat.list, y.matrix)
+            expect_that(results, is_a("data.frame"))
+            expect_that(sum(is.na(results)), equals(0))
           }
 )

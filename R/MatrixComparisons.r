@@ -51,6 +51,30 @@ ComparisonMap <- function (matrix.list, MatrixCompFunc, repeat.vector = NULL, nu
   return (output)
 }
 
+SingleComparisonMap  <- function(matrix.list, y.mat, MatrixCompFunc, num.cores){
+  if(!require(plyr)) install.packages("plyr")
+  if(!require(reshape2)) install.packages("reshape2")
+  library(plyr)
+  library(reshape2)
+  if (num.cores > 1) {
+    if(!require(doMC)) install.packages("doMC")
+    if(!require(foreach)) install.packages("foreach")
+    library(doMC)
+    library(foreach)
+    registerDoMC(num.cores)
+    parallel = TRUE
+  }
+  else
+    parallel = FALSE
+  if(!all.equal(dim(matrix.list[[1]]),dim(y.mat)))
+    stop("Matrices on list and single matrice dimension do not match")
+  else
+    out <- ldply(matrix.list,
+                 function(x) {MatrixCompFunc(x, y.mat)},
+                 .parallel = parallel)
+  return(out)
+}
+
 RandomSkewers <- function(x, ...) UseMethod("RandomSkewers")
 
 RandomSkewers.default <- function (cov.matrix.1, cov.matrix.2, iterations = 1000)
@@ -77,13 +101,20 @@ RandomSkewers.default <- function (cov.matrix.1, cov.matrix.2, iterations = 1000
   return(output)
 }
 
-RandomSkewers.list <- function (matrix.list, repeat.vector = NULL, iterations = 1000, num.cores = 1)
+RandomSkewers.list <- function (matrix.list, y = NULL, repeat.vector = NULL, iterations = 1000, num.cores = 1)
 {
+  if (is.null (y)) {
     out <- ComparisonMap(matrix.list,
                          function(x, y) RandomSkewers.default(x, y, iterations),
                          repeat.vector = repeat.vector,
                          num.cores = num.cores)
-    return(out)
+  }
+  else{
+    out <- SingleComparisonMap(matrix.list, y,
+                               function(x, y) RandomSkewers.default(x, y, iterations),
+                               num.cores = num.cores)
+  }
+  return(out)
 }
 
 MantelCor <- function (x, ...) UseMethod("MantelCor")
@@ -119,13 +150,20 @@ MantelCor.default <- function (cor.matrix.1, cor.matrix.2, iterations = 1000, mo
   return (output)
 }
 
-MantelCor.list <- function (matrix.list, repeat.vector = NULL, iterations = 1000, num.cores = 1)
+MantelCor.list <- function (matrix.list, y = NULL, repeat.vector = NULL, iterations = 1000, num.cores = 1)
 {
+  if (is.null (y)) {
     out <- ComparisonMap(matrix.list,
                          function(x, y) MantelCor.default(x, y, iterations),
                          repeat.vector = repeat.vector,
-                         num.cores = 1)
-    return(out)
+                         num.cores = num.cores)
+  }
+  else{
+    out <- SingleComparisonMap(matrix.list, y,
+                               function(x, y) MantelCor.default(x, y, iterations),
+                               num.cores = num.cores)
+  }
+  return(out)
 }
 
 KrzCor <- function (x, ...) UseMethod("KrzCor")
@@ -150,7 +188,7 @@ KrzCor.default <- function (cov.matrix.1, cov.matrix.2, ret.dim = NULL)
   return (SL)
 }
 
-KrzCor.list <- function (matrix.list, repeat.vector = NULL, ret.dim = NULL, num.cores = 1)
+KrzCor.list <- function (matrix.list, y = NULL, repeat.vector = NULL, ret.dim = NULL, num.cores = 1)
   # Performs multiple comparisons between a set of covariance or
   # correlation matrices using Kzranowski Correlation.
   #
@@ -163,9 +201,18 @@ KrzCor.list <- function (matrix.list, repeat.vector = NULL, ret.dim = NULL, num.
   #  if repeat.vector was also passed, values below the diagonal on the correlation matrix
   #  will contain corrected correlation values.
 {
+  if (is.null (y)) {
     out <- ComparisonMap(matrix.list,
                          function(x, y) return(c(KrzCor.default(x, y, ret.dim), NA)),
                          repeat.vector = repeat.vector,
                          num.cores = num.cores)
-    return(out[[1]])
+    out <- out[[1]]
+  }
+  else{
+    out <- SingleComparisonMap(matrix.list, y,
+                         function(x, y) return(c(KrzCor.default(x, y, ret.dim), NA)),
+                               num.cores = num.cores)
+    out <- out[,-length(out)]
+  }
+  return(out)
 }
