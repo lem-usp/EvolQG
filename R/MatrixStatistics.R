@@ -1,0 +1,7 @@
+Autonomy <- function (beta, cov.matrix) return (((t (beta) %*% solve (cov.matrix, beta))^(-1)) / (t (beta) %*% cov.matrix %*% beta))
+ConditionalEvolvability <- function (beta, cov.matrix) return ((t (beta) %*% solve (cov.matrix) %*% beta)^(-1))
+Constraints <- function (beta, cov.matrix) return (abs (t (Normalize (eigen (cov.matrix)$vectors[,1])) %*% Normalize (cov.matrix %*% beta)))
+Evolvability <- function (beta, cov.matrix) return (t (beta) %*% cov.matrix %*% beta)
+Flexibility <- function (beta, cov.matrix) return (t (beta) %*% cov.matrix %*% beta / Norm (cov.matrix %*% beta))
+Pc1Percent <- function (cov.matrix) return (eigen (cov.matrix)$values [1] / sum (eigen (cov.matrix)$values))
+Respondability <- function (beta, cov.matrix) return (Norm (cov.matrix %*% beta))
