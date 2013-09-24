@@ -20,8 +20,9 @@ ComparisonMap <- function (matrix.list, MatrixCompFunc, repeat.vector = NULL, nu
     registerDoMC(num.cores)
     parallel = TRUE
   }
-  else
+  else{
     parallel = FALSE
+  }
   n.matrix <- length(matrix.list)
   if(is.null(names(matrix.list))) {names(matrix.list) <- 1:n.matrix}
   matrix.names <- names (matrix.list)
