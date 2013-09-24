@@ -1,5 +1,4 @@
-MonteCarloR2 <-
-function (cov.matrix, sample.size, iterations = 1000)
+MonteCarloR2 <- function (cov.matrix, sample.size, iterations = 1000, num.cores = 1)
   # Computes a distribution of magnitudes of integration (r2)
   # for a given covariance matrix.
   #
@@ -12,11 +11,20 @@ function (cov.matrix, sample.size, iterations = 1000)
   # resampling procedure.
 {
   library(mvtnorm)
+  library(plyr)
+  library(reshape2)
+  if (num.cores > 1) {
+    library(doMC)
+    library(foreach)
+    registerDoMC(num.cores)
+    parallel = TRUE
+  }
+  else
+    parallel = FALSE
   n.traits <- dim (cov.matrix) [1]
-  populations <- list ()
-  for (i in 1:iterations)
-    populations [[i]] <- rmvnorm (sample.size, sigma = cov.matrix, method = 'chol')
-  it.matrices <- lapply (populations, cor)
-  it.r2 <- sapply (it.matrices, CalcR2)
+  populations  <- alply(1:iterations, 1,
+                        function(x) rmvnorm (sample.size, sigma = cov.matrix, method = 'chol'),
+                        .parallel=parallel)
+  it.r2 <- laply (populations, function (x) CalcR2(cor(x)), .parallel = parallel)
   return (it.r2)
 }
