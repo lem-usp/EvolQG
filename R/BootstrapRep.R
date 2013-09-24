@@ -1,5 +1,6 @@
-BootstrapRep <-
-function (ind.data, nb = 100)
+BootstrapRep <- function (ind.data, iterations,
+                          ComparisonFunc, StatFunc,
+                          num.cores)
   # Calculates the repeatability of the covariance matrix of the suplied data
   # via bootstrap ressampling
   #
@@ -9,14 +10,50 @@ function (ind.data, nb = 100)
   # Return:
   #     returns the mean repeatability
 {
-  n.ind <-  dim (ind.data) [1]
-  original.cov.matrix <- var (ind.data)
-  v.rep <- c()
-  for (N in 1:nb){
-    sampled.data <- sample (1:n.ind, n.ind, TRUE)
-    sampled.data.cov.matrix <- var (ind.data[sampled.data,])
-    v.rep [N] <- RandomSkewers (original.cov.matrix, sampled.data.cov.matrix, 1000) [1]
+  library(mvtnorm)
+  library(plyr)
+  library(reshape2)
+  if (num.cores > 1) {
+    library(doMC)
+    library(foreach)
+    registerDoMC(num.cores)
+    parallel = TRUE
   }
-  out <- mean (v.rep)
-  return (out)
+  else{
+    parallel = FALSE
+  }
+  sample.size <-  dim (ind.data) [1]
+  c.matrix <- StatFunc(ind.data)
+  populations  <- alply(1:iterations, 1,
+                        function(x) ind.data[sample (1:sample.size, sample.size, TRUE),],
+                        .parallel = parallel)
+  comparisons <- laply (populations, function (x) ComparisonFunc (c.matrix, StatFunc(x)),
+                        .parallel = parallel)
+  return (mean(comparisons))
+}
+
+BootstrapRepRandomSkewers <- function(ind.data, iterations = 1000, num.cores = 1){
+  repeatability <- BootstrapRep(ind.data, iterations,
+                                ComparisonFunc = function(x, y) RandomSkewers(x, y)[1],
+                                StatFunc = cov,
+                                num.cores = num.cores)
+  return(repeatability)
+}
+
+BootstrapRepMantelCor <- function(ind.data, iterations = 1000, num.cores = 1){
+  repeatability <- BootstrapRep(ind.data, iterations,
+                                ComparisonFunc = function(x, y) MantelCor(x, y, 1)[1],
+                                StatFunc = cor,
+                                num.cores = num.cores)
+  return(repeatability)
+}
+
+BootstrapRepKrzCor <- function(ind.data, iterations = 1000, correlation = F, num.cores = 1){
+  if(correlation)  StatFunc <- cor
+  else             StatFunc <- cov
+  repeatability <- BootstrapRep(ind.data, iterations,
+                                ComparisonFunc = function(x, y) MantelCor(x, y, 1)[1],
+                                StatFunc = StatFunc,
+                                num.cores = num.cores)
+  return(repeatability)
 }

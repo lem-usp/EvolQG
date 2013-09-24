@@ -12,8 +12,9 @@ Rarefaction <- function(ind.data,
     registerDoMC(num.cores)
     parallel = TRUE
   }
-  else
+  else{
     parallel = FALSE
+  }
   observed.stat = StatFunc(ind.data)
   num.ind = dim(ind.data)[1]
   MapStatFunc <- function(n){
