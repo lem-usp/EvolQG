@@ -1,26 +1,36 @@
-MultiMahalanobis <- function (mean.list, cov.matrix)
-  # Calculates the Mahalanobis distance between a list of species means,
+MultiMahalanobis <- function (mean.list, cov.matrix, num.cores = 1)
+  # Calculates the Mahalanobis distance between a list of species mean,
   # using a global covariance matrix
   #
   # Args:
-  #  mean.list: a list of species means
+  #  mean.list: a list of species mean
   #  cov.matrix: global covariance matrix
   #
   # Return:
   #  returns a matrix of species-species comparisons.
 {
-  n.means <- length (mean.list)
-  means.names <- names (mean.list)
-  distances <- array (0, c(n.means, n.means))
-  for (i in 1:(n.means - 1)) {
-    for (j in (i+1):n.means) {
-      comparing.now <- mahalanobis (mean.list [[i]],
-                                    mean.list [[j]],
-                                    cov.matrix)
-      distances [i, j] <- distances [j, i] <- comparing.now
-    }
+  library(plyr)
+  library(reshape2)
+  if (num.cores > 1) {
+    library(doMC)
+    library(foreach)
+    registerDoMC(num.cores)
+    parallel = TRUE
   }
-  rownames (distances) <- means.names
-  colnames (distances) <- means.names
+  else{
+    parallel = FALSE
+  }
+  num.mean <- length(mean.list)
+  if(is.null(names(mean.list))) {names(mean.list) <- 1:num.mean}
+  mean.names <- names (mean.list)
+  CompareToN <- function(n) ldply(mean.list[(n+1):num.mean],
+                                  function(x) {mahalanobis(x, mean.list[[n]], cov.matrix)},
+                                  .parallel = parallel)
+  comparisons <- adply(1:(num.mean-1), 1,  CompareToN, .parallel = parallel)
+  dists <- acast(comparisons[-4], X1~.id)[,mean.names[-1]]
+  distances <- array (0, c(num.mean, num.mean))
+  distances[upper.tri(distances)] <- dists[upper.tri(dists, diag=T)]
+  rownames (distances) <- mean.names
+  colnames (distances) <- mean.names
   return (as.dist(distances))
 }
