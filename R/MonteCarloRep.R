@@ -1,33 +1,60 @@
-MonteCarloRep <-
-function (x.matrix, ind, nit = 100, ComparisonFunc = NULL)
-  # Calculates x.matrix repeatability using parametric sampling
+MonteCarloRep <- function (c.matrix, sample.size, iterations,
+                           ComparisonFunc, StatFunc,
+                           num.cores = 1)
+  # Calculates c.matrix repeatability using parametric sampling
   #
   # Args:
-  #     x.matrix: covariance or correlation matrix.
-  #               if x.matrix is a correlation matrix will use MantelCor,
+  #     c.matrix: covariance or correlation matrix.
+  #               if c.matrix is a correlation matrix will use MantelCor,
   #               else, will use RandomSkewers
-  #     ind: number of indivuals on each sample
-  #     nit: number of samples
+  #     sample.size: number of sample.sizeivuals on each sample
+  #     iterations: number of samples
   #     Comparisonfunc: Arbitrary function to compare 2 matrices. Must return single numeric value.
   # Return:
-  #     mean correlation of sample covariance matrices with original input x.matrix
+  #     mean correlation of sample covariance matrices with original input c.matrix
 {
   library(mvtnorm)
-  if (sum(diag(x.matrix)) == dim (x.matrix) [1]){
-    Func <- function(x, y, z) MantelCor(x, y, z)[1]
-    Type <- cor
+  library(plyr)
+  library(reshape2)
+  if (num.cores > 1) {
+    library(doMC)
+    library(foreach)
+    registerDoMC(num.cores)
+    parallel = TRUE
   }
   else{
-    Func <- function(x, y, z) RandomSkewers(x, y, z)[1]
-    Type <- var
+    parallel = FALSE
   }
-  if(!is.null(ComparisonFunc)) Func <- function(x, y, z) ComparisonFunc(x, y)
-  R <- c()
-  for (N in 1:nit){
-    rand.samp <- rmvnorm (ind, rep(0, times = dim (x.matrix)[1]),
-                           sigma = x.matrix, method = "chol")
-    rand.matrix <- Type (rand.samp)
-    R[N] <- Func (x.matrix, rand.matrix, 1000)
-  }
-  return (mean(R))
+  populations  <- alply(1:iterations, 1,
+                        function(x) rmvnorm (sample.size, sigma = c.matrix, method = 'chol'),
+                        .parallel=parallel)
+  comparisons <- laply (populations, function (x) ComparisonFunc (c.matrix, StatFunc(x)),
+                        .parallel = parallel)
+  return (mean(comparisons))
+}
+
+MonteCarloRepRandomSkewers <- function(cov.matrix, sample.size, iterations = 1000, num.cores = 1){
+  repeatability <- MonteCarloRep(cov.matrix, sample.size, iterations,
+                                 ComparisonFunc = function(x, y) RandomSkewers(x, y)[1],
+                                 StatFunc = cov,
+                                 num.cores = num.cores)
+  return(repeatability)
+}
+
+MonteCarloRepMantelCor <- function(cov.matrix, sample.size, iterations = 1000, num.cores = 1){
+  repeatability <- MonteCarloRep(cov.matrix, sample.size, iterations,
+                                 ComparisonFunc = function(x, y) MantelCor(x, y, 1)[1],
+                                 StatFunc = function(x) cov2cor(cov(x)),
+                                 num.cores = num.cores)
+  return(repeatability)
+}
+
+MonteCarloRepKrzCor <- function(cov.matrix, sample.size, correlation = F, iterations = 1000, num.cores = 1){
+  if(correlation)  StatFunc <- function(x) cov2cor(cov(x))
+  else StatFunc <- cov
+  repeatability <- MonteCarloRep(cov.matrix, sample.size, iterations,
+                                 ComparisonFunc = function(x, y) MantelCor(x, y, 1)[1],
+                                 StatFunc = StatFunc,
+                                 num.cores = num.cores)
+  return(repeatability)
 }
