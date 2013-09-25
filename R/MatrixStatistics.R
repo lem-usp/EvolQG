@@ -32,7 +32,7 @@ MeanMatrixStatistics <- function (cov.matrix, iterations = 10000, full.results =
   crit.value <- null.dist [round (0.95 * iterations)]
   cat ('critical value: ', crit.value, '\n')
   stat.dist <- array (0, c(iterations, 6))
-  MatrixStatisticsMap <- function (CurrentFunc) return (aaply (beta.mat, 2, CurrentFunc, cov.matrix = cov.matrix))
+  MatrixStatisticsMap <- function (CurrentFunc) return (apply (beta.mat, 2, CurrentFunc, cov.matrix = cov.matrix))
   stat.dist [,1:6] <- laply (matrix.stat.functions, MatrixStatisticsMap, .parallel = parallel)
   stat.dist <- cbind (stat.dist, null.dist)
   colnames (stat.dist) <- c('respondability',
