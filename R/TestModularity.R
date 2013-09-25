@@ -9,9 +9,8 @@ TestModularity <- function (cor.matrix, modularity.hipot)
   # Return:
   #   list with mantel correlation of cor.matrix with binary hipotesis matrices
 {
-  num.hip <- dim (modularity.hipot) [2] + 1
   m.hip.list <- CreateHipotMatrix(modularity.hipot)
-  if(is.null(colnames(modularity.hipot))) colnames(modularity.hipot) <- 1:(num.hip-1)
+  if(is.null(colnames(modularity.hipot))) colnames(modularity.hipot) <- 1:dim (modularity.hipot) [2]
   names(m.hip.list) <- c(colnames (modularity.hipot),"Full Integration")
   output <- MantelCor (m.hip.list, cor.matrix, mod = TRUE)
   return (output)
@@ -19,6 +18,7 @@ TestModularity <- function (cor.matrix, modularity.hipot)
 
 CreateHipotMatrix <- function(modularity.hipot)
 {
+  library(plyr)
   num.hip <- dim (modularity.hipot) [2]
   num.traits <- dim (modularity.hipot) [1]
   m.hip.list <- alply(modularity.hipot, 2, function(x) outer(x, x))
