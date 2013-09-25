@@ -22,7 +22,7 @@ function(cov.matrix, cutoff = NULL)
     for (i in 1:(p-2))
       grad[i] = abs(eVal[i]/tr.cov.matrix - 2*(eVal[i+1]/tr.cov.matrix) + eVal[i+2]/tr.cov.matrix)
     var.grad = array(dim=c(p-6))
-    for(i in 1:(p-6)){
+    for (i in 1:(p-6)){
       var.grad[i] = var(grad[i:(i+4)])
     }
     length(var.grad[var.grad<1e-4])
