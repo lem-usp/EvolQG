@@ -17,7 +17,6 @@ MeanMatrixStatistics <- function (cov.matrix, iterations = 10000, full.results =
   else{
     parallel = FALSE
   }
-
   matrix.stat.functions = list ('respondability' = Respondability,
                                 'evolvability' = Evolvability,
                                 'conditional.evolvability' = ConditionalEvolvability,
