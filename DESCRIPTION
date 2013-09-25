@@ -7,8 +7,7 @@ Author: Diogo Melo, Guilherme Garcia
 Maintainer: Diogo Melo <diogro@cecm.usp.br>
 Description: More about what it does (maybe more than one line)
 Depends:
-    R (>= 2.11.0)
-Imports:
+    R (>= 2.11.0),
     plyr (>= 1.7.1),
     reshape2 (>= 1.2.2),
     ggplot2 (>= 0.9.3.1),
