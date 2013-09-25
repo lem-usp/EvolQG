@@ -6,7 +6,7 @@ Flexibility <- function (beta, cov.matrix) return (t (beta) %*% cov.matrix %*% b
 Pc1Percent <- function (cov.matrix) return (eigen (cov.matrix)$values [1] / sum (eigen (cov.matrix)$values))
 Respondability <- function (beta, cov.matrix) return (Norm (cov.matrix %*% beta))
 
-MeanMatrixStatistics <- function (cov.matrix, iterations = 10000, full.results = F, num.cores = 1) {
+MeanMatrixStatistics <- function (cov.matrix, iterations = 1000, full.results = F, num.cores = 1) {
   library(plyr)
   if (num.cores > 1) {
     library(doMC)
@@ -31,9 +31,8 @@ MeanMatrixStatistics <- function (cov.matrix, iterations = 10000, full.results =
   null.dist <- sort (null.dist)
   crit.value <- null.dist [round (0.95 * iterations)]
   cat ('critical value: ', crit.value, '\n')
-  stat.dist <- array (0, c(iterations, 6))
   MatrixStatisticsMap <- function (CurrentFunc) return (apply (beta.mat, 2, CurrentFunc, cov.matrix = cov.matrix))
-  stat.dist [,1:6] <- laply (matrix.stat.functions, MatrixStatisticsMap, .parallel = parallel)
+  stat.dist <- t(laply (matrix.stat.functions, MatrixStatisticsMap, .parallel = parallel))
   stat.dist <- cbind (stat.dist, null.dist)
   colnames (stat.dist) <- c('respondability',
                             'evolvability',
