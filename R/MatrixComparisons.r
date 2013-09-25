@@ -142,7 +142,8 @@ MantelCor.default <- function (cor.matrix.1, cor.matrix.2, iterations = 1000, mo
   return (output)
 }
 
-MantelCor.list <- function (matrix.list, cor.matrix = NULL, repeat.vector = NULL, iterations = 1000, num.cores = 1)
+MantelCor.list <- function (matrix.list, cor.matrix = NULL,
+                            repeat.vector = NULL, iterations = 1000, mod = F, num.cores = 1)
 {
   if (is.null (cor.matrix)) {
     out <- ComparisonMap(matrix.list,
@@ -152,7 +153,9 @@ MantelCor.list <- function (matrix.list, cor.matrix = NULL, repeat.vector = NULL
   }
   else{
     out <- SingleComparisonMap(matrix.list, cor.matrix,
-                               function(x, cor.matrix) MantelCor.default(x, cor.matrix, iterations),
+                               function(x, cor.matrix) MantelCor.default(cor.matrix,
+                                                                         x,
+                                                                         iterations, mod = mod),
                                num.cores = num.cores)
   }
   return(out)
