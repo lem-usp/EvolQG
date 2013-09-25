@@ -65,3 +65,11 @@ test_that("Respondability returns correct result",
          }
 )
 
+test_that("MeanMatrixStatistics returns correct results",
+          {
+            set.seed(42)
+            iris.stats <- MeanMatrixStatistics(cov(iris[,1:4]))
+            test.values <- read.table("iris.stats")
+            expect_that(iris.stats, is_equivalent_to(test.values[,1]))
+          }
+)
