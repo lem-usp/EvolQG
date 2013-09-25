@@ -30,7 +30,7 @@ MeanMatrixStatistics <- function (cov.matrix, iterations = 1000, full.results = 
   null.dist <- abs (t (iso.vec) %*% beta.mat)
   null.dist <- sort (null.dist)
   crit.value <- null.dist [round (0.95 * iterations)]
-  cat ('critical value: ', crit.value, '\n')
+  if(full.results) cat ('critical value: ', crit.value, '\n')
   MatrixStatisticsMap <- function (CurrentFunc) return (apply (beta.mat, 2, CurrentFunc, cov.matrix = cov.matrix))
   stat.dist <- t(laply (matrix.stat.functions, MatrixStatisticsMap, .parallel = parallel))
   stat.dist <- cbind (stat.dist, null.dist)
