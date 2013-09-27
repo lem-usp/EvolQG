@@ -30,6 +30,9 @@ PlotRarefaction (comparison.list, y.axis = "Statistic")
      \item{ind.data}{
         Matrix of residuals or indiviual measurments
     }
+    \item{num.reps}{
+        number of populations sampled per sample size
+    }
     \item{iterations}{
        Parameter for comparison function. Number of random skewers or number of permutations in mantel
     }
@@ -45,6 +48,15 @@ PlotRarefaction (comparison.list, y.axis = "Statistic")
     }
     \item{correlation}{
         When using RarefactionKrzCor, statistic can be correlation or covariance. If TRUE, uses correlation.
+    }
+    \item{ret.dim}{
+        When using RarefactionKrzCor, number o retained dimensions may be specified
+    }
+    \item{comparison.list}{
+        output from rarefaction functions can be used in ploting
+    }
+    \item{y.axis}{
+        Y axis lable in plot
     }
 }
 \details{
@@ -64,18 +76,28 @@ with caution.
     %%  ~~further notes~~
 }
 
-%% ~Make other sections like Warning with \section{Warning }{....} ~
-
 \seealso{
     \code{\link{BootstrapRep}}
 }
 \examples{
+
 ind.data <- matrix(rnorm(30*10), 30, 10)
+comparison.list <- Rarefaction(ind.data,
+                               StatFunc = cov,
+                               ComparisonFunc = function(x, y) RandomSkewers(x, y, iterations)[1],
+                               num.reps=num.reps,
+                               num.cores = num.cores)
+
 results.RS <- RarefactionRandomSkewers(ind.data, num.reps = 5)
 results.Mantel <- RarefactionMantelCor(ind.data, num.reps = 5)
 results.KrzCov <- RarefactionKrzCor(ind.data, num.reps = 5)
 results.KrzCor <- RarefactionKrzCor(ind.data, T, num.reps = 5)
 
+#Easy access
+library(reshape2)
+melt(results.RS)
+
+#Plotting using ggplot2
 a <- PlotRarefaction(results.RS, "Random Skewers")
 b <- PlotRarefaction(results.Mantel, "Mantel")
 c <- PlotRarefaction(results.KrzCov, "Krz - Covariance")
