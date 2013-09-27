@@ -8,7 +8,7 @@
     via bootstrap ressampling
 }
 \description{
-    Samples are taken from the full population, a statistic calculated
+    Samples with replacement are taken from the full population, a statistic calculated
     and compared to the full population statistic. Prepackaged functions
     for common comparison functions and statistics are suplied.
 }
@@ -73,6 +73,11 @@ BootstrapRepMantelCor(iris[,1:4], 50)
 BootstrapRepKrzCor(iris[,1:4], 50)
 
 BootstrapRepKrzCor(iris[,1:4], 50, TRUE)
+
+#Creating repeatability vector for a list of matrices
+mat.list <- RandomMatrix(10, 3, 1, 10)
+unlist(lapply(mat.list, BootstrapRepKrzCor), 30, TRUE)
+
 }
 % Add one or more standard keywords, see file 'KEYWORDS' in the
 % R documentation directory.

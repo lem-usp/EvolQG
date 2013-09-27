@@ -1,84 +1,97 @@
 \name{MonteCarloRep}
 \alias{MonteCarloRep}
+\alias{MonteCarloRepRandomSkewers}
+\alias{MonteCarloRepMantelCor}
+\alias{MonteCarloRepKrzCor}
 %- Also NEED an '\alias' for EACH other topic documented here.
 \title{
-Parametric repeatabilities with covariance or correlation matrices
+    Parametric repeatabilities with covariance or correlation matrices
 }
 \description{
-%%  ~~ A concise (1-5 lines) description of what the function does. ~~
+    Using a multivariate normal model, random populations are generated
+    using the suplied covariance matrix. A statistic is calculated on the
+    random population and compared to the statistic calculated on the
+    original matrix. Prepackaged functions for common comparison functions
+    and statistics are suplied.
+
 }
 \usage{
-MonteCarloRep(x.matrix, ind, nit = 100, ComparisonFunc = NULL)
+MonteCarloRep (cov.matrix, sample.size, iterations,
+               ComparisonFunc, StatFunc,
+               num.cores = 1)
+MonteCarloRepRandomSkewers (cov.matrix, sample.size, iterations = 1000, num.cores = 1)
+MonteCarloRepMantelCor (cov.matrix, sample.size, iterations = 1000, num.cores = 1)
+MonteCarloRepKrzCor (cov.matrix, sample.size, correlation = F, iterations = 1000, num.cores = 1)
 }
 %- maybe also 'usage' for other objects documented here.
 \arguments{
-  \item{x.matrix}{
-%%     ~~Describe \code{x.matrix} here~~
-}
-  \item{ind}{
-%%     ~~Describe \code{ind} here~~
-}
-  \item{nit}{
-%%     ~~Describe \code{nit} here~~
-}
-  \item{ComparisonFunc}{
-%%     ~~Describe \code{ComparisonFunc} here~~
-}
+    \item{cov.matrix}{
+Covariance matrix.
+    }
+    \item{sample.size}{
+Size of the random populations
+    }
+    \item{iterations}{
+Number of random populations
+    }
+    \item{ComparisonFunc}{
+Comparison functions for the calculated statistic
+    }
+    \item{StatFunc}{
+Function for calculating the statistic
+    }
+     \item{correlation}{
+        When using BootstrapRepKrzCor, statistic can be correlation or covariance. If TRUE, uses correlation.
+    }
+     \item{num.cores}{
+        Number of threads to use in computation. 
+        Requires doMC library.
+    }
 }
 \details{
-%%  ~~ If necessary, more details than the description above ~~
+Since this function uses multivariate normal model to generate
+popualtions, only covariance matrices should be used.
 }
 \value{
-%%  ~Describe the value returned
-%%  If it is a LIST, use
-%%  \item{comp1 }{Description of 'comp1'}
-%%  \item{comp2 }{Description of 'comp2'}
-%% ...
+     returns the mean repeatability, or mean value of comparisons from
+samples to original statistic.
 }
 \references{
-%% ~put references to the literature/web site here ~
+    %% ~put references to the literature/web site here ~
 }
 \author{
-%%  ~~who you are~~
+Diogo Melo, Guilherme Garcia
 }
 \note{
-%%  ~~further notes~~
+    %%  ~~further notes~~
 }
 
 %% ~Make other sections like Warning with \section{Warning }{....} ~
 
 \seealso{
-%% ~~objects to See Also as \code{\link{help}}, ~~~
+     \code{\link{BootstrapRep}}, \code{\link{AlphaRep}}
 }
 \examples{
 ##---- Should be DIRECTLY executable !! ----
 ##-- ==>  Define data, use random,
 ##--	or do  help(data=index)  for the standard data sets.
+cov.matrix <- RandomMatrix(10, 1, 1, 10)
 
-## The function is currently defined as
-function (x.matrix, ind, nit = 100, ComparisonFunc = NULL) 
-{
-    if (sum(diag(x.matrix)) == dim(x.matrix)[1]) {
-        Func <- function(x, y, z) MantelCor(x, y, z)[1]
-        Type <- cor
-    }
-    else {
-        Func <- function(x, y, z) RandomSkewers(x, y, z)[1]
-        Type <- var
-    }
-    if (!is.null(ComparisonFunc)) 
-        Func <- function(x, y, z) ComparisonFunc(x, y)
-    R <- c()
-    for (N in 1:nit) {
-        rand.samp <- rmvNorm2(ind, rep(0, times = dim(x.matrix)[1]), 
-            sigma = x.matrix, method = "chol")
-        rand.matrix <- Type(rand.samp)
-        R[N] <- Func(x.matrix, rand.matrix, 1000)
-    }
-    return(mean(R))
-  }
+MonteCarloRep(cov.matrix, sample.size = 30, iterations = 1000,
+              ComparisonFunc = function(x, y) RandomSkewers(x, y)[1],
+              StatFunc = cov,
+              num.cores = 1)
+
+
+MonteCarloRepRandomSkewers(cov.matrix, 30)
+MonteCarloRepMantelCor(cov.matrix, 30)
+MonteCarloRepKrzCor(cov.matrix, 30)
+MonteCarloRepKrzCor(cov.matrix, 30, TRUE)
+
+#Creating repeatability vector for a list of matrices
+mat.list <- RandomMatrix(10, 3, 1, 10)
+unlist(lapply(mat.list, MonteCarloRepKrzCor, 30, TRUE))
 }
-% Add one or more standard keywords, see file 'KEYWORDS' in the
-% R documentation directory.
-\keyword{ ~kwd1 }
-\keyword{ ~kwd2 }% __ONLY ONE__ keyword per line
+\keyword{parametricsampling}
+\keyword{montecarlo}
+\keyword{repeatability}
