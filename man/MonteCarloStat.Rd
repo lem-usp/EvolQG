@@ -96,7 +96,7 @@ unlist(lapply(mat.list, MonteCarloRepKrzCor, 30, TRUE))
 
 #Calculating R2 confidence intervals
 r2.dist <- MonteCarloR2(RandomMatrix(10, 1, 1, 10), 30)
-quantiles(r2.dist)
+quantile(r2.dist)
 
 }
 
