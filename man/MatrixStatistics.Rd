@@ -11,7 +11,7 @@
 Calculate mean values for various matrix statistics
 }
 \description{
-%%  ~~ A concise (1-5 lines) description of what the function does. ~~
+    Calculates: Mean Squared Correlation, Autonomy, ConditionalEvolvability, Constraints, Evolvability, Flexibility, Pc1Percent, Respondability.
 }
 \usage{
 MeanMatrixStatistics (cov.matrix, iterations = 1000,

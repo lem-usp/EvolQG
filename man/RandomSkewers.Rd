@@ -72,7 +72,7 @@ Diogo Melo, Guilherme Garcia
 %% ~Make other sections like Warning with \section{Warning }{....} ~
 
 \seealso{
- \code{\link{KrzCor}, \link{MantelCor}}
+ \code{\link{KrzCor}},\code{\link{MantelCor}}
 }
 \examples{
 c1 <- RandomMatrix(10)
