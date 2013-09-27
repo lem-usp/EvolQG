@@ -32,7 +32,7 @@ BootstrapRepKrzCor(ind.data, iterations = 1000, correlation = F, num.cores = 1)
         Statistic to be calculated
     }
     \item{num.cores}{
-        Number of threads to use in computation. 
+        Number of threads to use in computation.
         Requires doMC library.
     }
     \item{correlation}{
