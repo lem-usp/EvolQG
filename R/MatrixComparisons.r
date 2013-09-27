@@ -174,7 +174,7 @@ KrzCor.default <- function (cov.matrix.1, cov.matrix.2, ret.dim = NULL)
   #     Kzranowski correlation
 {
   if (is.null(ret.dim))
-    ret.dim = dim(cov.matrix.1)[1]/2 - 1
+    ret.dim = round(dim(cov.matrix.1)[1]/2 - 1)
   EigenVectors <- function (x) return (eigen(x)$vectors[,1:ret.dim])
   A <- EigenVectors (cov.matrix.1)
   B <- EigenVectors (cov.matrix.2)
