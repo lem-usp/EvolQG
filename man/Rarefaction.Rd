@@ -84,14 +84,14 @@ with caution.
 ind.data <- matrix(rnorm(30*10), 30, 10)
 comparison.list <- Rarefaction(ind.data,
                                StatFunc = cov,
-                               ComparisonFunc = function(x, y) RandomSkewers(x, y, iterations)[1],
-                               num.reps=num.reps,
-                               num.cores = num.cores)
+                               ComparisonFunc = function(x, y) RandomSkewers(x, y, 1000)[1],
+                               num.reps=5,
+                               num.cores = 1)
 
 results.RS <- RarefactionRandomSkewers(ind.data, num.reps = 5)
 results.Mantel <- RarefactionMantelCor(ind.data, num.reps = 5)
 results.KrzCov <- RarefactionKrzCor(ind.data, num.reps = 5)
-results.KrzCor <- RarefactionKrzCor(ind.data, T, num.reps = 5)
+results.KrzCor <- RarefactionKrzCor(ind.data, TRUE, num.reps = 5)
 
 #Easy access
 library(reshape2)
