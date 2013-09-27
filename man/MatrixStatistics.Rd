@@ -40,7 +40,7 @@ Number of threads to use in calculations. Requires doMC library.
 \item{mean}{Mean value for all statistics}
 }
 \references{
-Hansen, T. F., & Houle, D. (2008). Measuring and comparing evolvability
+Hansen, T. F., and Houle, D. (2008). Measuring and comparing evolvability
 and constraint in multivariate characters. Journal of evolutionary
 biology, 21(5), 1201–19. doi:10.1111/j.1420-9101.2008.01573.x
 }

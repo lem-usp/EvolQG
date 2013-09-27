@@ -68,7 +68,7 @@ SingleComparisonMap  <- function(matrix.list, y.mat, MatrixCompFunc, num.cores){
   return(out)
 }
 
-RandomSkewers <- function(x, ...) UseMethod("RandomSkewers")
+RandomSkewers <- function(cov.matrix, ...) UseMethod("RandomSkewers")
 
 RandomSkewers.default <- function (cov.matrix.1, cov.matrix.2, iterations = 1000)
   # Calculates covariance matrix correlation via random skewers
@@ -94,25 +94,25 @@ RandomSkewers.default <- function (cov.matrix.1, cov.matrix.2, iterations = 1000
   return(output)
 }
 
-RandomSkewers.list <- function (matrix.list, cov.matrix = NULL, repeat.vector = NULL, iterations = 1000, num.cores = 1)
+RandomSkewers.list <- function (matrix.list, cov.matrix.2 = NULL, repeat.vector = NULL, iterations = 1000, num.cores = 1)
 {
-  if (is.null (cov.matrix)) {
+  if (is.null (cov.matrix.2)) {
     out <- ComparisonMap(matrix.list,
-                         function(x, cov.matrix) RandomSkewers.default(x, cov.matrix, iterations),
+                         function(x, y) RandomSkewers.default(x, y, iterations),
                          repeat.vector = repeat.vector,
                          num.cores = num.cores)
   }
   else{
-    out <- SingleComparisonMap(matrix.list, cov.matrix,
-                               function(x, cov.matrix) RandomSkewers.default(x, cov.matrix, iterations),
+    out <- SingleComparisonMap(matrix.list, cov.matrix.2,
+                               function(x, y) RandomSkewers.default(x, y, iterations),
                                num.cores = num.cores)
   }
   return(out)
 }
 
-MantelCor <- function (x, ...) UseMethod("MantelCor")
+MantelCor <- function (cor.matrix, ...) UseMethod("MantelCor")
 
-MantelCor.default <- function (cor.matrix.1, cor.matrix.2, iterations = 1000, mod = FALSE)
+MantelCor.default <- function (cor.matrix.1, cor.matrix.2, iterations = 100, mod = FALSE)
   # Calculates matrix correlation with confidence intervals using mantel permutations
   #
   # Args:
@@ -142,18 +142,18 @@ MantelCor.default <- function (cor.matrix.1, cor.matrix.2, iterations = 1000, mo
   return (output)
 }
 
-MantelCor.list <- function (matrix.list, cor.matrix = NULL,
-                            repeat.vector = NULL, iterations = 1000, mod = F, num.cores = 1)
+MantelCor.list <- function (matrix.list, cor.matrix.2 = NULL,
+                            repeat.vector = NULL, iterations = 100, mod = FALSE, num.cores = 1)
 {
-  if (is.null (cor.matrix)) {
+  if (is.null (cor.matrix.2)) {
     out <- ComparisonMap(matrix.list,
-                         function(x, cor.matrix) MantelCor.default(x, cor.matrix, iterations),
+                         function(x, cor.matrix.2) MantelCor.default(x, cor.matrix.2, iterations),
                          repeat.vector = repeat.vector,
                          num.cores = num.cores)
   }
   else{
-    out <- SingleComparisonMap(matrix.list, cor.matrix,
-                               function(x, cor.matrix) MantelCor.default(cor.matrix,
+    out <- SingleComparisonMap(matrix.list, cor.matrix.2,
+                               function(x, y) MantelCor.default(y,
                                                                          x,
                                                                          iterations, mod = mod),
                                num.cores = num.cores)
@@ -161,7 +161,7 @@ MantelCor.list <- function (matrix.list, cor.matrix = NULL,
   return(out)
 }
 
-KrzCor <- function (x, ...) UseMethod("KrzCor")
+KrzCor <- function (cov.matrix, ...) UseMethod("KrzCor")
 
 KrzCor.default <- function (cov.matrix.1, cov.matrix.2, ret.dim = NULL)
   # Calculates the Krzanowski correlation between matrices
@@ -183,7 +183,9 @@ KrzCor.default <- function (cov.matrix.1, cov.matrix.2, ret.dim = NULL)
   return (SL)
 }
 
-KrzCor.list <- function (matrix.list, cov.matrix = NULL, repeat.vector = NULL, ret.dim = NULL, num.cores = 1)
+KrzCor.list <- function (matrix.list, cov.matrix.2 = NULL,
+                         repeat.vector = NULL, ret.dim = NULL,
+                         num.cores = 1)
   # Performs multiple comparisons between a set of covariance or
   # correlation matrices using Kzranowski Correlation.
   #
@@ -196,16 +198,16 @@ KrzCor.list <- function (matrix.list, cov.matrix = NULL, repeat.vector = NULL, r
   #  if repeat.vector was also passed, values below the diagonal on the correlation matrix
   #  will contain corrected correlation values.
 {
-  if (is.null (cov.matrix)) {
+  if (is.null (cov.matrix.2)) {
     out <- ComparisonMap(matrix.list,
-                         function(x, cov.matrix) return(c(KrzCor.default(x, cov.matrix, ret.dim), NA)),
+                         function(x, y) return(c(KrzCor.default(x, y, ret.dim), NA)),
                          repeat.vector = repeat.vector,
                          num.cores = num.cores)
     out <- out[[1]]
   }
   else{
-    out <- SingleComparisonMap(matrix.list, cov.matrix,
-                         function(x, cov.matrix) return(c(KrzCor.default(x, cov.matrix, ret.dim), NA)),
+    out <- SingleComparisonMap(matrix.list, cov.matrix.2,
+                         function(x, y) return(c(KrzCor.default(x, y, ret.dim), NA)),
                                num.cores = num.cores)
     out <- out[,-length(out)]
   }

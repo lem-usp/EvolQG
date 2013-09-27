@@ -1,56 +1,58 @@
 \name{MantelCor}
 \alias{MantelCor}
+\alias{MantelCor.default}
+\alias{MantelCor.list}
 
 \title{
-Compare matrices via Mantel Correlation
+    Compare matrices via Mantel Correlation
 }
 \description{
-Calculates correlation matrix correlation via Mantel.
+    Calculates correlation matrix correlation via Mantel.
 }
 \usage{
-MantelCor(x, ...)
-
+MantelCor(cor.matrix, ...)
 ### Default S3 method
-MantelCor(cor.matrix.1, cor.matrix.2, iterations = 100, mod = F)
-
+\method{MantelCor}{default}(cor.matrix.1, cor.matrix.2, iterations = 100, mod = FALSE)
 ### List S3 method
-MantelCor(matrix.list, cor.matrix = NULL,
-              repeat.vector = NULL, iterations = 100, mod = F,
-              num.cores = 1)
+\method{MantelCor}{list}(matrix.list, cor.matrix.2 = NULL,
+    repeat.vector = NULL, iterations = 100, mod = FALSE,
+    num.cores = 1)
 }
+
 %- maybe also 'usage' for other objects documented here.
 \arguments{
-  \item{cor.matrix.1, matrix.list}{
-      Single covariance matrix ou list of covariance matrices.
+    \item{cor.matrix, cor.matrix.1, matrix.list}{
+        Single covariance matrix or list of covariance matrices.
 
-      If single matrix is suplied, it is compared to cor.matrix.2.
+        If single matrix is suplied, it is compared to cor.matrix.2.
 
-      If list is suplied and no cor.matrix.2 is suplied, all matrices
-      are compared.
+        If list is suplied and no cor.matrix.2 is suplied, all matrices
+        are compared.
 
-      If cor.matrix.2 is suplied, all matrices in list are compared to it.
-}
-  \item{cor.matrix.2}{
-      Optional if cor.marix.1 is a list.
-      First argument is compared to cor.matrix.2.
-}
-  \item{iterations}{
-      Number of permutations used in significance calculation.
-}
-  \item{mod}{
-      Set TRUE to use mantel in testing modularity hipotesis. Will return
-      AVG+, AVG- and AVG Ratio based on binary hipotesis matrix.
-}
-  \item{repeat.vector}{
-      Vector of repeatabilities for correlation correction.
-}
-  \item{num.cores}{
-      If list is passed, number of threads to use in computation. 
-      Requires doMC library.
-}
+        If cor.matrix.2 is suplied, all matrices in list are compared to it.
+    }
+    \item{...}{aditional arguments passed to other methods}
+    \item{cor.matrix.2}{
+        First argument is compared to cor.matrix.2.
+        Optional if cor.matrix.1 is a list.
+    }
+    \item{iterations}{
+        Number of permutations used in significance calculation.
+    }
+    \item{mod}{
+        Set TRUE to use mantel in testing modularity hipotesis. Will return
+        AVG+, AVG- and AVG Ratio based on binary hipotesis matrix.
+    }
+    \item{repeat.vector}{
+        Vector of repeatabilities for correlation correction.
+    }
+    \item{num.cores}{
+        If list is passed, number of threads to use in computation.
+        Requires doMC library.
+    }
 }
 \details{
-%%  ~~ If necessary, more details than the description above ~~
+    %%  ~~ If necessary, more details than the description above ~~
 }
 \value{
     If cor.matrix.1 and cor.matrix.2 are passed, returns matrix pearson
@@ -67,14 +69,15 @@ MantelCor(matrix.list, cor.matrix = NULL,
     http://en.wikipedia.org/wiki/Mantel_test
 }
 \author{
-Diogo Melo, Guilherme Garcia
+    Diogo Melo, Guilherme Garcia
 }
 \note{
-%%  ~~further notes~~
+    %%  ~~further notes~~
 }
 
 \seealso{
- \code{\link{KrzCor}},\code{\link{RandomSkewers}},\code{\link{TestModularity}}
+    \code{\link{KrzCor}},\code{\link{RandomSkewers}},\code{\link{mantel}},\code{\link{RandomSkewers}},\code{\link{TestModularity}}
+
 }
 \examples{
 c1 <- RandomMatrix(10)

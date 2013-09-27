@@ -1,71 +1,87 @@
 \name{KrzCor}
 \alias{KrzCor}
-%- Also NEED an '\alias' for EACH other topic documented here.
+\alias{KrzCor.default}
+\alias{KrzCor.list}
+
 \title{
-Krzanowsky Correlation
+    Compare matrices via Krzanowski Correlation
 }
 \description{
-%%  ~~ A concise (1-5 lines) description of what the function does. ~~
+    Calculates covariance matrix correlation via random skewers
 }
 \usage{
-KrzCor(cov.matrix.1, cov.matrix.2, ret.dim = NULL)
+KrzCor(cov.matrix, ...)
+### Default S3 method
+\method{KrzCor}{default}(cov.matrix.1, cov.matrix.2, ret.dim = NULL)
+
+### List S3 method
+\method{KrzCor}{list}(matrix.list, cov.matrix.2 = NULL,
+       repeat.vector = NULL, ret.dim = NULL,
+       num.cores = 1)
 }
 %- maybe also 'usage' for other objects documented here.
 \arguments{
-  \item{cov.matrix.1}{
-%%     ~~Describe \code{cov.matrix.1} here~~
-}
-  \item{cov.matrix.2}{
-%%     ~~Describe \code{cov.matrix.2} here~~
-}
-  \item{ret.dim}{
-%%     ~~Describe \code{ret.dim} here~~
-}
+    \item{cov.matrix, cov.matrix.1, matrix.list}{
+        Single covariance matrix or list of covariance matrices.
+        If single matrix is suplied, it is compared to cov.matrix.2.
+        If list is suplied and no cov.matrix.2 is suplied, all matrices
+        are compared.
+        If cov.matrix.2 is suplied, all matrices in list are compared to it.
+    }
+    \item{...}{aditional arguments passed to other methods}
+    \item{cov.matrix.2}{
+        First argument is compared to cov.matrix.2.
+        Optional if cov.matrix.1 is a list.
+    }
+    \item{ret.dim}{
+        number of retained dimensions in the comparison,
+        default for nxn matrix is n/2-1
+    }
+    \item{repeat.vector}{
+        Vector of repeatabilities for correlation correction.
+    }
+    \item{num.cores}{
+        If list is passed, number of threads to use in computation. 
+        Requires doMC library.
+    }
 }
 \details{
-%%  ~~ If necessary, more details than the description above ~~
+    %%  ~~ If necessary, more details than the description above ~~
 }
 \value{
-%%  ~Describe the value returned
-%%  If it is a LIST, use
-%%  \item{comp1 }{Description of 'comp1'}
-%%  \item{comp2 }{Description of 'comp2'}
-%% ...
+    Kzranowski correlation
 }
 \references{
-%% ~put references to the literature/web site here ~
+Krzanowski, W. J. (1979). Between-Groups Comparison of Principal
+Components. Journal of the American Statistical Association, 74(367),
+703. doi:10.2307/2286995
 }
 \author{
-%%  ~~who you are~~
+    Diogo Melo, Guilherme Garcia
 }
 \note{
-%%  ~~further notes~~
+    %%  ~~further notes~~
 }
 
 %% ~Make other sections like Warning with \section{Warning }{....} ~
 
 \seealso{
-%% ~~objects to See Also as \code{\link{help}}, ~~~
+    \code{\link{RandomSkewers}},\code{\link{KrzProjection}},\code{\link{MantelCor}}
 }
 \examples{
-##---- Should be DIRECTLY executable !! ----
-##-- ==>  Define data, use random,
-##--	or do  help(data=index)  for the standard data sets.
+c1 <- RandomMatrix(10)
+c2 <- RandomMatrix(10)
+c3 <- RandomMatrix(10)
+KrzCor(c1, c2)
 
-## The function is currently defined as
-function (cov.matrix.1, cov.matrix.2, ret.dim = NULL) 
-{
-    if (is.null(ret.dim)) 
-        ret.dim = dim(cov.matrix.1)[1]/2 - 1
-    EigenVectors <- function(x) return(eigen(x)$vectors[, 1:ret.dim])
-    A <- EigenVectors(cov.matrix.1)
-    B <- EigenVectors(cov.matrix.2)
-    S <- t(A) \%*\% B \%*\% t(B) \%*\% A
-    SL <- sum(eigen(S)$values)/ret.dim
-    return(SL)
-  }
+KrzCor(list(c1, c2, c3))
+
+reps <- unlist(lapply(list(c1, c2, c3), MonteCarloRepKrzCor, 10, 10))
+KrzCor(list(c1, c2, c3), repeat.vector = reps)
+
+c4 <- RandomMatrix(10)
+KrzCor(list(c1, c2, c3), c4)
 }
-% Add one or more standard keywords, see file 'KEYWORDS' in the
-% R documentation directory.
-\keyword{ ~kwd1 }
-\keyword{ ~kwd2 }% __ONLY ONE__ keyword per line
+\keyword{matrixcomparison}
+\keyword{matrixcorrelation}
+\keyword{Krzanowski}

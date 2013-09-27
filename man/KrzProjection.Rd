@@ -1,85 +1,89 @@
 \name{KrzProjection}
 \alias{KrzProjection}
-%- Also NEED an '\alias' for EACH other topic documented here.
+\alias{KrzProjection.default}
+\alias{KrzProjection.list}
+
 \title{
-Krzanowsky modified projections
+    Compare matrices via Modified Krzanowski Correlation
 }
 \description{
-%%  ~~ A concise (1-5 lines) description of what the function does. ~~
+    Calculates the modified Krzanowski correlation between matrices,
+    projecting the variance in each principal  components of the first
+    matrix in to the ret.dim.2 components of the second for a list of matrices
+
 }
 \usage{
-KrzProjection(cov.matrix.1, cov.matrix.2, ret.dim.1 = NULL, ret.dim.2 = NULL)
+KrzProjection(cov.matrix, ...)
+### Default S3 method
+\method{KrzProjection}{default}(cov.matrix.1, cov.matrix.2,
+              ret.dim.1 = NULL, ret.dim.2 = NULL)
+
+### List S3 method
+\method{KrzProjection}{list}(matrix.list, ret.dim.1 = NULL, ret.dim.2 = NULL,
+              num.cores = 1,
+              full.results = FALSE)
 }
 %- maybe also 'usage' for other objects documented here.
 \arguments{
-  \item{cov.matrix.1}{
-%%     ~~Describe \code{cov.matrix.1} here~~
-}
-  \item{cov.matrix.2}{
-%%     ~~Describe \code{cov.matrix.2} here~~
-}
-  \item{ret.dim.1}{
-%%     ~~Describe \code{ret.dim.1} here~~
-}
-  \item{ret.dim.2}{
-%%     ~~Describe \code{ret.dim.2} here~~
-}
+    \item{cov.matrix, cov.matrix.1, matrix.list}{
+        Single covariance matrix ou list of covariance matrices.
+        If single matrix is suplied, it is compared to cov.matrix.2.
+        If list is suplied and no cov.matrix.2 is suplied, all matrices
+        are compared.
+        If cov.matrix.2 is suplied, all matrices in list are compared to it.
+    }
+    \item{...}{aditional arguments passed to other methods}
+    \item{cov.matrix.2}{
+        First argument is compared to cov.matrix.2.
+        Ignored if cov.marix.1 is a list.
+    }
+    \item{ret.dim.1, ret.dim.2}{
+        number of retained dimensions in the comparison,
+        default for nxn matrix is n/2-1
+    }
+    \item{num.cores}{
+        If list is passed, number of threads to use in computation. 
+        Requires doMC library.
+    }
+    \item{full.results}{
+        if FALSE returns only total variance,
+        if TRUE also per PC variance.
+    }
 }
 \details{
-%%  ~~ If necessary, more details than the description above ~~
+    %%  ~~ If necessary, more details than the description above ~~
 }
 \value{
-%%  ~Describe the value returned
-%%  If it is a LIST, use
-%%  \item{comp1 }{Description of 'comp1'}
-%%  \item{comp2 }{Description of 'comp2'}
-%% ...
+    Ratio of projected variance to total variance, and ratio of projectecd total in each PC
 }
 \references{
-%% ~put references to the literature/web site here ~
+    Krzanowski, W. J. (1979). Between-Groups Comparison of Principal
+    Components. Journal of the American Statistical Association, 74(367),
+    703. doi:10.2307/2286995
 }
 \author{
-%%  ~~who you are~~
+    Diogo Melo, Guilherme Garcia
 }
 \note{
-%%  ~~further notes~~
+    %%  ~~further notes~~
 }
 
 %% ~Make other sections like Warning with \section{Warning }{....} ~
 
 \seealso{
-%% ~~objects to See Also as \code{\link{help}}, ~~~
+    \code{\link{RandomSkewers}},\code{\link{MantelCor}}
 }
 \examples{
-##---- Should be DIRECTLY executable !! ----
-##-- ==>  Define data, use random,
-##--	or do  help(data=index)  for the standard data sets.
+c1 <- RandomMatrix(10)
+c2 <- RandomMatrix(10)
+c3 <- RandomMatrix(10)
+KrzProjection(c1, c2)
 
-## The function is currently defined as
-function (cov.matrix.1, cov.matrix.2, ret.dim.1 = NULL, ret.dim.2 = NULL) 
-{
-    require(plyr)
-    num.traits <- dim(cov.matrix.1)[1]
-    if (is.null(ret.dim.1)) 
-        ret.dim.1 <- num.traits/2 - 1
-    if (is.null(ret.dim.2)) 
-        ret.dim.2 <- num.traits/2 - 1
-    eigen.cov.matrix.1 <- eigen(cov.matrix.1)
-    eVal.1 <- eigen.cov.matrix.1$values
-    eVec.1 <- eigen.cov.matrix.1$vectors
-    eVar.1 <- t(aaply(1:num.traits, 1, function(n) eVec.1[, n] * 
-        sqrt(eVal.1[n])))
-    eVec.2 <- eigen(cov.matrix.2)$vectors
-    SumSq <- function(x) sum(x^2)
-    MapProjection <- function(x) SumSq(t(aaply(1:ret.dim.2, 1, 
-        function(n) eVar.1[, x] \%*\% eVec.2[, n])))
-    ProjectionNorms <- aaply(1:ret.dim.1, 1, MapProjection)
-    output <- list(total.variation = sum(ProjectionNorms)/sum(eVal.1), 
-        per.PC = ProjectionNorms/eVal.1[1:ret.dim.1])
-    return(output)
-  }
+KrzProjection(list(c1, c2, c3))
+KrzProjection(list(c1, c2, c3), 5, 4)
+KrzProjection(list(c1, c2, c3), 4, 5)
+
 }
-% Add one or more standard keywords, see file 'KEYWORDS' in the
-% R documentation directory.
-\keyword{ ~kwd1 }
-\keyword{ ~kwd2 }% __ONLY ONE__ keyword per line
+\keyword{matrixcomparison}
+\keyword{matrixcorrelation}
+\keyword{Krzanowski}

@@ -1,5 +1,7 @@
 \name{RandomSkewers}
 \alias{RandomSkewers}
+\alias{RandomSkewers.default}
+\alias{RandomSkewers.list}
 
 \title{
 Compare matrices via RandomSkewers
@@ -8,28 +10,25 @@ Compare matrices via RandomSkewers
 Calculates covariance matrix correlation via random skewers
 }
 \usage{
-RandomSkewers(x, ...)
-
-### Default S3 method
-RandomSkewers(cov.matrix.1, cov.matrix.2, iterations = 1000)
-
-### List S3 method
-RandomSkewers(matrix.list, cov.matrix = NULL,
+RandomSkewers(cov.matrix, ...)
+\method{RandomSkewers}{default}(cov.matrix.1, cov.matrix.2, iterations = 1000)
+\method{RandomSkewers}{list}(matrix.list, cov.matrix.2 = NULL,
               repeat.vector = NULL, iterations = 1000, 
               num.cores = 1)
 }
 %- maybe also 'usage' for other objects documented here.
 \arguments{
-  \item{cov.matrix.1, matrix.list}{
-      Single covariance matrix ou list of covariance matrices.
+  \item{cov.matrix, cov.matrix.1, matrix.list}{
+      Single covariance matrix or list of covariance matrices.
       If single matrix is suplied, it is compared to cov.matrix.2.
       If list is suplied and no cov.matrix.2 is suplied, all matrices
       are compared.
       If cov.matrix.2 is suplied, all matrices in list are compared to it.
 }
+  \item{...}{aditional arguments passed to other methods}
   \item{cov.matrix.2}{
-      Optional if cov.marix.1 is a list.
       First argument is compared to cov.matrix.2.
+      Optional if cov.matrix.1 is a list.
 }
   \item{iterations}{
       Number of random vectors used in comparison.
@@ -39,7 +38,7 @@ RandomSkewers(matrix.list, cov.matrix = NULL,
 }
   \item{num.cores}{
       If list is passed, number of threads to use in computation. 
-      Requires doMC
+      Requires doMC library.
 }
 }
 \details{
@@ -58,9 +57,9 @@ RandomSkewers(matrix.list, cov.matrix = NULL,
     diagonal and repeatabilities returned in diagonal.
 }
 \references{
- Cheverud, J. M., & Marroig, G. (2007). Comparing covariance matrices:
+ Cheverud, J. M., and Marroig, G. (2007). Comparing covariance matrices:
 Random skewers method compared to the common principal components model.
-Genetics and Molecular Biology, 30, 461–469.
+Genetics and Molecular Biology, 30, 461-469.
 }
 \author{
 Diogo Melo, Guilherme Garcia

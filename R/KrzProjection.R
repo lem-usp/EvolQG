@@ -1,4 +1,4 @@
-KrzProjection <- function(x, ...) UseMethod("KrzProjection")
+KrzProjection <- function(cov.matrix, ...) UseMethod("KrzProjection")
 
 KrzProjection.default <- function (cov.matrix.1, cov.matrix.2,
                            ret.dim.1 = NULL, ret.dim.2 = NULL)
@@ -32,10 +32,10 @@ KrzProjection.default <- function (cov.matrix.1, cov.matrix.2,
   return (output)
 }
 
-KrzProjection.list <- function(mat.list,
+KrzProjection.list <- function(matrix.list,
                                ret.dim.1 = NULL, ret.dim.2 = NULL,
                                num.cores = 1,
-                               full.results = F){
+                               full.results = FALSE){
   # Calculates the modified Krzanowski correlation between matrices,
   # projecting the variance in each principal  components of the first
   # matrix in to the ret.dim.2 components of the second for a list of matrices
@@ -59,32 +59,32 @@ KrzProjection.list <- function(mat.list,
   else
     parallel = FALSE
   if(full.results){
-    CompareToNProj <- function(n) llply(mat.list,
+    CompareToNProj <- function(n) llply(matrix.list,
                                         function(x) {KrzProjection(x,
-                                                                   mat.list[[n]],
+                                                                   matrix.list[[n]],
                                                                    ret.dim.1, ret.dim.2)},
                                         .parallel = parallel)
   }
   else{
-    CompareToNProj <- function(n) llply(mat.list[names(mat.list) != n],
+    CompareToNProj <- function(n) llply(matrix.list[names(matrix.list) != n],
                                         function(x) {KrzProjection(x,
-                                                                   mat.list[[n]],
+                                                                   matrix.list[[n]],
                                                                    ret.dim.1, ret.dim.2)[1]},
                                         .parallel = parallel)
   }
-  if(is.null(names(mat.list))) {names(mat.list) <- 1:length(mat.list)}
-  comparisons.proj <- llply(names(mat.list),
+  if(is.null(names(matrix.list))) {names(matrix.list) <- 1:length(matrix.list)}
+  comparisons.proj <- llply(names(matrix.list),
                              CompareToNProj,
                              .parallel = parallel)
   if(full.results){
-    names(comparisons.proj) = names(mat.list)
+    names(comparisons.proj) = names(matrix.list)
     return(comparisons.proj)
   }
   else{
     comparisons.proj <- melt(comparisons.proj)
-    comparisons.proj[,4] = names(mat.list)[(comparisons.proj[,4])]
+    comparisons.proj[,4] = names(matrix.list)[(comparisons.proj[,4])]
     comparisons.proj = comparisons.proj[,-2]
-    comparisons.proj = acast(comparisons.proj, L2~L1)[names(mat.list), names(mat.list)]
+    comparisons.proj = acast(comparisons.proj, L2~L1)[names(matrix.list), names(matrix.list)]
     diag(comparisons.proj) = 0.
   }
   return(comparisons.proj)
