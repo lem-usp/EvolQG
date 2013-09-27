@@ -58,7 +58,7 @@ samples to original statistic.
 Diogo Melo, Guilherme Garcia
 }
 \seealso{
-    \code{\link{MonteCarloRep}}, \code{\link{AlphaRep}}
+    \code{\link{MonteCarloStat}}, \code{\link{AlphaRep}}
 }
 \examples{
 BootstrapRep(iris[,1:4], iterations = 5,
