@@ -1,8 +1,9 @@
-\name{MonteCarloRep}
-\alias{MonteCarloRep}
+\name{MonteCarlo}
+\alias{MonteCarloStat}
 \alias{MonteCarloRepRandomSkewers}
 \alias{MonteCarloRepMantelCor}
 \alias{MonteCarloRepKrzCor}
+\alias{MonteCarloR2}
 %- Also NEED an '\alias' for EACH other topic documented here.
 \title{
     Parametric repeatabilities with covariance or correlation matrices
@@ -16,51 +17,52 @@
 
 }
 \usage{
-MonteCarloRep (cov.matrix, sample.size, iterations,
-               ComparisonFunc, StatFunc,
-               num.cores = 1)
+MonteCarloStat (cov.matrix, sample.size, iterations,
+                ComparisonFunc, StatFunc,
+                num.cores = 1)
 MonteCarloRepRandomSkewers (cov.matrix, sample.size, iterations = 1000, num.cores = 1)
 MonteCarloRepMantelCor (cov.matrix, sample.size, iterations = 1000, num.cores = 1)
 MonteCarloRepKrzCor (cov.matrix, sample.size, correlation = F, iterations = 1000, num.cores = 1)
+MonteCarloR2 (cov.matrix, sample.size, iterations = 1000, num.cores = 1)
 }
 %- maybe also 'usage' for other objects documented here.
 \arguments{
     \item{cov.matrix}{
-Covariance matrix.
+        Covariance matrix.
     }
     \item{sample.size}{
-Size of the random populations
+        Size of the random populations
     }
     \item{iterations}{
-Number of random populations
+        Number of random populations
     }
     \item{ComparisonFunc}{
-Comparison functions for the calculated statistic
+        Comparison functions for the calculated statistic
     }
     \item{StatFunc}{
-Function for calculating the statistic
+        Function for calculating the statistic
     }
-     \item{correlation}{
+    \item{correlation}{
         When using BootstrapRepKrzCor, statistic can be correlation or covariance. If TRUE, uses correlation.
     }
-     \item{num.cores}{
-        Number of threads to use in computation. 
+    \item{num.cores}{
+        Number of threads to use in computation.
         Requires doMC library.
     }
 }
 \details{
-Since this function uses multivariate normal model to generate
-popualtions, only covariance matrices should be used.
+    Since this function uses multivariate normal model to generate
+    popualtions, only covariance matrices should be used.
 }
 \value{
-     returns the mean repeatability, or mean value of comparisons from
-samples to original statistic.
+    returns the mean repeatability, or mean value of comparisons from
+    samples to original statistic.
 }
 \references{
     %% ~put references to the literature/web site here ~
 }
 \author{
-Diogo Melo, Guilherme Garcia
+    Diogo Melo, Guilherme Garcia
 }
 \note{
     %%  ~~further notes~~
@@ -69,7 +71,7 @@ Diogo Melo, Guilherme Garcia
 %% ~Make other sections like Warning with \section{Warning }{....} ~
 
 \seealso{
-     \code{\link{BootstrapRep}}, \code{\link{AlphaRep}}
+    \code{\link{BootstrapRep}}, \code{\link{AlphaRep}}
 }
 \examples{
 ##---- Should be DIRECTLY executable !! ----
@@ -77,10 +79,10 @@ Diogo Melo, Guilherme Garcia
 ##--	or do  help(data=index)  for the standard data sets.
 cov.matrix <- RandomMatrix(10, 1, 1, 10)
 
-MonteCarloRep(cov.matrix, sample.size = 30, iterations = 1000,
-              ComparisonFunc = function(x, y) RandomSkewers(x, y)[1],
-              StatFunc = cov,
-              num.cores = 1)
+MonteCarloStat(cov.matrix, sample.size = 30, iterations = 1000,
+               ComparisonFunc = function(x, y) RandomSkewers(x, y)[1],
+               StatFunc = cov,
+               num.cores = 1)
 
 
 MonteCarloRepRandomSkewers(cov.matrix, 30)
@@ -91,7 +93,13 @@ MonteCarloRepKrzCor(cov.matrix, 30, TRUE)
 #Creating repeatability vector for a list of matrices
 mat.list <- RandomMatrix(10, 3, 1, 10)
 unlist(lapply(mat.list, MonteCarloRepKrzCor, 30, TRUE))
+
+#Calculating R2 confidence intervals
+r2.dist <- MonteCarloR2(RandomMatrix(10, 1, 1, 10), 30)
+quantiles(r2.dist)
+
 }
+
 \keyword{parametricsampling}
 \keyword{montecarlo}
 \keyword{repeatability}
