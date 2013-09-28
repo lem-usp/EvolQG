@@ -10,9 +10,6 @@ BootstrapRep <- function (ind.data, iterations,
   # Return:
   #     returns the mean repeatability
 {
-  library(mvtnorm)
-  library(plyr)
-  library(reshape2)
   if (num.cores > 1) {
     library(doMC)
     library(foreach)

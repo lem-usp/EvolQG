@@ -9,8 +9,6 @@ MultiMahalanobis <- function (mean.list, cov.matrix, num.cores = 1)
   # Return:
   #  returns a matrix of species-species comparisons.
 {
-  library(plyr)
-  library(reshape2)
   if (num.cores > 1) {
     library(doMC)
     library(foreach)

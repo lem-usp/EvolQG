@@ -7,7 +7,6 @@ Pc1Percent <- function (cov.matrix) return (eigen (cov.matrix)$values [1] / sum 
 Respondability <- function (beta, cov.matrix) return (Norm (cov.matrix %*% beta))
 
 MeanMatrixStatistics <- function (cov.matrix, iterations = 1000, full.results = F, num.cores = 1) {
-  library(plyr)
   if (num.cores > 1) {
     library(doMC)
     library(foreach)

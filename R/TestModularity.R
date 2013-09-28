@@ -18,7 +18,6 @@ TestModularity <- function (cor.matrix, modularity.hipot)
 
 CreateHipotMatrix <- function(modularity.hipot)
 {
-  library(plyr)
   num.hip <- dim (modularity.hipot) [2]
   num.traits <- dim (modularity.hipot) [1]
   m.hip.list <- alply(modularity.hipot, 2, function(x) outer(x, x))
