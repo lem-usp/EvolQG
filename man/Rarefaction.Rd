@@ -20,7 +20,7 @@
 Rarefaction (ind.data, StatFunc, ComparisonFunc, num.reps = 10, num.cores = 1)
 RarefactionRandomSkewers (ind.data, iterations = 1000, num.reps = 10, num.cores = 1)
 RarefactionMantelCor (ind.data, iterations = 1, num.reps = 10, num.cores = 1)
-RarefactionKrzCor (ind.data, correlation = F, ret.dim = NULL, num.reps = 10, num.cores = 1)
+RarefactionKrzCor (ind.data, correlation = FALSE, ret.dim = NULL, num.reps = 10, num.cores = 1)
 
 PlotRarefaction (comparison.list, y.axis = "Statistic")
 

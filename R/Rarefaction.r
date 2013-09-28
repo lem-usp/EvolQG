@@ -71,7 +71,7 @@ RarefactionMantelCor <- function(ind.data,
 }
 
 RarefactionKrzCor <- function(ind.data,
-                              correlation = F,
+                              correlation = FALSE,
                               ret.dim = NULL,
                               num.reps = 10,
                               num.cores = 1){
