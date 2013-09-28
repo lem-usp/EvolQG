@@ -17,4 +17,4 @@ Suggests:
     testthat (>= 0.2),
     foreach,
     doMC
-License: MIT
+License: MIT + file LICENSE
