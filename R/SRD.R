@@ -1,17 +1,16 @@
-SRD <-
-function (cov.matrix.1, cov.matrix.2, nsk = 1000)
+SRD <- function (cov.matrix.1, cov.matrix.2, iterations = 1000)
   # Calculates the selection response decomposition comparison between covariance matrices
   #
   # Args:
   #     cov.matrix.(1,2): covariance matrices being compared
-  #     nsk: number of RandomSkewers random vectors
+  #     iterations: number of RandomSkewers random vectors
   # Return:
   #     SRD scores for each trait and significance using mean and sd of SRD scores
 {
   size <- dim (cov.matrix.1)[1]
-  r2s <- array (0, c(size,nsk))
-  beta <- apply (array (rnorm (size*nsk, mean = 0, sd = 1),c(size,nsk)),2, Normalize)
-  for (I in 1:nsk){
+  r2s <- array (0, c(size,iterations))
+  beta <- apply (array (rnorm (size*iterations, mean = 0, sd = 1),c(size,iterations)),2, Normalize)
+  for (I in 1:iterations){
     beta.matrix <- diag (beta[,I])
     dz1 <- apply (cov.matrix.1 %*% beta.matrix, 1, Normalize)
     dz2 <- apply (cov.matrix.2 %*% beta.matrix, 1, Normalize)
@@ -56,8 +55,7 @@ function (cov.matrix.1, cov.matrix.2, nsk = 1000)
                 "cormat" = cor (t(r2s))))
 }
 
-PlotSRD <-
-function (output, matrix.label = "")
+PlotSRD <- function (output, matrix.label = "")
   # Plots the output of the SRD function in standard format
   #
   # Args:

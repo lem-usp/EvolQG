@@ -53,7 +53,7 @@ RarefactionRandomSkewers <- function(ind.data,
   comparison.list <- Rarefaction(ind.data,
                                  cov,
                                  function(x, y) RandomSkewers(x, y, iterations)[1],
-                                 num.rep=num.reps,
+                                 num.reps=num.reps,
                                  num.cores = num.cores)
   return(comparison.list)
 }
@@ -65,7 +65,7 @@ RarefactionMantelCor <- function(ind.data,
   comparison.list <- Rarefaction(ind.data,
                                  cor,
                                  function(x, y) MantelCor(x, y, iterations)[1],
-                                 num.rep=num.reps,
+                                 num.reps=num.reps,
                                  num.cores = num.cores)
   return(comparison.list)
 }
@@ -80,7 +80,7 @@ RarefactionKrzCor <- function(ind.data,
   comparison.list <- Rarefaction(ind.data,
                                  StatFunc,
                                  function(x, y) KrzCor(x, y, ret.dim),
-                                 num.rep=num.reps,
+                                 num.reps=num.reps,
                                  num.cores = num.cores)
   return(comparison.list)
 }

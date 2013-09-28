@@ -1,78 +1,93 @@
 \name{RandomSkewers}
 \alias{RandomSkewers}
-%- Also NEED an '\alias' for EACH other topic documented here.
+\alias{RandomSkewers.default}
+\alias{RandomSkewers.list}
+
 \title{
-Compare matrices via RandomSkewers
+    Compare matrices via RandomSkewers
 }
 \description{
-%%  ~~ A concise (1-5 lines) description of what the function does. ~~
+    Calculates covariance matrix correlation via random skewers
 }
 \usage{
-RandomSkewers(cov.matrix.1, cov.matrix.2, nsk = 10000)
+RandomSkewers(cov.x, cov.y, ...)
+\method{RandomSkewers}{default}(cov.x, cov.y, iterations = 1000, ...)
+\method{RandomSkewers}{list}(cov.x, cov.y = NULL,
+              iterations = 1000, repeat.vector = NULL,
+              num.cores = 1, ...)
 }
 %- maybe also 'usage' for other objects documented here.
 \arguments{
-  \item{cov.matrix.1}{
-%%     ~~Describe \code{cov.matrix.1} here~~
-}
-  \item{cov.matrix.2}{
-%%     ~~Describe \code{cov.matrix.2} here~~
-}
-  \item{nsk}{
-%%     ~~Describe \code{nsk} here~~
-}
+    \item{cov.x}{
+        Single covariance matrix or list of covariance matrices.
+        If single matrix is suplied, it is compared to cov.y.
+
+        If list is suplied and no cov.y is suplied, all matrices
+        are compared.
+        If cov.y is suplied, all matrices in list are compared to it.
+    }
+    \item{cov.y}{
+        First argument is compared to cov.y.
+        Optional if cov.x is a list.
+    }
+    \item{iterations}{
+        Number of random vectors used in comparison.
+    }
+    \item{repeat.vector}{
+        Vector of repeatabilities for correlation correction.
+    }
+    \item{num.cores}{
+        If list is passed, number of threads to use in computation.
+        Requires doMC library.
+    }
+    \item{...}{aditional arguments passed to other methods}
 }
 \details{
-%%  ~~ If necessary, more details than the description above ~~
+    %%  ~~ If necessary, more details than the description above ~~
 }
 \value{
-%%  ~Describe the value returned
-%%  If it is a LIST, use
-%%  \item{comp1 }{Description of 'comp1'}
-%%  \item{comp2 }{Description of 'comp2'}
-%% ...
+    If cov.x and cov.y are passed, returns average value
+    of random skewers ('AC'), significance ('prob') and standard deviation
+    of random skewers ('SD')
+
+    If cov.x and cov.y are passed, same as above, but for all matrices in cov.x.
+
+    If only a list is passed to cov.x, a matrix of RandomSkewers average
+    values and probabilities of all comparisons.
+    If repeat.vector is passed, comparison matrix is corrected below
+    diagonal and repeatabilities returned in diagonal.
 }
 \references{
-%% ~put references to the literature/web site here ~
+    Cheverud, J. M., and Marroig, G. (2007). Comparing covariance matrices:
+    Random skewers method compared to the common principal components model.
+    Genetics and Molecular Biology, 30, 461-469.
 }
 \author{
-%%  ~~who you are~~
+    Diogo Melo, Guilherme Garcia
 }
 \note{
-%%  ~~further notes~~
+    %%  ~~further notes~~
 }
 
 %% ~Make other sections like Warning with \section{Warning }{....} ~
 
 \seealso{
-%% ~~objects to See Also as \code{\link{help}}, ~~~
+    \code{\link{KrzCor}},\code{\link{MantelCor}}
 }
 \examples{
-##---- Should be DIRECTLY executable !! ----
-##-- ==>  Define data, use random,
-##--	or do  help(data=index)  for the standard data sets.
+c1 <- RandomMatrix(10)
+c2 <- RandomMatrix(10)
+c3 <- RandomMatrix(10)
+RandomSkewers(c1, c2)
 
-## The function is currently defined as
-function (cov.matrix.1, cov.matrix.2, nsk = 10000) 
-{
-    traits <- dim(cov.matrix.1)[1]
-    base.vector <- Normalize(rnorm(traits))
-    random.vectors <- array(rnorm(nsk * traits, mean = 0, sd = 1), 
-        c(traits, nsk))
-    random.vectors <- apply(random.vectors, 2, Normalize)
-    dist <- base.vector \%*\% random.vectors
-    dz1 <- apply(cov.matrix.1 \%*\% random.vectors, 2, Normalize)
-    dz2 <- apply(cov.matrix.2 \%*\% random.vectors, 2, Normalize)
-    real <- apply(dz1 * dz2, 2, sum)
-    ac <- mean(real)
-    stdev <- sd(real)
-    prob <- sum(ac < dist)/nsk
-    output <- c(ac, prob, stdev)
-    names(output) <- c("AC", "P", "SD")
-    return(output)
-  }
+RandomSkewers(list(c1, c2, c3))
+
+reps <- unlist(lapply(list(c1, c2, c3), MonteCarloRepRandomSkewers, 10, 10))
+RandomSkewers(list(c1, c2, c3), repeat.vector = reps)
+
+c4 <- RandomMatrix(10)
+RandomSkewers(list(c1, c2, c3), c4)
 }
-% Add one or more standard keywords, see file 'KEYWORDS' in the
-% R documentation directory.
-\keyword{ ~kwd1 }
-\keyword{ ~kwd2 }% __ONLY ONE__ keyword per line
+\keyword{matrixcomparison}
+\keyword{matrixcorrelation}
+\keyword{randomskewers}
