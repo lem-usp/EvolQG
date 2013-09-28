@@ -27,7 +27,7 @@ Diogo Melo, Guilherme Garcia
 }
 \keyword{Morphometrics}
 \seealso{
-/*~~ \code{\link[<pkg>:<pkg>-package]{<pkg>}} ~~*/
+%\code{\link[<pkg>:<pkg>-package]{<pkg>}} 
 }
 \examples{
     RandCorr(10)

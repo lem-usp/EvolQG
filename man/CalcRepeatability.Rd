@@ -1,73 +1,49 @@
-\name{CalcRepeatability}
+\name{Trait Repeatability}
 \alias{CalcRepeatability}
-%- Also NEED an '\alias' for EACH other topic documented here.
 \title{
-Parametric Repeatabilities
+    Parametric per trait Repeatabilities
 }
 \description{
-%%  ~~ A concise (1-5 lines) description of what the function does. ~~
+    Estimates the variance in the sample not due to measurment error
 }
 \usage{
 CalcRepeatability(ID, ind.data)
 }
-%- maybe also 'usage' for other objects documented here.
 \arguments{
-  \item{ID}{
-%%     ~~Describe \code{ID} here~~
-}
-  \item{ind.data}{
-%%     ~~Describe \code{ind.data} here~~
-}
+    \item{ID}{
+        Individual ID labels.
+    }
+    \item{ind.data}{
+        matrix of residuals or individual measurments
+    }
 }
 \details{
-%%  ~~ If necessary, more details than the description above ~~
+    Requires at least two observations per individual
 }
 \value{
-%%  ~Describe the value returned
-%%  If it is a LIST, use
-%%  \item{comp1 }{Description of 'comp1'}
-%%  \item{comp2 }{Description of 'comp2'}
-%% ...
+    Vector of Repeatabilities per trait
 }
 \references{
-%% ~put references to the literature/web site here ~
+    Lessels, C. M., and Boag, P. T. (1987).
+    Unrepeatable repeatabilities: a common mistake.
+    The Auk, 2(January), 116:121.
 }
 \author{
-%%  ~~who you are~~
+    Guilherme Garcia
 }
 \note{
-%%  ~~further notes~~
+    %%  ~~further notes~~
 }
-
-%% ~Make other sections like Warning with \section{Warning }{....} ~
 
 \seealso{
-%% ~~objects to See Also as \code{\link{help}}, ~~~
+    %% ~~objects to See Also as \code{\link{help}}, ~~~
 }
 \examples{
-##---- Should be DIRECTLY executable !! ----
-##-- ==>  Define data, use random,
-##--	or do  help(data=index)  for the standard data sets.
-
-## The function is currently defined as
-function (ID, ind.data) 
-{
-    models.list <- apply(ind.data, 2, function(vec) {
-        return(lm(vec ~ ID))
-    })
-    models.list <- lapply(models.list, anova)
-    rep.itself <- function(lm.model) {
-        msq <- lm.model$"Mean Sq"
-        s2a <- (msq[1] - msq[2])/2
-        out <- s2a/(s2a + msq[2])
-        return(out)
-    }
-    out <- sapply(models.list, rep.itself)
-    names(out) <- colnames(ind.data)
-    return(out)
-  }
+num.ind = length(iris[,1])
+ID = rep(1:num.ind, 2)
+ind.data = rbind(iris[,1:4], iris[,1:4]+array(rnorm(num.ind*4, 0, 0.1), dim(iris[,1:4])))
+CalcRepeatability(ID, ind.data)
 }
 % Add one or more standard keywords, see file 'KEYWORDS' in the
 % R documentation directory.
-\keyword{ ~kwd1 }
-\keyword{ ~kwd2 }% __ONLY ONE__ keyword per line
+\keyword{Repeatability}

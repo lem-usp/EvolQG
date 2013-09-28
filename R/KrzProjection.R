@@ -1,29 +1,17 @@
-KrzProjection <- function(x, ...) UseMethod("KrzProjection")
+KrzProjection <- function(cov.x, cov.y, ...) UseMethod("KrzProjection")
 
-KrzProjection.default <- function (cov.matrix.1, cov.matrix.2,
-                           ret.dim.1 = NULL, ret.dim.2 = NULL)
-  # Calculates the modified Krzanowski correlation between matrices,
-  # projecting the variance in each principal  components of the first
-  # matrix in to the ret.dim.2 components of the second.
-  #
-  # Args:
-  #     cov.matrix.(1,2): covariance being compared
-  #     ret.dim.2: number of retained dimensions in the comparison,
-  #              default for nxn matrix is n/2-1
-  # Return:
-  #     Ratio of projected variance to total variance, and ratio of projectecd total in each PC
-{
+KrzProjection.default <- function (cov.x, cov.y, ret.dim.1 = NULL, ret.dim.2 = NULL, ...) {
   require(plyr)
-  num.traits <- dim(cov.matrix.1)[1]
+  num.traits <- dim(cov.x)[1]
   if (is.null(ret.dim.1))
     ret.dim.1 <- num.traits/2 - 1
   if (is.null(ret.dim.2))
     ret.dim.2 <- num.traits/2 - 1
-  eigen.cov.matrix.1 <- eigen(cov.matrix.1)
-  eVal.1 <- eigen.cov.matrix.1$values
-  eVec.1 <- eigen.cov.matrix.1$vectors
+  eigen.cov.x <- eigen(cov.x)
+  eVal.1 <- eigen.cov.x$values
+  eVec.1 <- eigen.cov.x$vectors
   eVar.1 <- t(aaply(1:num.traits, 1, function(n) eVec.1[,n]*sqrt(eVal.1[n])))
-  eVec.2 <- eigen(cov.matrix.2)$vectors
+  eVec.2 <- eigen(cov.y)$vectors
   SumSq  <- function(x) sum(x^2)
   MapProjection  <- function(x) SumSq(t(aaply(1:ret.dim.2, 1, function(n) eVar.1[,x]%*%eVec.2[,n])))
   ProjectionNorms <- aaply(1:ret.dim.1, 1, MapProjection)
@@ -32,22 +20,9 @@ KrzProjection.default <- function (cov.matrix.1, cov.matrix.2,
   return (output)
 }
 
-KrzProjection.list <- function(mat.list,
+KrzProjection.list <- function(cov.x, cov.y = NULL,
                                ret.dim.1 = NULL, ret.dim.2 = NULL,
-                               num.cores = 1,
-                               full.results = F){
-  # Calculates the modified Krzanowski correlation between matrices,
-  # projecting the variance in each principal  components of the first
-  # matrix in to the ret.dim.2 components of the second for a list of matrices
-  #
-  # Args:
-  #     cov.matrix.(1,2): covariance being compared
-  #     ret.dim.2: number of retained dimensions in the comparison,
-  #              default for nxn matrix is n/2-1
-  #     num.cores: Number of cores for parallel computation. Requires doMC and foreach
-  #     full.results: if FALSE returns only total variance, if TRUE also per PC variance.
-  # Return:
-  #     Ratio of projected variance to total variance, and ratio of projectecd total in each PC
+                               num.cores = 1, full.results = FALSE, ...){
   require(plyr)
   require(reshape2)
   if (num.cores > 1) {
@@ -59,32 +34,32 @@ KrzProjection.list <- function(mat.list,
   else
     parallel = FALSE
   if(full.results){
-    CompareToNProj <- function(n) llply(mat.list,
+    CompareToNProj <- function(n) llply(cov.x,
                                         function(x) {KrzProjection(x,
-                                                                   mat.list[[n]],
+                                                                   cov.x[[n]],
                                                                    ret.dim.1, ret.dim.2)},
                                         .parallel = parallel)
   }
   else{
-    CompareToNProj <- function(n) llply(mat.list[names(mat.list) != n],
+    CompareToNProj <- function(n) llply(cov.x[names(cov.x) != n],
                                         function(x) {KrzProjection(x,
-                                                                   mat.list[[n]],
+                                                                   cov.x[[n]],
                                                                    ret.dim.1, ret.dim.2)[1]},
                                         .parallel = parallel)
   }
-  if(is.null(names(mat.list))) {names(mat.list) <- 1:length(mat.list)}
-  comparisons.proj <- llply(names(mat.list),
+  if(is.null(names(cov.x))) {names(cov.x) <- 1:length(cov.x)}
+  comparisons.proj <- llply(names(cov.x),
                              CompareToNProj,
                              .parallel = parallel)
   if(full.results){
-    names(comparisons.proj) = names(mat.list)
+    names(comparisons.proj) = names(cov.x)
     return(comparisons.proj)
   }
   else{
     comparisons.proj <- melt(comparisons.proj)
-    comparisons.proj[,4] = names(mat.list)[(comparisons.proj[,4])]
+    comparisons.proj[,4] = names(cov.x)[(comparisons.proj[,4])]
     comparisons.proj = comparisons.proj[,-2]
-    comparisons.proj = acast(comparisons.proj, L2~L1)[names(mat.list), names(mat.list)]
+    comparisons.proj = acast(comparisons.proj, L2~L1)[names(cov.x), names(cov.x)]
     diag(comparisons.proj) = 0.
   }
   return(comparisons.proj)

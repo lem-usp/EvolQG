@@ -1,92 +1,98 @@
 \name{MantelCor}
 \alias{MantelCor}
-%- Also NEED an '\alias' for EACH other topic documented here.
+\alias{MantelCor.default}
+\alias{MantelCor.list}
+
 \title{
-Matrix Correlation with Mantel significance
+    Compare matrices via Mantel Correlation
 }
 \description{
-%%  ~~ A concise (1-5 lines) description of what the function does. ~~
+    Calculates correlation matrix correlation via Mantel.
 }
 \usage{
-MantelCor(cor.matrix.1, cor.matrix.2, nit = 1000, mod = FALSE)
+MantelCor(cor.x, cor.y, ...)
+### Default S3 method
+\method{MantelCor}{default}(cor.x, cor.y, iterations = 100, mod = FALSE, ...)
+### List S3 method
+\method{MantelCor}{list}(cor.x, cor.y = NULL,
+    iterations = 100, repeat.vector = NULL, mod = FALSE,
+    num.cores = 1, ...)
 }
+
 %- maybe also 'usage' for other objects documented here.
 \arguments{
-  \item{cor.matrix.1}{
-%%     ~~Describe \code{cor.matrix.1} here~~
-}
-  \item{cor.matrix.2}{
-%%     ~~Describe \code{cor.matrix.2} here~~
-}
-  \item{nit}{
-%%     ~~Describe \code{nit} here~~
-}
-  \item{mod}{
-%%     ~~Describe \code{mod} here~~
-}
+    \item{cor.x}{
+        Single covariance matrix or list of covariance matrices.
+
+        If single matrix is suplied, it is compared to cor.y.
+
+        If list is suplied and no cor.y is suplied, all matrices
+        are compared.
+
+        If cor.y is suplied, all matrices in list are compared to it.
+    }
+    \item{cor.y}{
+        First argument is compared to cor.y.
+        Optional if cor.x is a list.
+    }
+    \item{iterations}{
+        Number of permutations used in significance calculation.
+    }
+    \item{mod}{
+        Set TRUE to use mantel in testing modularity hipotesis. Will return
+        AVG+, AVG- and AVG Ratio based on binary hipotesis matrix.
+    }
+    \item{repeat.vector}{
+        Vector of repeatabilities for correlation correction.
+    }
+    \item{num.cores}{
+        If list is passed, number of threads to use in computation.
+        Requires doMC library.
+    }
+    \item{...}{aditional arguments passed to other methods}
 }
 \details{
-%%  ~~ If necessary, more details than the description above ~~
+    %%  ~~ If necessary, more details than the description above ~~
 }
 \value{
-%%  ~Describe the value returned
-%%  If it is a LIST, use
-%%  \item{comp1 }{Description of 'comp1'}
-%%  \item{comp2 }{Description of 'comp2'}
-%% ...
+    If cor.x and cor.y are passed, returns matrix pearson
+    correlation and significance via mantel permutations.
+
+    If cor.x and cor.y are passed, same as above, but for all matrices in cor.x.
+
+    If only cor.x is passed, a matrix of MantelCor average
+    values and probabilities of all comparisons.
+    If repeat.vector is passed, comparison matrix is corrected below
+    diagonal and repeatabilities returned in diagonal.
 }
 \references{
-%% ~put references to the literature/web site here ~
+    http://en.wikipedia.org/wiki/Mantel_test
 }
 \author{
-%%  ~~who you are~~
+    Diogo Melo, Guilherme Garcia
 }
 \note{
-%%  ~~further notes~~
+    %%  ~~further notes~~
 }
-
-%% ~Make other sections like Warning with \section{Warning }{....} ~
 
 \seealso{
-%% ~~objects to See Also as \code{\link{help}}, ~~~
+    \code{\link{KrzCor}},\code{\link{RandomSkewers}},\code{\link{mantel}},\code{\link{RandomSkewers}},\code{\link{TestModularity}}
+
 }
 \examples{
-##---- Should be DIRECTLY executable !! ----
-##-- ==>  Define data, use random,
-##--	or do  help(data=index)  for the standard data sets.
+c1 <- RandomMatrix(10)
+c2 <- RandomMatrix(10)
+c3 <- RandomMatrix(10)
+MantelCor(c1, c2)
 
-## The function is currently defined as
-function (cor.matrix.1, cor.matrix.2, nit = 1000, mod = FALSE) 
-{
-    fixed.matrix <- cor.matrix.1[lower.tri(cor.matrix.1)]
-    shuffled.matrix <- cor.matrix.2[lower.tri(cor.matrix.2)]
-    index <- shuffled.matrix
-    correlation <- cor(fixed.matrix, shuffled.matrix)
-    shuffled.correlation <- c()
-    for (N in 1:nit) {
-        shuffle <- sample(1:dim(cor.matrix.1)[1])
-        shuffled.matrix <- cor.matrix.2[shuffle, shuffle][lower.tri(cor.matrix.1)]
-        shuffled.correlation[N] <- cor(fixed.matrix, shuffled.matrix)
-    }
-    prob <- sum(shuffled.correlation > as.vector(correlation))/nit
-    if (mod == TRUE) {
-        avg.plus <- mean(cor.matrix.1[lower.tri(cor.matrix.1)][index != 
-            0])
-        avg.minus <- mean(cor.matrix.1[lower.tri(cor.matrix.1)][index == 
-            0])
-        avg.ratio <- avg.plus/avg.minus
-        output <- c(correlation, prob, avg.plus, avg.minus, avg.ratio)
-        names(output) <- c("R\302\262", "Probability", "AVG+", 
-            "AVG-", "AVG Ratio")
-    }
-    else {
-        output <- c(correlation, prob)
-        names(output) <- c("R\302\262", "Probability")
-    }
-    return(output)
-  }
+MantelCor(list(c1, c2, c3))
+
+reps <- unlist(lapply(list(c1, c2, c3), MonteCarloRepMantelCor, 10, 10))
+MantelCor(list(c1, c2, c3), repeat.vector = reps)
+
+c4 <- RandomMatrix(10)
+MantelCor(list(c1, c2, c3), c4)
 }
-% Add one or more standard keywords, see file 'KEYWORDS' in the
-% R documentation directory.
-\keyword{ ~kwd1 }
-\keyword{ ~kwd2 }% __ONLY ONE__ keyword per line
+\keyword{matrixcomparison}
+\keyword{matrixcorrelation}
+\keyword{randomskewers}

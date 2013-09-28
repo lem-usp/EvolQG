@@ -1,72 +1,84 @@
 \name{BootstrapRep}
 \alias{BootstrapRep}
-%- Also NEED an '\alias' for EACH other topic documented here.
+\alias{BootstrapRepRandomSkewers}
+\alias{BootstrapRepMantelCor}
+\alias{BootstrapRepKrzCor}
 \title{
-Bootstrap Repetabilities
+    Calculates the repeatability of the covariance matrix of the suplied data
+    via bootstrap ressampling
 }
 \description{
-%%  ~~ A concise (1-5 lines) description of what the function does. ~~
+    Samples with replacement are taken from the full population, a statistic calculated
+    and compared to the full population statistic. Prepackaged functions
+    for common comparison functions and statistics are suplied.
 }
 \usage{
-BootstrapRep(ind.data, nb = 100)
+BootstrapRep(ind.data, iterations, ComparisonFunc, StatFunc, num.cores)
+BootstrapRepRandomSkewers(ind.data, iterations = 1000, num.cores = 1)
+BootstrapRepMantelCor(ind.data, iterations = 1000, num.cores = 1)
+BootstrapRepKrzCor(ind.data, iterations = 1000, correlation = F, num.cores = 1)
 }
-%- maybe also 'usage' for other objects documented here.
 \arguments{
-  \item{ind.data}{
-%%     ~~Describe \code{ind.data} here~~
-}
-  \item{nb}{
-%%     ~~Describe \code{nb} here~~
-}
+    \item{ind.data}{
+        Matrix of residuals or indiviual measurments
+    }
+    \item{iterations}{
+        Number of ressamples to take
+    }
+    \item{ComparisonFunc}{
+        Comparison function for calculated statistic
+    }
+    \item{StatFunc}{
+        Statistic to be calculated
+    }
+    \item{num.cores}{
+        Number of threads to use in computation.
+        Requires doMC library.
+    }
+    \item{correlation}{
+        When using BootstrapRepKrzCor, statistic can be correlation or covariance. If TRUE, uses correlation.
+    }
+
 }
 \details{
-%%  ~~ If necessary, more details than the description above ~~
+    Bootstraping may be misleading with very small sample sizes. Use
+with caution.
 }
 \value{
-%%  ~Describe the value returned
-%%  If it is a LIST, use
-%%  \item{comp1 }{Description of 'comp1'}
-%%  \item{comp2 }{Description of 'comp2'}
-%% ...
+    returns the mean repeatability, or mean value of comparisons from
+samples to original statistic.
 }
 \references{
-%% ~put references to the literature/web site here ~
+    %% ~put references to the literature/web site here ~
 }
 \author{
-%%  ~~who you are~~
+Diogo Melo, Guilherme Garcia
 }
 \note{
-%%  ~~further notes~~
 }
-
-%% ~Make other sections like Warning with \section{Warning }{....} ~
-
 \seealso{
-%% ~~objects to See Also as \code{\link{help}}, ~~~
+    \code{\link{MonteCarloStat}}, \code{\link{AlphaRep}}
 }
 \examples{
-##---- Should be DIRECTLY executable !! ----
-##-- ==>  Define data, use random,
-##--	or do  help(data=index)  for the standard data sets.
+BootstrapRep(iris[,1:4], iterations = 5,
+             ComparisonFunc = function(x, y) RandomSkewers(x, y)[1],
+             StatFunc = cov,
+             num.cores = 1)
 
-## The function is currently defined as
-function (ind.data, nb = 100) 
-{
-    n.ind <- dim(ind.data)[1]
-    original.cov.matrix <- var(ind.data)
-    v.rep <- c()
-    for (N in 1:nb) {
-        sampled.data <- sample(1:n.ind, n.ind, TRUE)
-        sampled.data.cov.matrix <- var(ind.data[sampled.data, 
-            ])
-        v.rep[N] <- RandomSkewers(original.cov.matrix, sampled.data.cov.matrix, 
-            1000)[1]
-    }
-    out <- mean(v.rep)
-    return(out)
-  }
+BootstrapRepRandomSkewers(iris[,1:4], 50)
+
+BootstrapRepMantelCor(iris[,1:4], 50)
+
+BootstrapRepKrzCor(iris[,1:4], 50)
+
+BootstrapRepKrzCor(iris[,1:4], 50, TRUE)
+
+#Creating repeatability vector for a list of matrices
+mat.list <- RandomMatrix(10, 3, 1, 10)
+unlist(lapply(mat.list, BootstrapRepKrzCor), 30, TRUE)
+
 }
 % Add one or more standard keywords, see file 'KEYWORDS' in the
 % R documentation directory.
-\keyword{ ~kwd1 }
-\keyword{ ~kwd2 }% __ONLY ONE__ keyword per line
+\keyword{bootstrap}
+\keyword{repetabilities}% __ONLY ONE__ keyword per line

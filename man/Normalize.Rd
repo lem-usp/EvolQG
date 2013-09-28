@@ -1,5 +1,6 @@
 \name{Normalize}
 \alias{Normalize}
+\alias{Norm}
 %- Also NEED an '\alias' for EACH other topic documented here.
 \title{
 Normalize
