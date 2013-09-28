@@ -24,9 +24,9 @@ CalcRepeatability(ID, ind.data)
     Vector of Repeatabilities per trait
 }
 \references{
-    Lessels, C. M., & Boag, P. T. (1987).
+    Lessels, C. M., and Boag, P. T. (1987).
     Unrepeatable repeatabilities: a common mistake.
-    The Auk, 2(January), 116¿121.
+    The Auk, 2(January), 116:121.
 }
 \author{
     Guilherme Garcia
