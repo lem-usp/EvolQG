@@ -9,9 +9,9 @@
     %%  ~~ A concise (1-5 lines) description of what the function does. ~~
 }
 \usage{
-ComparisonMap(matrix.list, MatrixCompFunc, repeat.vector = NULL,
+ComparisonMap(matrix.list, MatrixCompFunc, ..., repeat.vector = NULL,
               num.cores = 1)
-SingleComparisonMap(matrix.list, y.mat, MatrixCompFunc, num.cores)
+SingleComparisonMap(matrix.list, y.mat, MatrixCompFunc, ..., num.cores)
 }
 %- maybe also 'usage' for other objects documented here.
 \arguments{
@@ -23,6 +23,9 @@ SingleComparisonMap(matrix.list, y.mat, MatrixCompFunc, num.cores)
     }
     \item{MatrixCompFunc}{
         Function used to compare pair of matrices
+    }
+    \item{...}{
+        Aditional arguments to MatrixCompFunc
     }
     \item{repeat.vector}{
         Vector of repeatabilities for correlation correction.

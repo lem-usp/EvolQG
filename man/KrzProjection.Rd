@@ -13,28 +13,27 @@
 
 }
 \usage{
-KrzProjection(cov.matrix, ...)
+KrzProjection(cov.x, cov.y, ...)
 ### Default S3 method
-\method{KrzProjection}{default}(cov.matrix.1, cov.matrix.2,
-              ret.dim.1 = NULL, ret.dim.2 = NULL)
+\method{KrzProjection}{default}(cov.x, cov.y,
+              ret.dim.1 = NULL, ret.dim.2 = NULL, ...)
 
 ### List S3 method
-\method{KrzProjection}{list}(matrix.list, ret.dim.1 = NULL, ret.dim.2 = NULL,
-              num.cores = 1,
-              full.results = FALSE)
+\method{KrzProjection}{list}(cov.x, cov.y = NULL, ret.dim.1 = NULL, ret.dim.2 = NULL,
+              num.cores = 1, full.results = FALSE, ...)
 }
 %- maybe also 'usage' for other objects documented here.
 \arguments{
-    \item{cov.matrix, cov.matrix.1, matrix.list}{
+    \item{cov.x}{
         Single covariance matrix ou list of covariance matrices.
-        If single matrix is suplied, it is compared to cov.matrix.2.
-        If list is suplied and no cov.matrix.2 is suplied, all matrices
+        If single matrix is suplied, it is compared to cov.y.
+        If list is suplied and no cov.y is suplied, all matrices
         are compared.
-        If cov.matrix.2 is suplied, all matrices in list are compared to it.
+        If cov.y is suplied, all matrices in list are compared to it.
     }
     \item{...}{aditional arguments passed to other methods}
-    \item{cov.matrix.2}{
-        First argument is compared to cov.matrix.2.
+    \item{cov.y}{
+        First argument is compared to cov.y.
         Ignored if cov.marix.1 is a list.
     }
     \item{ret.dim.1, ret.dim.2}{

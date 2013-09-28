@@ -10,28 +10,26 @@
     Calculates covariance matrix correlation via random skewers
 }
 \usage{
-KrzCor(cov.matrix, ...)
+KrzCor(cov.x, cov.y, ...)
 ### Default S3 method
-\method{KrzCor}{default}(cov.matrix.1, cov.matrix.2, ret.dim = NULL)
+\method{KrzCor}{default}(cov.x, cov.y, ret.dim = NULL, ...)
 
 ### List S3 method
-\method{KrzCor}{list}(matrix.list, cov.matrix.2 = NULL,
-       repeat.vector = NULL, ret.dim = NULL,
-       num.cores = 1)
+\method{KrzCor}{list}(cov.x, cov.y = NULL,
+       ret.dim = NULL, repeat.vector = NULL,
+       num.cores = 1, ...)
 }
-%- maybe also 'usage' for other objects documented here.
 \arguments{
-    \item{cov.matrix, cov.matrix.1, matrix.list}{
+    \item{cov.x}{
         Single covariance matrix or list of covariance matrices.
-        If single matrix is suplied, it is compared to cov.matrix.2.
-        If list is suplied and no cov.matrix.2 is suplied, all matrices
+        If single matrix is suplied, it is compared to cov.y.
+        If list is suplied and no cov.y is suplied, all matrices
         are compared.
-        If cov.matrix.2 is suplied, all matrices in list are compared to it.
+        If cov.y is suplied, all matrices in list are compared to it.
     }
-    \item{...}{aditional arguments passed to other methods}
-    \item{cov.matrix.2}{
-        First argument is compared to cov.matrix.2.
-        Optional if cov.matrix.1 is a list.
+    \item{cov.y}{
+        First argument is compared to cov.y.
+        Optional if cov.x is a list.
     }
     \item{ret.dim}{
         number of retained dimensions in the comparison,
@@ -41,9 +39,10 @@ KrzCor(cov.matrix, ...)
         Vector of repeatabilities for correlation correction.
     }
     \item{num.cores}{
-        If list is passed, number of threads to use in computation. 
+        If list is passed, number of threads to use in computation.
         Requires doMC library.
     }
+    \item{...}{aditional arguments passed to other methods}
 }
 \details{
     %%  ~~ If necessary, more details than the description above ~~

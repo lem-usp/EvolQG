@@ -10,31 +10,30 @@
     Calculates correlation matrix correlation via Mantel.
 }
 \usage{
-MantelCor(cor.matrix, ...)
+MantelCor(cor.x, cor.y, ...)
 ### Default S3 method
-\method{MantelCor}{default}(cor.matrix.1, cor.matrix.2, iterations = 100, mod = FALSE)
+\method{MantelCor}{default}(cor.x, cor.y, iterations = 100, mod = FALSE, ...)
 ### List S3 method
-\method{MantelCor}{list}(matrix.list, cor.matrix.2 = NULL,
-    repeat.vector = NULL, iterations = 100, mod = FALSE,
-    num.cores = 1)
+\method{MantelCor}{list}(cor.x, cor.y = NULL,
+    iterations = 100, repeat.vector = NULL, mod = FALSE,
+    num.cores = 1, ...)
 }
 
 %- maybe also 'usage' for other objects documented here.
 \arguments{
-    \item{cor.matrix, cor.matrix.1, matrix.list}{
+    \item{cor.x}{
         Single covariance matrix or list of covariance matrices.
 
-        If single matrix is suplied, it is compared to cor.matrix.2.
+        If single matrix is suplied, it is compared to cor.y.
 
-        If list is suplied and no cor.matrix.2 is suplied, all matrices
+        If list is suplied and no cor.y is suplied, all matrices
         are compared.
 
-        If cor.matrix.2 is suplied, all matrices in list are compared to it.
+        If cor.y is suplied, all matrices in list are compared to it.
     }
-    \item{...}{aditional arguments passed to other methods}
-    \item{cor.matrix.2}{
-        First argument is compared to cor.matrix.2.
-        Optional if cor.matrix.1 is a list.
+    \item{cor.y}{
+        First argument is compared to cor.y.
+        Optional if cor.x is a list.
     }
     \item{iterations}{
         Number of permutations used in significance calculation.
@@ -50,17 +49,18 @@ MantelCor(cor.matrix, ...)
         If list is passed, number of threads to use in computation.
         Requires doMC library.
     }
+    \item{...}{aditional arguments passed to other methods}
 }
 \details{
     %%  ~~ If necessary, more details than the description above ~~
 }
 \value{
-    If cor.matrix.1 and cor.matrix.2 are passed, returns matrix pearson
+    If cor.x and cor.y are passed, returns matrix pearson
     correlation and significance via mantel permutations.
 
-    If matrix.list and cor.matrix.2 are passed, same as above, but for all matrices in matrix.list.
+    If cor.x and cor.y are passed, same as above, but for all matrices in cor.x.
 
-    If only matrix.list is passed, a matrix of MantelCor average
+    If only cor.x is passed, a matrix of MantelCor average
     values and probabilities of all comparisons.
     If repeat.vector is passed, comparison matrix is corrected below
     diagonal and repeatabilities returned in diagonal.

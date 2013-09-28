@@ -52,10 +52,9 @@ samples to original statistic.
     %% ~put references to the literature/web site here ~
 }
 \author{
-    %%  ~~who you are~~
+Diogo Melo, Guilherme Garcia
 }
 \note{
-Diogo Melo, Guilherme Garcia
 }
 \seealso{
     \code{\link{MonteCarloStat}}, \code{\link{AlphaRep}}
