@@ -129,6 +129,8 @@ MantelCor.default <- function (cor.x, cor.y, iterations = 100, mod = FALSE, ...)
     names(output) <- c("Rsquared", "Probability", "AVG+", "AVG-", "AVG Ratio")
   }
   else{
+    if(sum(diag(cor.x)) != dim(cor.x)[1] | sum(diag(cor.y))!= dim(cor.y)[1])
+      warning("Matrices do not appear to be correlation matrices. Use with caution.")
     output <- c(correlation, prob)
     names(output) <- c("Rsquared", "Probability")
   }
