@@ -94,7 +94,6 @@ results.KrzCov <- RarefactionKrzCor(ind.data, num.reps = 5)
 results.KrzCor <- RarefactionKrzCor(ind.data, TRUE, num.reps = 5)
 
 #Easy access
-library(reshape2)
 melt(results.RS)
 
 #Plotting using ggplot2
