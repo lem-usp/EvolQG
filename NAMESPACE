@@ -1,4 +1,5 @@
 exportPattern("^[[:alpha:]]+")
+import(plyr)
 importFrom(mvtnorm, rmvnorm)
 importFrom(vegan, mantel)
 importFrom(reshape2, melt)
