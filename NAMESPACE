@@ -1,6 +1,6 @@
 exportPattern("^[[:alpha:]]+")
-importFrom(mvtnorm,rmvnorm)
-importFrom(vegan,mantel)
+importFrom(mvtnorm, rmvnorm)
+importFrom(vegan, mantel)
 importFrom(reshape2, melt)
 importFrom(reshape2, acast)
 importFrom(ggplot2, ggplot)
