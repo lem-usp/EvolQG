@@ -1,9 +1,6 @@
 MonteCarloStat <- function (cov.matrix, sample.size, iterations,
                             ComparisonFunc, StatFunc,
                             num.cores = 1) {
-  library(mvtnorm)
-  library(plyr)
-  library(reshape2)
   if (num.cores > 1) {
     library(doMC)
     library(foreach)

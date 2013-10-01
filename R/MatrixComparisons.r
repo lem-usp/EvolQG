@@ -12,8 +12,6 @@ ComparisonMap <- function (matrix.list, MatrixCompFunc, ..., repeat.vector = NUL
   #  skewers correlation and probabilities according to permutation test.
   #  if repeat.vector was also passed, values below the diagonal on the correlation matrix
   #  will contain corrected correlation values.
-  library(plyr)
-  library(reshape2)
   if (num.cores > 1) {
     library(doMC)
     library(foreach)
@@ -49,8 +47,6 @@ ComparisonMap <- function (matrix.list, MatrixCompFunc, ..., repeat.vector = NUL
 }
 
 SingleComparisonMap  <- function(matrix.list, y.mat, MatrixCompFunc, ..., num.cores){
-  library(plyr)
-  library(reshape2)
   if (num.cores > 1) {
     library(doMC)
     library(foreach)
@@ -116,7 +112,6 @@ MantelCor.default <- function (cor.x, cor.y, iterations = 100, mod = FALSE, ...)
   #     matrix pearson correelation and significance.
   #     if mod==TRUE also returns average within, between and average ratio correlations
 {
-  library(vegan)
   mantel.out <- mantel(cor.x, cor.y, permutations = iterations)
   correlation <- mantel.out$statistic
   prob <- mantel.out$signif
@@ -129,6 +124,8 @@ MantelCor.default <- function (cor.x, cor.y, iterations = 100, mod = FALSE, ...)
     names(output) <- c("Rsquared", "Probability", "AVG+", "AVG-", "AVG Ratio")
   }
   else{
+    if(sum(diag(cor.x)) != dim(cor.x)[1] | sum(diag(cor.y))!= dim(cor.y)[1])
+      warning("Matrices do not appear to be correlation matrices. Use with caution.")
     output <- c(correlation, prob)
     names(output) <- c("Rsquared", "Probability")
   }

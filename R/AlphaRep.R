@@ -1,5 +1,4 @@
-AlphaRep <-
-function (cor.matrix, tam)
+AlphaRep <- function (cor.matrix, tam)
   # Calculates the matrix repeatability using the equation in Cheverud 1996
   # Quantitative genetic analysis of cranial morphology in the cotton-top
   # (Saguinus oedipus) and saddle-back (S. fuscicollis) tamarins. Journal of Evolutionary Biology 9, 5-42.
