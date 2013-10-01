@@ -32,9 +32,9 @@ Rarefaction <- function(ind.data,
 }
 
 PlotRarefaction <- function(comparison.list, y.axis = "Statistic"){
-  plot.df = melt(comparison.list)
+  plot.df = melt(comparison.list, value.name = 'avg.corr')
   plot.df = as.data.frame(lapply(plot.df, as.numeric))
-  rarefaction.plot = ggplot(plot.df, aes(L1, value, group = L1)) +
+  rarefaction.plot = ggplot(plot.df, aes(L1, avg.corr, group = L1)) +
   layer(geom = "boxplot") +
   scale_x_continuous("ReSample Size") +
   scale_y_continuous(y.axis) +

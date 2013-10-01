@@ -5,11 +5,13 @@
 \alias{RarefactionKrzCor}
 \alias{PlotRarefaction}
 \title{
+   Rarefaction analysis via ressampling
+}
+\description{
     Calculates the repeatability of a statistic of the data, such as
     correlation or covariance matrix, via bootstrap ressampling with
     varying sample sizes, from 2 to the size of the original data.
-}
-\description{
+
     Samples of various sizes, with replacement, are taken from the full population, a statistic calculated
     and compared to the full population statistic. Prepackaged functions
     for common comparison functions and statistics are suplied.
