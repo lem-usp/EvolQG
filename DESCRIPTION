@@ -2,7 +2,6 @@ Package: Morphometrics
 Type: Package
 Title: General Morphometrics functions
 Version: 0.1-0
-Commit: ffb55eab98cf246747beb5e974681eb4b2750250
 Date: 2013-09-16
 Author: Diogo Melo, Guilherme Garcia
 Maintainer: Diogo Melo <diogro@cecm.usp.br>
