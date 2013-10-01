@@ -4,10 +4,12 @@
 \alias{BootstrapRepMantelCor}
 \alias{BootstrapRepKrzCor}
 \title{
-    Calculates the repeatability of the covariance matrix of the suplied data
-    via bootstrap ressampling
+    Bootstrap analysis via ressampling
 }
 \description{
+    Calculates the repeatability of the covariance matrix of the suplied data
+    via bootstrap ressampling
+
     Samples with replacement are taken from the full population, a statistic calculated
     and compared to the full population statistic. Prepackaged functions
     for common comparison functions and statistics are suplied.

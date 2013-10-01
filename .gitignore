@@ -1,6 +1,9 @@
 # History files
 .Rhistory
 
+
 # Example code in package build process
 *-Ex.R
 Morphometrics.Rcheck/*
+.Rproj.user
+*.Rproj
