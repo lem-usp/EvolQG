@@ -72,6 +72,9 @@ test_that("MantelCor returns correct results",
             expect_that(results[1] >= -1, is_true())
             expect_that(results[2] <=  1, is_true())
             expect_that(results[2] >=  0, is_true())
+            cov.1 <- RandomMatrix(10, 1, 1, 10)
+            cov.2 <- RandomMatrix(10, 1, 1, 10)
+            expect_that(MantelCor(cov.1, cov.2), gives_warning("Matrices do not appear to be correlation matrices. Use with caution."))
           }
 )
 test_that("MantelCor returns corret results",

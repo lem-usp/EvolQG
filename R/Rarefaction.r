@@ -4,8 +4,6 @@ Rarefaction <- function(ind.data,
                         num.reps = 10,
                         num.cores = 1)
 {
-  library(plyr)
-  library(reshape2)
   if (num.cores > 1) {
     library(doMC)
     library(foreach)
@@ -34,8 +32,6 @@ Rarefaction <- function(ind.data,
 }
 
 PlotRarefaction <- function(comparison.list, y.axis = "Statistic"){
-  library(reshape2)
-  library(ggplot2)
   plot.df = melt(comparison.list)
   plot.df = as.data.frame(lapply(plot.df, as.numeric))
   rarefaction.plot = ggplot(plot.df, aes(L1, value, group = L1)) +
@@ -71,7 +67,7 @@ RarefactionMantelCor <- function(ind.data,
 }
 
 RarefactionKrzCor <- function(ind.data,
-                              correlation = F,
+                              correlation = FALSE,
                               ret.dim = NULL,
                               num.reps = 10,
                               num.cores = 1){
