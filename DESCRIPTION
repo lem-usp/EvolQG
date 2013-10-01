@@ -1,7 +1,8 @@
 Package: Morphometrics
 Type: Package
 Title: General Morphometrics functions
-Version: 0.1
+Version: 0.1-0
+Commit: 2196fa11b6c4b1553e3f5c843da0ee5f7b73bf61
 Date: 2013-09-16
 Author: Diogo Melo, Guilherme Garcia
 Maintainer: Diogo Melo <diogro@cecm.usp.br>
@@ -19,3 +20,4 @@ Suggests:
     foreach,
     doMC
 License: MIT + file LICENSE
+BugReports: https://github.com/lem-usp/Morphometrics/issues
