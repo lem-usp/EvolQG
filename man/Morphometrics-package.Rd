@@ -3,9 +3,10 @@
 \alias{Morphometrics}
 \docType{package}
 \title{
-Morphometrics fucntions for matrix estimation and comparisons
+Morphometrics functions for matrix estimation and comparisons
 }
 \description{
+Resonable implementations for a few morphometrics techniques.
 }
 \details{
 \tabular{ll}{

@@ -44,11 +44,8 @@
     \code{\link{MantelCor}}
 }
 \examples{
-    rand.hipots <- matrix(sample(c(1, 0), 30, replace=T), 10, 3)
-    hip.array <- CreateHipotMatrix(rand.hipots)
-    expect_that(sum(laply(hip.array, isSymmetric)), equals(4))
-    expect_that(hip.array, is_a("list"))
-    expect_that(dim(hip.array[[1]]), equals(c(10, 10)))
+    cor.matrix <- RandomMatrix(10)
+    rand.hipots <- matrix(sample(c(1, 0), 30, replace=TRUE), 10, 3)
     mod.test <- TestModularity(cor.matrix, rand.hipots)
 }
 \keyword{mantel}
