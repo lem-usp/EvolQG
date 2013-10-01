@@ -1,83 +1,55 @@
 \name{TestModularity}
 \alias{TestModularity}
 \alias{CreateHipotMatrix}
-%- Also NEED an '\alias' for EACH other topic documented here.
 \title{
-Test modularity hipotesis
+    Test modularity hipotesis
 }
 \description{
-%%  ~~ A concise (1-5 lines) description of what the function does. ~~
+    Tests modularity hipotesis using cor.matrix matrix and trait groupings
 }
 \usage{
-TestModularity(cor.matrix, modularity.hipot)
+    TestModularity(cor.matrix, modularity.hipot, iterations = 100)
 }
-%- maybe also 'usage' for other objects documented here.
 \arguments{
-  \item{cor.matrix}{
-%%     ~~Describe \code{cor.matrix} here~~
-}
-  \item{modularity.hipot}{
-%%     ~~Describe \code{modularity.hipot} here~~
-}
+    \item{cor.matrix}{
+        Correlation matrix
+    }
+    \item{modularity.hipot}{
+        modularity.hipot: Matrix of hipotesis.
+        Each line represents a trait and each column a module.
+        if modularity.hipot[i,j] == 1, trait i is in module j.
+    }
+    \item{iterations}{
+        Number of iterations, to be passed to MantelCor
+    }
 }
 \details{
-%%  ~~ If necessary, more details than the description above ~~
+    %%  ~~ If necessary, more details than the description above ~~
 }
 \value{
-%%  ~Describe the value returned
-%%  If it is a LIST, use
-%%  \item{comp1 }{Description of 'comp1'}
-%%  \item{comp2 }{Description of 'comp2'}
-%% ...
+    Returns mantel correlation and associated probability for each modularity hipotesis, along with AVG+, AVG-, AVG Ratio for each module.
+    A total hipotesis combining all hipotesis is also tested.
 }
 \references{
-%% ~put references to the literature/web site here ~
+    %% ~put references to the literature/web site here ~
 }
 \author{
-%%  ~~who you are~~
+    Diogo Melo, Guilherme Garcia
 }
 \note{
-%%  ~~further notes~~
+    %%  ~~further notes~~
 }
-
-%% ~Make other sections like Warning with \section{Warning }{....} ~
 
 \seealso{
-%% ~~objects to See Also as \code{\link{help}}, ~~~
+    \code{\link{MantelCor}}
 }
 \examples{
-##---- Should be DIRECTLY executable !! ----
-##-- ==>  Define data, use random,
-##--	or do  help(data=index)  for the standard data sets.
-
-## The function is currently defined as
-function (cor.matrix, modularity.hipot) 
-{
-    no.hip <- dim(modularity.hipot)[2]
-    traits <- dim(modularity.hipot)[1]
-    m.hip.array <- array(0, c(traits, traits, no.hip + 1))
-    for (N in 1:no.hip) {
-        for (L in 1:traits) {
-            for (M in 1:traits) {
-                m.hip.array[L, M, N] <- ifelse(modularity.hipot[L, 
-                  N] & modularity.hipot[M, N], 1, 0)
-            }
-        }
-    }
-    m.hip.array[, , no.hip + 1] <- as.integer(as.logical(apply(m.hip.array, 
-        c(1, 2), sum)))
-    no.hip <- no.hip + 1
-    output <- array(0, c(5, no.hip))
-    for (N in 1:no.hip) {
-        tmp <- MantelCor(cor.matrix, m.hip.array[, , N], mod = TRUE)
-        output[, N] <- tmp
-    }
-    dimnames(output) <- list(names(tmp), c(colnames(modularity.hipot), 
-        "Full Integration"))
-    return(output)
-  }
+    rand.hipots <- matrix(sample(c(1, 0), 30, replace=T), 10, 3)
+    hip.array <- CreateHipotMatrix(rand.hipots)
+    expect_that(sum(laply(hip.array, isSymmetric)), equals(4))
+    expect_that(hip.array, is_a("list"))
+    expect_that(dim(hip.array[[1]]), equals(c(10, 10)))
+    mod.test <- TestModularity(cor.matrix, rand.hipots)
 }
-% Add one or more standard keywords, see file 'KEYWORDS' in the
-% R documentation directory.
-\keyword{ ~kwd1 }
-\keyword{ ~kwd2 }% __ONLY ONE__ keyword per line
+\keyword{mantel}
+\keyword{modularity}

@@ -1,13 +1,4 @@
-TestModularity <- function (cor.matrix, modularity.hipot)
-  # Tests modularity hipotesis using cor.matrix matrix and trait groupings
-  #
-  # Args:
-  #   cor.matrix: Correlation matrix
-  #   modularity.hipot: Matrix of hipotesis.
-  #                     Each line represents a trait and each column a module.
-  #                     if modularity.hipot[i,j] == 1, trait i is in module j.
-  # Return:
-  #   list with mantel correlation of cor.matrix with binary hipotesis matrices
+TestModularity <- function (cor.matrix, modularity.hipot, iterations = 100)
 {
   m.hip.list <- CreateHipotMatrix(modularity.hipot)
   if(is.null(colnames(modularity.hipot))) colnames(modularity.hipot) <- 1:dim (modularity.hipot) [2]
@@ -15,6 +6,7 @@ TestModularity <- function (cor.matrix, modularity.hipot)
   output <- MantelCor (m.hip.list, cor.matrix, mod = TRUE)
   return (output)
 }
+
 
 CreateHipotMatrix <- function(modularity.hipot)
 {
