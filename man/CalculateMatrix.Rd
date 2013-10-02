@@ -2,59 +2,49 @@
 \alias{CalculateMatrix}
 %- Also NEED an '\alias' for EACH other topic documented here.
 \title{
-Calculate Covariance Matrix from LinearModel
+    Calculate Covariance Matrix from LinearModel
 }
 \description{
-%%  ~~ A concise (1-5 lines) description of what the function does. ~~
+    Calculates covariance matrix using the maximum likelihood estimator and the model residuals.
 }
 \usage{
 CalculateMatrix(linear.m)
 }
-%- maybe also 'usage' for other objects documented here.
 \arguments{
-  \item{linear.m}{
-%%     ~~Describe \code{linear.m} here~~
-}
+    \item{linear.m}{
+        Linear model adjusted for original data.
+    }
 }
 \details{
-%%  ~~ If necessary, more details than the description above ~~
+    %%  ~~ If necessary, more details than the description above ~~
 }
 \value{
-%%  ~Describe the value returned
-%%  If it is a LIST, use
-%%  \item{comp1 }{Description of 'comp1'}
-%%  \item{comp2 }{Description of 'comp2'}
-%% ...
+    Estimated covariance matrix.
 }
 \references{
-%% ~put references to the literature/web site here ~
+    https://github.com/lem-usp/lem-usp-R/wiki/
 }
 \author{
-%%  ~~who you are~~
+    Diogo Melo, Fabio Machado
 }
 \note{
-%%  ~~further notes~~
+    %%  ~~further notes~~
 }
 
 %% ~Make other sections like Warning with \section{Warning }{....} ~
 
 \seealso{
-%% ~~objects to See Also as \code{\link{help}}, ~~~
+    %% ~~objects to See Also as \code{\link{help}}, ~~~
 }
 \examples{
-##---- Should be DIRECTLY executable !! ----
-##-- ==>  Define data, use random,
-##--	or do  help(data=index)  for the standard data sets.
+data(iris)
+options(contrasts=c("contr.sum","contr.poly"))
+iris.lm = lm(as.matrix(iris[,1:4])~iris[,5])
+cov.matrix <- CalculateMatrix(iris.lm)
 
-## The function is currently defined as
-function (linear.m) 
-{
-    cov.matrix = var(linear.m$residuals) * ((dim(linear.m$residuals)[1] - 
-        1)/linear.m$df.residual)
-    return(cov.matrix)
-  }
+#To obtain a corrlation matrix, use:
+cor.matrix <- cov2cor(cov.matrix)
 }
 % Add one or more standard keywords, see file 'KEYWORDS' in the
 % R documentation directory.
-\keyword{ ~kwd1 }
-\keyword{ ~kwd2 }% __ONLY ONE__ keyword per line
+\keyword{covariancematrix}
