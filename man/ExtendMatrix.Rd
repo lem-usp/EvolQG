@@ -31,7 +31,7 @@ Marroig, G., Melo, D. A. R., and Garcia, G. (2012). Modularity, noise, and natur
 Diogo Melo
 }
 \note{
-Covariance matrixe being extended must be larger then 10x10
+Covariance matrix being extended must be larger then 10x10
 }
 
 %% ~Make other sections like Warning with \section{Warning }{....} ~
