@@ -5,38 +5,33 @@
 Control Inverse matrix noise with Extension
 }
 \description{
-%%  ~~ A concise (1-5 lines) description of what the function does. ~~
+Calculates the extented covariance matrix estimation
 }
 \usage{
-ExtendMatrix(cov.matrix, cutoff = NULL)
+ExtendMatrix(cov.matrix, cut.off = NULL)
 }
-%- maybe also 'usage' for other objects documented here.
 \arguments{
   \item{cov.matrix}{
-%%     ~~Describe \code{cov.matrix} here~~
+Covariance matrix
 }
-  \item{cutoff}{
-%%     ~~Describe \code{cutoff} here~~
+  \item{cut.off}{
+Cut off for second derivative variance. When below first below cut off, last eigen value is selected.
 }
 }
 \details{
 %%  ~~ If necessary, more details than the description above ~~
 }
 \value{
-%%  ~Describe the value returned
-%%  If it is a LIST, use
-%%  \item{comp1 }{Description of 'comp1'}
-%%  \item{comp2 }{Description of 'comp2'}
-%% ...
+Extended covariance matrix.
 }
 \references{
-%% ~put references to the literature/web site here ~
+Marroig, G., Melo, D. A. R., and Garcia, G. (2012). Modularity, noise, and natural selection. Evolution; international journal of organic evolution, 66(5), 1506-24. doi:10.1111/j.1558-5646.2011.01555.x
 }
 \author{
-%%  ~~who you are~~
+Diogo Melo
 }
 \note{
-%%  ~~further notes~~
+Covariance matrixe being extended must be larger then 10x10
 }
 
 %% ~Make other sections like Warning with \section{Warning }{....} ~
@@ -45,41 +40,10 @@ ExtendMatrix(cov.matrix, cutoff = NULL)
 %% ~~objects to See Also as \code{\link{help}}, ~~~
 }
 \examples{
-##---- Should be DIRECTLY executable !! ----
-##-- ==>  Define data, use random,
-##--	or do  help(data=index)  for the standard data sets.
-
-## The function is currently defined as
-function (cov.matrix, cutoff = NULL) 
-{
-    p = dim(cov.matrix)[1]
-    if (p < 10) 
-        stop("matrix is too small")
-    eigen.cov.matrix = eigen(cov.matrix)
-    eVal = eigen.cov.matrix$values
-    eVec = eigen.cov.matrix$vectors
-    if (is.null(cutoff)) {
-        grad = array(dim = c(p - 2))
-        tr.cov.matrix = sum(eVal)
-        for (i in 1:(p - 2)) grad[i] = abs(eVal[i]/tr.cov.matrix - 
-            2 * (eVal[i + 1]/tr.cov.matrix) + eVal[i + 2]/tr.cov.matrix)
-        var.grad = array(dim = c(p - 6))
-        for (i in 1:(p - 6)) {
-            var.grad[i] = var(grad[i:(i + 4)])
-        }
-        length(var.grad[var.grad < 1e-04])
-        x11()
-        plot(4:(p - 3), var.grad)
-        cutoff = floor(locator(1)$x)
-    }
-    eVal[eVal < eVal[cutoff]] = eVal[cutoff]
-    extended.cov.matrix = eVec \%*\% diag(eVal) \%*\% t(eVec)
-    colnames(extended.cov.matrix) = colnames(cov.matrix)
-    rownames(extended.cov.matrix) = rownames(cov.matrix)
-    return(extended.cov.matrix)
-  }
+      cov.matrix = RandomMatrix(11, 1, 1, 100)
+      ext.matrix = ExtendMatrix(cov.matrix, cut.off = 10e-4)
 }
 % Add one or more standard keywords, see file 'KEYWORDS' in the
 % R documentation directory.
-\keyword{ ~kwd1 }
-\keyword{ ~kwd2 }% __ONLY ONE__ keyword per line
+\keyword{extension}
+\keyword{covariancematrix}
