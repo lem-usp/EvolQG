@@ -39,6 +39,7 @@ Diogo Melo, Guilherme Garcia
 cov.matrix <- RandomMatrix(10, 1, 1, 10)
 CalcR2(cov.matrix)
 CalcR2(cov2cor(cov.matrix))
+}
 % Add one or more standard keywords, see file 'KEYWORDS' in the
 % R documentation directory.
 \keyword{correlations}
