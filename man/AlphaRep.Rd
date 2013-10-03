@@ -1,64 +1,58 @@
 \name{AlphaRep}
 \alias{AlphaRep}
-%- Also NEED an '\alias' for EACH other topic documented here.
+
 \title{
-AlphaRep
+    Alpha Repetability
 }
 \description{
-%%  ~~ A concise (1-5 lines) description of what the function does. ~~
+    Calculates the matrix repeatability using the equation in Cheverud 1996
+    Quantitative genetic analysis of cranial morphology in the cotton-top
+    (Saguinus oedipus) and saddle-back (S. fuscicollis) tamarins. Journal of Evolutionary Biology 9, 5-42.
 }
 \usage{
-AlphaRep(cor.matrix, tam)
+AlphaRep(cor.matrix, sample.size)
 }
-%- maybe also 'usage' for other objects documented here.
+
 \arguments{
-  \item{cor.matrix}{
-%%     ~~Describe \code{cor.matrix} here~~
-}
-  \item{tam}{
-%%     ~~Describe \code{tam} here~~
-}
+    \item{cor.matrix}{
+        Correlation matrix
+    }
+    \item{sample.size}{
+        Sample size used in matrix estimatio
+    }
 }
 \details{
-%%  ~~ If necessary, more details than the description above ~~
+    %%  ~~ If necessary, more details than the description above ~~
 }
 \value{
-%%  ~Describe the value returned
-%%  If it is a LIST, use
-%%  \item{comp1 }{Description of 'comp1'}
-%%  \item{comp2 }{Description of 'comp2'}
-%% ...
+    Alpha repeatability
 }
 \references{
-%% ~put references to the literature/web site here ~
+    Cheverud 1996 Quantitative genetic analysis of cranial morphology in the cotton-top
+    (Saguinus oedipus) and saddle-back (S. fuscicollis) tamarins. Journal of Evolutionary Biology 9, 5-42.
 }
 \author{
-%%  ~~who you are~~
+    Diogo Melo, Guilherme Garcia
 }
 \note{
-%%  ~~further notes~~
+    %%  ~~further notes~~
 }
-
-%% ~Make other sections like Warning with \section{Warning }{....} ~
 
 \seealso{
-%% ~~objects to See Also as \code{\link{help}}, ~~~
+    \code{\link{MonteCarloStat}}, \code{\link{BootstrapRep}}
 }
 \examples{
-##---- Should be DIRECTLY executable !! ----
-##-- ==>  Define data, use random,
-##--	or do  help(data=index)  for the standard data sets.
 
-## The function is currently defined as
-function (cor.matrix, tam) 
-{
-    vec <- cor.matrix[lower.tri(cor.matrix)]
-    var.erro <- (1 - mean(vec)^2)/(tam - 2)
-    var.vec <- var(vec)
-    return((var.vec - var.erro)/var.vec)
-  }
+#For single matrices
+cor.matrix <- RandomMatrix(10)
+AlphaRep(cor.matrix, 10)
+AlphaRep(cor.matrix, 100)
+
+#For many matrices
+mat.list <- RandomMatrix(10, 100)
+sample.sizes <- floor(runif(100, 20, 50))
+mat.plus.samples <- alply(1:100, 1, function(x) list(mat.list[[x]], sample.sizes[x]))
+laply(mat.plus.samples, function(x) AlphaRep(x[[1]], x[[2]]))
 }
-% Add one or more standard keywords, see file 'KEYWORDS' in the
-% R documentation directory.
-\keyword{ ~kwd1 }
-\keyword{ ~kwd2 }% __ONLY ONE__ keyword per line
+
+\keyword{repetatability}
