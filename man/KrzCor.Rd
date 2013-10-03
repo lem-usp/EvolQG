@@ -7,7 +7,7 @@
     Compare matrices via Krzanowski Correlation
 }
 \description{
-    Calculates covariance matrix correlation via random skewers
+    Calculates covariance matrix correlation via Krzanowski Correlation
 }
 \usage{
 KrzCor(cov.x, cov.y, ...)
