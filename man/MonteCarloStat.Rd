@@ -74,9 +74,6 @@ MonteCarloR2 (cov.matrix, sample.size, iterations = 1000, num.cores = 1)
     \code{\link{BootstrapRep}}, \code{\link{AlphaRep}}
 }
 \examples{
-##---- Should be DIRECTLY executable !! ----
-##-- ==>  Define data, use random,
-##--	or do  help(data=index)  for the standard data sets.
 cov.matrix <- RandomMatrix(10, 1, 1, 10)
 
 MonteCarloStat(cov.matrix, sample.size = 30, iterations = 1000,
