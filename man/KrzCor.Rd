@@ -7,14 +7,11 @@
     Compare matrices via Krzanowski Correlation
 }
 \description{
-    Calculates covariance matrix correlation via random skewers
+    Calculates covariance matrix correlation via Krzanowski Correlation
 }
 \usage{
 KrzCor(cov.x, cov.y, ...)
-### Default S3 method
 \method{KrzCor}{default}(cov.x, cov.y, ret.dim = NULL, ...)
-
-### List S3 method
 \method{KrzCor}{list}(cov.x, cov.y = NULL,
        ret.dim = NULL, repeat.vector = NULL,
        num.cores = 1, ...)
