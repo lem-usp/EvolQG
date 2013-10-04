@@ -26,7 +26,7 @@ BootstrapRep <- function (ind.data, iterations,
                         .parallel = parallel)
   comparisons <- laply (populations, function (x) ComparisonFunc (c.matrix, StatFunc(x)),
                         .parallel = parallel)
-  return (mean(comparisons))
+  return (comparisons)
 }
 
 BootstrapRepRandomSkewers <- function(ind.data, iterations = 1000, num.cores = 1){
@@ -34,7 +34,7 @@ BootstrapRepRandomSkewers <- function(ind.data, iterations = 1000, num.cores = 1
                                 ComparisonFunc = function(x, y) RandomSkewers(x, y)[1],
                                 StatFunc = cov,
                                 num.cores = num.cores)
-  return(repeatability)
+  return(mean(repeatability))
 }
 
 BootstrapRepMantelCor <- function(ind.data, iterations = 1000, num.cores = 1){
@@ -42,7 +42,7 @@ BootstrapRepMantelCor <- function(ind.data, iterations = 1000, num.cores = 1){
                                 ComparisonFunc = function(x, y) MantelCor(x, y, 1)[1],
                                 StatFunc = cor,
                                 num.cores = num.cores)
-  return(repeatability)
+  return(mean(repeatability))
 }
 
 BootstrapRepKrzCor <- function(ind.data, iterations = 1000, correlation = F, num.cores = 1){
@@ -52,5 +52,5 @@ BootstrapRepKrzCor <- function(ind.data, iterations = 1000, correlation = F, num
                                 ComparisonFunc = function(x, y) MantelCor(x, y, 1)[1],
                                 StatFunc = StatFunc,
                                 num.cores = num.cores)
-  return(repeatability)
+  return(mean(repeatability))
 }
