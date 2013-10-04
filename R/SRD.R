@@ -1,19 +1,12 @@
-SRD <- function (cov.matrix.1, cov.matrix.2, iterations = 1000)
-  # Calculates the selection response decomposition comparison between covariance matrices
-  #
-  # Args:
-  #     cov.matrix.(1,2): covariance matrices being compared
-  #     iterations: number of RandomSkewers random vectors
-  # Return:
-  #     SRD scores for each trait and significance using mean and sd of SRD scores
-{
-  size <- dim (cov.matrix.1)[1]
+SRD <- function (cov.x, cov.y, ...) UseMethod("SRD")
+SRD.default <- function (cov.x, cov.y, iterations = 1000, ...) {
+  size <- dim (cov.x)[1]
   r2s <- array (0, c(size,iterations))
   beta <- apply (array (rnorm (size*iterations, mean = 0, sd = 1),c(size,iterations)),2, Normalize)
   for (I in 1:iterations){
     beta.matrix <- diag (beta[,I])
-    dz1 <- apply (cov.matrix.1 %*% beta.matrix, 1, Normalize)
-    dz2 <- apply (cov.matrix.2 %*% beta.matrix, 1, Normalize)
+    dz1 <- apply (cov.x %*% beta.matrix, 1, Normalize)
+    dz2 <- apply (cov.y %*% beta.matrix, 1, Normalize)
     r2s[,I] <- colSums (dz1 * dz2)
   }
   # results
@@ -48,22 +41,40 @@ SRD <- function (cov.matrix.1, cov.matrix.2, iterations = 1000)
                  "code"      = pc1.sig)
   output <- cbind (mean.r2, low.r2, up.r2, sd.r2, cmean.r2, csd.r2)
   colnames (output) <- c("ARC","IC-","IC+","SD","CMEAN","CSD")
-  rownames (output) <- rownames (cov.matrix.1)
+  rownames (output) <- rownames (cov.x)
   return (list ("out"    = output,
                 "pc1"    = pc1,
                 "model"  = model,
                 "cormat" = cor (t(r2s))))
 }
 
-PlotSRD <- function (output, matrix.label = "")
-  # Plots the output of the SRD function in standard format
-  #
-  # Args:
-  # output: the output from the SRD funtion
-  # matrix.label: string with the names of the matrices that were compared in the SRD function
-  # Return:
-  # pretty plot
-{
+
+SRD.list <- function (cov.x, cov.y = NULL, iterations = 1000, num.cores = 1, ...){
+  if (num.cores > 1) {
+    library(doMC)
+    library(foreach)
+    registerDoMC(num.cores)
+    parallel = TRUE
+  }
+  else{
+    parallel = FALSE
+  }
+  n.matrix <- length(cov.x)
+  if(is.null(names(cov.x))) {names(cov.x) <- 1:n.matrix}
+  matrix.names <- names (cov.x)
+  CompareToN <- function(n) llply(cov.x[(n+1):n.matrix],
+                                  function(x) {SRD(x, cov.x[[n]])},
+                                  .parallel = parallel)
+  comparisons <- alply(1:(n.matrix-1), 1,  CompareToN, .parallel = parallel)
+  corrs <- array(list(), c(n.matrix, n.matrix))
+  for(i in 1:(n.matrix-1)){
+    corrs[i,(i+1):n.matrix] <- comparisons[[i]]
+  }
+  corrs[lower.tri(corrs)] <- t(corrs)[lower.tri(corrs)]
+  return (corrs)
+}
+
+PlotSRD <- function (output, matrix.label = "") {
   layout (array (c(1,1,2,2),c(2,2)))
   par (mar = c(4.0, 4.0, 8, 0.4))
   mean.r2 <- output$out[,1]

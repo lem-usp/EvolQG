@@ -1,5 +1,7 @@
 \name{SRD}
 \alias{SRD}
+\alias{SRD.default}
+\alias{SRD.list}
 \alias{PlotSRD}
 \title{
     Compare matrices via Selection Response Decomposition
@@ -10,17 +12,22 @@
     vector correlations.
 }
 \usage{
-SRD(cov.matrix.1, cov.matrix.2, iterations = 1000)
+SRD(cov.x, cov.y, ...)
+\method{SRD}{default}(cov.x, cov.y, iterations = 1000, ...)
+\method{SRD}{list}(cov.x, cov.y = NULL, iterations = 1000, ...)
 PlotSRD (output, matrix.label = "")
 
 }
 %- maybe also 'usage' for other objects documented here.
 \arguments{
-    \item{cov.matrix.1, cov.matrix.2}{
-        Covariance matrix being compared
+    \item{cov.x, cov.y}{
+        Covariance matrix being compared. cov.x can be a matrix or a list.
     }
     \item{iterations}{
         Number of random vectors used in comparison
+    }
+    \item{...}{
+        aditional parameters passed to other methods
     }
     \item{output}{
         Output form SRD function, used in ploting
@@ -38,6 +45,8 @@ PlotSRD (output, matrix.label = "")
     \item{pc1}{scored along the pc1 of the mean/SD correlation matrix}
     \item{model}{List of linear model results from mean/SD correlation. Quantiles, interval and divergent traits}
     \item{cormat}{Mean/Sd model correlation matrix}
+    
+    If input is a list, output is a symmetric list array with pairwise comparisons.
 
 }
 \references{
