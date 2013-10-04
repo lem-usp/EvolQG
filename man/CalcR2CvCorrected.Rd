@@ -47,7 +47,9 @@ Diogo Melo, Guilherme Garcia
 \code{\link{MeanMatrixStatistics}}, \code{\link{CalcR2}}
 }
 \examples{
-CalcR2CvCorrected(iris[,1:4])
+r2.dist = CalcR2CvCorrected(iris[,1:4])
+plot(r2.dist[,1], r2.dist[,3])
+plot(r2.dist[,2], r2.dist[,3])
 }
 % Add one or more standard keywords, see file 'KEYWORDS' in the
 % R documentation directory.
