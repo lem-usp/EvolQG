@@ -14,7 +14,7 @@
 \usage{
 SRD(cov.x, cov.y, ...)
 \method{SRD}{default}(cov.x, cov.y, iterations = 1000, ...)
-\method{SRD}{list}(cov.x, cov.y = NULL, iterations = 1000, ...)
+\method{SRD}{list}(cov.x, cov.y = NULL, iterations = 1000, num.cores = 1, ...)
 PlotSRD (output, matrix.label = "")
 
 }
@@ -25,6 +25,10 @@ PlotSRD (output, matrix.label = "")
     }
     \item{iterations}{
         Number of random vectors used in comparison
+    }
+    \item{num.cores}{
+        If list is passed, number of threads to use in computation.
+        Requires doMC library.
     }
     \item{...}{
         aditional parameters passed to other methods
@@ -71,6 +75,9 @@ colnames(cov.matrix.1) <- colnames(cov.matrix.2) <- sample(letters, 10)
 rownames(cov.matrix.1) <- rownames(cov.matrix.2) <- colnames(cov.matrix.1)
 srd.out <- SRD(cov.matrix.1, cov.matrix.2)
 
+#lists
+m.list <- RandomMatrix(10, 4)
+SRD(m.list)
 
 #divergent traits
 colnames(cov.matrix.1)[as.logical(srd.out$model$code)]
