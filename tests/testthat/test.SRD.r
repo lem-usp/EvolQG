@@ -28,3 +28,15 @@ test_that("SRD returns correct results",
             expect_that(as.numeric(srd.out[[2]] < srd.out[[3]][[2]]), equals(srd.out[[3]][[3]]))
           }
 )
+
+test_that("SRD returns correct results on lists",
+          {
+            m.list <- RandomMatrix(10, 4)
+            set.seed(42)
+            srd.all <- SRD(m.list)
+            set.seed(42)
+            one.and.two  <- srd.all[1, 2]
+            one.and.two.default <- SRD(m.list[[1]], m.list[[2]])
+            expect_that(one.and.two, is_equivalent_to(one.and.two.default))
+          }
+)

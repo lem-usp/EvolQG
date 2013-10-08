@@ -68,7 +68,7 @@ SRD.list <- function (cov.x, cov.y = NULL, iterations = 1000, num.cores = 1, ...
   comparisons <- alply(1:(n.matrix-1), 1,  CompareToN, .parallel = parallel)
   corrs <- array(list(), c(n.matrix, n.matrix))
   for(i in 1:(n.matrix-1)){
-    corrs[i,(i+1):n.matrix] <- comparisons[[i]]
+    corrs[i,(i+1):n.matrix] <- comparisons[[i]][[1]]
   }
   corrs[lower.tri(corrs)] <- t(corrs)[lower.tri(corrs)]
   return (corrs)
