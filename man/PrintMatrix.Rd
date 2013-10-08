@@ -49,7 +49,7 @@ Diogo Melo
 }
 \examples{
 m.list <- RandomMatrix(10, 4)
-PrintMatrix(x)
+PrintMatrix(m.list)
 }
 % Add one or more standard keywords, see file 'KEYWORDS' in the
 % R documentation directory.
