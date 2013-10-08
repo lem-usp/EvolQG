@@ -12,7 +12,7 @@ PrintMatrix.list <- function(x, out.file = './matrix.csv', ...){
                      y <- x[names(x) == mat]
                      cat(mat)
                      cat('\n')
-                     dump(write.table(y, row.names = FALSE, col.names = FALSE))
+                     dump(write.table(y, row.names = FALSE, col.names = FALSE, sep=","))
                      cat('\n')
 }))
     sink()
