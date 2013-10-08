@@ -35,8 +35,10 @@ test_that("SRD returns correct results on lists",
             set.seed(42)
             srd.all <- SRD(m.list)
             set.seed(42)
-            one.and.two  <- srd.all[1, 2]
+            one.and.two  <- srd.all[1, 2][[1]]
             one.and.two.default <- SRD(m.list[[1]], m.list[[2]])
             expect_that(one.and.two, is_equivalent_to(one.and.two.default))
+            expect_that(srd.all, is_a('matrix'))
+            expect_that(isSymmetric(srd.all),is_true())
           }
 )
