@@ -6,7 +6,7 @@
     Generic Comparison Map functions for creating parallel list methods
 }
 \description{
-    %%  ~~ A concise (1-5 lines) description of what the function does. ~~
+    Internal functions for making eficient comparisons.
 }
 \usage{
 ComparisonMap(matrix.list, MatrixCompFunc, ..., repeat.vector = NULL,
@@ -22,7 +22,7 @@ SingleComparisonMap(matrix.list, y.mat, MatrixCompFunc, ..., num.cores)
         single matrix being compared to list
     }
     \item{MatrixCompFunc}{
-        Function used to compare pair of matrices
+        Function used to compare pair of matrices, must output a vector: comparisons and probabilities
     }
     \item{...}{
         Aditional arguments to MatrixCompFunc
@@ -53,7 +53,7 @@ Diogo Melo
 %% ~Make other sections like Warning with \section{Warning }{....} ~
 
 \seealso{
-    %% ~~objects to See Also as \code{\link{help}}, ~~~
+    \code{\link{MantelCor}}, \code{\link{KrzCor}},\code{\link{RandomSkewers}}
 }
 \examples{
 
