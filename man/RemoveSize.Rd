@@ -39,7 +39,7 @@
 }
 \examples{
     cov.matrix <- RandomMatrix(10, 1, 1, 10)
-    no.Size.cov.matrix <- RemoveSize(cov.matrix)
+    no.size.cov.matrix <- RemoveSize(cov.matrix)
     eigen(cov.matrix)
     eigen(no.size.cov.matrix)
 }
