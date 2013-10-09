@@ -3,10 +3,10 @@
 \alias{CalcR2CvCorrected.default}
 \alias{CalcR2CvCorrected.lm}
 \title{
-Corrected integration value
+    Corrected integration value
 }
 \description{
-Calculates the Young correction for integration, using bootstrap
+    Calculates the Young correction for integration, using bootstrap
 }
 \usage{
 CalcR2CvCorrected(ind.data, ...)
@@ -28,23 +28,26 @@ CalcR2CvCorrected(ind.data, ...)
     \item{...}{aditional arguments passed to other methods}
 }
 \details{
-%%  ~~ If necessary, more details than the description above ~~
+    %%  ~~ If necessary, more details than the description above ~~
 }
 \value{
-data.frame with mean squared correlation, mean eigen value coeficient of variation and mean coeficient of variation for all sampled populations
+    data.frame with mean squared correlation, mean eigen value coeficient of variation and mean coeficient of variation for all sampled populations
 }
 \references{
-Young, N. M., Wagner, G. P., and Hallgrímsson, B. (2010). Development and the evolvability of human limbs. Proceedings of the National Academy of Sciences of the United States of America, 107(8), 3400-5. doi:10.1073/pnas.0911856107
+    Young, N. M., Wagner, G. P., and Hallgrimsson, B. (2010).
+Development and the evolvability of human limbs. Proceedings of the
+National Academy of Sciences of the United States of America, 107(8),
+3400-5. doi:10.1073/pnas.0911856107
 }
 \author{
-Diogo Melo, Guilherme Garcia
+    Diogo Melo, Guilherme Garcia
 }
 \note{
-%%  ~~further notes~~
+    %%  ~~further notes~~
 }
 
 \seealso{
-\code{\link{MeanMatrixStatistics}}, \code{\link{CalcR2}}
+    \code{\link{MeanMatrixStatistics}}, \code{\link{CalcR2}}
 }
 \examples{
 r2.dist = CalcR2CvCorrected(iris[,1:4])

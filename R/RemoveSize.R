@@ -1,12 +1,4 @@
-RemoveSize <-
-function (cov.matrix)
-  # Removes first principal component effect in cov.matrix.
-  #
-  # Args:
-  #   cov.matrix: A simetric covariance matrix
-  # Return:
-  #   cov.matrix with size removed
-{
+RemoveSize <- function (cov.matrix) {
   cov.matrix.svd  <-  svd(cov.matrix)
   size.eigen.vector <- cov.matrix.svd$u[, 1]
   size.eigen.value <- cov.matrix.svd$d[1]
