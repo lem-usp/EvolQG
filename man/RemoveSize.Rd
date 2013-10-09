@@ -2,62 +2,47 @@
 \alias{RemoveSize}
 %- Also NEED an '\alias' for EACH other topic documented here.
 \title{
-Remove first principal component variation
+    Remove Size Variation
 }
 \description{
-%%  ~~ A concise (1-5 lines) description of what the function does. ~~
+    Removes first principal component effect in a covariance matrix.
 }
 \usage{
-RemoveSize(cov.matrix)
+    RemoveSize(cov.matrix)
 }
 %- maybe also 'usage' for other objects documented here.
 \arguments{
-  \item{cov.matrix}{
-%%     ~~Describe \code{cov.matrix} here~~
-}
+    \item{cov.matrix}{
+        Covariance matrix
+    }
 }
 \details{
-%%  ~~ If necessary, more details than the description above ~~
+    Function sets the first eigen value to zero.
 }
 \value{
-%%  ~Describe the value returned
-%%  If it is a LIST, use
-%%  \item{comp1 }{Description of 'comp1'}
-%%  \item{comp2 }{Description of 'comp2'}
-%% ...
+    Altered covariance matriz, with no variation on former first principal component
 }
 \references{
-%% ~put references to the literature/web site here ~
+    %% ~put references to the literature/web site here ~
 }
 \author{
-%%  ~~who you are~~
+    Diogo Melo, Guilherme Garcia
 }
 \note{
-%%  ~~further notes~~
+    %%  ~~further notes~~
 }
 
 %% ~Make other sections like Warning with \section{Warning }{....} ~
 
 \seealso{
-%% ~~objects to See Also as \code{\link{help}}, ~~~
+    %% ~~objects to See Also as \code{\link{help}}, ~~~
 }
 \examples{
-##---- Should be DIRECTLY executable !! ----
-##-- ==>  Define data, use random,
-##--	or do  help(data=index)  for the standard data sets.
-
-## The function is currently defined as
-function (cov.matrix) 
-{
-    cov.matrix.svd <- svd(cov.matrix)
-    size.eigen.vector <- cov.matrix.svd$u[, 1]
-    size.eigen.value <- cov.matrix.svd$d[1]
-    size.factor <- size.eigen.vector * sqrt(size.eigen.value)
-    cov.matrix.size.removed <- cov.matrix - size.factor \%*\% t(size.factor)
-    return(cov.matrix.size.removed)
-  }
+    cov.matrix <- RandomMatrix(10, 1, 1, 10)
+    no.size.cov.matrix <- RemoveSize(cov.matrix)
+    eigen(cov.matrix)
+    eigen(no.size.cov.matrix)
 }
 % Add one or more standard keywords, see file 'KEYWORDS' in the
 % R documentation directory.
-\keyword{ ~kwd1 }
-\keyword{ ~kwd2 }% __ONLY ONE__ keyword per line
+\keyword{size}

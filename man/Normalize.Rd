@@ -3,35 +3,32 @@
 \alias{Norm}
 %- Also NEED an '\alias' for EACH other topic documented here.
 \title{
-Normalize
+Normalize and Norm
 }
 \description{
-%%  ~~ A concise (1-5 lines) description of what the function does. ~~
+Norm returns the euclidian norm of a vector, normalze returns a vector with unit norm.
 }
 \usage{
 Normalize(x)
+Norm(x)
 }
 %- maybe also 'usage' for other objects documented here.
 \arguments{
   \item{x}{
-%%     ~~Describe \code{x} here~~
+Numeric vector
 }
 }
 \details{
 %%  ~~ If necessary, more details than the description above ~~
 }
 \value{
-%%  ~Describe the value returned
-%%  If it is a LIST, use
-%%  \item{comp1 }{Description of 'comp1'}
-%%  \item{comp2 }{Description of 'comp2'}
-%% ...
+    Normalized vector or inpout vector norm.
 }
 \references{
 %% ~put references to the literature/web site here ~
 }
 \author{
-%%  ~~who you are~~
+Diogo Melo, Guilherme Garcia
 }
 \note{
 %%  ~~further notes~~
@@ -43,15 +40,10 @@ Normalize(x)
 %% ~~objects to See Also as \code{\link{help}}, ~~~
 }
 \examples{
-##---- Should be DIRECTLY executable !! ----
-##-- ==>  Define data, use random,
-##--	or do  help(data=index)  for the standard data sets.
-
-## The function is currently defined as
-function (x) 
-{
-    return(x/Norm(x))
-  }
+    x <- rnorm(10)
+    n.x <- Normalize(x)
+    Norm(x)
+    Norm(n.x)
 }
 % Add one or more standard keywords, see file 'KEYWORDS' in the
 % R documentation directory.
