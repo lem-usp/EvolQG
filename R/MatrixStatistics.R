@@ -1,11 +1,28 @@
-Autonomy <- function (beta, cov.matrix) return ((1/(t (beta) %*% solve (cov.matrix, beta))) / (t (beta) %*% cov.matrix %*% beta))
-ConditionalEvolvability <- function (beta, cov.matrix) return (1/(t (beta) %*% solve (cov.matrix, beta)))
-Constraints <- function (beta, cov.matrix) return (abs (t (Normalize (eigen (cov.matrix)$vectors[,1])) %*% Normalize (cov.matrix %*% beta)))
-Evolvability <- function (beta, cov.matrix) return (t (beta) %*% cov.matrix %*% beta)
-Flexibility <- function (beta, cov.matrix) return (t (beta) %*% cov.matrix %*% beta / Norm (cov.matrix %*% beta))
-Pc1Percent <- function (cov.matrix) return (eigen (cov.matrix)$values [1] / sum (eigen (cov.matrix)$values))
-Respondability <- function (beta, cov.matrix) return (Norm (cov.matrix %*% beta))
-
+#' Calculate mean values for various matrix statistics
+#'
+#' Calculates: Mean Squared Correlation, Autonomy, ConditionalEvolvability, Constraints, Evolvability, Flexibility, Pc1Percent, Respondability.
+#' @aliases Autonomy ConditionalEvolvability Constraints Evolvability Flexibility Pc1Percent Respondability
+#' @param cov.matrix A covariance matrix
+#' @param iterations Number of random vectors to be used in calculating the stochastic statistics
+#' @param full.results If TRUE, full distribution of statistics will be returned.
+#' @param num.cores Number of threads to use in calculations. Requires doMC library.
+#' @return dist Full distribution of stochastic statistics, only if full.resuts == TRUE
+#' @return mean Mean value for all statistics
+#' @export
+#' @references Hansen, T. F., and Houle, D. (2008). Measuring and comparing evolvability
+#' and constraint in multivariate characters. Journal of evolutionary
+#' biology, 21(5), 1201-19. doi:10.1111/j.1420-9101.2008.01573.x
+#' @author Diogo Melo Guilherme Garcia
+#' @examples
+#' cov.matrix <- cov(iris[,1:4])
+#' MeanMatrixStatistics(cov.matrix)
+#' @keywords Autonomy
+#' @keywords ConditionalEvolvability
+#' @keywords Constraints
+#' @keywords Evolvability
+#' @keywords Flexibility
+#' @keywords Pc1Percent
+#' @keywords Respondability
 MeanMatrixStatistics <- function (cov.matrix, iterations = 1000, full.results = F, num.cores = 1) {
   if (num.cores > 1) {
     library(doMC)
@@ -49,3 +66,18 @@ MeanMatrixStatistics <- function (cov.matrix, iterations = 1000, full.results = 
   else
     return (stat.mean)
 }
+
+#' @export
+Autonomy <- function (beta, cov.matrix) return ((1/(t (beta) %*% solve (cov.matrix, beta))) / (t (beta) %*% cov.matrix %*% beta))
+#' @export
+ConditionalEvolvability <- function (beta, cov.matrix) return (1/(t (beta) %*% solve (cov.matrix, beta)))
+#' @export
+Constraints <- function (beta, cov.matrix) return (abs (t (Normalize (eigen (cov.matrix)$vectors[,1])) %*% Normalize (cov.matrix %*% beta)))
+#' @export
+Evolvability <- function (beta, cov.matrix) return (t (beta) %*% cov.matrix %*% beta)
+#' @export
+Flexibility <- function (beta, cov.matrix) return (t (beta) %*% cov.matrix %*% beta / Norm (cov.matrix %*% beta))
+#' @export
+Pc1Percent <- function (cov.matrix) return (eigen (cov.matrix)$values [1] / sum (eigen (cov.matrix)$values))
+#' @export
+Respondability <- function (beta, cov.matrix) return (Norm (cov.matrix %*% beta))

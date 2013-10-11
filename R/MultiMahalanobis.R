@@ -1,14 +1,24 @@
-MultiMahalanobis <- function (mean.list, cov.matrix, num.cores = 1)
-  # Calculates the Mahalanobis distance between a list of species mean,
-  # using a global covariance matrix
-  #
-  # Args:
-  #  mean.list: a list of species mean
-  #  cov.matrix: global covariance matrix
-  #
-  # Return:
-  #  returns a matrix of species-species comparisons.
-{
+#' Calculate Mahalonabis distance for many vectors
+#'
+#' Calculates the Mahalanobis distance between a list of species mean, using a global covariance matrix
+#' @param mean.list list of species means being compared
+#' @param cov.matrix covariance matrix definig the metric tensor to be used
+#' @param num.cores Number of threads to use in computation. Requires doMC library.
+#' @return returns a distance matrix of species-species comparisons.
+#' @author Diogo Melo
+#' @export
+#' @seealso \code{\link{mahalanobis}}
+#' @examples
+#' mean.1 <- colMeans(matrix(rnorm(30*10), 30, 10))
+#' mean.2 <- colMeans(matrix(rnorm(30*10), 30, 10))
+#' mean.3 <- colMeans(matrix(rnorm(30*10), 30, 10))
+#' mean.list <- list(mean.1, mean.2, mean.3)
+#'
+#' # If cov.matrix is identity, calculated distance is euclidian
+#' euclidian <- MultiMahalanobis(mean.list, diag(rep(1, 10)))
+#' # else, it is not
+#' half.euclidian <- MultiMahalanobis(mean.list, diag(rep(0.5, 10)))
+MultiMahalanobis <- function (mean.list, cov.matrix, num.cores = 1) {
   if (num.cores > 1) {
     library(doMC)
     library(foreach)

@@ -1,9 +1,9 @@
-\name{BootstrapRep}
-\alias{BootstrapRep}
+\name{BootstrapRepKrzCor}
+\alias{BootstrapRepKrzCor}
 \title{Bootstrap analysis via ressampling}
 \usage{
-  BootstrapRep(ind.data, iterations, ComparisonFunc,
-    StatFunc, num.cores)
+  BootstrapRepKrzCor(ind.data, iterations = 1000,
+    correlation = F, num.cores = 1)
 }
 \arguments{
   \item{ind.data}{Matrix of residuals or indiviual
@@ -11,10 +11,8 @@
 
   \item{iterations}{Number of ressamples to take}
 
-  \item{ComparisonFunc}{Comparison function for calculated
-  statistic}
-
-  \item{StatFunc}{Statistic to be calculated}
+  \item{correlation}{If TRUE, correlation matrix is used,
+  else covariance matrix}
 
   \item{num.cores}{Number of threads to use in computation.
   Requires doMC library.}
@@ -30,21 +28,24 @@
 \details{
   Samples with replacement are taken from the full
   population, a statistic calculated and compared to the
-  full population statistic. Prepackaged functions for
-  common comparison functions and statistics are suplied.
+  full population statistic via Krzanowsky correlation.
 }
 \examples{
-BootstrapRep(iris[,1:4], iterations = 5,
-             ComparisonFunc = function(x, y) RandomSkewers(x, y)[1],
-             StatFunc = cov,
-             num.cores = 1)
+BootstrapRepKrzCor(iris[,1:4], 50)
+
+BootstrapRepKrzCor(iris[,1:4], 50, TRUE)
+
+#Creating repeatability vector for a list of matrices
+
+mat.list <- RandomMatrix(10, 3, 1, 10)
+unlist(lapply(mat.list, BootstrapRepKrzCor), 30, TRUE)
 }
 \author{
   Diogo Melo, Guilherme Garcia
 }
 \seealso{
   \code{\link{MonteCarloStat}}, \code{\link{AlphaRep}},
-  \code{\link{BootstrapRepKrzCor}},
+  \code{\link{BootstrapRep}},
   \code{\link{BootstrapRepMantelCor}},
   \code{\link{BootstrapRepRandomSkewers}}
 }
