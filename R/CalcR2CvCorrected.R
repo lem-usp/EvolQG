@@ -1,6 +1,6 @@
 CalcR2CvCorrected  <- function(ind.data, ...) UseMethod("CalcR2CvCorrected")
 
-CalcR2CvCorrected.default <- function (ind.data, iterations = 1000, num.cores = 1, ...) {
+CalcR2CvCorrected.default <- function (ind.data, cv.level = 0.06, iterations = 1000, num.cores = 1, ...) {
   cv <- function (x) return (sd(x)/mean(x))
   Stats = function(x) {
     cov.matrix = var(x)
@@ -12,14 +12,22 @@ CalcR2CvCorrected.default <- function (ind.data, iterations = 1000, num.cores = 
                            StatFunc = Stats,
                            num.cores = num.cores)
   colnames(it.stats) <- c("r2", "eVals_cv", "mean_cv")
-  return (it.stats)
+  lm.r2 <- lm(it.stats[,1]~it.stats[,3])
+  lm.eVals.cv <- lm(it.stats[,2]~it.stats[,3])
+  adjusted.r2 <- lm.r2$coefficients %*% c(1, cv.level)
+  adjusted.eVals.cv <- lm.eVals.cv$coefficients %*% c(1, cv.level)
+  adjusted.integration  <-  c(adjusted.r2, adjusted.eVals.cv)
+  names(adjusted.integration) <- c("r2", "eVals_cv")
+  models <- list("r2" = lm.r2, "eVals_cv" = lm.eVals.cv)
+  output <- list("adjusted.integration.index" = adjusted.integration, "models" = models, "dist" = it.stats)
+  return (output)
 }
 
 CalcR2CvCorrected.lm <- function (ind.data, iterations = 1000, ...) {
   cv <- function (x) return (sd(x)/mean(x))
-  orv <- model$model[[1]]
-  fac <- model$model[-1]
-  df <- model$df.residual
+  orv <- ind.data$model[[1]]
+  fac <- ind.data$model[-1]
+  df <- ind.data$df.residual
   res <- residuals (model)
   size <- dim (res)
   straps <- array (0, c(size[1], iterations))
