@@ -1,5 +1,41 @@
+#' Corrected integration value
+#'
+#' Calculates the Young correction for integration, using bootstrap
+#'
+#' @param ind.data Matrix of residuals or indiviual measurments, or ajusted linear model
+#' @param cv.level Coeficient of variation level choosen for integration index ajustment in linear model.
+#' @param iterations Number of ressamples to take
+#' @param num.cores Number of threads to use in computation. Requires doMC library.
+#' @param ... aditional arguments passed to other methods
+#' @return List with adjusted integration indexes, fitted models and simulated distributions of integration indexes and mean coeficient of variation
+#' @references Young, N. M., Wagner, G. P., and Hallgrimsson, B. (2010).
+#' Development and the evolvability of human limbs. Proceedings of the
+#' National Academy of Sciences of the United States of America, 107(8),
+#' 3400-5. doi:10.1073/pnas.0911856107
+#' @author Diogo Melo, Guilherme Garcia
+#' @seealso \code{\link{MeanMatrixStatistics}}, \code{\link{CalcR2}}
+#' @rdname CalcR2CvCorrected
+#' @export
+#' @examples
+#' integration.dist = CalcR2CvCorrected(iris[,1:4])
+#'
+#' #adjusted values
+#' integration.dist[[1]]
+#'
+#' #ploting models
+#' plot(integration.dist$dist[,1], integration.dist$dist[,3])
+#' abline(integration.dist$models$r2)
+#'
+#' plot(integration.dist[[3]][,2], integration.dist[[3]][,3])
+#' abline(integration.dist[[2]]$eVals_cv)
+#' @keyword correlations
+#' @keyword integrations
+
 CalcR2CvCorrected  <- function(ind.data, ...) UseMethod("CalcR2CvCorrected")
 
+#' @rdname CalcR2CvCorrected
+#' @method CalcR2CvCorrected default
+#' @S3method CalcR2CvCorrected default
 CalcR2CvCorrected.default <- function (ind.data, cv.level = 0.06, iterations = 1000, num.cores = 1, ...) {
   cv <- function (x) return (sd(x)/mean(x))
   Stats = function(x) {
@@ -23,6 +59,9 @@ CalcR2CvCorrected.default <- function (ind.data, cv.level = 0.06, iterations = 1
   return (output)
 }
 
+#' @rdname CalcR2CvCorrected
+#' @method CalcR2CvCorrected lm
+#' @S3method CalcR2CvCorrected lm
 CalcR2CvCorrected.lm <- function (ind.data, iterations = 1000, ...) {
   cv <- function (x) return (sd(x)/mean(x))
   orv <- ind.data$model[[1]]
