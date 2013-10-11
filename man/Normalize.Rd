@@ -4,9 +4,14 @@
 \title{Normalize and Norm}
 \usage{
   Normalize(x)
+
+  Norm(x)
 }
 \arguments{
   \item{x}{Numeric vector}
+}
+\value{
+  Normalized vector or inpout vector norm.
 }
 \description{
   Norm returns the euclidian norm of a vector, normalze

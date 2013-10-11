@@ -6,6 +6,7 @@
 #' @return Normalized vector or inpout vector norm.
 #' @author Diogo Melo, Guilherme Garcia
 #' @export
+#' @rdname Normalize
 #' @examples
 #' x <- rnorm(10)
 #' n.x <- Normalize(x)
@@ -13,4 +14,5 @@
 #' Norm(n.x)
 Normalize <- function(x){return(x/Norm(x))}
 #' @export
+#' @rdname Normalize
 Norm <- function(x){return(sqrt(sum(x*x)))}
