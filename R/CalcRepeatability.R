@@ -1,14 +1,22 @@
-CalcRepeatability <-
-function (ID, ind.data)
-  # Calculates Repeatabilities acording to:
-  #    Lessels, C. M., & Boag, P. T. (1987).
-  #    Unrepeatable repeatabilities: a common mistake.
-  #    The Auk, 2(January), 116–121.
-  # Args:
-  #     ID: indentity of individuals
-  #     ind.data: individual measurments
-  # Return:
-  #     vector of repeatabilities
+#' Parametric per trait Repeatabilities
+#'
+#' Estimates the variance in the sample not due to measurment error
+#'
+#' @note Requires at least two observations per individual
+#' @param ID indentity of individuals
+#' @param ind.data individual measurments
+#' @return vector of repeatabilities
+#' @export
+#' @references Lessels, C. M., and Boag, P. T. (1987).
+#'    Unrepeatable repeatabilities: a common mistake.
+#'    The Auk, 2(January), 116-121.
+#' @author Guilherme Garcia
+#' @examples
+#' num.ind = length(iris[,1])
+#' ID = rep(1:num.ind, 2)
+#' ind.data = rbind(iris[,1:4], iris[,1:4]+array(rnorm(num.ind*4, 0, 0.1), dim(iris[,1:4])))
+#' CalcRepeatability(ID, ind.data)
+CalcRepeatability <- function (ID, ind.data)
 {
   models.list <- apply (ind.data, 2, function (vec){return (lm (vec ~ ID))})
   models.list <- lapply (models.list, anova)

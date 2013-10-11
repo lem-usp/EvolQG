@@ -27,9 +27,6 @@ Diogo Melo, Guilherme Garcia
     Marroig et al 2011
 }
 \keyword{Morphometrics}
-\seealso{
-%\code{\link[<pkg>:<pkg>-package]{<pkg>}} 
-}
 \examples{
-    RandCorr(10)
+    RandomMatrix(10)
 }
