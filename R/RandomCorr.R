@@ -1,3 +1,15 @@
+#' Random correlation matrix
+#'
+#' Provides random correlation matrices for quick tests.
+#' Should not be used for statistics.
+#' @param num.traits Number of traits in random matrix
+#' @param ke Parameter for correlation matrix generation. Involves check for positive defitness
+#' @return Random Matrix
+#' @author Diogo Melo Edgar Zanella
+#' @examples
+#' #single 10x10 correlation matrix
+#' RandomCorr(10)
+#' @keyword randommatrices
 RandCorr <- function(num.traits, ke = 10^-3){
   random.corr = array(0., dim = c(num.traits, num.traits))
   b = array(0., dim = c(num.traits, num.traits))
@@ -39,17 +51,4 @@ RandCorr <- function(num.traits, ke = 10^-3){
   perm = sample(1:num.traits)
   random.corr = (random.corr[perm,])[,perm]
   return (random.corr)
-}
-
-RandomMatrix <- function(num.traits, num.matrices = 1, min.var = 1, max.var = 1, variance = NULL, ke = 10^-3){
-    if(num.matrices==1){
-        if(is.null(variance)) variance <- runif(num.traits, min.var, max.var)
-        rand.mat <- RandCorr(num.traits, ke) * sqrt(outer(variance, variance))
-    }
-    else{
-        if(is.null(variance)) variance <- matrix(runif(num.matrices*num.traits, min.var, max.var), num.matrices, num.traits)
-        else variance <-  matrix(rep(variance, each = num.matrices), num.matrices, num.traits)
-        rand.mat <- lapply(as.list(1:num.matrices), function(x) RandCorr(num.traits, ke) * sqrt(outer(variance[x,], variance[x,])))
-    }
-    return(rand.mat)
 }

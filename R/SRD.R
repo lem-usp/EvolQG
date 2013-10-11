@@ -1,4 +1,55 @@
+#' Compare matrices via Selection Response Decomposition
+#'
+#' Based on Random Skewers tecnique, selection response vectors are
+#' expanded in direct and indirect componenet by trait and compared via
+#' vector correlations.
+#' @param cov.x, cov.y Covariance matrix being compared. cov.x can be a matrix or a list.
+#' @param iterations Number of random vectors used in comparison
+#' @param num.cores If list is passed, number of threads to use in computation. Requires doMC library.
+#' @param ... aditional parameters passed to other methods
+#' @param output Output form SRD function, used in ploting
+#' @param matrix.label Plot label
+#' @details Output can be ploted using PlotSRD function
+#' @return out List of SRD scores mean, confidence intervals, standard
+#' deviation, centerd mean e centerd standard deviation
+#' @return pc1 scored along the pc1 of the mean/SD correlation matrix
+#' @return model List of linear model results from mean/SD correlation. Quantiles, interval and divergent traits
+#' @return cormat Mean/Sd model correlation matrix
+#' @note If input is a list, output is a symmetric list array with pairwise comparisons.
+#' @export
+#' @rdname SRD
+#' @references Marroig, G., Melo, D., Porto, A., Sebastiao, H., and Garcia, G.
+#' (2011). Selection Response Decomposition (SRD): A New Tool for
+#' Dissecting Differences and Similarities Between Matrices. Evolutionary
+#' Biology, 38(2), 225-241. doi:10.1007/s11692-010-9107-2
+#' @author Diogo Melo, Guilherme Garcia
+#' @seealso \code{\link{RandomSkewers}}
+#' @examples
+#' cov.matrix.1 <- cov(matrix(rnorm(30*10), 30, 10))
+#' cov.matrix.2 <- cov(matrix(rnorm(30*10), 30, 10))
+#' colnames(cov.matrix.1) <- colnames(cov.matrix.2) <- sample(letters, 10)
+#' rownames(cov.matrix.1) <- rownames(cov.matrix.2) <- colnames(cov.matrix.1)
+#' srd.out <- SRD(cov.matrix.1, cov.matrix.2)
+#'
+#' #lists
+#' m.list <- RandomMatrix(10, 4)
+#' SRD(m.list)
+#'
+#' #divergent traits
+#' colnames(cov.matrix.1)[as.logical(srd.out$model$code)]
+#'
+#' #Plot
+#' PlotSRD(srd.out)
+#'
+#' @keyword SRD
+#' @keyword RandomSkewers
+#' @keyword selectionresponsedecomposition
+
 SRD <- function (cov.x, cov.y, ...) UseMethod("SRD")
+
+#' @rdname SRD
+#' @method SRD default
+#' @S3method SRD default
 SRD.default <- function (cov.x, cov.y, iterations = 1000, ...) {
   size <- dim (cov.x)[1]
   r2s <- array (0, c(size,iterations))
@@ -48,7 +99,9 @@ SRD.default <- function (cov.x, cov.y, iterations = 1000, ...) {
                 "cormat" = cor (t(r2s))))
 }
 
-
+#' @rdname SRD
+#' @method SRD list
+#' @S3method SRD list
 SRD.list <- function (cov.x, cov.y = NULL, iterations = 1000, num.cores = 1, ...){
   if (num.cores > 1) {
     library(doMC)
@@ -74,6 +127,8 @@ SRD.list <- function (cov.x, cov.y = NULL, iterations = 1000, num.cores = 1, ...
   return (corrs)
 }
 
+#' @rdname SRD
+#' @export
 PlotSRD <- function (output, matrix.label = "") {
   layout (array (c(1,1,2,2),c(2,2)))
   par (mar = c(4.0, 4.0, 8, 0.4))
