@@ -29,8 +29,8 @@ CalcRepeatability(ID, ind.data)
   Guilherme Garcia
 }
 \references{
-  Lessels, C. M., & Boag, P. T. (1987).  Unrepeatable
+  Lessels, C. M., and Boag, P. T. (1987).  Unrepeatable
   repeatabilities: a common mistake.  The Auk, 2(January),
-  116–121.
+  116-121.
 }
 

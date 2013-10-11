@@ -3,7 +3,8 @@
 #' Based on Random Skewers tecnique, selection response vectors are
 #' expanded in direct and indirect componenet by trait and compared via
 #' vector correlations.
-#' @param cov.x, cov.y Covariance matrix being compared. cov.x can be a matrix or a list.
+#' @param cov.x Covariance matrix being compared. cov.x can be a matrix or a list.
+#' @param cov.y Covariance matrix being compared. Ignored if cov.x is a list.
 #' @param iterations Number of random vectors used in comparison
 #' @param num.cores If list is passed, number of threads to use in computation. Requires doMC library.
 #' @param ... aditional parameters passed to other methods

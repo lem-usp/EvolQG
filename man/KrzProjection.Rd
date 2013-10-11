@@ -25,8 +25,12 @@
   \item{cov.y}{First argument is compared to cov.y. Ignored
   if cov.marix.1 is a list.}
 
-  \item{ret.dim.1,}{ret.dim.2 number of retained dimensions
-  in the comparison, default for nxn matrix is n/2-1}
+  \item{ret.dim.1}{number of retained dimensions for first
+  matrix in the comparison,}
+
+  \item{ret.dim.2}{number of retained dimensions for second
+  matrix in the comparison, default for nxn matrix is
+  n/2-1}
 
   \item{num.cores}{If list is passed, number of threads to
   use in computation. Requires doMC library.}

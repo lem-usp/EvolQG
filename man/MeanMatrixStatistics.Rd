@@ -40,7 +40,7 @@ cov.matrix <- cov(iris[,1:4])
 MeanMatrixStatistics(cov.matrix)
 }
 \author{
-  Diogo Melo, Guilherme Garcia
+  Diogo Melo Guilherme Garcia
 }
 \references{
   Hansen, T. F., and Houle, D. (2008). Measuring and

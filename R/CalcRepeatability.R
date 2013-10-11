@@ -7,9 +7,9 @@
 #' @param ind.data individual measurments
 #' @return vector of repeatabilities
 #' @export
-#' @references Lessels, C. M., & Boag, P. T. (1987).
+#' @references Lessels, C. M., and Boag, P. T. (1987).
 #'    Unrepeatable repeatabilities: a common mistake.
-#'    The Auk, 2(January), 116–121.
+#'    The Auk, 2(January), 116-121.
 #' @author Guilherme Garcia
 #' @examples
 #' num.ind = length(iris[,1])

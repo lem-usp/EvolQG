@@ -31,5 +31,5 @@ Diogo Melo, Guilherme Garcia
 %\code{\link[<pkg>:<pkg>-package]{<pkg>}} 
 }
 \examples{
-    RandCorr(10)
+    RandomMatrix(10)
 }

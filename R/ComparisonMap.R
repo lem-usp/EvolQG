@@ -6,6 +6,8 @@
 #' @param repeat.vector Vector of repeatabilities for correlation correction.
 #' @param num.cores Number of threads to use in computation. Requires doMC library.
 #' @return Matrix of comparisons, matrix of probabilities.
+#' @import plyr
+#' @importFrom reshape2 acast
 #' @author Diogo Melo
 #' @seealso \code{\link{MantelCor}}, \code{\link{KrzCor}},\code{\link{RandomSkewers}}
 ComparisonMap <- function (matrix.list, MatrixCompFunc, ..., repeat.vector = NULL, num.cores = 1){

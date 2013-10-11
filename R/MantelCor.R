@@ -28,6 +28,7 @@
 #' If repeat.vector is passed, comparison matrix is corrected below
 #' diagonal and repeatabilities returned in diagonal.
 #' @export
+#' @importFrom vegan mantel
 #' @rdname MantelCor
 #' @references http://en.wikipedia.org/wiki/Mantel_test
 #' @author Diogo Melo, Guilherme Garcia

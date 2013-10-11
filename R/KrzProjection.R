@@ -12,7 +12,8 @@
 #' @param ... aditional arguments passed to other methods
 #' @param cov.y First argument is compared to cov.y.
 #' Ignored if cov.marix.1 is a list.
-#' @param ret.dim.1, ret.dim.2 number of retained dimensions in the comparison,
+#' @param ret.dim.1 number of retained dimensions for first matrix in the comparison,
+#' @param ret.dim.2 number of retained dimensions for second matrix in the comparison,
 #' default for nxn matrix is n/2-1
 #' @param num.cores If list is passed, number of threads to use in computation.
 #' Requires doMC library.
@@ -26,6 +27,8 @@
 #' @seealso \code{\link{RandomSkewers}},\code{\link{MantelCor}}
 #' @rdname KrzProjection
 #' @export
+#' @import plyr
+#' @importFrom reshape2 melt
 #' @examples
 #' c1 <- RandomMatrix(10)
 #' c2 <- RandomMatrix(10)

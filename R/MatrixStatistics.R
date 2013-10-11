@@ -12,7 +12,7 @@
 #' @references Hansen, T. F., and Houle, D. (2008). Measuring and comparing evolvability
 #' and constraint in multivariate characters. Journal of evolutionary
 #' biology, 21(5), 1201-19. doi:10.1111/j.1420-9101.2008.01573.x
-#' @author Diogo Melo, Guilherme Garcia
+#' @author Diogo Melo Guilherme Garcia
 #' @examples
 #' cov.matrix <- cov(iris[,1:4])
 #' MeanMatrixStatistics(cov.matrix)

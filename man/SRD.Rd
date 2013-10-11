@@ -16,8 +16,11 @@
   PlotSRD(output, matrix.label = "")
 }
 \arguments{
-  \item{cov.x,}{cov.y Covariance matrix being compared.
-  cov.x can be a matrix or a list.}
+  \item{cov.x}{Covariance matrix being compared. cov.x can
+  be a matrix or a list.}
+
+  \item{cov.y}{Covariance matrix being compared. Ignored if
+  cov.x is a list.}
 
   \item{iterations}{Number of random vectors used in
   comparison}

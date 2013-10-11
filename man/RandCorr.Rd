@@ -17,10 +17,6 @@
   Provides random correlation matrices for quick tests.
   Should not be used for statistics.
 }
-\examples{
-#single 10x10 correlation matrix
-RandomCorr(10)
-}
 \author{
   Diogo Melo Edgar Zanella
 }

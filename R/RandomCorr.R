@@ -6,9 +6,6 @@
 #' @param ke Parameter for correlation matrix generation. Involves check for positive defitness
 #' @return Random Matrix
 #' @author Diogo Melo Edgar Zanella
-#' @examples
-#' #single 10x10 correlation matrix
-#' RandomCorr(10)
 #' @keyword randommatrices
 RandCorr <- function(num.traits, ke = 10^-3){
   random.corr = array(0., dim = c(num.traits, num.traits))
