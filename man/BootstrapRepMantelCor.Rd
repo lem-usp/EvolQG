@@ -1,20 +1,15 @@
-\name{BootstrapRep}
-\alias{BootstrapRep}
+\name{BootstrapRepMantelCor}
+\alias{BootstrapRepMantelCor}
 \title{Bootstrap analysis via ressampling}
 \usage{
-  BootstrapRep(ind.data, iterations, ComparisonFunc,
-    StatFunc, num.cores)
+  BootstrapRepMantelCor(ind.data, iterations = 1000,
+    num.cores = 1)
 }
 \arguments{
   \item{ind.data}{Matrix of residuals or indiviual
   measurments}
 
   \item{iterations}{Number of ressamples to take}
-
-  \item{ComparisonFunc}{Comparison function for calculated
-  statistic}
-
-  \item{StatFunc}{Statistic to be calculated}
 
   \item{num.cores}{Number of threads to use in computation.
   Requires doMC library.}
@@ -24,20 +19,23 @@
   comparisons from samples to original statistic.
 }
 \description{
-  Calculates the repeatability of the covariance matrix of
+  Calculates the repeatability of the correlation matrix of
   the suplied data via bootstrap ressampling
 }
 \details{
   Samples with replacement are taken from the full
-  population, a statistic calculated and compared to the
-  full population statistic. Prepackaged functions for
-  common comparison functions and statistics are suplied.
+  population, the correlation matrix is calculated and
+  compared to the full population matrix via Mantel
+  correlation
 }
 \examples{
-BootstrapRep(iris[,1:4], iterations = 5,
-             ComparisonFunc = function(x, y) RandomSkewers(x, y)[1],
-             StatFunc = cov,
-             num.cores = 1)
+BootstrapRepMantelCor(iris[,1:4], 50)
+
+
+#Creating repeatability vector for a list of matrices
+
+mat.list <- RandomMatrix(10, 3, 1, 10)
+unlist(lapply(mat.list, BootstrapRepMantelCor), 30, TRUE)
 }
 \author{
   Diogo Melo, Guilherme Garcia
@@ -45,7 +43,7 @@ BootstrapRep(iris[,1:4], iterations = 5,
 \seealso{
   \code{\link{MonteCarloStat}}, \code{\link{AlphaRep}},
   \code{\link{BootstrapRepKrzCor}},
-  \code{\link{BootstrapRepMantelCor}},
+  \code{\link{BootstrapRep}},
   \code{\link{BootstrapRepRandomSkewers}}
 }
 
