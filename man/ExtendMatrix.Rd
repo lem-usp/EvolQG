@@ -11,6 +11,9 @@
   When below first below cut off, last eigen value is
   selected.}
 }
+\value{
+  Extended covariance matrix.
+}
 \description{
   Calculates the extented covariance matrix estimation
 }

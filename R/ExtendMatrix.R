@@ -4,7 +4,7 @@
 #' 
 #' @param cov.matrix Covariance matrix
 #' @param cut.off Cut off for second derivative variance. When below first below cut off, last eigen value is selected.
-#' @value Extended covariance matrix.
+#' @return Extended covariance matrix.
 #' @references Marroig, G., Melo, D. A. R., and Garcia, G. (2012). Modularity, noise, and natural selection. Evolution; international journal of organic evolution, 66(5), 1506-24. doi:10.1111/j.1558-5646.2011.01555.x
 #' @author Diogo Melo
 #' @note Covariance matrix being extended must be larger then 10x10
