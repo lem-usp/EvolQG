@@ -6,7 +6,7 @@
 #' @value Estimated covariance matrix.
 #' @references https://github.com/lem-usp/Morphometrics/wiki/
 #' @author Diogo Melo, Fabio Machado
-#'
+#' @export
 #' @examples
 #' data(iris)
 #' options(contrasts=c("contr.sum","contr.poly"))
