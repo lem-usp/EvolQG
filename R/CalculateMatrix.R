@@ -3,7 +3,7 @@
 #' Calculates covariance matrix using the maximum likelihood estimator and the model residuals.
 #' @param linear.m Linear model adjusted for original data.
 #'
-#' @value Estimated covariance matrix.
+#' @return Estimated covariance matrix.
 #' @references https://github.com/lem-usp/Morphometrics/wiki/
 #' @author Diogo Melo, Fabio Machado
 #' @export
