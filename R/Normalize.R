@@ -3,7 +3,7 @@
 #' Norm returns the euclidian norm of a vector, normalze returns a vector with unit norm.
 #' @aliases Norm
 #' @param  x Numeric vector
-#' @value Normalized vector or inpout vector norm.
+#' @return Normalized vector or inpout vector norm.
 #' @author Diogo Melo, Guilherme Garcia
 #' @export
 #' @examples
