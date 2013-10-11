@@ -23,8 +23,8 @@
 #' mat.list <- RandomMatrix(10, 3, 1, 10)
 #' unlist(lapply(mat.list, BootstrapRepMantelCor), 30, TRUE)
 #'
-#' @keyword bootstrap
-#' @keyword repetabilities
+#' @keywords bootstrap
+#' @keywords repetabilities
 
 BootstrapRepMantelCor <- function(ind.data, iterations = 1000, num.cores = 1){
   repeatability <- BootstrapRep(ind.data, iterations,

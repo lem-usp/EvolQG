@@ -42,9 +42,9 @@
 #' #Plot
 #' PlotSRD(srd.out)
 #'
-#' @keyword SRD
-#' @keyword RandomSkewers
-#' @keyword selectionresponsedecomposition
+#' @keywords SRD
+#' @keywords RandomSkewers
+#' @keywords selectionresponsedecomposition
 
 SRD <- function (cov.x, cov.y, ...) UseMethod("SRD")
 

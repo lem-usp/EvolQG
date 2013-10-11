@@ -35,9 +35,9 @@
 #'
 #' c4 <- RandomMatrix(10)
 #' KrzCor(list(c1, c2, c3), c4)
-#' @keyword matrixcomparison
-#' @keyword matrixcorrelation
-#' @keyword Krzanowski
+#' @keywords matrixcomparison
+#' @keywords matrixcorrelation
+#' @keywords Krzanowski
 KrzCor <- function (cov.x, cov.y, ...) UseMethod("KrzCor")
 
 #' @rdname KrzCor

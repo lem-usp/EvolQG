@@ -23,8 +23,8 @@
 #'              StatFunc = cov,
 #'              num.cores = 1)
 #'
-#' @keyword bootstrap
-#' @keyword repetabilities
+#' @keywords bootstrap
+#' @keywords repetabilities
 
 BootstrapRep <- function (ind.data, iterations,
                           ComparisonFunc, StatFunc,

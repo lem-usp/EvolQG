@@ -26,4 +26,6 @@ CalcR2(cov2cor(cov.matrix))
 \seealso{
   \code{\link{Flexibility}}
 }
+\keyword{correlation}
+\keyword{integration}
 

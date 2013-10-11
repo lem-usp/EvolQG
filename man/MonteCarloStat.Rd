@@ -85,4 +85,7 @@ quantile(r2.dist)
 \seealso{
   \code{\link{BootstrapRep}}, \code{\link{AlphaRep}}
 }
+\keyword{montecarlo}
+\keyword{parametricsampling}
+\keyword{repeatability}
 

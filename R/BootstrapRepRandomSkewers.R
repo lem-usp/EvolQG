@@ -24,8 +24,8 @@
 #' mat.list <- RandomMatrix(10, 3, 1, 10)
 #' unlist(lapply(mat.list, BootstrapRepRandomSkewers), 30)
 #'
-#' @keyword bootstrap
-#' @keyword repetabilities
+#' @keywords bootstrap
+#' @keywords repetabilities
 
 
 BootstrapRepRandomSkewers <- function(ind.data, iterations = 1000, num.cores = 1){

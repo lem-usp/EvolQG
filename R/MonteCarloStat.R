@@ -43,9 +43,9 @@
 #' #Calculating R2 confidence intervals
 #' r2.dist <- MonteCarloR2(RandomMatrix(10, 1, 1, 10), 30)
 #' quantile(r2.dist)
-#' @keyword parametricsampling
-#' @keyword montecarlo
-#' @keyword repeatability
+#' @keywords parametricsampling
+#' @keywords montecarlo
+#' @keywords repeatability
 MonteCarloStat <- function (cov.matrix, sample.size, iterations,
                             ComparisonFunc, StatFunc,
                             num.cores = 1) {

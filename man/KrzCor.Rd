@@ -66,4 +66,7 @@ KrzCor(list(c1, c2, c3), c4)
 \seealso{
   \code{\link{RandomSkewers}},\code{\link{KrzProjection}},\code{\link{MantelCor}}
 }
+\keyword{Krzanowski}
+\keyword{matrixcomparison}
+\keyword{matrixcorrelation}
 

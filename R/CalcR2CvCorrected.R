@@ -28,8 +28,8 @@
 #'
 #' plot(integration.dist[[3]][,2], integration.dist[[3]][,3])
 #' abline(integration.dist[[2]]$eVals_cv)
-#' @keyword correlations
-#' @keyword integrations
+#' @keywords correlations
+#' @keywords integrations
 
 CalcR2CvCorrected  <- function(ind.data, ...) UseMethod("CalcR2CvCorrected")
 

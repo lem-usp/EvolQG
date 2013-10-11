@@ -26,4 +26,5 @@ cor.matrix <- cov2cor(cov.matrix)
 \references{
   https://github.com/lem-usp/Morphometrics/wiki/
 }
+\keyword{covariancematrix}
 

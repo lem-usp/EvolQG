@@ -34,4 +34,6 @@ ext.matrix = ExtendMatrix(cov.matrix, cut.off = 10e-4)
   international journal of organic evolution, 66(5),
   1506-24. doi:10.1111/j.1558-5646.2011.01555.x
 }
+\keyword{covariancematrix}
+\keyword{extension}
 

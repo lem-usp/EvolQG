@@ -23,7 +23,7 @@
 #'
 #' #large 10x10 matrix list, with wide range of variances
 #' RandomMatrix(10, 100, 1, 300)
-#' @keyword randommatrices
+#' @keywords randommatrices
 RandomMatrix <- function(num.traits, num.matrices = 1, min.var = 1, max.var = 1, variance = NULL, ke = 10^-3){
     if(num.matrices==1){
         if(is.null(variance)) variance <- runif(num.traits, min.var, max.var)

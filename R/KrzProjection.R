@@ -38,9 +38,9 @@
 #' KrzProjection(list(c1, c2, c3))
 #' KrzProjection(list(c1, c2, c3), 5, 4)
 #' KrzProjection(list(c1, c2, c3), 4, 5)
-#' @keyword matrixcomparison
-#' @keyword matrixcorrelation
-#' @keyword Krzanowski
+#' @keywords matrixcomparison
+#' @keywords matrixcorrelation
+#' @keywords Krzanowski
 
 KrzProjection <- function(cov.x, cov.y, ...) UseMethod("KrzProjection")
 

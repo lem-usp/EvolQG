@@ -81,4 +81,7 @@ MantelCor(list(c1, c2, c3), c4)
 \seealso{
   \code{\link{KrzCor}},\code{\link{RandomSkewers}},\code{\link{mantel}},\code{\link{RandomSkewers}},\code{\link{TestModularity}}
 }
+\keyword{matrixcomparison}
+\keyword{matrixcorrelation}
+\keyword{randomskewers}
 

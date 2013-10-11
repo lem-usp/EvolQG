@@ -49,4 +49,6 @@ unlist(lapply(mat.list, BootstrapRepKrzCor), 30, TRUE)
   \code{\link{BootstrapRepMantelCor}},
   \code{\link{BootstrapRepRandomSkewers}}
 }
+\keyword{bootstrap}
+\keyword{repetabilities}
 

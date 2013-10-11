@@ -61,4 +61,6 @@ abline(integration.dist[[2]]$eVals_cv)
 \seealso{
   \code{\link{MeanMatrixStatistics}}, \code{\link{CalcR2}}
 }
+\keyword{correlations}
+\keyword{integrations}
 

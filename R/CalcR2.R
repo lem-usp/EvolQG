@@ -11,8 +11,8 @@
 #' cov.matrix <- RandomMatrix(10, 1, 1, 10)
 #' CalcR2(cov.matrix)
 #' CalcR2(cov2cor(cov.matrix))
-#' @keyword correlation
-#' @keyword integration
+#' @keywords correlation
+#' @keywords integration
 
 CalcR2 <- function (c.matrix){
     cor.matrix = cov2cor(c.matrix)

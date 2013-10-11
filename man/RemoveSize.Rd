@@ -27,4 +27,5 @@ eigen(no.size.cov.matrix)
 \author{
   Diogo Melo, Guilherme Garcia
 }
+\keyword{size}
 

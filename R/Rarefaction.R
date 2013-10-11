@@ -60,9 +60,9 @@
 #' print(c, vp = vplayout(2, 1))
 #' print(d, vp = vplayout(2, 2))
 #'
-#' @keyword rarefaction
-#' @keyword bootstap
-#' @keyword repeatability
+#' @keywords rarefaction
+#' @keywords bootstap
+#' @keywords repeatability
 
 Rarefaction <- function(ind.data,
                         StatFunc,

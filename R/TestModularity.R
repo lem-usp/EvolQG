@@ -15,8 +15,8 @@
 #' cor.matrix <- RandomMatrix(10)
 #' rand.hipots <- matrix(sample(c(1, 0), 30, replace=TRUE), 10, 3)
 #' mod.test <- TestModularity(cor.matrix, rand.hipots)
-#' @keyword mantel
-#' @keyword modularity
+#' @keywords mantel
+#' @keywords modularity
 TestModularity <- function (cor.matrix, modularity.hipot, iterations = 100) {
   m.hip.list <- CreateHipotMatrix(modularity.hipot)
   if(is.null(colnames(modularity.hipot))) colnames(modularity.hipot) <- 1:dim (modularity.hipot) [2]

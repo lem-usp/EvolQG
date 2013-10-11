@@ -110,4 +110,7 @@ print(d, vp = vplayout(2, 2))
 \seealso{
   \code{\link{BootstrapRep}}
 }
+\keyword{bootstap}
+\keyword{rarefaction}
+\keyword{repeatability}
 

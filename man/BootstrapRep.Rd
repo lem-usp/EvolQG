@@ -48,4 +48,6 @@ BootstrapRep(iris[,1:4], iterations = 5,
   \code{\link{BootstrapRepMantelCor}},
   \code{\link{BootstrapRepRandomSkewers}}
 }
+\keyword{bootstrap}
+\keyword{repetabilities}
 

@@ -48,4 +48,11 @@ MeanMatrixStatistics(cov.matrix)
   characters. Journal of evolutionary biology, 21(5),
   1201-19. doi:10.1111/j.1420-9101.2008.01573.x
 }
+\keyword{Autonomy}
+\keyword{ConditionalEvolvability}
+\keyword{Constraints}
+\keyword{Evolvability}
+\keyword{Flexibility}
+\keyword{Pc1Percent}
+\keyword{Respondability}
 

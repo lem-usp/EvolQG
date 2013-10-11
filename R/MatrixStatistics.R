@@ -16,13 +16,13 @@
 #' @examples
 #' cov.matrix <- cov(iris[,1:4])
 #' MeanMatrixStatistics(cov.matrix)
-#' @keyword Autonomy
-#' @keyword ConditionalEvolvability
-#' @keyword Constraints
-#' @keyword Evolvability
-#' @keyword Flexibility
-#' @keyword Pc1Percent
-#' @keyword Respondability
+#' @keywords Autonomy
+#' @keywords ConditionalEvolvability
+#' @keywords Constraints
+#' @keywords Evolvability
+#' @keywords Flexibility
+#' @keywords Pc1Percent
+#' @keywords Respondability
 MeanMatrixStatistics <- function (cov.matrix, iterations = 1000, full.results = F, num.cores = 1) {
   if (num.cores > 1) {
     library(doMC)

@@ -46,9 +46,9 @@
 #'
 #' c4 <- RandomMatrix(10)
 #' MantelCor(list(c1, c2, c3), c4)
-#' @keyword matrixcomparison
-#' @keyword matrixcorrelation
-#' @keyword randomskewers
+#' @keywords matrixcomparison
+#' @keywords matrixcorrelation
+#' @keywords randomskewers
 MantelCor <- function (cor.x, cor.y, ...) UseMethod("MantelCor")
 
 #' @rdname MantelCor

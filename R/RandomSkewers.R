@@ -44,9 +44,9 @@
 #'
 #' c4 <- RandomMatrix(10)
 #' RandomSkewers(list(c1, c2, c3), c4)
-#' @keyword matrixcomparison
-#' @keyword matrixcorrelation
-#' @keyword randomskewers
+#' @keywords matrixcomparison
+#' @keywords matrixcorrelation
+#' @keywords randomskewers
 RandomSkewers <- function(cov.x, cov.y, ...) UseMethod("RandomSkewers")
 
 #' @rdname RandomSkewers

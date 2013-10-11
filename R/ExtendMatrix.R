@@ -12,8 +12,8 @@
 #' @examples
 #' cov.matrix = RandomMatrix(11, 1, 1, 100)
 #' ext.matrix = ExtendMatrix(cov.matrix, cut.off = 10e-4)
-#' @keyword extension
-#' @keyword covariancematrix
+#' @keywords extension
+#' @keywords covariancematrix
 ExtendMatrix <- function(cov.matrix, cut.off = NULL) {
   p = dim(cov.matrix)[1]
   if(p<10)

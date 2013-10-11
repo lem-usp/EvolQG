@@ -47,4 +47,5 @@ RandomMatrix(10, 100, 1, 300)
 \author{
   Diogo Melo Edgar Zanella
 }
+\keyword{randommatrices}
 

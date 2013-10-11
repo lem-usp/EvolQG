@@ -26,8 +26,8 @@
 #' mat.list <- RandomMatrix(10, 3, 1, 10)
 #' unlist(lapply(mat.list, BootstrapRepKrzCor), 30, TRUE)
 #'
-#' @keyword bootstrap
-#' @keyword repetabilities
+#' @keywords bootstrap
+#' @keywords repetabilities
 
 BootstrapRepKrzCor <- function(ind.data, iterations = 1000, correlation = F, num.cores = 1){
   if(correlation)  StatFunc <- cor

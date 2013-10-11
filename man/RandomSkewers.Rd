@@ -78,4 +78,7 @@ RandomSkewers(list(c1, c2, c3), c4)
 \seealso{
   \code{\link{KrzCor}},\code{\link{MantelCor}}
 }
+\keyword{matrixcomparison}
+\keyword{matrixcorrelation}
+\keyword{randomskewers}
 

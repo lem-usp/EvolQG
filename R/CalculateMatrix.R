@@ -15,7 +15,7 @@
 #'
 #' #To obtain a corrlation matrix, use:
 #' cor.matrix <- cov2cor(cov.matrix)
-#' @keyword covariancematrix
+#' @keywords covariancematrix
 CalculateMatrix <- function(linear.m){
   cov.matrix = var(linear.m$residuals)*((dim(linear.m$residuals)[1]-1)/linear.m$df.residual)
   return (cov.matrix)

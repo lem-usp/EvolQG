@@ -12,7 +12,7 @@
 #' no.size.cov.matrix <- RemoveSize(cov.matrix)
 #' eigen(cov.matrix)
 #' eigen(no.size.cov.matrix)
-#' @keyword size
+#' @keywords size
 RemoveSize <- function (cov.matrix) {
   cov.matrix.svd  <-  svd(cov.matrix)
   size.eigen.vector <- cov.matrix.svd$u[, 1]

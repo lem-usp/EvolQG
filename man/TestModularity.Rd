@@ -37,4 +37,6 @@ mod.test <- TestModularity(cor.matrix, rand.hipots)
 \seealso{
   \code{\link{MantelCor}}
 }
+\keyword{mantel}
+\keyword{modularity}
 
