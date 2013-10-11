@@ -10,7 +10,7 @@
 }
 \usage{
 CalcR2CvCorrected(ind.data, ...)
-\method{CalcR2CvCorrected}{default}(ind.data, cv.lvel = 0.06, iterations = 1000, num.cores = 1, ...)
+\method{CalcR2CvCorrected}{default}(ind.data, cv.level = 0.06, iterations = 1000, num.cores = 1, ...)
 \method{CalcR2CvCorrected}{lm}(ind.data, iterations = 1000, ...)
 }
 %- maybe also 'usage' for other objects documented here.
