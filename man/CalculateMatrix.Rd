@@ -7,6 +7,9 @@
 \arguments{
   \item{linear.m}{Linear model adjusted for original data.}
 }
+\value{
+  Estimated covariance matrix.
+}
 \description{
   Calculates covariance matrix using the maximum likelihood
   estimator and the model residuals.
