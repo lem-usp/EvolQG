@@ -10,13 +10,16 @@
 }
 \usage{
 CalcR2CvCorrected(ind.data, ...)
-\method{CalcR2CvCorrected}{default}(ind.data, iterations = 1000, num.cores = 1, ...)
+\method{CalcR2CvCorrected}{default}(ind.data, cv.level = 0.06, iterations = 1000, num.cores = 1, ...)
 \method{CalcR2CvCorrected}{lm}(ind.data, iterations = 1000, ...)
 }
 %- maybe also 'usage' for other objects documented here.
 \arguments{
     \item{ind.data}{
         Matrix of residuals or indiviual measurments, or ajusted linear model
+    }
+    \item{cv.level}{
+        Coeficient of variation level choosen for integration index ajustment in linear model.
     }
     \item{iterations}{
         Number of ressamples to take
@@ -31,7 +34,7 @@ CalcR2CvCorrected(ind.data, ...)
     %%  ~~ If necessary, more details than the description above ~~
 }
 \value{
-    data.frame with mean squared correlation, mean eigen value coeficient of variation and mean coeficient of variation for all sampled populations
+    List with adjusted integration indexes, fitted models and simulated distributions of integration indexes and mean coeficient of variation
 }
 \references{
     Young, N. M., Wagner, G. P., and Hallgrimsson, B. (2010).
@@ -50,9 +53,17 @@ National Academy of Sciences of the United States of America, 107(8),
     \code{\link{MeanMatrixStatistics}}, \code{\link{CalcR2}}
 }
 \examples{
-r2.dist = CalcR2CvCorrected(iris[,1:4])
-plot(r2.dist[,1], r2.dist[,3])
-plot(r2.dist[,2], r2.dist[,3])
+integration.dist = CalcR2CvCorrected(iris[,1:4])
+
+#adjusted values
+integration.dist[[1]]
+
+#ploting models
+plot(integration.dist$dist[,1], integration.dist$dist[,3])
+abline(integration.dist$models$r2)
+
+plot(integration.dist[[3]][,2], integration.dist[[3]][,3])
+abline(integration.dist[[2]]$eVals_cv)
 }
 % Add one or more standard keywords, see file 'KEYWORDS' in the
 % R documentation directory.
