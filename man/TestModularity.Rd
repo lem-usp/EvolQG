@@ -1,9 +1,12 @@
 \name{TestModularity}
+\alias{CreateHipotMatrix}
 \alias{TestModularity}
 \title{Test modularity hipotesis}
 \usage{
   TestModularity(cor.matrix, modularity.hipot,
     iterations = 100)
+
+  CreateHipotMatrix(modularity.hipot)
 }
 \arguments{
   \item{cor.matrix}{Correlation matrix}
