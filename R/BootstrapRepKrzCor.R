@@ -33,7 +33,7 @@ BootstrapRepKrzCor <- function(ind.data, iterations = 1000, correlation = F, num
   if(correlation)  StatFunc <- cor
   else             StatFunc <- cov
   repeatability <- BootstrapRep(ind.data, iterations,
-                                ComparisonFunc = function(x, y) MantelCor(x, y, 1)[1],
+                                ComparisonFunc = KrzCor,
                                 StatFunc = StatFunc,
                                 num.cores = num.cores)
   return(mean(repeatability))

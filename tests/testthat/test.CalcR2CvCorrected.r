@@ -10,7 +10,7 @@ test_that("CalcR2CvCorrected returns sensible results on residuals",
                                                       "models", "dist")))
               expect_that(colnames(results[[3]]), equals(c("r2", "eVals_cv", "mean_cv")))
               expect_that(sum(sapply(results[[3]][,1], function(x) !(x > 0 & x < 1))), equals(0))
-              expect_that(lengt(results[[1]]), equals(2))
+              expect_that(length(results[[1]]), equals(2))
               expect_that(length(results[[2]]), equals(2))
               expect_that(dim(results[[3]]), equals(c(100, 3)))
           })

@@ -1,7 +1,7 @@
 test_that("RandomSkewers returns correct results on pairs of matrices",
           {
-            cor.matrix.1 <- RandCorr(10)
-            cor.matrix.2 <- RandCorr(10)
+            cor.matrix.1 <- RandomMatrix(10)
+            cor.matrix.2 <- RandomMatrix(10)
             results <- RandomSkewers(cor.matrix.1, cor.matrix.2)
             expect_that(results, is_a("numeric"))
             expect_that(length(results), equals(3))
@@ -15,7 +15,7 @@ test_that("RandomSkewers returns correct results on pairs of matrices",
 
 test_that("RandomSkewers returns correct results on lists",
           {
-            mat.list <- lapply(as.list(1:10), function(x) RandCorr(10))
+            mat.list <- lapply(as.list(1:10), function(x) RandomMatrix(10))
             rep.vec <- runif(length(mat.list), 0.8, 0.9)
             set.seed(42)
             results.list <- RandomSkewers(mat.list)
@@ -47,8 +47,8 @@ test_that("RandomSkewers returns correct results on lists",
 
 test_that("RandomSkewers returns correct results on lists + matrices",
           {
-            mat.list <- lapply(as.list(1:10), function(x) RandCorr(10))
-            y.matrix <- RandCorr(10)
+            mat.list <- lapply(as.list(1:10), function(x) RandomMatrix(10))
+            y.matrix <- RandomMatrix(10)
             set.seed(42)
             results <- RandomSkewers(mat.list, y.matrix)
             expect_that(results, is_a("data.frame"))
@@ -64,8 +64,8 @@ test_that("RandomSkewers returns correct results on lists + matrices",
 )
 test_that("MantelCor returns correct results",
           {
-            cor.matrix.1 <- RandCorr(10)
-            cor.matrix.2 <- RandCorr(10)
+            cor.matrix.1 <- RandomMatrix(10)
+            cor.matrix.2 <- RandomMatrix(10)
             results <- MantelCor(cor.matrix.1, cor.matrix.2)
             expect_that(length(results), equals(2))
             expect_that(results[1] <=  1, is_true())
@@ -79,7 +79,7 @@ test_that("MantelCor returns correct results",
 )
 test_that("MantelCor returns corret results",
           {
-            mat.list <- lapply(as.list(1:10), function(x) RandCorr(10))
+            mat.list <- lapply(as.list(1:10), function(x) RandomMatrix(10))
             rep.vec <- runif(length(mat.list), 0.8, 0.9)
             results.list <- MantelCor(mat.list)
             results <- results.list[[1]]
@@ -108,8 +108,8 @@ test_that("MantelCor returns corret results",
 
 test_that("MantelCor returns correct results on lists + matrices",
           {
-            mat.list <- lapply(as.list(1:10), function(x) RandCorr(10))
-            y.matrix <- RandCorr(10)
+            mat.list <- lapply(as.list(1:10), function(x) RandomMatrix(10))
+            y.matrix <- RandomMatrix(10)
             set.seed(42)
             results <- MantelCor(mat.list, y.matrix)
             expect_that(results, is_a("data.frame"))
@@ -126,8 +126,8 @@ test_that("MantelCor returns correct results on lists + matrices",
 
 test_that("KrzCor returns correct results",
           {
-              cov.matrix.1 <- RandCorr(10)
-              cov.matrix.2 <- RandCorr(10)
+              cov.matrix.1 <- RandomMatrix(10)
+              cov.matrix.2 <- RandomMatrix(10)
               ret.dim = round(dim(cov.matrix.1)[1]/2 - 1)
               EigenVectors <- function (x) return (eigen(x)$vectors[,1:ret.dim])
               A <- EigenVectors (cov.matrix.1)
@@ -144,7 +144,7 @@ test_that("KrzCor returns correct results",
 
 test_that("KrzCor returns correct results",
           {
-            mat.list <- lapply(as.list(1:10), function(x) RandCorr(10))
+            mat.list <- lapply(as.list(1:10), function(x) RandomMatrix(10))
             rep.vec <- runif(length(mat.list), 0.8, 0.9)
             results <- KrzCor(mat.list)
             results.2 <- KrzCor(mat.list, repeat.vector = rep.vec)
@@ -167,8 +167,8 @@ test_that("KrzCor returns correct results",
 
 test_that("KrzCor returns correct results on lists + matrices",
           {
-            mat.list <- lapply(as.list(1:10), function(x) RandCorr(10))
-            y.matrix <- RandCorr(10)
+            mat.list <- lapply(as.list(1:10), function(x) RandomMatrix(10))
+            y.matrix <- RandomMatrix(10)
             results <- KrzCor(mat.list, y.matrix)
             expect_that(results, is_a("numeric"))
             expect_that(sum(is.na(results)), equals(0))
@@ -184,8 +184,8 @@ test_that("KrzCor returns correct results on lists + matrices",
 
 test_that("KrzProjection returns correct results",
           {
-            cov.matrix.1 <- RandCorr(10)
-            cov.matrix.2 <- RandCorr(10)
+            cov.matrix.1 <- RandomMatrix(10)
+            cov.matrix.2 <- RandomMatrix(10)
             expect_that(KrzProjection(cov.matrix.1, cov.matrix.2), is_a("list"))
             expect_that(length(KrzProjection(cov.matrix.1, cov.matrix.2)), equals(2))
             expect_that(length(KrzProjection(cov.matrix.1,
@@ -212,7 +212,7 @@ test_that("KrzProjection returns correct results",
 
 test_that("KrzProjection returns correct results",
           {
-            mat.list <- lapply(as.list(1:10), function(x) RandCorr(10))
+            mat.list <- lapply(as.list(1:10), function(x) RandomMatrix(10))
             expect_that(dim(KrzProjection(mat.list)), equals(c(length(mat.list), length(mat.list))))
             expect_that(diag(KrzProjection(mat.list)), is_equivalent_to(rep(0, length(mat.list))))
             expect_that(KrzProjection(mat.list)[1,2], equals(KrzProjection(mat.list[[1]], mat.list[[2]])[[1]]))
