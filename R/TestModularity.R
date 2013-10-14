@@ -11,6 +11,7 @@
 #' @author Diogo Melo, Guilherme Garcia
 #' @seealso \code{\link{MantelCor}}
 #' @export
+#' @rdname TestModularity
 #' @examples
 #' cor.matrix <- RandomMatrix(10)
 #' rand.hipots <- matrix(sample(c(1, 0), 30, replace=TRUE), 10, 3)
@@ -25,6 +26,8 @@ TestModularity <- function (cor.matrix, modularity.hipot, iterations = 100) {
   return (output)
 }
 
+#' @export
+#' @rdname TestModularity
 CreateHipotMatrix <- function(modularity.hipot) {
   num.hip <- dim (modularity.hipot) [2]
   num.traits <- dim (modularity.hipot) [1]
