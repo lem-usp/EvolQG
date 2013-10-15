@@ -93,7 +93,7 @@ MonteCarloRepKrzCor <- function(cov.matrix, sample.size, correlation = F, iterat
   if(correlation)  StatFunc <- function(x) cov2cor(cov(x))
   else StatFunc <- cov
   repeatability <- MonteCarloStat(cov.matrix, sample.size, iterations,
-                                  ComparisonFunc = function(x, y) MantelCor(x, y, 1)[1],
+                                  ComparisonFunc = function(x, y) KrzCor(x, y, 1)[1],
                                   StatFunc = StatFunc,
                                   num.cores = num.cores)
   return(mean(repeatability))
