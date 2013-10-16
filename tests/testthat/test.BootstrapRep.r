@@ -9,5 +9,7 @@ test_that("BootstrapRep returns sensible results",
               expect_that(BootstrapRepMantelCor(ind.data, 50) >= 0.98 , is_true())
               expect_that(BootstrapRepKrzCor(ind.data, 50) >= 0.98 , is_true())
               expect_that(BootstrapRepKrzCor(ind.data, 50, T) >= 0.98 , is_true())
+              expect_that(BootstrapRepRandomSkewers(cov(ind.data), 50), throws_error("input appears to be a matrix, use residuals."))
+              expect_that(BootstrapRepRandomSkewers(cor(ind.data), 50), throws_error("input appears to be a matrix, use residuals."))
           }
 )

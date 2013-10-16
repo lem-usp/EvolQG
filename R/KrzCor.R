@@ -62,14 +62,14 @@ KrzCor.list <- function (cov.x, cov.y = NULL,
                          num.cores = 1, ...) {
   if (is.null (cov.y)) {
     out <- ComparisonMap(cov.x,
-                         function(x, y) return(c(KrzCor.default(x, y, ret.dim), NA)),
+                         function(x, y) return(c(KrzCor(x, y, ret.dim), NA)),
                          repeat.vector = repeat.vector,
                          num.cores = num.cores)
     out <- out[[1]]
   }
   else{
     out <- SingleComparisonMap(cov.x, cov.y,
-                         function(x, y) return(c(KrzCor.default(x, y, ret.dim), NA)),
+                         function(x, y) return(c(KrzCor(x, y, ret.dim), NA)),
                                num.cores = num.cores)
     out <- out[,-length(out)]
   }

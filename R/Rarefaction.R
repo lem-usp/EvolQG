@@ -132,7 +132,7 @@ RarefactionMantelCor <- function(ind.data,
                                  num.cores = 1){
   comparison.list <- Rarefaction(ind.data,
                                  cor,
-                                 function(x, y) MantelCor(x, y, iterations)[1],
+                                 function(x, y) MantelCor(x, cov2cor(y), iterations)[1],
                                  num.reps=num.reps,
                                  num.cores = num.cores)
   return(comparison.list)

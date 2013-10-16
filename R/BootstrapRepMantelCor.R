@@ -18,11 +18,6 @@
 #' BootstrapRepMantelCor(iris[,1:4], 50)
 #'
 #'
-#' #Creating repeatability vector for a list of matrices
-#'
-#' mat.list <- RandomMatrix(10, 3, 1, 10)
-#' unlist(lapply(mat.list, BootstrapRepMantelCor), 30, TRUE)
-#'
 #' @keywords bootstrap
 #' @keywords repetabilities
 
