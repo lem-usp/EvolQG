@@ -51,9 +51,9 @@ KrzProjection <- function(cov.x, cov.y, ...) UseMethod("KrzProjection")
 KrzProjection.default <- function (cov.x, cov.y, ret.dim.1 = NULL, ret.dim.2 = NULL, ...) {
   num.traits <- dim(cov.x)[1]
   if (is.null(ret.dim.1))
-    ret.dim.1 <- num.traits/2 - 1
+    ret.dim.1 <- round(num.traits/2 - 1)
   if (is.null(ret.dim.2))
-    ret.dim.2 <- num.traits/2 - 1
+    ret.dim.2 <- round(num.traits/2 - 1)
   eigen.cov.x <- eigen(cov.x)
   eVal.1 <- eigen.cov.x$values
   eVec.1 <- eigen.cov.x$vectors
