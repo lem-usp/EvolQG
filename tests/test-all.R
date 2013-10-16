@@ -1,3 +1,3 @@
 library(testthat)
 library(Morphometrics)
-test_dir("./testthat/")
+test_package("Morphometrics")

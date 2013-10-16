@@ -81,8 +81,8 @@ MonteCarloRepRandomSkewers <- function(cov.matrix, sample.size, iterations = 100
 #' @rdname MonteCarloStat
 MonteCarloRepMantelCor <- function(cov.matrix, sample.size, iterations = 1000, num.cores = 1){
   repeatability <- MonteCarloStat(cov.matrix, sample.size, iterations,
-                                  ComparisonFunc = function(x, y) MantelCor(x, y, 1)[1],
-                                  StatFunc = function(x) cov2cor(cov(x)),
+                                  ComparisonFunc = function(x, y) MantelCor(cov2cor(x), y, 1)[1],
+                                  StatFunc = cor,
                                   num.cores = num.cores)
   return(mean(repeatability))
 }
@@ -90,10 +90,10 @@ MonteCarloRepMantelCor <- function(cov.matrix, sample.size, iterations = 1000, n
 #' @export
 #' @rdname MonteCarloStat
 MonteCarloRepKrzCor <- function(cov.matrix, sample.size, correlation = F, iterations = 1000, num.cores = 1){
-  if(correlation)  StatFunc <- function(x) cov2cor(cov(x))
-  else StatFunc <- cov
+  if(correlation)  {StatFunc <- cor; c2v <- cov2cor}
+  else {StatFunc <- cov; c2v <- function(x) x}
   repeatability <- MonteCarloStat(cov.matrix, sample.size, iterations,
-                                  ComparisonFunc = function(x, y) MantelCor(x, y, 1)[1],
+                                  ComparisonFunc = function(x, y) KrzCor(c2v(x), c2v(y), 1)[1],
                                   StatFunc = StatFunc,
                                   num.cores = num.cores)
   return(mean(repeatability))

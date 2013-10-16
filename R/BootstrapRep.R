@@ -38,6 +38,7 @@ BootstrapRep <- function (ind.data, iterations,
   else{
     parallel = FALSE
   }
+  if(isSymmetric(as.matrix(ind.data))) stop("input appears to be a matrix, use residuals.")
   sample.size <-  dim (ind.data) [1]
   c.matrix <- StatFunc(ind.data)
   populations  <- alply(1:iterations, 1,
