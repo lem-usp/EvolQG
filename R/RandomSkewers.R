@@ -76,13 +76,13 @@ RandomSkewers.list <- function (cov.x, cov.y = NULL, iterations = 1000, repeat.v
 {
   if (is.null (cov.y)) {
     out <- ComparisonMap(cov.x,
-                         function(x, y) RandomSkewers.default(x, y, iterations),
+                         function(x, y) RandomSkewers(x, y, iterations),
                          repeat.vector = repeat.vector,
                          num.cores = num.cores)
   }
   else{
     out <- SingleComparisonMap(cov.x, cov.y,
-                               function(x, y) RandomSkewers.default(x, y, iterations),
+                               function(x, y) RandomSkewers(x, y, iterations),
                                num.cores = num.cores)
   }
   return(out)

@@ -34,11 +34,6 @@
 BootstrapRepKrzCor(iris[,1:4], 50)
 
 BootstrapRepKrzCor(iris[,1:4], 50, TRUE)
-
-#Creating repeatability vector for a list of matrices
-
-mat.list <- RandomMatrix(10, 3, 1, 10)
-unlist(lapply(mat.list, BootstrapRepKrzCor), 30, TRUE)
 }
 \author{
   Diogo Melo, Guilherme Garcia

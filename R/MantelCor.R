@@ -84,13 +84,13 @@ MantelCor.list <- function (cor.x, cor.y = NULL,
 {
   if (is.null (cor.y)) {
     out <- ComparisonMap(cor.x,
-                         function(x, cor.y) MantelCor.default(x, cor.y, iterations),
+                         function(x, cor.y) MantelCor(x, cor.y, iterations),
                          repeat.vector = repeat.vector,
                          num.cores = num.cores)
   }
   else{
     out <- SingleComparisonMap(cor.x, cor.y,
-                               function(x, y) MantelCor.default(y,
+                               function(x, y) MantelCor(y,
                                                                          x,
                                                                          iterations, mod = mod),
                                num.cores = num.cores)
