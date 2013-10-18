@@ -41,6 +41,6 @@ ComparisonMap <- function (matrix.list, MatrixCompFunc, ..., repeat.vector = NUL
   rownames (correlations) <- matrix.names
   colnames (correlations) <- matrix.names
   dimnames (probabilities) <- dimnames (correlations)
-  output <- list ('correlations' = correlations, 'probabilities' = probabilities)
+  output <- list ('correlations' = t(correlations), 'probabilities' = t(probabilities))
   return (output)
 }

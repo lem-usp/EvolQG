@@ -36,8 +36,9 @@
 }
 \value{
   If cov.x and cov.y are passed, returns average value of
-  random skewers ('AC'), significance ('prob') and standard
-  deviation of random skewers ('SD')
+  response vectors correlation ('correlation'),
+  significance ('probability') and standard deviation of
+  response vectors correlation ('correlation_sd')
 
   If cov.x and cov.y are passed, same as above, but for all
   matrices in cov.x.

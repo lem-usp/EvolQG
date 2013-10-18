@@ -25,7 +25,7 @@
 #'
 #' If only cor.x is passed, a matrix of MantelCor average
 #' values and probabilities of all comparisons.
-#' If repeat.vector is passed, comparison matrix is corrected below
+#' If repeat.vector is passed, comparison matrix is corrected above
 #' diagonal and repeatabilities returned in diagonal.
 #' @export
 #' @importFrom vegan mantel

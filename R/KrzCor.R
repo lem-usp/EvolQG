@@ -14,7 +14,14 @@
 #' @param repeat.vector Vector of repeatabilities for correlation correction.
 #' @param num.cores If list is passed, number of threads to use in computation. Requires doMC library.
 #' @param ... aditional arguments passed to other methods
-#' @return Kzranowski correlation
+#' @return If cov.x and cov.y are passed, returns Kzranowski correlation
+#' 
+#' If cov.x is a list and cov.y is passed, same as above, but for all matrices in cov.x.
+#'
+#' If only a list is passed to cov.x, a matrix of Kzranowski correlation 
+#' values.
+#' If repeat.vector is passed, comparison matrix is corrected above
+#' diagonal and repeatabilities returned in diagonal.
 #' @export
 #' @rdname KrzCor
 #' @references Krzanowski, W. J. (1979). Between-Groups Comparison of Principal
