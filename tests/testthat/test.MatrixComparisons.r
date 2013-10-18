@@ -31,17 +31,17 @@ test_that("RandomSkewers returns correct results on lists",
             expect_that(sum(is.na(results.2)), equals(0))
             probabilities.2 <- results.list.2[[2]]
             expect_that(dim(results), equals(c(length(mat.list),length(mat.list))))
-            upper  <- results[upper.tri(results)]
-            upper.bool = sapply(upper, function(x) isTRUE(x > -1 & x < 1))
-            expect_that(sum(upper.bool), equals(length(upper.bool)))
-            lower  <- results[lower.tri(results, diag = T)]
-            lower.bool = sapply(lower, function(x) isTRUE(x == 0))
+            lower  <- results[lower.tri(results)]
+            lower.bool = sapply(lower, function(x) isTRUE(x > -1 & x < 1))
             expect_that(sum(lower.bool), equals(length(lower.bool)))
-            upper.2  <- results.2[upper.tri(results.2)]
-            lower.2  <- t(results.2)[upper.tri(results.2)]
-            expect_that(upper.2, equals(upper))
+            upper  <- results[upper.tri(results, diag = T)]
+            upper.bool = sapply(upper, function(x) isTRUE(x == 0))
+            expect_that(sum(upper.bool), equals(length(upper.bool)))
+            lower.2  <- results.2[lower.tri(results.2)]
+            upper.2  <- t(results.2)[lower.tri(results.2)]
+            expect_that(lower.2, equals(lower))
             expect_that(diag(results.2), is_equivalent_to(rep.vec))
-            expect_that(sum(lower.2 < upper.2), equals(0))
+            expect_that(sum(upper.2 < lower.2), equals(0))
           }
 )
 
@@ -92,17 +92,17 @@ test_that("MantelCor returns corret results",
             expect_that(sum(is.na(results.2)), equals(0))
             probabilities.2 <- results.list.2[[2]]
             expect_that(dim(results), equals(c(length(mat.list),length(mat.list))))
-            upper <- results[upper.tri(results)]
-            upper.bool = sapply(upper, function(x) isTRUE(x > -1 & x < 1))
-            expect_that(sum(upper.bool), equals(length(upper.bool)))
-            lower  <- results[lower.tri(results, diag = T)]
-            lower.bool = sapply(lower, function(x) isTRUE(x == 0))
+            lower <- results[lower.tri(results)]
+            lower.bool = sapply(lower, function(x) isTRUE(x > -1 & x < 1))
             expect_that(sum(lower.bool), equals(length(lower.bool)))
-            upper.2  <- results.2[upper.tri(results.2)]
-            lower.2  <- t(results.2)[upper.tri(results.2)]
-            expect_that(upper.2, equals(upper))
+            upper  <- results[upper.tri(results, diag = T)]
+            upper.bool = sapply(upper, function(x) isTRUE(x == 0))
+            expect_that(sum(upper.bool), equals(length(upper.bool)))
+            lower.2  <- results.2[lower.tri(results.2)]
+            upper.2  <- t(results.2)[lower.tri(results.2)]
+            expect_that(lower.2, equals(lower))
             expect_that(diag(results.2), is_equivalent_to(rep.vec))
-            expect_that(sum(abs(lower.2) < abs(upper.2)), equals(0))
+            expect_that(sum(abs(upper.2) < abs(lower.2)), equals(0))
           }
 )
 
@@ -151,17 +151,17 @@ test_that("KrzCor returns correct results",
             expect_that(sum(is.na(results)), equals(0))
             expect_that(sum(is.na(results.2)), equals(0))
             expect_that(dim(results), equals(c(length(mat.list),length(mat.list))))
-            upper  <- results[upper.tri(results)]
-            upper.bool = sapply(upper, function(x) isTRUE(x > 0 & x < 1))
-            expect_that(sum(upper.bool), equals(length(upper.bool)))
-            lower  <- results[lower.tri(results, diag = T)]
-            lower.bool = sapply(lower, function(x) isTRUE(x == 0))
+            lower  <- results[lower.tri(results)]
+            lower.bool = sapply(lower, function(x) isTRUE(x > 0 & x < 1))
             expect_that(sum(lower.bool), equals(length(lower.bool)))
-            upper.2  <- results.2[upper.tri(results.2)]
-            lower.2  <- t(results.2)[upper.tri(results.2)]
-            expect_that(upper.2, equals(upper))
+            upper  <- results[upper.tri(results, diag = T)]
+            upper.bool = sapply(upper, function(x) isTRUE(x == 0))
+            expect_that(sum(upper.bool), equals(length(upper.bool)))
+            lower.2  <- results.2[lower.tri(results.2)]
+            upper.2  <- t(results.2)[lower.tri(results.2)]
+            expect_that(lower.2, equals(lower))
             expect_that(diag(results.2), is_equivalent_to(rep.vec))
-            expect_that(sum(lower.2 < upper.2), equals(0))
+            expect_that(sum(upper.2 < lower.2), equals(0))
           }
 )
 
