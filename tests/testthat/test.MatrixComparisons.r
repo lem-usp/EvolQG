@@ -182,7 +182,7 @@ test_that("KrzCor returns correct results on lists + matrices",
           }
 )
 
-test_that("KrzProjection returns correct results",
+test_that("KrzProjection returns correct results on matrices",
           {
             cov.matrix.1 <- RandomMatrix(10)
             cov.matrix.2 <- RandomMatrix(10)
@@ -210,15 +210,24 @@ test_that("KrzProjection returns correct results",
           }
 )
 
-test_that("KrzProjection returns correct results",
+test_that("KrzProjection returns correct results on lists",
           {
-            mat.list <- lapply(as.list(1:10), function(x) RandomMatrix(10))
+            mat.list <- RandomMatrix(10, 10)
             expect_that(dim(KrzProjection(mat.list)), equals(c(length(mat.list), length(mat.list))))
-            expect_that(diag(KrzProjection(mat.list)), is_equivalent_to(rep(0, length(mat.list))))
             expect_that(KrzProjection(mat.list)[1,2], equals(KrzProjection(mat.list[[1]], mat.list[[2]])[[1]]))
             expect_that(KrzProjection(mat.list)[2,1], equals(KrzProjection(mat.list[[2]], mat.list[[1]])[[1]]))
             expect_that(length(KrzProjection(mat.list, full.results = T)), equals(length(mat.list)))
             expect_that(KrzProjection(mat.list, full.results = T), is_a("list"))
+          }
+)
+
+test_that("KrzProjection returns correct results on lists and matrices",
+          {
+            mat.list <- RandomMatrix(10, 10)
+            results <- KrzProjection(mat.list, mat.list[[1]])
+            test.results <- KrzProjection(mat.list)[,1]
+            expect_that(results, is_a('data.frame'))
+            expect_that(results[[1]], is_equivalent_to(test.results))
           }
 )
 

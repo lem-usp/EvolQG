@@ -2,7 +2,7 @@
 #'
 #' Calculates the Young correction for integration, using bootstrap
 #'
-#' @param ind.data Matrix of residuals or indiviual measurments, or ajusted linear model
+#' @param ind.data Matrix of indiviual measurments, or ajusted linear model
 #' @param cv.level Coeficient of variation level choosen for integration index ajustment in linear model.
 #' @param iterations Number of ressamples to take
 #' @param num.cores Number of threads to use in computation. Requires doMC library.
@@ -62,40 +62,38 @@ CalcR2CvCorrected.default <- function (ind.data, cv.level = 0.06, iterations = 1
 #' @rdname CalcR2CvCorrected
 #' @method CalcR2CvCorrected lm
 #' @S3method CalcR2CvCorrected lm
-CalcR2CvCorrected.lm <- function (ind.data, iterations = 1000, ...) {
-  cv <- function (x) return (sd(x)/mean(x))
-  orv <- ind.data$model[[1]]
-  fac <- ind.data$model[-1]
-  df <- ind.data$df.residual
-  res <- residuals (model)
-  size <- dim (res)
-  straps <- array (0, c(size[1], iterations))
-  r2 <- mcv <- evar <- c()
-  i <- 1
-  while (i <= iterations)
-  {
-    straps[,i] <- sample ((size[1]), replace = TRUE)
-    corr <- cov2cor (var (res[straps[,i],]) * (size[1] - 1)/df)
-    r2[i] <- mean (corr[lower.tri(corr)]^2)
-    evar[i] <- cv (eigen(var (res[straps[,i],] * (size[1] - 1)/df))$values)
-    orv.s <- orv[straps[,i],]
-    fac.s <- fac[straps[,i],]
-    tmp1 <- table (fac.s)
-    tmp2 <- by (orv.s,fac.s,cv)
-    tmp3 <- unlist (lapply (tmp2, mean))
-    mcv[i] <- sum ((tmp3 * tmp1)/sum (tmp1))
-    if (!is.na(mcv[i]))
-      i <- i + 1
-  }
-  corr.or <- cov2cor (residual.matrix (model))
-  r2.or <- mean (corr.or[lower.tri(corr.or)]^2)
-  evar.or <- cv (eigen(residual.matrix (model))$values)
-  tmp1 <- table (fac)
-  tmp2 <- by (orv,fac,cv)
-  tmp3 <- unlist (lapply (tmp2, mean))
-  mcv.or <- sum ((tmp3 * tmp1)/sum (tmp1))
-  return (list("sims" = cbind (r2, evar, mcv),
-               "originals" = c(r2.or,evar.or,mcv.or),
-               "CORmat" = corr.or,
-               "perms" = straps))
+CalcR2CvCorrected.lm <- function (ind.data, cv.level = 0.06, iterations = 1000, ...) {
+    cv <- function (x) return (sd(x)/mean(x))
+    model <- ind.data
+    ind.data <- model$model[[1]]
+    fac <- model$model[-1]
+    df <- model$df.residual
+    res <- residuals (model)
+    size <- dim (res)
+    r2 <- mcv <- evar <- c()
+    i <- 1
+    while (i <= iterations) {
+        current.sample <- sample ((size[1]), replace = TRUE)
+        corr <- cov2cor (var (res[current.sample,]) * (size[1] - 1)/df)
+        r2[i] <- mean (corr[lower.tri(corr)]^2)
+        evar[i] <- cv (eigen(var (res[current.sample,] * (size[1] - 1)/df))$values)
+        data <- data.frame(ind.data.s = ind.data[current.sample,], fac.s = fac[current.sample,])
+        tmp1 <- table (data$fac.s)
+        tmp2 <- ddply(data, ~ fac.s, function(x) apply(x[,1:size[2]], 2, cv))[-1]
+        tmp3 <- rowMeans(tmp2)
+        mcv[i] <- sum ((tmp3 * tmp1)/sum (tmp1))
+        if (!is.na(mcv[i]))
+            i <- i + 1
+      }
+    it.stats <- cbind(r2, evar, mcv)
+    colnames(it.stats) <- c("r2", "eVals_cv", "mean_cv")
+    lm.r2 <- lm(it.stats[,1]~it.stats[,3])
+    lm.eVals.cv <- lm(it.stats[,2]~it.stats[,3])
+    adjusted.r2 <- lm.r2$coefficients %*% c(1, cv.level)
+    adjusted.eVals.cv <- lm.eVals.cv$coefficients %*% c(1, cv.level)
+    adjusted.integration  <-  c(adjusted.r2, adjusted.eVals.cv)
+    names(adjusted.integration) <- c("r2", "eVals_cv")
+    models <- list("r2" = lm.r2, "eVals_cv" = lm.eVals.cv)
+    output <- list("adjusted.integration.index" = adjusted.integration, "models" = models, "dist" = it.stats)
+    return (output)
 }

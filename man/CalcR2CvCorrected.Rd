@@ -10,11 +10,11 @@
     cv.level = 0.06, iterations = 1000, num.cores = 1, ...)
 
   \method{CalcR2CvCorrected}{lm} (ind.data,
-    iterations = 1000, ...)
+    cv.level = 0.06, iterations = 1000, ...)
 }
 \arguments{
-  \item{ind.data}{Matrix of residuals or indiviual
-  measurments, or ajusted linear model}
+  \item{ind.data}{Matrix of indiviual measurments, or
+  ajusted linear model}
 
   \item{cv.level}{Coeficient of variation level choosen for
   integration index ajustment in linear model.}
