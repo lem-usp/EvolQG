@@ -35,7 +35,16 @@
   \item{...}{aditional arguments passed to other methods}
 }
 \value{
-  Kzranowski correlation
+  If cov.x and cov.y are passed, returns Kzranowski
+  correlation
+
+  If cov.x is a list and cov.y is passed, same as above,
+  but for all matrices in cov.x.
+
+  If only a list is passed to cov.x, a matrix of Kzranowski
+  correlation values. If repeat.vector is passed,
+  comparison matrix is corrected above diagonal and
+  repeatabilities returned in diagonal.
 }
 \description{
   Calculates covariance matrix correlation via Krzanowski

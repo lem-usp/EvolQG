@@ -22,8 +22,9 @@
 
   \item{...}{aditional arguments passed to other methods}
 
-  \item{cov.y}{First argument is compared to cov.y. Ignored
-  if cov.marix.1 is a list.}
+  \item{cov.y}{First argument is compared to cov.y. If
+  cov.x is a list, every element in cov.x is projected in
+  cov.y.}
 
   \item{ret.dim.1}{number of retained dimensions for first
   matrix in the comparison,}
@@ -51,12 +52,16 @@
 \examples{
 c1 <- RandomMatrix(10)
 c2 <- RandomMatrix(10)
-c3 <- RandomMatrix(10)
 KrzProjection(c1, c2)
 
-KrzProjection(list(c1, c2, c3))
-KrzProjection(list(c1, c2, c3), 5, 4)
-KrzProjection(list(c1, c2, c3), 4, 5)
+m.list <- RandomMatrix(10, 3)
+KrzProjection(m.list)
+KrzProjection(m.list, full.results = TRUE)
+KrzProjection(m.list, ret.dim.1 = 5, ret.dim.2 = 4)
+KrzProjection(m.list, ret.dim.1 = 4, ret.dim.2 = 5)
+
+KrzProjection(m.list, c1)
+KrzProjection(m.list, c1, full.results = TRUE)
 }
 \author{
   Diogo Melo, Guilherme Garcia
