@@ -11,7 +11,7 @@
 #' If cov.y is suplied, all matrices in list are compared to it.
 #' @param ... aditional arguments passed to other methods
 #' @param cov.y First argument is compared to cov.y.
-#' Ignored if cov.marix.1 is a list.
+#' If cov.x is a list, every element in cov.x is projected in cov.y.
 #' @param ret.dim.1 number of retained dimensions for first matrix in the comparison,
 #' @param ret.dim.2 number of retained dimensions for second matrix in the comparison,
 #' default for nxn matrix is n/2-1
@@ -32,18 +32,21 @@
 #' @examples
 #' c1 <- RandomMatrix(10)
 #' c2 <- RandomMatrix(10)
-#' c3 <- RandomMatrix(10)
 #' KrzProjection(c1, c2)
-#'
-#' KrzProjection(list(c1, c2, c3))
-#' KrzProjection(list(c1, c2, c3), 5, 4)
-#' KrzProjection(list(c1, c2, c3), 4, 5)
+#' 
+#' m.list <- RandomMatrix(10, 3)
+#' KrzProjection(m.list)
+#' KrzProjection(m.list, full.results = TRUE)
+#' KrzProjection(m.list, ret.dim.1 = 5, ret.dim.2 = 4)
+#' KrzProjection(m.list, ret.dim.1 = 4, ret.dim.2 = 5)
+#' 
+#' KrzProjection(m.list, c1)
+#' KrzProjection(m.list, c1, full.results = TRUE)
 #' @keywords matrixcomparison
 #' @keywords matrixcorrelation
 #' @keywords Krzanowski
 
 KrzProjection <- function(cov.x, cov.y, ...) UseMethod("KrzProjection")
-
 
 #' @rdname KrzProjection
 #' @method KrzProjection default
@@ -79,36 +82,48 @@ KrzProjection.list <- function(cov.x, cov.y = NULL,
     registerDoMC(num.cores)
     parallel = TRUE
   }
-  else
-    parallel = FALSE
-  if(full.results){
-    CompareToNProj <- function(n) llply(cov.x,
-                                        function(x) {KrzProjection(x,
-                                                                   cov.x[[n]],
-                                                                   ret.dim.1, ret.dim.2)},
-                                        .parallel = parallel)
-  }
   else{
-    CompareToNProj <- function(n) llply(cov.x[names(cov.x) != n],
-                                        function(x) {KrzProjection(x,
-                                                                   cov.x[[n]],
-                                                                   ret.dim.1, ret.dim.2)[1]},
-                                        .parallel = parallel)
+    parallel = FALSE
   }
-  if(is.null(names(cov.x))) {names(cov.x) <- 1:length(cov.x)}
-  comparisons.proj <- llply(names(cov.x),
-                             CompareToNProj,
-                             .parallel = parallel)
-  if(full.results){
-    names(comparisons.proj) = names(cov.x)
+  if(is.null(cov.y)){
+    if(full.results){
+      CompareToNProj <- function(n) llply(cov.x,
+                                          function(x) {KrzProjection(x,
+                                                                     cov.x[[n]],
+                                                                     ret.dim.1, ret.dim.2)},
+                                          .parallel = parallel)
+    }
+    else{
+      CompareToNProj <- function(n) llply(cov.x,
+                                          function(x) {KrzProjection(x,
+                                                                     cov.x[[n]],
+                                                                     ret.dim.1, ret.dim.2)[1]},
+                                          .parallel = parallel)
+    }
+    if(is.null(names(cov.x))) {names(cov.x) <- 1:length(cov.x)}
+    comparisons.proj <- llply(names(cov.x),
+                              CompareToNProj,
+                              .parallel = parallel)
+    if(full.results){
+      names(comparisons.proj) = names(cov.x)
+      return(comparisons.proj)
+    }
+    else{
+      comparisons.proj <- melt(comparisons.proj)
+      comparisons.proj[,4] = names(cov.x)[(comparisons.proj[,4])]
+      comparisons.proj = comparisons.proj[,-2]
+      comparisons.proj = acast(comparisons.proj, L2~L1)[names(cov.x), names(cov.x)]
+    }
     return(comparisons.proj)
   }
   else{
-    comparisons.proj <- melt(comparisons.proj)
-    comparisons.proj[,4] = names(cov.x)[(comparisons.proj[,4])]
-    comparisons.proj = comparisons.proj[,-2]
-    comparisons.proj = acast(comparisons.proj, L2~L1)[names(cov.x), names(cov.x)]
-    diag(comparisons.proj) = 0.
+    if(full.results){
+      comparisons.proj <- llply(cov.x, function(x) {KrzProjection(x, cov.y, ret.dim.1, ret.dim.2)}, .parallel = parallel)
+    }
+    else{
+      comparisons.proj <- laply(cov.x, function(x) {KrzProjection(x, cov.y, ret.dim.1, ret.dim.2)[1]}, .parallel = parallel)
+      comparisons.proj <- ldply(comparisons.proj)  
+    }
+    return(comparisons.proj)
   }
-  return(comparisons.proj)
 }

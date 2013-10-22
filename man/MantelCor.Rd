@@ -53,7 +53,7 @@
   If only cor.x is passed, a matrix of MantelCor average
   values and probabilities of all comparisons. If
   repeat.vector is passed, comparison matrix is corrected
-  below diagonal and repeatabilities returned in diagonal.
+  above diagonal and repeatabilities returned in diagonal.
 }
 \description{
   Calculates correlation matrix correlation via Mantel.

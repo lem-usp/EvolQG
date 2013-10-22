@@ -46,7 +46,7 @@
   If only a list is passed to cov.x, a matrix of
   RandomSkewers average values and probabilities of all
   comparisons. If repeat.vector is passed, comparison
-  matrix is corrected below diagonal and repeatabilities
+  matrix is corrected above diagonal and repeatabilities
   returned in diagonal.
 }
 \description{
