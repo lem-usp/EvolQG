@@ -83,9 +83,12 @@ Rarefaction <- function(ind.data,
   num.ind = dim(ind.data)[1]
   MapStatFunc <- function(n){
     SampleFunction <- function(x){
-      local.sample = sample(1:num.ind, n, replace=T)
-      out <- StatFunc(ind.data[local.sample,])
-      return(out)
+      while(TRUE){
+        local.sample = sample(1:num.ind, n, replace=T)
+        out <- tryCatch(StatFunc(ind.data[local.sample,]), warning=function(w) w)
+        if(!is(out, "warning"))
+          return(out)
+      }
     }
     return(alply(1:num.reps, 1, SampleFunction))
   }
