@@ -8,7 +8,7 @@
 #'
 #'@return list with calculated ancestral states, using labels or numbers from tree
 #'@export
-#'@importFrom phylobase getNode edges reorder
+#'@importFrom phylobase getNode edges reorder descendants
 #'@import plyr
 #'@examples
 #'library(phylobase)
