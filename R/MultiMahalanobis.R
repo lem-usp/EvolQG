@@ -28,17 +28,18 @@ MultiMahalanobis <- function (mean.list, cov.matrix, num.cores = 1) {
   else{
     parallel = FALSE
   }
-  num.mean <- length(mean.list)
+  num.mean<- length(mean.list)
   if(is.null(names(mean.list))) {names(mean.list) <- 1:num.mean}
   mean.names <- names (mean.list)
   CompareToN <- function(n) ldply(mean.list[(n+1):num.mean],
                                   function(x) {mahalanobis(x, mean.list[[n]], cov.matrix)},
                                   .parallel = parallel)
   comparisons <- adply(1:(num.mean-1), 1,  CompareToN, .parallel = parallel)
-  dists <- acast(comparisons[-4], X1~.id)[,mean.names[-1]]
+  dists <- acast(comparisons[-4], X1~.id, value.var = 'V1')[,mean.names[-1]]
   distances <- array (0, c(num.mean, num.mean))
   distances[upper.tri(distances)] <- dists[upper.tri(dists, diag=T)]
+  distances[lower.tri(distances)] <- t(distances)[lower.tri(distances)]
   rownames (distances) <- mean.names
   colnames (distances) <- mean.names
-  return (as.dist(distances))
+  return (distances)
 }

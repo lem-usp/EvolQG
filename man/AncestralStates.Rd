@@ -20,13 +20,12 @@
   phylogeny
 }
 \examples{
-library(phylobase)
+library(ape)
 data(bird.orders)
-tree <- as(bird.orders, "phylo4")
-tip.labels <- tipLabels(tree)
-mat.list <- RandomMatrix(5, length(tip.labels))
-names(mat.list) <- tip.labels
-sample.sizes <- runif(length(tip.labels), 15, 20)
+tree <- bird.orders
+mat.list <- RandomMatrix(5, length(tree$tip.label))
+names(mat.list) <- tree$tip.label
+sample.sizes <- runif(length(tree$tip.label), 15, 20)
 AncestralStates(tree, mat.list, sample.sizes)
 }
 

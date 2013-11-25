@@ -8,39 +8,40 @@
 #'
 #'@return list with calculated ancestral states, using labels or numbers from tree
 #'@export
-#'@importFrom phylobase getNode edges reorder descendants
+#'@importFrom ape reorder.phylo
 #'@import plyr
 #'@examples
-#'library(phylobase)
+#'library(ape)
 #'data(bird.orders)
-#'tree <- as(bird.orders, "phylo4")
-#'tip.labels <- tipLabels(tree)
-#'mat.list <- RandomMatrix(5, length(tip.labels))
-#'names(mat.list) <- tip.labels
-#'sample.sizes <- runif(length(tip.labels), 15, 20)
+#'tree <- bird.orders
+#'mat.list <- RandomMatrix(5, length(tree$tip.label))
+#'names(mat.list) <- tree$tip.label
+#'sample.sizes <- runif(length(tree$tip.label), 15, 20)
 #'AncestralStates(tree, mat.list, sample.sizes)
 
 AncestralStates <- function(tree, tip.data, tip.sample.size = NULL){
-  tree <- as(tree, "phylo4")
-  tip.names <- names(getNode(tree, type="tip"))
-  if(!is.null(tip.sample.size)){
-    for(i in 1:length(tip.data)){
-      tip.data[[i]] <- tip.data[[i]]*tip.sample.size[i]
-    }
-  }
-  else{
+  num.nodes = length(tree$tip.label)
+  if(is.null(tree$node.label))
+    node.names <- tree$tip.label 
+  else
+    node.names <- c(tree$tip.label, tree$node.label)
+  if(is.null(tip.sample.size))
     tip.sample.size <- rep(1, length(tip.data))
-  }
   names(tip.sample.size) <- names(tip.data)
-  ancestral.stats <- list()
-  if(!sum(tip.names %in% names(tip.data)) == length(tip.names)) stop("All tip labels must be in stat list.")
-  node.order <- getNode(tree, edges(reorder(tree, order="postorder"))[,2])
+  tip.sample.size <- as.list(tip.sample.size)
+  ancestral.stats <- tip.data
+  if(!sum(tree$tip.label %in% names(tip.data)) == length(tree$tip.label)) stop("All tip labels must be in stat list.")
+  node.order <- unique(reorder(tree, "postorder")$edge[,1])
   for (node in node.order){
-        node.name <- names(getNode(tree, node))
-      if(is.na(node.name))
-        node.name <- as.character(node)
-      descendants.list <- descendants(tree, node)
-      ancestral.stats[[node.name]] <- Reduce("+", tip.data[descendants.list])/sum(tip.sample.size[descendants.list])
+        node.name <- node.names[node]
+      if(is.na(node.name)){
+        node.names[node] <- as.character(node)
+      }
+      descendants.list <- node.names[tree$edge[which(tree$edge[,1]==node),2]]
+      ponderados <- Map('*', ancestral.stats[descendants.list], tip.sample.size[descendants.list])
+      tip.sample.size[[node.names[node]]] <- Reduce("+", tip.sample.size[descendants.list])
+      ancestral.stats[[node.names[node]]] <- Reduce("+", ponderados)/
+                                              tip.sample.size[[node.names[node]]]
   }
   return(ancestral.stats)
 }

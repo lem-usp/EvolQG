@@ -14,7 +14,7 @@ Imports:
     reshape2,
     ggplot2,
     vegan,
-    phylobase,
+    ape,
     mvtnorm
 Suggests:
     testthat (>= 0.2),
