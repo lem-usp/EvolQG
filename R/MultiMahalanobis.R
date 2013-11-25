@@ -37,8 +37,9 @@ MultiMahalanobis <- function (mean.list, cov.matrix, num.cores = 1) {
   comparisons <- adply(1:(num.mean-1), 1,  CompareToN, .parallel = parallel)
   dists <- acast(comparisons[-4], X1~.id, value.var = 'V1')[,mean.names[-1]]
   distances <- array (0, c(num.mean, num.mean))
-  distances[lower.tri(distances)] <- dists[upper.tri(dists, diag=T)]
+  distances[upper.tri(distances)] <- dists[upper.tri(dists, diag=T)]
+  distances[lower.tri(distances)] <- t(distances)[lower.tri(distances)]
   rownames (distances) <- mean.names
   colnames (distances) <- mean.names
-  return (as.dist(distances))
+  return (distances)
 }
