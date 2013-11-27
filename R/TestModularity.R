@@ -19,7 +19,7 @@
 #' @keywords mantel
 #' @keywords modularity
 TestModularity <- function (cor.matrix, modularity.hipot, iterations = 100) {
-  m.hip.list <- CreateHipotMatrix(modularity.hipot)
+  m.hip.list <- CreateHipotMatrix(as.matrix(modularity.hipot))
   if(is.null(colnames(modularity.hipot))) colnames(modularity.hipot) <- 1:dim (modularity.hipot) [2]
   names(m.hip.list) <- c(colnames (modularity.hipot),"Full Integration")
   output <- MantelCor (m.hip.list, cor.matrix, iterations = iterations, mod = TRUE)
