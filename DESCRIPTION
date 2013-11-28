@@ -20,5 +20,6 @@ Suggests:
     testthat (>= 0.2),
     foreach,
     doMC
+LinkinTo: Rcpp
 License: MIT + file LICENSE
 BugReports: https://github.com/lem-usp/Morphometrics/issues

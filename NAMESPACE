@@ -1,3 +1,4 @@
+useDynLib(Morphometrics)
 export(AlphaRep)
 export(AncestralStates)
 export(Autonomy)
@@ -67,3 +68,4 @@ S3method(RandomSkewers,default)
 S3method(RandomSkewers,list)
 S3method(SRD,default)
 S3method(SRD,list)
+
