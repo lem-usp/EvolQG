@@ -9,7 +9,6 @@ Maintainer: Diogo Melo <diogro@cecm.usp.br>
 Description: More about what it does (maybe more than one line)
 Depends:
     R (>= 2.11.0),
-    Rcpp (>= 0.10.6),
     plyr (>= 1.7.1)
 Imports:
     reshape2,
@@ -24,34 +23,3 @@ Suggests:
 LinkinTo: Rcpp
 License: MIT + file LICENSE
 BugReports: https://github.com/lem-usp/Morphometrics/issues
-Collate:
-    'AlphaRep.R'
-    'AncestralMeans.R'
-    'BootstrapRepKrzCor.R'
-    'BootstrapRepMantelCor.R'
-    'BootstrapRep.R'
-    'BootstrapRepRandomSkewers.R'
-    'CalcR2CvCorrected.R'
-    'CalcR2.R'
-    'CalcRepeatability.R'
-    'CalculateMatrix.R'
-    'ComparisonMap.R'
-    'ExtendMatrix.R'
-    'KrzCor.R'
-    'KrzProjection.R'
-    'l_modularity.R'
-    'MantelCor.R'
-    'MatrixStatistics.R'
-    'MonteCarloStat.R'
-    'MultiMahalanobis.R'
-    'Normalize.R'
-    'PrintMatrix.R'
-    'RandomCorr.R'
-    'RandomMatrix.R'
-    'RandomSkewers.R'
-    'Rarefaction.R'
-    'RcppExports.R'
-    'RemoveSize.R'
-    'SingleComparisonMap.R'
-    'SRD.R'
-    'TestModularity.R'
