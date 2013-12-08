@@ -90,6 +90,6 @@ PlotSRD(srd.out)
   \code{\link{RandomSkewers}}
 }
 \keyword{RandomSkewers}
-\keyword{selectionresponsedecomposition}
 \keyword{SRD}
+\keyword{selectionresponsedecomposition}
 
