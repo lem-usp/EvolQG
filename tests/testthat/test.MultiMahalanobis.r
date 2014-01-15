@@ -7,7 +7,7 @@ test_that("MultiMahalanobis returns correct results",
             euclidian <- MultiMahalanobis(mean.list, diag(rep(1, 10)))
             half.euclidian <- MultiMahalanobis(mean.list, diag(rep(0.5, 10)))
             expect_that(euclidian*2, equals(half.euclidian))
-            expect_that(euclidian, is_a("dist"))
-            expect_that(length(euclidian), equals(3))
+            expect_that(euclidian, is_a("matrix"))
+            expect_that(dim(euclidian), equals(c(3,3)))
           }
 )

@@ -1,7 +1,7 @@
 test_that("CalcRepeatability returns correct values",
           {
             num.ind = length(iris[,1])
-            ID = rep(1:num.ind, 2)
+            ID = as.factor(rep(1:num.ind, 2))
             ind.data = rbind(iris[,1:4], iris[,1:4]+array(rnorm(num.ind*4, 0, 0.1), dim(iris[,1:4])))
             models.list <- apply (ind.data, 2, function (vec){return (lm (vec ~ ID))})
             models.list <- lapply (models.list, anova)
