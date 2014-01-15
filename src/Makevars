@@ -1,2 +1,2 @@
 PKG_LIBS = `Rscript -e "Rcpp:::LdFlags()"`
-PKG_CPPFLAGS = `Rscript -e 'Rcpp:::CxxFlags()' ` -I /usr/include/c++/4.7 -I /usr/include/x86_64-linux-gnu/c++/4.7/32
+PKG_CPPFLAGS = `Rscript -e 'Rcpp:::CxxFlags()' ` -I /usr/include/c++/4.8 -I /usr/include/x86_64-linux-gnu/c++/4.8/32

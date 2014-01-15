@@ -18,7 +18,7 @@
 #' CalcRepeatability(ID, ind.data)
 CalcRepeatability <- function (ID, ind.data)
 {
-  models.list <- apply (ind.data, 2, function (vec){return (lm (vec ~ ID))})
+  models.list <- apply (ind.data, 2, function (vec){return (lm (vec ~ as.factor(ID)))})
   models.list <- lapply (models.list, anova)
   rep.itself <- function (lm.model){
     msq <- lm.model$'Mean Sq' ## 1 entre, 2 dentro
