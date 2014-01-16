@@ -3,13 +3,16 @@
 \title{Bootstrap analysis via ressampling}
 \usage{
   BootstrapRepRandomSkewers(ind.data, iterations = 1000,
-    num.cores = 1)
+    correlation = F, num.cores = 1)
 }
 \arguments{
   \item{ind.data}{Matrix of residuals or indiviual
   measurments}
 
   \item{iterations}{Number of ressamples to take}
+
+  \item{correlation}{If TRUE, correlation matrix is used,
+  else covariance matrix}
 
   \item{num.cores}{Number of threads to use in computation.
   Requires doMC library.}
