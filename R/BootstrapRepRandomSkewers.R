@@ -24,10 +24,12 @@
 #' @keywords repetabilities
 
 
-BootstrapRepRandomSkewers <- function(ind.data, iterations = 1000, num.cores = 1){
+BootstrapRepRandomSkewers <- function(ind.data, iterations = 1000, correlation = F, num.cores = 1){
+  if(correlation)  StatFunc <- cor
+  else             StatFunc <- cov
   repeatability <- BootstrapRep(ind.data, iterations,
                                 ComparisonFunc = function(x, y) RandomSkewers(x, y)[1],
-                                StatFunc = cov,
+                                StatFunc = StatFunc,
                                 num.cores = num.cores)
   return(mean(repeatability))
 }
