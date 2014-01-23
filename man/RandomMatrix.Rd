@@ -2,8 +2,8 @@
 \alias{RandomMatrix}
 \title{Random matrices for tests}
 \usage{
-  RandomMatrix(num.traits, num.matrices = 1, min.var = 1,
-    max.var = 1, variance = NULL, ke = 10^-3)
+RandomMatrix(num.traits, num.matrices = 1, min.var = 1, max.var = 1,
+  variance = NULL, ke = 10^-3)
 }
 \arguments{
   \item{num.traits}{Number of traits in random matrix}
@@ -24,12 +24,12 @@
   Involves check for positive defitness}
 }
 \value{
-  Returns either a single matrix, or a list of matrices of
-  equal dimension
+Returns either a single matrix, or a list of matrices of
+equal dimension
 }
 \description{
-  Provides random covariance/correlation matrices for quick
-  tests. Should not be used for statistics.
+Provides random covariance/correlation matrices for quick
+tests. Should not be used for statistics.
 }
 \examples{
 #single 10x10 correlation matrix
@@ -45,7 +45,7 @@ RandomMatrix(3, 2, variance= c(3, 4, 5))
 RandomMatrix(10, 100, 1, 300)
 }
 \author{
-  Diogo Melo Edgar Zanella
+Diogo Melo Edgar Zanella
 }
 \keyword{randommatrices}
 

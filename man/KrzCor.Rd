@@ -4,14 +4,12 @@
 \alias{KrzCor.list}
 \title{Compare matrices via Krzanowski Correlation}
 \usage{
-  KrzCor(cov.x, cov.y, ...)
+KrzCor(cov.x, cov.y, ...)
 
-  \method{KrzCor}{default} (cov.x, cov.y, ret.dim = NULL,
-    ...)
+\method{KrzCor}{default}(cov.x, cov.y, ret.dim = NULL, ...)
 
-  \method{KrzCor}{list} (cov.x, cov.y = NULL,
-    ret.dim = NULL, repeat.vector = NULL, num.cores = 1,
-    ...)
+\method{KrzCor}{list}(cov.x, cov.y = NULL, ret.dim = NULL,
+  repeat.vector = NULL, num.cores = 1, ...)
 }
 \arguments{
   \item{cov.x}{Single covariance matrix or list of
@@ -35,20 +33,20 @@
   \item{...}{aditional arguments passed to other methods}
 }
 \value{
-  If cov.x and cov.y are passed, returns Kzranowski
-  correlation
+If cov.x and cov.y are passed, returns Kzranowski
+correlation
 
-  If cov.x is a list and cov.y is passed, same as above,
-  but for all matrices in cov.x.
+If cov.x is a list and cov.y is passed, same as above, but
+for all matrices in cov.x.
 
-  If only a list is passed to cov.x, a matrix of Kzranowski
-  correlation values. If repeat.vector is passed,
-  comparison matrix is corrected above diagonal and
-  repeatabilities returned in diagonal.
+If only a list is passed to cov.x, a matrix of Kzranowski
+correlation values. If repeat.vector is passed, comparison
+matrix is corrected above diagonal and repeatabilities
+returned in diagonal.
 }
 \description{
-  Calculates covariance matrix correlation via Krzanowski
-  Correlation
+Calculates covariance matrix correlation via Krzanowski
+Correlation
 }
 \examples{
 c1 <- RandomMatrix(10)
@@ -65,15 +63,15 @@ c4 <- RandomMatrix(10)
 KrzCor(list(c1, c2, c3), c4)
 }
 \author{
-  Diogo Melo, Guilherme Garcia
+Diogo Melo, Guilherme Garcia
 }
 \references{
-  Krzanowski, W. J. (1979). Between-Groups Comparison of
-  Principal Components. Journal of the American Statistical
-  Association, 74(367), 703. doi:10.2307/2286995
+Krzanowski, W. J. (1979). Between-Groups Comparison of
+Principal Components. Journal of the American Statistical
+Association, 74(367), 703. doi:10.2307/2286995
 }
 \seealso{
-  \code{\link{RandomSkewers}},\code{\link{KrzProjection}},\code{\link{MantelCor}}
+\code{\link{RandomSkewers}},\code{\link{KrzProjection}},\code{\link{MantelCor}}
 }
 \keyword{Krzanowski}
 \keyword{matrixcomparison}

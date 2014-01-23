@@ -2,7 +2,7 @@
 \alias{CalcRepeatability}
 \title{Parametric per trait Repeatabilities}
 \usage{
-  CalcRepeatability(ID, ind.data)
+CalcRepeatability(ID, ind.data)
 }
 \arguments{
   \item{ID}{indentity of individuals}
@@ -10,14 +10,14 @@
   \item{ind.data}{individual measurments}
 }
 \value{
-  vector of repeatabilities
+vector of repeatabilities
 }
 \description{
-  Estimates the variance in the sample not due to
-  measurment error
+Estimates the variance in the sample not due to measurment
+error
 }
 \note{
-  Requires at least two observations per individual
+Requires at least two observations per individual
 }
 \examples{
 num.ind = length(iris[,1])
@@ -26,11 +26,11 @@ ind.data = rbind(iris[,1:4], iris[,1:4]+array(rnorm(num.ind*4, 0, 0.1), dim(iris
 CalcRepeatability(ID, ind.data)
 }
 \author{
-  Guilherme Garcia
+Guilherme Garcia
 }
 \references{
-  Lessels, C. M., and Boag, P. T. (1987).  Unrepeatable
-  repeatabilities: a common mistake.  The Auk, 2(January),
-  116-121.
+Lessels, C. M., and Boag, P. T. (1987).  Unrepeatable
+repeatabilities: a common mistake.  The Auk, 2(January),
+116-121.
 }
 

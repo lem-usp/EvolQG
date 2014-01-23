@@ -2,17 +2,17 @@
 \alias{CalculateMatrix}
 \title{Calculate Covariance Matrix from LinearModel}
 \usage{
-  CalculateMatrix(linear.m)
+CalculateMatrix(linear.m)
 }
 \arguments{
   \item{linear.m}{Linear model adjusted for original data.}
 }
 \value{
-  Estimated covariance matrix.
+Estimated covariance matrix.
 }
 \description{
-  Calculates covariance matrix using the maximum likelihood
-  estimator and the model residuals.
+Calculates covariance matrix using the maximum likelihood
+estimator and the model residuals.
 }
 \examples{
 data(iris)
@@ -24,10 +24,10 @@ cov.matrix <- CalculateMatrix(iris.lm)
 cor.matrix <- cov2cor(cov.matrix)
 }
 \author{
-  Diogo Melo, Fabio Machado
+Diogo Melo, Fabio Machado
 }
 \references{
-  https://github.com/lem-usp/Morphometrics/wiki/
+https://github.com/lem-usp/Morphometrics/wiki/
 }
 \keyword{covariancematrix}
 

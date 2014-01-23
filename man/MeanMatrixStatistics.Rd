@@ -9,8 +9,8 @@
 \alias{Respondability}
 \title{Calculate mean values for various matrix statistics}
 \usage{
-  MeanMatrixStatistics(cov.matrix, iterations = 1000,
-    full.results = F, num.cores = 1)
+MeanMatrixStatistics(cov.matrix, iterations = 1000, full.results = F,
+  num.cores = 1)
 }
 \arguments{
   \item{cov.matrix}{A covariance matrix}
@@ -25,28 +25,28 @@
   calculations. Requires doMC library.}
 }
 \value{
-  dist Full distribution of stochastic statistics, only if
-  full.resuts == TRUE
+dist Full distribution of stochastic statistics, only if
+full.resuts == TRUE
 
-  mean Mean value for all statistics
+mean Mean value for all statistics
 }
 \description{
-  Calculates: Mean Squared Correlation, Autonomy,
-  ConditionalEvolvability, Constraints, Evolvability,
-  Flexibility, Pc1Percent, Respondability.
+Calculates: Mean Squared Correlation, Autonomy,
+ConditionalEvolvability, Constraints, Evolvability,
+Flexibility, Pc1Percent, Respondability.
 }
 \examples{
 cov.matrix <- cov(iris[,1:4])
 MeanMatrixStatistics(cov.matrix)
 }
 \author{
-  Diogo Melo Guilherme Garcia
+Diogo Melo Guilherme Garcia
 }
 \references{
-  Hansen, T. F., and Houle, D. (2008). Measuring and
-  comparing evolvability and constraint in multivariate
-  characters. Journal of evolutionary biology, 21(5),
-  1201-19. doi:10.1111/j.1420-9101.2008.01573.x
+Hansen, T. F., and Houle, D. (2008). Measuring and
+comparing evolvability and constraint in multivariate
+characters. Journal of evolutionary biology, 21(5),
+1201-19. doi:10.1111/j.1420-9101.2008.01573.x
 }
 \keyword{Autonomy}
 \keyword{ConditionalEvolvability}

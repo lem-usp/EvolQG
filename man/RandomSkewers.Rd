@@ -4,14 +4,12 @@
 \alias{RandomSkewers.list}
 \title{Compare matrices via RandomSkewers}
 \usage{
-  RandomSkewers(cov.x, cov.y, ...)
+RandomSkewers(cov.x, cov.y, ...)
 
-  \method{RandomSkewers}{default} (cov.x, cov.y,
-    iterations = 1000, ...)
+\method{RandomSkewers}{default}(cov.x, cov.y, iterations = 1000, ...)
 
-  \method{RandomSkewers}{list} (cov.x, cov.y = NULL,
-    iterations = 1000, repeat.vector = NULL, num.cores = 1,
-    ...)
+\method{RandomSkewers}{list}(cov.x, cov.y = NULL, iterations = 1000,
+  repeat.vector = NULL, num.cores = 1, ...)
 }
 \arguments{
   \item{cov.x}{Single covariance matrix or list of
@@ -35,23 +33,22 @@
   \item{...}{aditional arguments passed to other methods}
 }
 \value{
-  If cov.x and cov.y are passed, returns average value of
-  response vectors correlation ('correlation'),
-  significance ('probability') and standard deviation of
-  response vectors correlation ('correlation_sd')
+If cov.x and cov.y are passed, returns average value of
+response vectors correlation ('correlation'), significance
+('probability') and standard deviation of response vectors
+correlation ('correlation_sd')
 
-  If cov.x and cov.y are passed, same as above, but for all
-  matrices in cov.x.
+If cov.x and cov.y are passed, same as above, but for all
+matrices in cov.x.
 
-  If only a list is passed to cov.x, a matrix of
-  RandomSkewers average values and probabilities of all
-  comparisons. If repeat.vector is passed, comparison
-  matrix is corrected above diagonal and repeatabilities
-  returned in diagonal.
+If only a list is passed to cov.x, a matrix of
+RandomSkewers average values and probabilities of all
+comparisons. If repeat.vector is passed, comparison matrix
+is corrected above diagonal and repeatabilities returned in
+diagonal.
 }
 \description{
-  Calculates covariance matrix correlation via random
-  skewers
+Calculates covariance matrix correlation via random skewers
 }
 \examples{
 c1 <- RandomMatrix(10)
@@ -68,16 +65,16 @@ c4 <- RandomMatrix(10)
 RandomSkewers(list(c1, c2, c3), c4)
 }
 \author{
-  Diogo Melo, Guilherme Garcia
+Diogo Melo, Guilherme Garcia
 }
 \references{
-  Cheverud, J. M., and Marroig, G. (2007). Comparing
-  covariance matrices: Random skewers method compared to
-  the common principal components model. Genetics and
-  Molecular Biology, 30, 461-469.
+Cheverud, J. M., and Marroig, G. (2007). Comparing
+covariance matrices: Random skewers method compared to the
+common principal components model. Genetics and Molecular
+Biology, 30, 461-469.
 }
 \seealso{
-  \code{\link{KrzCor}},\code{\link{MantelCor}}
+\code{\link{KrzCor}},\code{\link{MantelCor}}
 }
 \keyword{matrixcomparison}
 \keyword{matrixcorrelation}

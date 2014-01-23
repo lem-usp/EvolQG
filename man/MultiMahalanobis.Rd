@@ -2,7 +2,7 @@
 \alias{MultiMahalanobis}
 \title{Calculate Mahalonabis distance for many vectors}
 \usage{
-  MultiMahalanobis(mean.list, cov.matrix, num.cores = 1)
+MultiMahalanobis(mean.list, cov.matrix, num.cores = 1)
 }
 \arguments{
   \item{mean.list}{list of species means being compared}
@@ -14,11 +14,11 @@
   Requires doMC library.}
 }
 \value{
-  returns a distance matrix of species-species comparisons.
+returns a distance matrix of species-species comparisons.
 }
 \description{
-  Calculates the Mahalanobis distance between a list of
-  species mean, using a global covariance matrix
+Calculates the Mahalanobis distance between a list of
+species mean, using a global covariance matrix
 }
 \examples{
 mean.1 <- colMeans(matrix(rnorm(30*10), 30, 10))
@@ -32,9 +32,9 @@ euclidian <- MultiMahalanobis(mean.list, diag(rep(1, 10)))
 half.euclidian <- MultiMahalanobis(mean.list, diag(rep(0.5, 10)))
 }
 \author{
-  Diogo Melo
+Diogo Melo
 }
 \seealso{
-  \code{\link{mahalanobis}}
+\code{\link{mahalanobis}}
 }
 
