@@ -2,7 +2,7 @@
 \alias{AncestralStates}
 \title{Calculates ancestral states of some statistic}
 \usage{
-  AncestralStates(tree, tip.data, tip.sample.size = NULL)
+AncestralStates(tree, tip.data, tip.sample.size = NULL)
 }
 \arguments{
   \item{tree}{phylogenetic tree}
@@ -12,12 +12,12 @@
   \item{tip.sample.size}{vector of tip nodes sample sizes}
 }
 \value{
-  list with calculated ancestral states, using labels or
-  numbers from tree
+list with calculated ancestral states, using labels or
+numbers from tree
 }
 \description{
-  Calculates weighted average of some statistic along a
-  phylogeny
+Calculates weighted average of some statistic along a
+phylogeny
 }
 \examples{
 library(ape)

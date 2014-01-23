@@ -9,19 +9,19 @@ Calculates the repeatability of a statistic of the data, such as
 correlation or covariance matrix, via bootstrap ressampling with
 varying sample sizes, from 2 to the size of the original data.}
 \usage{
-  Rarefaction(ind.data, StatFunc, ComparisonFunc,
-    num.reps = 10, num.cores = 1)
+Rarefaction(ind.data, StatFunc, ComparisonFunc, num.reps = 10,
+  num.cores = 1)
 
-  PlotRarefaction(comparison.list, y.axis = "Statistic")
+PlotRarefaction(comparison.list, y.axis = "Statistic")
 
-  RarefactionRandomSkewers(ind.data, iterations = 1000,
-    num.reps = 10, num.cores = 1)
+RarefactionRandomSkewers(ind.data, iterations = 1000, num.reps = 10,
+  num.cores = 1)
 
-  RarefactionMantelCor(ind.data, iterations = 1,
-    num.reps = 10, num.cores = 1)
+RarefactionMantelCor(ind.data, iterations = 1, num.reps = 10,
+  num.cores = 1)
 
-  RarefactionKrzCor(ind.data, correlation = FALSE,
-    ret.dim = NULL, num.reps = 10, num.cores = 1)
+RarefactionKrzCor(ind.data, correlation = FALSE, ret.dim = NULL,
+  num.reps = 10, num.cores = 1)
 }
 \arguments{
   \item{ind.data}{Matrix of residuals or indiviual
@@ -55,22 +55,21 @@ varying sample sizes, from 2 to the size of the original data.}
   \item{y.axis}{Y axis lable in plot}
 }
 \value{
-  returns the mean value of comparisons from samples to
-  original statistic, for all sample sizes.
+returns the mean value of comparisons from samples to
+original statistic, for all sample sizes.
 }
 \description{
-  Samples of various sizes, with replacement, are taken
-  from the full population, a statistic calculated and
-  compared to the full population statistic. Prepackaged
-  functions for common comparison functions and statistics
-  are suplied.
+Samples of various sizes, with replacement, are taken from
+the full population, a statistic calculated and compared to
+the full population statistic. Prepackaged functions for
+common comparison functions and statistics are suplied.
 }
 \details{
-  A specialized ploting function displays the results in
-  publication quality.
+A specialized ploting function displays the results in
+publication quality.
 
-  Bootstraping may be misleading with very small sample
-  sizes. Use with caution.
+Bootstraping may be misleading with very small sample
+sizes. Use with caution.
 }
 \examples{
 ind.data <- matrix(rnorm(30*10), 30, 10)
@@ -105,10 +104,10 @@ print(c, vp = vplayout(2, 1))
 print(d, vp = vplayout(2, 2))
 }
 \author{
-  Diogo Melo, Guilherme Garcia
+Diogo Melo, Guilherme Garcia
 }
 \seealso{
-  \code{\link{BootstrapRep}}
+\code{\link{BootstrapRep}}
 }
 \keyword{bootstap}
 \keyword{rarefaction}

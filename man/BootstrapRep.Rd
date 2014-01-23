@@ -2,8 +2,7 @@
 \alias{BootstrapRep}
 \title{Bootstrap analysis via ressampling}
 \usage{
-  BootstrapRep(ind.data, iterations, ComparisonFunc,
-    StatFunc, num.cores)
+BootstrapRep(ind.data, iterations, ComparisonFunc, StatFunc, num.cores)
 }
 \arguments{
   \item{ind.data}{Matrix of residuals or indiviual
@@ -20,18 +19,18 @@
   Requires doMC library.}
 }
 \value{
-  returns the mean repeatability, or mean value of
-  comparisons from samples to original statistic.
+returns the mean repeatability, or mean value of
+comparisons from samples to original statistic.
 }
 \description{
-  Calculates the repeatability of the covariance matrix of
-  the suplied data via bootstrap ressampling
+Calculates the repeatability of the covariance matrix of
+the suplied data via bootstrap ressampling
 }
 \details{
-  Samples with replacement are taken from the full
-  population, a statistic calculated and compared to the
-  full population statistic. Prepackaged functions for
-  common comparison functions and statistics are suplied.
+Samples with replacement are taken from the full
+population, a statistic calculated and compared to the full
+population statistic. Prepackaged functions for common
+comparison functions and statistics are suplied.
 }
 \examples{
 BootstrapRep(iris[,1:4], iterations = 5,
@@ -40,13 +39,13 @@ BootstrapRep(iris[,1:4], iterations = 5,
              num.cores = 1)
 }
 \author{
-  Diogo Melo, Guilherme Garcia
+Diogo Melo, Guilherme Garcia
 }
 \seealso{
-  \code{\link{MonteCarloStat}}, \code{\link{AlphaRep}},
-  \code{\link{BootstrapRepKrzCor}},
-  \code{\link{BootstrapRepMantelCor}},
-  \code{\link{BootstrapRepRandomSkewers}}
+\code{\link{MonteCarloStat}}, \code{\link{AlphaRep}},
+\code{\link{BootstrapRepKrzCor}},
+\code{\link{BootstrapRepMantelCor}},
+\code{\link{BootstrapRepRandomSkewers}}
 }
 \keyword{bootstrap}
 \keyword{repetabilities}

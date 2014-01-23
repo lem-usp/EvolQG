@@ -4,14 +4,13 @@
 \alias{KrzProjection.list}
 \title{Compare matrices via Modified Krzanowski Correlation}
 \usage{
-  KrzProjection(cov.x, cov.y, ...)
+KrzProjection(cov.x, cov.y, ...)
 
-  \method{KrzProjection}{default} (cov.x, cov.y,
-    ret.dim.1 = NULL, ret.dim.2 = NULL, ...)
+\method{KrzProjection}{default}(cov.x, cov.y, ret.dim.1 = NULL,
+  ret.dim.2 = NULL, ...)
 
-  \method{KrzProjection}{list} (cov.x, cov.y = NULL,
-    ret.dim.1 = NULL, ret.dim.2 = NULL, num.cores = 1,
-    full.results = FALSE, ...)
+\method{KrzProjection}{list}(cov.x, cov.y = NULL, ret.dim.1 = NULL,
+  ret.dim.2 = NULL, num.cores = 1, full.results = FALSE, ...)
 }
 \arguments{
   \item{cov.x}{Single covariance matrix ou list of
@@ -40,14 +39,14 @@
   if TRUE also per PC variance.}
 }
 \value{
-  Ratio of projected variance to total variance, and ratio
-  of projectecd total in each PC
+Ratio of projected variance to total variance, and ratio of
+projectecd total in each PC
 }
 \description{
-  Calculates the modified Krzanowski correlation between
-  matrices, projecting the variance in each principal
-  components of the first matrix in to the ret.dim.2
-  components of the second for a list of matrices
+Calculates the modified Krzanowski correlation between
+matrices, projecting the variance in each principal
+components of the first matrix in to the ret.dim.2
+components of the second for a list of matrices
 }
 \examples{
 c1 <- RandomMatrix(10)
@@ -64,15 +63,15 @@ KrzProjection(m.list, c1)
 KrzProjection(m.list, c1, full.results = TRUE)
 }
 \author{
-  Diogo Melo, Guilherme Garcia
+Diogo Melo, Guilherme Garcia
 }
 \references{
-  Krzanowski, W. J. (1979). Between-Groups Comparison of
-  Principal Components. Journal of the American Statistical
-  Association, 74(367), 703. doi:10.2307/2286995
+Krzanowski, W. J. (1979). Between-Groups Comparison of
+Principal Components. Journal of the American Statistical
+Association, 74(367), 703. doi:10.2307/2286995
 }
 \seealso{
-  \code{\link{RandomSkewers}},\code{\link{MantelCor}}
+\code{\link{RandomSkewers}},\code{\link{MantelCor}}
 }
 \keyword{Krzanowski}
 \keyword{matrixcomparison}

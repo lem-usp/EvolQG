@@ -4,14 +4,13 @@
 \alias{MantelCor.list}
 \title{Compare matrices via Mantel Correlation}
 \usage{
-  MantelCor(cor.x, cor.y, ...)
+MantelCor(cor.x, cor.y, ...)
 
-  \method{MantelCor}{default} (cor.x, cor.y,
-    iterations = 100, mod = FALSE, ...)
+\method{MantelCor}{default}(cor.x, cor.y, iterations = 100, mod = FALSE,
+  ...)
 
-  \method{MantelCor}{list} (cor.x, cor.y = NULL,
-    iterations = 100, repeat.vector = NULL, mod = FALSE,
-    num.cores = 1, ...)
+\method{MantelCor}{list}(cor.x, cor.y = NULL, iterations = 100,
+  repeat.vector = NULL, mod = FALSE, num.cores = 1, ...)
 }
 \arguments{
   \item{cor.x}{Single covariance matrix or list of
@@ -44,19 +43,19 @@
   \item{...}{aditional arguments passed to other methods}
 }
 \value{
-  If cor.x and cor.y are passed, returns matrix pearson
-  correlation and significance via mantel permutations.
+If cor.x and cor.y are passed, returns matrix pearson
+correlation and significance via mantel permutations.
 
-  If cor.x and cor.y are passed, same as above, but for all
-  matrices in cor.x.
+If cor.x and cor.y are passed, same as above, but for all
+matrices in cor.x.
 
-  If only cor.x is passed, a matrix of MantelCor average
-  values and probabilities of all comparisons. If
-  repeat.vector is passed, comparison matrix is corrected
-  above diagonal and repeatabilities returned in diagonal.
+If only cor.x is passed, a matrix of MantelCor average
+values and probabilities of all comparisons. If
+repeat.vector is passed, comparison matrix is corrected
+above diagonal and repeatabilities returned in diagonal.
 }
 \description{
-  Calculates correlation matrix correlation via Mantel.
+Calculates correlation matrix correlation via Mantel.
 }
 \examples{
 c1 <- RandomMatrix(10)
@@ -73,13 +72,13 @@ c4 <- RandomMatrix(10)
 MantelCor(list(c1, c2, c3), c4)
 }
 \author{
-  Diogo Melo, Guilherme Garcia
+Diogo Melo, Guilherme Garcia
 }
 \references{
-  http://en.wikipedia.org/wiki/Mantel_test
+http://en.wikipedia.org/wiki/Mantel_test
 }
 \seealso{
-  \code{\link{KrzCor}},\code{\link{RandomSkewers}},\code{\link{mantel}},\code{\link{RandomSkewers}},\code{\link{TestModularity}}
+\code{\link{KrzCor}},\code{\link{RandomSkewers}},\code{\link{mantel}},\code{\link{RandomSkewers}},\code{\link{TestModularity}}
 }
 \keyword{matrixcomparison}
 \keyword{matrixcorrelation}

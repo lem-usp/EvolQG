@@ -3,8 +3,8 @@
 \title{Generic Comparison Map functions for creating parallel list methods
 Internal functions for making eficient comparisons.}
 \usage{
-  ComparisonMap(matrix.list, MatrixCompFunc, ...,
-    repeat.vector = NULL, num.cores = 1)
+ComparisonMap(matrix.list, MatrixCompFunc, ..., repeat.vector = NULL,
+  num.cores = 1)
 }
 \arguments{
   \item{matrix.list}{list of matrices being compared}
@@ -22,18 +22,17 @@ Internal functions for making eficient comparisons.}
   Requires doMC library.}
 }
 \value{
-  Matrix of comparisons, matrix of probabilities.
+Matrix of comparisons, matrix of probabilities.
 }
 \description{
-  Generic Comparison Map functions for creating parallel
-  list methods Internal functions for making eficient
-  comparisons.
+Generic Comparison Map functions for creating parallel list
+methods Internal functions for making eficient comparisons.
 }
 \author{
-  Diogo Melo
+Diogo Melo
 }
 \seealso{
-  \code{\link{MantelCor}},
-  \code{\link{KrzCor}},\code{\link{RandomSkewers}}
+\code{\link{MantelCor}},
+\code{\link{KrzCor}},\code{\link{RandomSkewers}}
 }
 

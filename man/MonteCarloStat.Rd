@@ -6,20 +6,19 @@
 \alias{MonteCarloStat}
 \title{Parametric repeatabilities with covariance or correlation matrices}
 \usage{
-  MonteCarloStat(cov.matrix, sample.size, iterations,
-    ComparisonFunc, StatFunc, num.cores = 1)
+MonteCarloStat(cov.matrix, sample.size, iterations, ComparisonFunc, StatFunc,
+  num.cores = 1)
 
-  MonteCarloRepRandomSkewers(cov.matrix, sample.size,
-    iterations = 1000, num.cores = 1)
+MonteCarloRepRandomSkewers(cov.matrix, sample.size, iterations = 1000,
+  num.cores = 1)
 
-  MonteCarloRepMantelCor(cov.matrix, sample.size,
-    iterations = 1000, num.cores = 1)
+MonteCarloRepMantelCor(cov.matrix, sample.size, iterations = 1000,
+  num.cores = 1)
 
-  MonteCarloRepKrzCor(cov.matrix, sample.size,
-    correlation = F, iterations = 1000, num.cores = 1)
+MonteCarloRepKrzCor(cov.matrix, sample.size, correlation = F,
+  iterations = 1000, num.cores = 1)
 
-  MonteCarloR2(cov.matrix, sample.size, iterations = 1000,
-    num.cores = 1)
+MonteCarloR2(cov.matrix, sample.size, iterations = 1000, num.cores = 1)
 }
 \arguments{
   \item{cov.matrix}{Covariance matrix.}
@@ -41,21 +40,21 @@
   Requires doMC library.}
 }
 \value{
-  returns the mean repeatability, or mean value of
-  comparisons from samples to original statistic.
+returns the mean repeatability, or mean value of
+comparisons from samples to original statistic.
 }
 \description{
-  Using a multivariate normal model, random populations are
-  generated using the suplied covariance matrix. A
-  statistic is calculated on the random population and
-  compared to the statistic calculated on the original
-  matrix. Prepackaged functions for common comparison
-  functions and statistics are suplied.
+Using a multivariate normal model, random populations are
+generated using the suplied covariance matrix. A statistic
+is calculated on the random population and compared to the
+statistic calculated on the original matrix. Prepackaged
+functions for common comparison functions and statistics
+are suplied.
 }
 \details{
-  Since this function uses multivariate normal model to
-  generate populations, only covariance matrices should be
-  used.
+Since this function uses multivariate normal model to
+generate populations, only covariance matrices should be
+used.
 }
 \examples{
 cov.matrix <- RandomMatrix(10, 1, 1, 10)
@@ -80,10 +79,10 @@ r2.dist <- MonteCarloR2(RandomMatrix(10, 1, 1, 10), 30)
 quantile(r2.dist)
 }
 \author{
-  Diogo Melo Guilherme Garcia
+Diogo Melo Guilherme Garcia
 }
 \seealso{
-  \code{\link{BootstrapRep}}, \code{\link{AlphaRep}}
+\code{\link{BootstrapRep}}, \code{\link{AlphaRep}}
 }
 \keyword{montecarlo}
 \keyword{parametricsampling}

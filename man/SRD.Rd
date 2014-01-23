@@ -5,15 +5,14 @@
 \alias{SRD.list}
 \title{Compare matrices via Selection Response Decomposition}
 \usage{
-  SRD(cov.x, cov.y, ...)
+SRD(cov.x, cov.y, ...)
 
-  \method{SRD}{default} (cov.x, cov.y, iterations = 1000,
-    ...)
+\method{SRD}{default}(cov.x, cov.y, iterations = 1000, ...)
 
-  \method{SRD}{list} (cov.x, cov.y = NULL,
-    iterations = 1000, num.cores = 1, ...)
+\method{SRD}{list}(cov.x, cov.y = NULL, iterations = 1000, num.cores = 1,
+  ...)
 
-  PlotSRD(output, matrix.label = "")
+PlotSRD(output, matrix.label = "")
 }
 \arguments{
   \item{cov.x}{Covariance matrix being compared. cov.x can
@@ -35,29 +34,27 @@
   \item{matrix.label}{Plot label}
 }
 \value{
-  out List of SRD scores mean, confidence intervals,
-  standard deviation, centerd mean e centerd standard
-  deviation
+out List of SRD scores mean, confidence intervals, standard
+deviation, centerd mean e centerd standard deviation
 
-  pc1 scored along the pc1 of the mean/SD correlation
-  matrix
+pc1 scored along the pc1 of the mean/SD correlation matrix
 
-  model List of linear model results from mean/SD
-  correlation. Quantiles, interval and divergent traits
+model List of linear model results from mean/SD
+correlation. Quantiles, interval and divergent traits
 
-  cormat Mean/Sd model correlation matrix
+cormat Mean/Sd model correlation matrix
 }
 \description{
-  Based on Random Skewers tecnique, selection response
-  vectors are expanded in direct and indirect componenet by
-  trait and compared via vector correlations.
+Based on Random Skewers tecnique, selection response
+vectors are expanded in direct and indirect componenet by
+trait and compared via vector correlations.
 }
 \details{
-  Output can be ploted using PlotSRD function
+Output can be ploted using PlotSRD function
 }
 \note{
-  If input is a list, output is a symmetric list array with
-  pairwise comparisons.
+If input is a list, output is a symmetric list array with
+pairwise comparisons.
 }
 \examples{
 cov.matrix.1 <- cov(matrix(rnorm(30*10), 30, 10))
@@ -77,17 +74,17 @@ colnames(cov.matrix.1)[as.logical(srd.out$model$code)]
 PlotSRD(srd.out)
 }
 \author{
-  Diogo Melo, Guilherme Garcia
+Diogo Melo, Guilherme Garcia
 }
 \references{
-  Marroig, G., Melo, D., Porto, A., Sebastiao, H., and
-  Garcia, G. (2011). Selection Response Decomposition
-  (SRD): A New Tool for Dissecting Differences and
-  Similarities Between Matrices. Evolutionary Biology,
-  38(2), 225-241. doi:10.1007/s11692-010-9107-2
+Marroig, G., Melo, D., Porto, A., Sebastiao, H., and
+Garcia, G. (2011). Selection Response Decomposition (SRD):
+A New Tool for Dissecting Differences and Similarities
+Between Matrices. Evolutionary Biology, 38(2), 225-241.
+doi:10.1007/s11692-010-9107-2
 }
 \seealso{
-  \code{\link{RandomSkewers}}
+\code{\link{RandomSkewers}}
 }
 \keyword{RandomSkewers}
 \keyword{SRD}

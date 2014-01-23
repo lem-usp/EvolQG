@@ -2,16 +2,16 @@
 \alias{LModularity}
 \title{L Modularity}
 \usage{
-  LModularity(cor.matrix)
+LModularity(cor.matrix)
 }
 \arguments{
   \item{cor.matrix}{correlation matrix}
 }
 \value{
-  List with L-Modulariy value and trait partition
+List with L-Modulariy value and trait partition
 }
 \description{
-  Calculates the L-Modularity and a partition of traits
+Calculates the L-Modularity and a partition of traits
 }
 \examples{
 cor.matrix = RandomMatrix(10)

@@ -3,19 +3,19 @@
 \alias{Normalize}
 \title{Normalize and Norm}
 \usage{
-  Normalize(x)
+Normalize(x)
 
-  Norm(x)
+Norm(x)
 }
 \arguments{
   \item{x}{Numeric vector}
 }
 \value{
-  Normalized vector or inpout vector norm.
+Normalized vector or inpout vector norm.
 }
 \description{
-  Norm returns the euclidian norm of a vector, normalze
-  returns a vector with unit norm.
+Norm returns the euclidian norm of a vector, normalze
+returns a vector with unit norm.
 }
 \examples{
 x <- rnorm(10)
@@ -24,6 +24,6 @@ Norm(x)
 Norm(n.x)
 }
 \author{
-  Diogo Melo, Guilherme Garcia
+Diogo Melo, Guilherme Garcia
 }
 

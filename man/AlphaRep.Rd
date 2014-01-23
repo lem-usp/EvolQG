@@ -2,7 +2,7 @@
 \alias{AlphaRep}
 \title{Alpha Repetability}
 \usage{
-  AlphaRep(cor.matrix, sample.size)
+AlphaRep(cor.matrix, sample.size)
 }
 \arguments{
   \item{cor.matrix}{Correlation matrix}
@@ -10,14 +10,14 @@
   \item{sample.size}{Sample size used in matrix estimatio}
 }
 \value{
-  Alpha repeatability for correlation matrix
+Alpha repeatability for correlation matrix
 }
 \description{
-  Calculates the matrix repeatability using the equation in
-  Cheverud 1996 Quantitative genetic analysis of cranial
-  morphology in the cotton-top (Saguinus oedipus) and
-  saddle-back (S. fuscicollis) tamarins. Journal of
-  Evolutionary Biology 9, 5-42.
+Calculates the matrix repeatability using the equation in
+Cheverud 1996 Quantitative genetic analysis of cranial
+morphology in the cotton-top (Saguinus oedipus) and
+saddle-back (S. fuscicollis) tamarins. Journal of
+Evolutionary Biology 9, 5-42.
 }
 \examples{
 #For single matrices
@@ -31,16 +31,16 @@ mat.plus.samples <- alply(1:100, 1, function(x) list(mat.list[[x]], sample.sizes
 laply(mat.plus.samples, function(x) AlphaRep(x[[1]], x[[2]]))
 }
 \author{
-  Diogo Melo, Guilherme Garcia
+Diogo Melo, Guilherme Garcia
 }
 \references{
-  Cheverud 1996 Quantitative genetic analysis of cranial
-  morphology in the cotton-top (Saguinus oedipus) and
-  saddle-back (S. fuscicollis) tamarins. Journal of
-  Evolutionary Biology 9, 5-42.
+Cheverud 1996 Quantitative genetic analysis of cranial
+morphology in the cotton-top (Saguinus oedipus) and
+saddle-back (S. fuscicollis) tamarins. Journal of
+Evolutionary Biology 9, 5-42.
 }
 \seealso{
-  \code{\link{MonteCarloStat}}, \code{\link{BootstrapRep}}
+\code{\link{MonteCarloStat}}, \code{\link{BootstrapRep}}
 }
 \keyword{repetatability}
 

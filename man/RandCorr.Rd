@@ -2,7 +2,7 @@
 \alias{RandCorr}
 \title{Random correlation matrix}
 \usage{
-  RandCorr(num.traits, ke = 10^-3)
+RandCorr(num.traits, ke = 10^-3)
 }
 \arguments{
   \item{num.traits}{Number of traits in random matrix}
@@ -11,14 +11,14 @@
   Involves check for positive defitness}
 }
 \value{
-  Random Matrix
+Random Matrix
 }
 \description{
-  Provides random correlation matrices for quick tests.
-  Should not be used for statistics.
+Provides random correlation matrices for quick tests.
+Should not be used for statistics.
 }
 \author{
-  Diogo Melo Edgar Zanella
+Diogo Melo Edgar Zanella
 }
 \keyword{randommatrices}
 
