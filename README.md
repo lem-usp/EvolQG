@@ -9,6 +9,12 @@ Kinda usable
 Instalation
 ===========
 
+If Windows
+----------
+
+Install [Rtools](http://cran.r-project.org/bin/windows/Rtools/)
+
+
 Using devtools
 --------------
 
@@ -17,18 +23,6 @@ Install [devtools](http://www.rstudio.com/projects/devtools/), then:
 ```R
 > library(devtools)
 > install_github("Morphometrics", "lem-usp")
-```
-
-
-Using package tar.gz
---------------------
-
-Download [this file](https://dl.dropboxusercontent.com/u/891794/Morphometrics_0.1.tar.gz) and run:
-
-```R
-> install.packages(c("plyr", "reshape2", "ggplot2", "vegan", "mvtnorm"))
-> install.packages("./Morphometrics_0.1.tar.gz")
-> library(Morphometrics)
 ```
 
 Deixando o Morphometrics como padrão no RStudio
