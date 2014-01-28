@@ -125,6 +125,7 @@ SRD.list <- function (cov.x, cov.y = NULL, iterations = 1000, num.cores = 1, ...
     corrs[i,(i+1):n.matrix] <- comparisons[[i]]
   }
   corrs[lower.tri(corrs)] <- t(corrs)[lower.tri(corrs)]
+  colnames(corrs) <- rownames(corrs) <- names(cov.x)
   return (corrs)
 }
 
