@@ -12,7 +12,20 @@ Instalation
 If Windows
 ----------
 
-Install [Rtools](http://cran.r-project.org/bin/windows/Rtools/)
+Install [Rtools](http://cran.r-project.org/bin/windows/Rtools/). Be careful to use the right version for your R instalation.
+
+
+If MacOS X
+-----------
+
+If you are using MacOS X, you will probably have to build Rcpp from source. 
+Download the Rcpp source from [here](http://cran.r-project.org/web/packages/Rcpp/index.html)(Package source link), then install it in R using:
+
+```R
+> install.packages("Rcpp_0.*.tar.gz", repos = NULL, type="source")
+```
+
+Replacing the file name with the proper version number.
 
 
 Using devtools
