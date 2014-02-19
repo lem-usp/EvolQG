@@ -21,8 +21,11 @@ If MacOS X
 -----------
 
 If you are using MacOS X, you will probably have to build Rcpp from source. 
+You will need to have [Xcode](https://developer.apple.com/xcode/) or some other C++ compiler installed.
+Check if the instalation suceded typing `clang++ --version` in the terminal.
 
-Download the Rcpp source from [here](http://cran.r-project.org/web/packages/Rcpp/index.html) (Package source link), then install it in R using:
+
+Then, download the Rcpp source from [here](http://cran.r-project.org/web/packages/Rcpp/index.html) (Package source link), then install it in R using:
 
 ```R
 > install.packages("Rcpp_0.*.tar.gz", repos = NULL, type="source")
@@ -38,7 +41,6 @@ Install [devtools](http://www.rstudio.com/projects/devtools/) and [Rcpp](http://
 
 ```R
 > library(devtools)
-> library(Rcpp)
 > install_github("Morphometrics", "lem-usp")
 ```
 
