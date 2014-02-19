@@ -19,7 +19,7 @@
 #' Requires doMC library.
 #' @param full.results if FALSE returns only total variance,
 #' if TRUE also per PC variance.
-#' @return Ratio of projected variance to total variance, and ratio of projectecd total in each PC
+#' @return Ratio of projected variance to total variance, and ratio of projected total in each PC
 #' @references Krzanowski, W. J. (1979). Between-Groups Comparison of Principal
 #' Components. Journal of the American Statistical Association, 74(367),
 #' 703. doi:10.2307/2286995
