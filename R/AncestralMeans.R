@@ -30,7 +30,7 @@ AncestralStates <- function(tree, tip.data, tip.sample.size = NULL){
   names(tip.sample.size) <- names(tip.data)
   tip.sample.size <- as.list(tip.sample.size)
   ancestral.stats <- tip.data
-  if(!sum(tree$tip.label %in% names(tip.data)) == length(tree$tip.label)) stop("All tip labels must be in stat list.")
+  if(!all(tree$tip.label %in% names(tip.data))) stop("All tip labels must be in stat list.")
   node.order <- unique(reorder(tree, "postorder")$edge[,1])
   for (node in node.order){
         node.name <- node.names[node]
