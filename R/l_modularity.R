@@ -5,6 +5,7 @@
 #' @return List with L-Modulariy value and trait partition
 #' @export
 #' @useDynLib Morphometrics
+#' @importFrom Rcpp evalCpp
 #' @examples
 #' cor.matrix = RandomMatrix(10)
 #' LModularity(cor.matrix)

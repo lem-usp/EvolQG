@@ -40,7 +40,7 @@ KrzProjection(cov.x, cov.y, ...)
 }
 \value{
 Ratio of projected variance to total variance, and ratio of
-projectecd total in each PC
+projected total in each PC
 }
 \description{
 Calculates the modified Krzanowski correlation between
