@@ -9,5 +9,13 @@ test_that("MultiMahalanobis returns correct results",
             expect_that(euclidian*2, equals(half.euclidian))
             expect_that(euclidian, is_a("matrix"))
             expect_that(dim(euclidian), equals(c(3,3)))
+            expect_that(euclidian[1,2], equals(mahalanobis(mean.1, mean.2, diag(rep(1, 10)))))
+            expect_that(euclidian[1,3], equals(mahalanobis(mean.1, mean.3, diag(rep(1, 10)))))
+            expect_that(isSymmetric(half.euclidian), is_true())
+            cov_matrix = RandomMatrix(10, 1, 1, 10)
+            random_dist = MultiMahalanobis(mean.list, cov_matrix)
+            expect_that(random_dist[1,2], equals(mahalanobis(mean.1, mean.2, cov_matrix)))
+            expect_that(random_dist[1,3], equals(mahalanobis(mean.1, mean.3, cov_matrix)))
+            expect_that(isSymmetric(random_dist), is_true())
           }
 )
