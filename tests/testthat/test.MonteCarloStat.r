@@ -5,7 +5,7 @@ test_that("MonteCarloR2 returns sensible results",
             results <- MonteCarloR2(diag(rep(2, 10)), 10)
             corrs = sapply(results, function(x) isTRUE(x < 1 & x > 0))
             expect_that(sum(corrs), equals(1000))
-            expect_that(MonteCarloR2(RandomMatrix(10)), gives_warning("Matrix appears to be a correlation matrix! Only covariance matrices should be used in parametric resampling."))
+            expect_that(MonteCarloR2(RandomMatrix(10), 10), gives_warning("Matrix appears to be a correlation matrix! Only covariance matrices should be used in parametric resampling."))
           }
 )
 test_that("MonteCarloRep returns sensible results",

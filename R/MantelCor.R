@@ -54,7 +54,7 @@ MantelCor <- function (cor.x, cor.y, ...) UseMethod("MantelCor")
 #' @rdname MantelCor
 #' @method MantelCor default
 #' @S3method MantelCor default
-MantelCor.default <- function (cor.x, cor.y, iterations = 100, mod = FALSE, ...) {
+MantelCor.default <- function (cor.x, cor.y, iterations = 1000, mod = FALSE, ...) {
   mantel.out <- mantel(cor.x, cor.y, permutations = iterations)
   correlation <- mantel.out$statistic
   prob <- mantel.out$signif
@@ -79,7 +79,7 @@ MantelCor.default <- function (cor.x, cor.y, iterations = 100, mod = FALSE, ...)
 #' @method MantelCor list
 #' @S3method MantelCor list
 MantelCor.list <- function (cor.x, cor.y = NULL,
-                            iterations = 100, repeat.vector = NULL,
+                            iterations = 1000, repeat.vector = NULL,
                             mod = FALSE, num.cores = 1, ...)
 {
   if (is.null (cor.y)) {
