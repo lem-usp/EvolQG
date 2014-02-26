@@ -6,10 +6,10 @@
 \usage{
 MantelCor(cor.x, cor.y, ...)
 
-\method{MantelCor}{default}(cor.x, cor.y, iterations = 100, mod = FALSE,
+\method{MantelCor}{default}(cor.x, cor.y, iterations = 1000, mod = FALSE,
   ...)
 
-\method{MantelCor}{list}(cor.x, cor.y = NULL, iterations = 100,
+\method{MantelCor}{list}(cor.x, cor.y = NULL, iterations = 1000,
   repeat.vector = NULL, mod = FALSE, num.cores = 1, ...)
 }
 \arguments{
