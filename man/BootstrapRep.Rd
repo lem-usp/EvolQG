@@ -16,7 +16,8 @@ BootstrapRep(ind.data, ComparisonFunc = c("randomskewers", "mantel",
   "krznowski" correlations}
 
   \item{correlation}{If TRUE, correlation matrix is used,
-  else covariance matrix}
+  else covariance matrix. MantelCor always uses correlation
+  matrix.}
 
   \item{num.cores}{Number of threads to use in computation.
   Requires doMC library.}
@@ -37,7 +38,6 @@ population statistic.
 \examples{
 BootstrapRep(iris[,1:4], "mantel",
              iterations = 5,
-             correlation = TRUE,
              num.cores = 1)
 
 BootstrapRep(iris[,1:4], "randomskewers", 50)
