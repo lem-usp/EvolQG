@@ -110,7 +110,7 @@ MonteCarloRepRandomSkewers <- function(cov.matrix, sample.size, iterations = 100
   else             StatFunc <- cov
   repeatability <- MonteCarloStat(cov.matrix, sample.size, iterations,
                                   ComparisonFunc = function(x, y) RandomSkewers(x, y)[1],
-                                  StatFunc = cov,
+                                  StatFunc = StatFunc,
                                   num.cores = num.cores)
   return(mean(repeatability))
 }
