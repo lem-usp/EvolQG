@@ -43,7 +43,7 @@ CalcR2CvCorrected.default <- function (ind.data, cv.level = 0.06, iterations = 1
     cor.matrix = cov2cor(cov.matrix)
     return(c(CalcR2(cor.matrix), cv(eigen(cov.matrix)$values), mean (apply (x, 2, cv))))
   }
-  it.stats <- BootstrapRep(ind.data, iterations,
+  it.stats <- BootstrapRep_primitive(ind.data, iterations,
                            ComparisonFunc = function(x, y) y,
                            StatFunc = Stats,
                            num.cores = num.cores)

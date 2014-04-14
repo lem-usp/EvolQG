@@ -4,19 +4,17 @@
 #' varying sample sizes, from 2 to the size of the original data.
 #'
 #' Samples of various sizes, with replacement, are taken from the full population, a statistic calculated
-#' and compared to the full population statistic. Prepackaged functions
-#' for common comparison functions and statistics are suplied.
+#' and compared to the full population statistic. 
 #'
 #' A specialized ploting function displays the results in publication quality.
-#' @aliases  Rarefaction RarefactionRandomSkewers RarefactionMantelCor RarefactionKrzCor PlotRarefaction
+#' @aliases  Rarefaction PlotRarefaction
 #' @param ind.data Matrix of residuals or indiviual measurments
+#' @param ComparisonFunc Comparison function for calculated statistic, either "randomskewers", "mantel" or "krznowski" correlations
 #' @param num.reps number of populations sampled per sample size
-#' @param iterations Parameter for comparison function. Number of random skewers or number of permutations in mantel
-#' @param ComparisonFunc Comparison function for calculated statistic
-#' @param StatFunc Statistic to be calculated
+#' @param iterations Parameter for comparison function. Number of random skewers or number of permutations in mantel.
 #' @param num.cores Number of threads to use in computation. Requires doMC library.
-#' @param correlation When using RarefactionKrzCor, statistic can be correlation or covariance. If TRUE, uses correlation.
-#' @param ret.dim When using RarefactionKrzCor, number o retained dimensions may be specified
+#' @param correlation If TRUE, correlation matrix is used, else covariance matrix. MantelCor always uses correlation matrix.
+#' @param ret.dim When using Krzanowski Correlation, number o retained dimensions may be specified
 #' @param comparison.list output from rarefaction functions can be used in ploting
 #' @param y.axis Y axis lable in plot
 #' @details Bootstraping may be misleading with very small sample sizes. Use with caution.
@@ -30,16 +28,11 @@
 #' @importFrom reshape2 melt
 #' @examples
 #' ind.data <- matrix(rnorm(30*10), 30, 10)
-#' comparison.list <- Rarefaction(ind.data,
-#'                                StatFunc = cov,
-#'                                ComparisonFunc = function(x, y) RandomSkewers(x, y, 1000)[1],
-#'                                num.reps=5,
-#'                                num.cores = 1)
-#'
-#' results.RS <- RarefactionRandomSkewers(ind.data, num.reps = 5)
-#' results.Mantel <- RarefactionMantelCor(ind.data, num.reps = 5)
-#' results.KrzCov <- RarefactionKrzCor(ind.data, num.reps = 5)
-#' results.KrzCor <- RarefactionKrzCor(ind.data, TRUE, num.reps = 5)
+#' 
+#' results.RS <- Rarefaction(ind.data, "randomskewers", num.reps = 5)
+#' results.Mantel <- Rarefaction(ind.data, "mante", num.reps = 5)
+#' results.KrzCov <- Rarefaction(ind.data, "krz", num.reps = 5)
+#' results.KrzCor <- Rarefaction(ind.data, "krz", TRUE, num.reps = 5)
 #'
 #' #Easy access
 #' library(reshape2)
@@ -63,12 +56,25 @@
 #' @keywords rarefaction
 #' @keywords bootstap
 #' @keywords repeatability
-
 Rarefaction <- function(ind.data,
-                        StatFunc,
-                        ComparisonFunc,
+                        ComparisonFunc = c("randomskewers", "mantel", "krzanowski"),
+                        iterations = 1000, 
                         num.reps = 10,
-                        num.cores = 1)
+                        correlation = F, 
+                        ret.dim = NULL,
+                        num.cores = 1){
+    ComparisonFunc = match.arg(ComparisonFunc)
+    switch(ComparisonFunc,
+           randomskewers = RarefactionRandomSkewers(ind.data, iterations, num.reps, correlation, num.cores),
+           mantel = RarefactionMantelCor(ind.data, iterations, num.reps, num.cores),
+           krzanowski = RarefactionKrzCor(ind.data, ret.dim, num.reps, correlation, num.cores))
+  }
+
+Rarefaction_primitive <- function(ind.data,
+                                  StatFunc,
+                                  ComparisonFunc,
+                                  num.reps = 10,
+                                  num.cores = 1)
 {
   if (num.cores > 1) {
     library(doMC)
@@ -79,6 +85,7 @@ Rarefaction <- function(ind.data,
   else{
     parallel = FALSE
   }
+  if(isSymmetric(as.matrix(ind.data))) stop("input appears to be a matrix, use residuals.")
   observed.stat = StatFunc(ind.data)
   num.ind = dim(ind.data)[1]
   MapStatFunc <- function(n){
@@ -113,27 +120,26 @@ PlotRarefaction <- function(comparison.list, y.axis = "Statistic"){
   return(rarefaction.plot)
 }
 
-#' @rdname Rarefaction
-#' @export
 RarefactionRandomSkewers <- function(ind.data,
                                      iterations = 1000,
                                      num.reps = 10,
+                                     correlation,
                                      num.cores = 1){
-  comparison.list <- Rarefaction(ind.data,
-                                 cov,
+  if(correlation)  StatFunc <- cor
+  else             StatFunc <- cov
+  comparison.list <- Rarefaction_primitive(ind.data,
+                                 StatFunc,
                                  function(x, y) RandomSkewers(x, y, iterations)[1],
                                  num.reps=num.reps,
                                  num.cores = num.cores)
   return(comparison.list)
 }
 
-#' @rdname Rarefaction
-#' @export
 RarefactionMantelCor <- function(ind.data,
                                  iterations = 1,
                                  num.reps = 10,
                                  num.cores = 1){
-  comparison.list <- Rarefaction(ind.data,
+  comparison.list <- Rarefaction_primitive(ind.data,
                                  cor,
                                  function(x, y) MantelCor(x, cov2cor(y), iterations)[1],
                                  num.reps=num.reps,
@@ -141,16 +147,14 @@ RarefactionMantelCor <- function(ind.data,
   return(comparison.list)
 }
 
-#' @rdname Rarefaction
-#' @export
 RarefactionKrzCor <- function(ind.data,
-                              correlation = FALSE,
                               ret.dim = NULL,
                               num.reps = 10,
+                              correlation = FALSE,
                               num.cores = 1){
   if(correlation) StatFunc <- cor
   else StatFunc <- cov
-  comparison.list <- Rarefaction(ind.data,
+  comparison.list <- Rarefaction_primitive(ind.data,
                                  StatFunc,
                                  function(x, y) KrzCor(x, y, ret.dim),
                                  num.reps=num.reps,

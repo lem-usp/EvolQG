@@ -2,7 +2,8 @@
 \alias{BootstrapRep}
 \title{Bootstrap analysis via ressampling}
 \usage{
-BootstrapRep(ind.data, iterations, ComparisonFunc, StatFunc, num.cores)
+BootstrapRep(ind.data, ComparisonFunc = c("randomskewers", "mantel",
+  "krzanowski"), iterations = 1000, correlation = F, num.cores = 1)
 }
 \arguments{
   \item{ind.data}{Matrix of residuals or indiviual
@@ -11,9 +12,12 @@ BootstrapRep(ind.data, iterations, ComparisonFunc, StatFunc, num.cores)
   \item{iterations}{Number of ressamples to take}
 
   \item{ComparisonFunc}{Comparison function for calculated
-  statistic}
+  statistic, either "randomskewers", "mantel" or
+  "krznowski" correlations}
 
-  \item{StatFunc}{Statistic to be calculated}
+  \item{correlation}{If TRUE, correlation matrix is used,
+  else covariance matrix. MantelCor always uses correlation
+  matrix.}
 
   \item{num.cores}{Number of threads to use in computation.
   Requires doMC library.}
@@ -29,23 +33,23 @@ the suplied data via bootstrap ressampling
 \details{
 Samples with replacement are taken from the full
 population, a statistic calculated and compared to the full
-population statistic. Prepackaged functions for common
-comparison functions and statistics are suplied.
+population statistic.
 }
 \examples{
-BootstrapRep(iris[,1:4], iterations = 5,
-             ComparisonFunc = function(x, y) RandomSkewers(x, y)[1],
-             StatFunc = cov,
+BootstrapRep(iris[,1:4], "mantel",
+             iterations = 5,
              num.cores = 1)
+
+BootstrapRep(iris[,1:4], "randomskewers", 50)
+
+# Partial matching for comparison function also works.
+BootstrapRep(iris[,1:4], "krz", 50, TRUE)
 }
 \author{
 Diogo Melo, Guilherme Garcia
 }
 \seealso{
-\code{\link{MonteCarloStat}}, \code{\link{AlphaRep}},
-\code{\link{BootstrapRepKrzCor}},
-\code{\link{BootstrapRepMantelCor}},
-\code{\link{BootstrapRepRandomSkewers}}
+\code{\link{MonteCarloStat}}, \code{\link{AlphaRep}}
 }
 \keyword{bootstrap}
 \keyword{repetabilities}
