@@ -37,7 +37,7 @@
 #'
 #' KrzCor(list(c1, c2, c3))
 #'
-#' reps <- unlist(lapply(list(c1, c2, c3), MonteCarloRepKrzCor, 10, 10))
+#' reps <- unlist(lapply(list(c1, c2, c3), MonteCarloRep, "krz", 10, 10))
 #' KrzCor(list(c1, c2, c3), repeat.vector = reps)
 #'
 #' c4 <- RandomMatrix(10)

@@ -65,7 +65,7 @@ MantelCor(c1, c2)
 
 MantelCor(list(c1, c2, c3))
 
-reps <- unlist(lapply(list(c1, c2, c3), MonteCarloRepMantelCor, 10, 10))
+reps <- unlist(lapply(list(c1, c2, c3), MonteCarloRep, "mantel", 10, 10))
 MantelCor(list(c1, c2, c3), repeat.vector = reps)
 
 c4 <- RandomMatrix(10)

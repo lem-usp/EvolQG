@@ -1,24 +1,25 @@
-\name{MonteCarloStat}
-\alias{MonteCarloR2}
-\alias{MonteCarloStat}
-\title{Parametric population samples with covariance or correlation matrices}
+\name{MonteCarloRep}
+\alias{MonteCarloRep}
+\title{Parametric repeatabilities with covariance or correlation matrices}
 \usage{
-MonteCarloStat(cov.matrix, sample.size, iterations, ComparisonFunc, StatFunc,
+MonteCarloRep(cov.matrix, ComparisonFunc = c("randomskewers", "mantel",
+  "krzanowski"), sample.size, iterations = 1000, correlation = F,
   num.cores = 1)
-
-MonteCarloR2(cov.matrix, sample.size, iterations = 1000, num.cores = 1)
 }
 \arguments{
   \item{cov.matrix}{Covariance matrix.}
+
+  \item{ComparisonFunc}{Comparison function for calculated
+  statistic, either "randomskewers", "mantel" or
+  "krznowski" correlations}
 
   \item{sample.size}{Size of the random populations}
 
   \item{iterations}{Number of random populations}
 
-  \item{ComparisonFunc}{Comparison functions for the
-  calculated statistic}
-
-  \item{StatFunc}{Function for calculating the statistic}
+  \item{correlation}{If TRUE, correlation matrix is used,
+  else covariance matrix. MantelCor always uses correlation
+  matrix.}
 
   \item{num.cores}{Number of threads to use in computation.
   Requires doMC library.}
@@ -41,15 +42,14 @@ used.
 \examples{
 cov.matrix <- RandomMatrix(10, 1, 1, 10)
 
-MonteCarloStat(cov.matrix, sample.size = 30, iterations = 1000,
-               ComparisonFunc = function(x, y) RandomSkewers(x, y)[1],
-               StatFunc = cov,
-               num.cores = 1)
+MonteCarloRep(cov.matrix, "randomskewers", 30)
+MonteCarloRep(cov.matrix, "mantel", 30)
+MonteCarloRep(cov.matrix, "krz", 30)
+MonteCarloRep(cov.matrix, "krz", 30, TRUE)
 
-
-#Calculating R2 confidence intervals
-r2.dist <- MonteCarloR2(RandomMatrix(10, 1, 1, 10), 30)
-quantile(r2.dist)
+#Creating repeatability vector for a list of matrices
+mat.list <- RandomMatrix(10, 3, 1, 10)
+unlist(lapply(mat.list, MonteCarloRep, "krz", 30, correlation = TRUE))
 }
 \author{
 Diogo Melo Guilherme Garcia
