@@ -2,8 +2,8 @@
 #'
 #' Return distance between two covariance matrices
 #'
-#' @param cov.x
-#' @param cov.y
+#' @param cov.x covariance or correlation matrix
+#' @param cov.y covariance or correlation matrix
 #' @value Riemann distance between cov.x and cov.y
 #' @export
 #' @keywords matrixdistance

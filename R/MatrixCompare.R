@@ -2,8 +2,8 @@
 #' 
 #' Compare two matrices using all available methods. Currently RandomSkewers, MantelCor and KrzCor
 #' 
-#' @param cov.x 
-#' @param cov.y
+#' @param cov.x covariance or correlation matrix
+#' @param cov.y covariance or correlation matrix
 #' @value data.frame of comparisons
 #' @export
 #' @examples

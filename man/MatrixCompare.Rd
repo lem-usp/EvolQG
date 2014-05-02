@@ -5,9 +5,9 @@
 MatrixCompare(cov.x, cov.y)
 }
 \arguments{
-  \item{cov.x}{}
+  \item{cov.x}{covariance or correlation matrix}
 
-  \item{cov.y}{}
+  \item{cov.y}{covariance or correlation matrix}
 }
 \description{
 Compare two matrices using all available methods. Currently
