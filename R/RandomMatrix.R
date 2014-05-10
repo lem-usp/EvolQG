@@ -28,8 +28,7 @@ RandomMatrix <- function(num.traits, num.matrices = 1, min.var = 1, max.var = 1,
     if(num.matrices==1){
         if(is.null(variance)) variance <- runif(num.traits, min.var, max.var)
         rand.mat <- RandCorr(num.traits, ke) * sqrt(outer(variance, variance))
-    }
-    else{
+    } else{
         if(is.null(variance)) variance <- matrix(runif(num.matrices*num.traits, min.var, max.var), num.matrices, num.traits)
         else variance <-  matrix(rep(variance, each = num.matrices), num.matrices, num.traits)
         rand.mat <- lapply(as.list(1:num.matrices), function(x) RandCorr(num.traits, ke) * sqrt(outer(variance[x,], variance[x,])))

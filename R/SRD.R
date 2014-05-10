@@ -109,8 +109,7 @@ SRD.list <- function (cov.x, cov.y = NULL, iterations = 1000, num.cores = 1, ...
     library(foreach)
     registerDoMC(num.cores)
     parallel = TRUE
-  }
-  else{
+  } else{
     parallel = FALSE
   }
   n.matrix <- length(cov.x)

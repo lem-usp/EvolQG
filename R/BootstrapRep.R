@@ -49,8 +49,7 @@ BootstrapRep_primitive <- function (ind.data, iterations,
     library(foreach)
     registerDoMC(num.cores)
     parallel = TRUE
-  }
-  else{
+  } else{
     parallel = FALSE
   }
   if(isSymmetric(as.matrix(ind.data))) stop("input appears to be a matrix, use residuals.")

@@ -43,8 +43,7 @@ MonteCarloStat <- function (cov.matrix, sample.size, iterations,
     library(foreach)
     registerDoMC(num.cores)
     parallel = TRUE
-  }
-  else{
+  } else{
     parallel = FALSE
   }
   if(sum(diag(cov.matrix)) == dim(cov.matrix)[1]) warning("Matrix appears to be a correlation matrix! Only covariance matrices should be used in parametric resampling.")
@@ -124,8 +123,8 @@ MonteCarloRepMantelCor <- function(cov.matrix, sample.size, iterations = 1000, n
 }
 
 MonteCarloRepKrzCor <- function(cov.matrix, sample.size, correlation = F, iterations = 1000, num.cores = 1){
-  if(correlation)  {StatFunc <- cor; c2v <- cov2cor}
-  else {StatFunc <- cov; c2v <- function(x) x}
+  if(correlation)  {StatFunc <- cor; c2v <- cov2cor
+  } else {StatFunc <- cov; c2v <- function(x) x}
   repeatability <- MonteCarloStat(cov.matrix, sample.size, iterations,
                                   ComparisonFunc = function(x, y) KrzCor(c2v(x), c2v(y), 1)[1],
                                   StatFunc = StatFunc,

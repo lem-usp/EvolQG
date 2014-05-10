@@ -29,8 +29,7 @@ MeanMatrixStatistics <- function (cov.matrix, iterations = 1000, full.results = 
     library(foreach)
     registerDoMC(num.cores)
     parallel = TRUE
-  }
-  else{
+  } else{
     parallel = FALSE
   }
   matrix.stat.functions = list ('respondability' = Respondability,

@@ -21,10 +21,11 @@
 
 AncestralStates <- function(tree, tip.data, tip.sample.size = NULL){
   num.nodes = length(tree$tip.label)
-  if(is.null(tree$node.label))
-    node.names <- tree$tip.label 
-  else
+  if(is.null(tree$node.label)){
+    node.names <- tree$tip.label
+  } else{
     node.names <- c(tree$tip.label, tree$node.label)
+  }
   if(is.null(tip.sample.size))
     tip.sample.size <- rep(1, length(tip.data))
   names(tip.sample.size) <- names(tip.data)
