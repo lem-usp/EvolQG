@@ -91,8 +91,8 @@ MantelCor.list <- function (cor.x, cor.y = NULL,
   else{
     out <- SingleComparisonMap(cor.x, cor.y,
                                function(x, y) MantelCor(y,
-                                                                         x,
-                                                                         iterations, mod = mod),
+                                                        x,
+                                                        iterations, mod = mod),
                                num.cores = num.cores)
   }
   return(out)
