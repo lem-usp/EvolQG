@@ -37,7 +37,7 @@
 #'
 #' KrzCor(list(c1, c2, c3))
 #'
-#' reps <- unlist(lapply(list(c1, c2, c3), MonteCarloRepKrzCor, 10, 10))
+#' reps <- unlist(lapply(list(c1, c2, c3), MonteCarloRep, "krz", 10, 10))
 #' KrzCor(list(c1, c2, c3), repeat.vector = reps)
 #'
 #' c4 <- RandomMatrix(10)
@@ -73,8 +73,7 @@ KrzCor.list <- function (cov.x, cov.y = NULL,
                          repeat.vector = repeat.vector,
                          num.cores = num.cores)
     out <- out[[1]]
-  }
-  else{
+  } else{
     out <- SingleComparisonMap(cov.x, cov.y,
                          function(x, y) return(c(KrzCor(x, y, ret.dim), NA)),
                                num.cores = num.cores)

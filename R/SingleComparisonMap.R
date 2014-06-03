@@ -14,9 +14,9 @@ SingleComparisonMap  <- function(matrix.list, y.mat, MatrixCompFunc, ..., num.co
     library(foreach)
     registerDoMC(num.cores)
     parallel = TRUE
-  }
-  else
+  } else {
     parallel = FALSE
+  }
   if(!all.equal(dim(matrix.list[[1]]),dim(y.mat)))
     stop("Matrices on list and single matrice dimension do not match")
   else

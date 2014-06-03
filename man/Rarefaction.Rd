@@ -1,53 +1,41 @@
 \name{Rarefaction}
 \alias{PlotRarefaction}
 \alias{Rarefaction}
-\alias{RarefactionKrzCor}
-\alias{RarefactionMantelCor}
-\alias{RarefactionRandomSkewers}
 \title{Rarefaction analysis via ressampling
 Calculates the repeatability of a statistic of the data, such as
 correlation or covariance matrix, via bootstrap ressampling with
 varying sample sizes, from 2 to the size of the original data.}
 \usage{
-Rarefaction(ind.data, StatFunc, ComparisonFunc, num.reps = 10,
-  num.cores = 1)
+Rarefaction(ind.data, ComparisonFunc = c("randomskewers", "mantel",
+  "krzanowski"), iterations = 1000, num.reps = 10, correlation = F,
+  ret.dim = NULL, num.cores = 1)
 
 PlotRarefaction(comparison.list, y.axis = "Statistic")
-
-RarefactionRandomSkewers(ind.data, iterations = 1000, num.reps = 10,
-  num.cores = 1)
-
-RarefactionMantelCor(ind.data, iterations = 1, num.reps = 10,
-  num.cores = 1)
-
-RarefactionKrzCor(ind.data, correlation = FALSE, ret.dim = NULL,
-  num.reps = 10, num.cores = 1)
 }
 \arguments{
   \item{ind.data}{Matrix of residuals or indiviual
   measurments}
+
+  \item{ComparisonFunc}{Comparison function for calculated
+  statistic, either "randomskewers", "mantel" or
+  "krznowski" correlations}
 
   \item{num.reps}{number of populations sampled per sample
   size}
 
   \item{iterations}{Parameter for comparison function.
   Number of random skewers or number of permutations in
-  mantel}
-
-  \item{ComparisonFunc}{Comparison function for calculated
-  statistic}
-
-  \item{StatFunc}{Statistic to be calculated}
+  mantel.}
 
   \item{num.cores}{Number of threads to use in computation.
   Requires doMC library.}
 
-  \item{correlation}{When using RarefactionKrzCor,
-  statistic can be correlation or covariance. If TRUE, uses
-  correlation.}
+  \item{correlation}{If TRUE, correlation matrix is used,
+  else covariance matrix. MantelCor always uses correlation
+  matrix.}
 
-  \item{ret.dim}{When using RarefactionKrzCor, number o
-  retained dimensions may be specified}
+  \item{ret.dim}{When using Krzanowski Correlation, number
+  o retained dimensions may be specified}
 
   \item{comparison.list}{output from rarefaction functions
   can be used in ploting}
@@ -61,8 +49,7 @@ original statistic, for all sample sizes.
 \description{
 Samples of various sizes, with replacement, are taken from
 the full population, a statistic calculated and compared to
-the full population statistic. Prepackaged functions for
-common comparison functions and statistics are suplied.
+the full population statistic.
 }
 \details{
 A specialized ploting function displays the results in
@@ -73,16 +60,11 @@ sizes. Use with caution.
 }
 \examples{
 ind.data <- matrix(rnorm(30*10), 30, 10)
-comparison.list <- Rarefaction(ind.data,
-                               StatFunc = cov,
-                               ComparisonFunc = function(x, y) RandomSkewers(x, y, 1000)[1],
-                               num.reps=5,
-                               num.cores = 1)
 
-results.RS <- RarefactionRandomSkewers(ind.data, num.reps = 5)
-results.Mantel <- RarefactionMantelCor(ind.data, num.reps = 5)
-results.KrzCov <- RarefactionKrzCor(ind.data, num.reps = 5)
-results.KrzCor <- RarefactionKrzCor(ind.data, TRUE, num.reps = 5)
+results.RS <- Rarefaction(ind.data, "randomskewers", num.reps = 5)
+results.Mantel <- Rarefaction(ind.data, "mante", num.reps = 5)
+results.KrzCov <- Rarefaction(ind.data, "krz", num.reps = 5)
+results.KrzCor <- Rarefaction(ind.data, "krz", TRUE, num.reps = 5)
 
 #Easy access
 library(reshape2)

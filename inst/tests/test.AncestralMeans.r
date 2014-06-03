@@ -1,7 +1,7 @@
 test_that("Ancestral Means gives correct results", 
          {
            TREE <- "iris((setosa:1,versicolor:1):1,virginica:2);"
-           tree.iris <- read.tree(text = TREE)
+           tree.iris <- ape::read.tree(text = TREE)
            iris.cov.list <- dlply(iris, "Species", function(x) cov(x[,1:4]))
            cov.matrices <- AncestralStates(tree.iris, iris.cov.list)
            w_matrix <- CalculateMatrix(lm(as.matrix(iris[,1:4])~iris[,5]))

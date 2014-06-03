@@ -41,7 +41,7 @@
 #'
 #' MantelCor(list(c1, c2, c3))
 #'
-#' reps <- unlist(lapply(list(c1, c2, c3), MonteCarloRepMantelCor, 10, 10))
+#' reps <- unlist(lapply(list(c1, c2, c3), MonteCarloRep, "mantel", 10, 10))
 #' MantelCor(list(c1, c2, c3), repeat.vector = reps)
 #'
 #' c4 <- RandomMatrix(10)
@@ -65,8 +65,7 @@ MantelCor.default <- function (cor.x, cor.y, iterations = 1000, mod = FALSE, ...
     avg.ratio <- avg.plus / avg.minus
     output <- c(correlation, prob, avg.plus, avg.minus, avg.ratio)
     names(output) <- c("Rsquared", "Probability", "AVG+", "AVG-", "AVG Ratio")
-  }
-  else{
+  } else{
     if(sum(diag(cor.x)) != dim(cor.x)[1] | sum(diag(cor.y))!= dim(cor.y)[1])
       warning("Matrices do not appear to be correlation matrices. Use with caution.")
     output <- c(correlation, prob)
@@ -87,8 +86,7 @@ MantelCor.list <- function (cor.x, cor.y = NULL,
                          function(x, cor.y) MantelCor(x, cor.y, iterations),
                          repeat.vector = repeat.vector,
                          num.cores = num.cores)
-  }
-  else{
+  } else{
     out <- SingleComparisonMap(cor.x, cor.y,
                                function(x, y) MantelCor(y,
                                                         x,

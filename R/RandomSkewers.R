@@ -39,7 +39,7 @@
 #'
 #' RandomSkewers(list(c1, c2, c3))
 #'
-#' reps <- unlist(lapply(list(c1, c2, c3), MonteCarloRepRandomSkewers, 10, 10))
+#' reps <- unlist(lapply(list(c1, c2, c3), MonteCarloRep, "randomskewers", 10, 10))
 #' RandomSkewers(list(c1, c2, c3), repeat.vector = reps)
 #'
 #' c4 <- RandomMatrix(10)
@@ -79,8 +79,7 @@ RandomSkewers.list <- function (cov.x, cov.y = NULL, iterations = 1000, repeat.v
                          function(x, y) RandomSkewers(x, y, iterations),
                          repeat.vector = repeat.vector,
                          num.cores = num.cores)
-  }
-  else{
+  } else{
     out <- SingleComparisonMap(cov.x, cov.y,
                                function(x, y) RandomSkewers(x, y, iterations),
                                num.cores = num.cores)

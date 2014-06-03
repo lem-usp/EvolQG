@@ -16,8 +16,7 @@ ComparisonMap <- function (matrix.list, MatrixCompFunc, ..., repeat.vector = NUL
     library(foreach)
     registerDoMC(num.cores)
     parallel = TRUE
-  }
-  else{
+  } else{
     parallel = FALSE
   }
   n.matrix <- length(matrix.list)

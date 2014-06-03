@@ -5,37 +5,51 @@
 #'   via bootstrap ressampling
 #'
 #'   Samples with replacement are taken from the full population, a statistic calculated
-#'   and compared to the full population statistic. Prepackaged functions
-#'   for common comparison functions and statistics are suplied.
+#'   and compared to the full population statistic. 
 #'
 #' @param ind.data Matrix of residuals or indiviual measurments
 #' @param iterations Number of ressamples to take
-#' @param ComparisonFunc Comparison function for calculated statistic
-#' @param StatFunc Statistic to be calculated
+#' @param ComparisonFunc Comparison function for calculated statistic, either "randomskewers", "mantel" or "krznowski" correlations
+#' @param correlation If TRUE, correlation matrix is used, else covariance matrix. MantelCor always uses correlation matrix.
 #' @param num.cores Number of threads to use in computation. Requires doMC library.
 #' @return returns the mean repeatability, or mean value of comparisons from samples to original statistic.
 #' @author Diogo Melo, Guilherme Garcia
-#' @seealso \code{\link{MonteCarloStat}}, \code{\link{AlphaRep}}, \code{\link{BootstrapRepKrzCor}}, \code{\link{BootstrapRepMantelCor}}, \code{\link{BootstrapRepRandomSkewers}}
+#' @seealso \code{\link{MonteCarloStat}}, \code{\link{AlphaRep}}
 #' @export
 #' @examples
-#' BootstrapRep(iris[,1:4], iterations = 5,
-#'              ComparisonFunc = function(x, y) RandomSkewers(x, y)[1],
-#'              StatFunc = cov,
+#' BootstrapRep(iris[,1:4], "mantel",
+#'              iterations = 5,
 #'              num.cores = 1)
+#'              
+#' BootstrapRep(iris[,1:4], "randomskewers", 50)
 #'
+#' # Partial matching for comparison function also works.
+#' BootstrapRep(iris[,1:4], "krz", 50, TRUE)
+#' 
 #' @keywords bootstrap
 #' @keywords repetabilities
 
-BootstrapRep <- function (ind.data, iterations,
-                          ComparisonFunc, StatFunc,
-                          num.cores){
+BootstrapRep <- function(ind.data,
+                         ComparisonFunc = c("randomskewers", "mantel", "krzanowski"),
+                         iterations = 1000, 
+                         correlation = F, 
+                         num.cores = 1){
+  ComparisonFunc = match.arg(ComparisonFunc)
+  switch(ComparisonFunc,
+        randomskewers = BootstrapRepRandomSkewers(ind.data, iterations, correlation, num.cores),
+        mantel = BootstrapRepMantelCor(ind.data, iterations, num.cores),
+        krzanowski = BootstrapRepKrzCor(ind.data, iterations, correlation, num.cores))
+}
+
+BootstrapRep_primitive <- function (ind.data, iterations,
+                                    ComparisonFunc, StatFunc,
+                                    num.cores){
   if (num.cores > 1) {
     library(doMC)
     library(foreach)
     registerDoMC(num.cores)
     parallel = TRUE
-  }
-  else{
+  } else{
     parallel = FALSE
   }
   if(isSymmetric(as.matrix(ind.data))) stop("input appears to be a matrix, use residuals.")
@@ -49,3 +63,30 @@ BootstrapRep <- function (ind.data, iterations,
   return (comparisons)
 }
 
+BootstrapRepKrzCor <- function(ind.data, iterations = 1000, correlation = F, num.cores = 1){
+  if(correlation)  StatFunc <- cor
+  else             StatFunc <- cov
+  repeatability <- BootstrapRep_primitive(ind.data, iterations,
+                                          ComparisonFunc = KrzCor,
+                                          StatFunc = StatFunc,
+                                          num.cores = num.cores)
+  return(mean(repeatability))
+}
+
+BootstrapRepMantelCor <- function(ind.data, iterations = 1000, num.cores = 1){
+  repeatability <- BootstrapRep_primitive(ind.data, iterations,
+                                          ComparisonFunc = function(x, y) MantelCor(x, y, 1)[1],
+                                          StatFunc = cor,
+                                          num.cores = num.cores)
+  return(mean(repeatability))
+}
+
+BootstrapRepRandomSkewers <- function(ind.data, iterations = 1000, correlation = F, num.cores = 1){
+  if(correlation)  StatFunc <- cor
+  else             StatFunc <- cov
+  repeatability <- BootstrapRep_primitive(ind.data, iterations,
+                                          ComparisonFunc = function(x, y) RandomSkewers(x, y)[1],
+                                          StatFunc = StatFunc,
+                                          num.cores = num.cores)
+  return(mean(repeatability))
+}

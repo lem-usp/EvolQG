@@ -81,8 +81,7 @@ KrzProjection.list <- function(cov.x, cov.y = NULL,
     library(foreach)
     registerDoMC(num.cores)
     parallel = TRUE
-  }
-  else{
+  } else{
     parallel = FALSE
   }
   if(is.null(cov.y)){
@@ -92,8 +91,7 @@ KrzProjection.list <- function(cov.x, cov.y = NULL,
                                                                      cov.x[[n]],
                                                                      ret.dim.1, ret.dim.2)},
                                           .parallel = parallel)
-    }
-    else{
+    } else{
       CompareToNProj <- function(n) llply(cov.x,
                                           function(x) {KrzProjection(x,
                                                                      cov.x[[n]],
@@ -107,20 +105,17 @@ KrzProjection.list <- function(cov.x, cov.y = NULL,
     if(full.results){
       names(comparisons.proj) = names(cov.x)
       return(comparisons.proj)
-    }
-    else{
+    } else{
       comparisons.proj <- melt(comparisons.proj)
       comparisons.proj[,4] = names(cov.x)[(comparisons.proj[,4])]
       comparisons.proj = comparisons.proj[,-2]
       comparisons.proj = acast(comparisons.proj, L2~L1)[names(cov.x), names(cov.x)]
     }
     return(comparisons.proj)
-  }
-  else{
+  } else{
     if(full.results){
       comparisons.proj <- llply(cov.x, function(x) {KrzProjection(x, cov.y, ret.dim.1, ret.dim.2)}, .parallel = parallel)
-    }
-    else{
+    } else{
       comparisons.proj <- laply(cov.x, function(x) {KrzProjection(x, cov.y, ret.dim.1, ret.dim.2)[1]}, .parallel = parallel)
       comparisons.proj <- ldply(comparisons.proj)  
     }
