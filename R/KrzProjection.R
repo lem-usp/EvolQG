@@ -33,13 +33,13 @@
 #' c1 <- RandomMatrix(10)
 #' c2 <- RandomMatrix(10)
 #' KrzProjection(c1, c2)
-#' 
+#'
 #' m.list <- RandomMatrix(10, 3)
 #' KrzProjection(m.list)
 #' KrzProjection(m.list, full.results = TRUE)
 #' KrzProjection(m.list, ret.dim.1 = 5, ret.dim.2 = 4)
 #' KrzProjection(m.list, ret.dim.1 = 4, ret.dim.2 = 5)
-#' 
+#'
 #' KrzProjection(m.list, c1)
 #' KrzProjection(m.list, c1, full.results = TRUE)
 #' @keywords matrixcomparison
@@ -117,7 +117,7 @@ KrzProjection.list <- function(cov.x, cov.y = NULL,
       comparisons.proj <- llply(cov.x, function(x) {KrzProjection(x, cov.y, ret.dim.1, ret.dim.2)}, .parallel = parallel)
     } else{
       comparisons.proj <- laply(cov.x, function(x) {KrzProjection(x, cov.y, ret.dim.1, ret.dim.2)[1]}, .parallel = parallel)
-      comparisons.proj <- ldply(comparisons.proj)  
+      comparisons.proj <- ldply(comparisons.proj)
     }
     return(comparisons.proj)
   }
