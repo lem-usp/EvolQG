@@ -21,7 +21,7 @@ SingleComparisonMap  <- function(matrix.list, y.mat, MatrixCompFunc, ..., num.co
     stop("Matrices on list and single matrice dimension do not match")
   else
     out <- ldply(matrix.list,
-                 function(x) {MatrixCompFunc(x, y.mat)},
+                 function(x) {MatrixCompFunc(x, y.mat, ...)},
                  .parallel = parallel)
   return(out)
 }
