@@ -4,7 +4,7 @@
 #'
 #' @param cov.x covariance or correlation matrix
 #' @param cov.y covariance or correlation matrix
-#' @value data.frame of comparisons
+#' @return data.frame of comparisons
 #' @export
 #' @examples
 #'
