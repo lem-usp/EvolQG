@@ -50,7 +50,7 @@ KrzProjection <- function(cov.x, cov.y, ...) UseMethod("KrzProjection")
 
 #' @rdname KrzProjection
 #' @method KrzProjection default
-#' @S3method KrzProjection default
+#' @export
 KrzProjection.default <- function (cov.x, cov.y, ret.dim.1 = NULL, ret.dim.2 = NULL, ...) {
   num.traits <- dim(cov.x)[1]
   if (is.null(ret.dim.1))
@@ -72,7 +72,7 @@ KrzProjection.default <- function (cov.x, cov.y, ret.dim.1 = NULL, ret.dim.2 = N
 
 #' @rdname KrzProjection
 #' @method KrzProjection list
-#' @S3method KrzProjection list
+#' @export
 KrzProjection.list <- function(cov.x, cov.y = NULL,
                                ret.dim.1 = NULL, ret.dim.2 = NULL,
                                num.cores = 1, full.results = FALSE, ...){

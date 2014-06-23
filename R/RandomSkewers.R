@@ -50,8 +50,7 @@
 RandomSkewers <- function(cov.x, cov.y, ...) UseMethod("RandomSkewers")
 
 #' @rdname RandomSkewers
-#' @method RandomSkewers default
-#' @S3method RandomSkewers default
+#' @export
 RandomSkewers.default <- function (cov.x, cov.y, iterations = 1000, ...) {
   traits <- dim (cov.x) [1]
   base.vector <- Normalize(rnorm(traits))
@@ -71,7 +70,7 @@ RandomSkewers.default <- function (cov.x, cov.y, iterations = 1000, ...) {
 
 #' @rdname RandomSkewers
 #' @method RandomSkewers list
-#' @S3method RandomSkewers list
+#' @export
 RandomSkewers.list <- function (cov.x, cov.y = NULL, iterations = 1000, repeat.vector = NULL, num.cores = 1, ...)
 {
   if (is.null (cov.y)) {

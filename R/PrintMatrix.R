@@ -15,14 +15,14 @@ PrintMatrix <- function(x, ...) UseMethod('PrintMatrix')
 
 #' @rdname PrintMatrix
 #' @method PrintMatrix default
-#' @S3method PrintMatrix default
+#' @export
 PrintMatrix.default <- function(x, out.file = './matrix.csv', ...){
     write.csv(x, out.file)
 }
 
 #' @rdname PrintMatrix
 #' @method PrintMatrix list
-#' @S3method PrintMatrix list
+#' @export
 PrintMatrix.list <- function(x, out.file = './matrix.csv', ...){
     if(is.null(names(x))) names(x) <- 1:length(x)
     sink(out.file, type="output")

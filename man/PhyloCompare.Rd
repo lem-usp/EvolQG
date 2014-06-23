@@ -19,7 +19,7 @@ list with calculated comparisons for each node, using labels or numbers from tre
 Calculates the comparison of some statistic between sister groups along a phylogeny
 }
 \note{
-Phylogeny must be fully resolved.
+Phylogeny must be fully resolved
 }
 \examples{
 library(ape)

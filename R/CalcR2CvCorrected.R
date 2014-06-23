@@ -35,7 +35,7 @@ CalcR2CvCorrected  <- function(ind.data, ...) UseMethod("CalcR2CvCorrected")
 
 #' @rdname CalcR2CvCorrected
 #' @method CalcR2CvCorrected default
-#' @S3method CalcR2CvCorrected default
+#' @export
 CalcR2CvCorrected.default <- function (ind.data, cv.level = 0.06, iterations = 1000, num.cores = 1, ...) {
   cv <- function (x) return (sd(x)/mean(x))
   Stats = function(x) {
@@ -61,7 +61,7 @@ CalcR2CvCorrected.default <- function (ind.data, cv.level = 0.06, iterations = 1
 
 #' @rdname CalcR2CvCorrected
 #' @method CalcR2CvCorrected lm
-#' @S3method CalcR2CvCorrected lm
+#' @export
 CalcR2CvCorrected.lm <- function (ind.data, cv.level = 0.06, iterations = 1000, ...) {
     cv <- function (x) return (sd(x)/mean(x))
     model <- ind.data

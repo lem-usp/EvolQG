@@ -49,7 +49,7 @@ KrzCor <- function (cov.x, cov.y, ...) UseMethod("KrzCor")
 
 #' @rdname KrzCor
 #' @method KrzCor default
-#' @S3method KrzCor default
+#' @export
 KrzCor.default <- function (cov.x, cov.y, ret.dim = NULL, ...) {
   if (is.null(ret.dim))
     ret.dim = round(dim(cov.x)[1]/2 - 1)
@@ -63,7 +63,7 @@ KrzCor.default <- function (cov.x, cov.y, ret.dim = NULL, ...) {
 
 #' @rdname KrzCor
 #' @method KrzCor list
-#' @S3method KrzCor list
+#' @export
 KrzCor.list <- function (cov.x, cov.y = NULL,
                          ret.dim = NULL, repeat.vector = NULL,
                          num.cores = 1, ...) {

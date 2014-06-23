@@ -7,7 +7,7 @@
 #'@param CompFunc comparison function
 #'
 #'@return list with calculated comparisons for each node, using labels or numbers from tree
-#'@note Phylogeny must be fully resolved.
+#'@note Phylogeny must be fully resolved
 #'@export
 #'@importFrom ape reorder.phylo
 #'@import plyr

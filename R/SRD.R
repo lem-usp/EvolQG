@@ -50,7 +50,7 @@ SRD <- function (cov.x, cov.y, ...) UseMethod("SRD")
 
 #' @rdname SRD
 #' @method SRD default
-#' @S3method SRD default
+#' @export
 SRD.default <- function (cov.x, cov.y, iterations = 1000, ...) {
   size <- dim (cov.x)[1]
   r2s <- array (0, c(size,iterations))
@@ -102,7 +102,7 @@ SRD.default <- function (cov.x, cov.y, iterations = 1000, ...) {
 
 #' @rdname SRD
 #' @method SRD list
-#' @S3method SRD list
+#' @export
 SRD.list <- function (cov.x, cov.y = NULL, iterations = 1000, num.cores = 1, ...){
   if (num.cores > 1) {
     library(doMC)

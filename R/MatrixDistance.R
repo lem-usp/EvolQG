@@ -40,7 +40,7 @@ MatrixDistance <- function(cov.x, cov.y, Distance, ...)
 
 #' @rdname MatrixDistance
 #' @method MatrixDistance default
-#' @S3method MatrixDistance default
+#' @export
 MatrixDistance.default <- function (cov.x, cov.y, Distance = c('OverlapDist', 'RiemannDist'), ...) {
   Distance <- match.fun(match.arg(Distance))
   output <- Distance(cov.x, cov.y)
@@ -49,7 +49,7 @@ MatrixDistance.default <- function (cov.x, cov.y, Distance = c('OverlapDist', 'R
 
 #' @rdname MatrixDistance
 #' @method MatrixDistance list
-#' @S3method MatrixDistance list
+#' @export
 MatrixDistance.list <- function (cov.x, cov.y = NULL, Distance = c('OverlapDist', 'RiemannDist'), ...,  num.cores = 1)
 {
   Distance <- match.fun(match.arg(Distance))
