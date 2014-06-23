@@ -20,7 +20,6 @@
 #'AncestralStates(tree, mat.list, sample.sizes)
 
 AncestralStates <- function(tree, tip.data, tip.sample.size = NULL){
-  num.nodes = length(tree$tip.label)
   if(is.null(tree$node.label)){
     node.names <- tree$tip.label
   } else{
@@ -34,8 +33,7 @@ AncestralStates <- function(tree, tip.data, tip.sample.size = NULL){
   if(!all(tree$tip.label %in% names(tip.data))) stop("All tip labels must be in stat list.")
   node.order <- unique(reorder(tree, "postorder")$edge[,1])
   for (node in node.order){
-        node.name <- node.names[node]
-      if(is.na(node.name)){
+      if(is.na(node.names[node])){
         node.names[node] <- as.character(node)
       }
       descendants.list <- node.names[tree$edge[which(tree$edge[,1]==node),2]]

@@ -10,7 +10,7 @@ PhyloCompare(tree, node.data, CompareFunc = RandomSkewers)
 
 \item{node.data}{list of node data}
 
-\item{CompFunc}{comparison function}
+\item{CompareFunc}{comparison function}
 }
 \value{
 list with calculated comparisons for each node, using labels or numbers from tree
