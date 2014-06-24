@@ -3,7 +3,7 @@
 \alias{PhyloCompare}
 \title{Compares sister groups}
 \usage{
-PhyloCompare(tree, node.data, CompareFunc = RandomSkewers)
+PhyloCompare(tree, node.data, CompareFunc = RandomSkewers, ...)
 }
 \arguments{
 \item{tree}{phylogenetic tree}
@@ -13,7 +13,8 @@ PhyloCompare(tree, node.data, CompareFunc = RandomSkewers)
 \item{CompareFunc}{comparison function}
 }
 \value{
-list with calculated comparisons for each node, using labels or numbers from tree
+list with a data.frame of calculated comparisons for each node, using labels or numbers from tree; and a list of
+comparisons for plotting using phytools (see examples)
 }
 \description{
 Calculates the comparison of some statistic between sister groups along a phylogeny
@@ -28,7 +29,11 @@ tree <- bird.orders
 mat.list <- RandomMatrix(5, length(tree$tip.label))
 names(mat.list) <- tree$tip.label
 sample.sizes <- runif(length(tree$tip.label), 15, 20)
-phyl.state <- AncestralStates(tree, mat.list, sample.sizes)
-PhyloCompare(tree, phyl.state)
+phylo.state <- AncestralStates(tree, mat.list, sample.sizes)
+
+phylo.comparisons <- PhyloCompare(tree, phylo.state)
+
+library(phytools)
+plotBranchbyTrait(tree, phylo.comparisons[[2]])
 }
 
