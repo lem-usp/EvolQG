@@ -9,7 +9,9 @@ PhyloCompare(tree, node.data, CompareFunc = RandomSkewers, ...)
 
   \item{node.data}{list of node data}
 
-  \item{CompareFunc}{comparison function}
+\item{CompareFunc}{comparison function}
+
+\item{...}{Aditional arguments passed to CompareFunc}
 }
 \value{
 list with a data.frame of calculated comparisons for each
