@@ -1,0 +1,65 @@
+\name{PCAsimilarity}
+\alias{PCAsimilarity}
+\alias{PCAsimilarity.default}
+\alias{PCAsimilarity.list}
+\title{Compare matrices using PCA similarity factor}
+\usage{
+PCAsimilarity(cov.x, cov.y, ...)
+
+\method{PCAsimilarity}{default}(cov.x, cov.y, ret.dim = NULL)
+
+\method{PCAsimilarity}{list}(cov.x, cov.y = NULL, ret.dim = NULL,
+  repeat.vector = NULL, num.cores = 1, ...)
+}
+\arguments{
+  \item{cov.x}{Single covariance matrix ou list of
+  covariance matrices. If single matrix is suplied, it is
+  compared to cov.y. If list is suplied and no cov.y is
+  suplied, all matrices are compared. If cov.y is suplied,
+  all matrices in list are compared to it.}
+
+  \item{...}{aditional arguments passed to other methods}
+
+  \item{cov.y}{First argument is compared to cov.y. If
+  cov.x is a list, every element in cov.x is projected in
+  cov.y.}
+
+  \item{ret.dim}{number of retained dimensions for matrix
+  comparison, default for nxn matrix is n/2-1}
+
+  \item{num.cores}{If list is passed, number of threads to
+  use in computation. Requires doMC library.}
+}
+\value{
+Ratio of projected variance to total variance
+}
+\description{
+Compare matrices using PCA similarity factor
+}
+\examples{
+c1 <- RandomMatrix(10)
+c2 <- RandomMatrix(10)
+PCAsimilarity(c1, c2)
+
+m.list <- RandomMatrix(10, 3)
+PCAsimilarity(m.list)
+PCAsimilarity(m.list, ret.dim = 5)
+
+PCAsimilarity(m.list, c1)
+}
+\author{
+Edgar Zanella Alvarenga
+}
+\references{
+Krzanowski, W. J. (1979). Between-Groups Comparison of
+Principal Components. Journal of the American Statistical
+Association, 74(367), 703. doi:10.2307/2286995
+}
+\seealso{
+\code{\link{KrzProjection}},\code{\link{KrzCor}},\code{\link{RandomSkewers}},\code{\link{MantelCor}}
+}
+\keyword{Krzanowski}
+\keyword{PCA}
+\keyword{matrixcomparison}
+\keyword{matrixcorrelation}
+
