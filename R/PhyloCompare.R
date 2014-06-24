@@ -5,6 +5,7 @@
 #'@param tree phylogenetic tree
 #'@param node.data list of node data
 #'@param CompareFunc comparison function
+#'@param ... Aditional arguments passed to CompareFunc
 #'@return list with a data.frame of calculated comparisons for each node, using labels or numbers from tree; and a list of 
 #' comparisons for plotting using phytools (see examples)
 #'@note Phylogeny must be fully resolved

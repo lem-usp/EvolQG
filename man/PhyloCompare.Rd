@@ -11,6 +11,8 @@ PhyloCompare(tree, node.data, CompareFunc = RandomSkewers, ...)
 \item{node.data}{list of node data}
 
 \item{CompareFunc}{comparison function}
+
+\item{...}{Aditional arguments passed to CompareFunc}
 }
 \value{
 list with a data.frame of calculated comparisons for each node, using labels or numbers from tree; and a list of
