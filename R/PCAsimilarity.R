@@ -47,11 +47,9 @@ PCAsimilarity.default <- function(cov.x, cov.y, ret.dim=NULL) {
   }
   eg.x <- eigen(cov.x)
   eg.y <- eigen(cov.y)
-  norm_eg.x <- aaply(1:ret.dim, 1, function(i) eg.x$vectors[,i]/sqrt(sum(eg.x$vectors[,i]**2)))
-  norm_eg.y <- aaply(1:ret.dim, 1, function(i) eg.y$vectors[,i]/sqrt(sum(eg.y$vectors[,i]**2)))
   total_var <- sum(eg.x$values %*% eg.y$values)
 
-  return(sum(aaply(1:ret.dim, 1, function (i) aaply(1:ret.dim, 1, function (j) eg.x$values[i]*eg.y$values[j] * (norm_eg.x[i] %*% norm_eg.y[j])))**2) / total_var)
+  return (sum((eg.x$values %o% eg.y$values) * ((t(eg.x$vectors) %*% (eg.y$vectors))**2))/total_var)
 }
 
 #' @rdname PCAsimilarity
