@@ -12,7 +12,7 @@ Instalation
 If Windows
 ----------
 
-Install [Rtools](http://cran.r-project.org/bin/windows/Rtools/). 
+First install [Rtools](http://cran.r-project.org/bin/windows/Rtools/), then proceed to devtools instalation instructions.
 
 Be careful to use the right version for your R instalation.
 
@@ -22,7 +22,25 @@ If MacOS X
 
 If you are using MacOS X, you will probably have to build Rcpp from source. 
 You will need to have [Xcode](https://developer.apple.com/xcode/) or some other C++ compiler installed.
-Check if the instalation suceded typing `clang++ --version` in the terminal.
+Check if the instalation suceded typing `clang++ --version` in the terminal. It might be necessary to add a file called Makevars in a .R folder in your Home directory.
+
+In the terminal type:
+
+```
+mkdir .R
+cd .R
+touch Makevars
+```
+
+edit this file (".R/Makevars") and add the following lines:
+
+```
+CC=clang
+CXX=clang++
+CFLAGS="-mtune=native -g -O3 -Wall -pedantic -Wconversion"
+CXXFLAGS="-mtune=native -g -O3 -Wall -pedantic -Wconversion"
+FLIBS=-lgfortran
+```
 
 
 Then, download the Rcpp source from [here](http://cran.r-project.org/web/packages/Rcpp/index.html) (Package source link), then install it in R using:
@@ -33,6 +51,7 @@ Then, download the Rcpp source from [here](http://cran.r-project.org/web/package
 
 Replacing the file name with the proper version number.
 
+Then proceed to devtools instalation instructions.
 
 Using devtools
 --------------
@@ -43,14 +62,3 @@ Install [devtools](http://www.rstudio.com/projects/devtools/) and [Rcpp](http://
 > library(devtools)
 > install_github("Morphometrics", "lem-usp")
 ```
-
-Deixando o Morphometrics como padrão no RStudio
------------------------------------------------
-
-1. localizar o arquivo Rprofile.site. No windows ele fica no C:\Program Files\R\R-n.n.n\etc 
-2. abrir o RStudio como administrador
-3. abrir o Rprofile.site no RStudio
-4. após a última linha com texto copiar options(defaultPackages=c(getOption("defaultPackages"),"Morphometrics"))
-5. salvar e fechar o Rprofile.site
-6. reiniciar o RStudio
-7. pronto!
