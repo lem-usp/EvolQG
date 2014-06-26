@@ -55,7 +55,7 @@ MatrixDistance(list(c1, c2, c3), c4)
 Diogo Melo
 }
 \seealso{
-\code{\link{KrzCor}},\code{\link{MantelCor}}
+\code{\link{RiemannDist}},\code{\link{OverlapDist}}
 }
 \keyword{matrixcomparison}
 \keyword{matrixdistance}

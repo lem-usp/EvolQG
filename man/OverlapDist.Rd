@@ -20,4 +20,7 @@ Calculates the overlap between two normal distributions,
 defined as the probability that a draw from one distribution
 comes from the other
 }
+\references{
+Ovaskainen, O. (2008). A Bayesian framework for comparative quantitative genetics. … of the Royal …, 669–678. doi:10.1098/rspb.2007.0949
+}
 
