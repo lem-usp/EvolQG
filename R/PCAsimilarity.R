@@ -38,7 +38,7 @@ PCAsimilarity <- function(cov.x, cov.y, ...) UseMethod("PCAsimilarity")
 #' @rdname PCAsimilarity
 #' @method PCAsimilarity default
 #' @export
-PCAsimilarity.default <- function(cov.x, cov.y) {
+PCAsimilarity.default <- function(cov.x, cov.y, ...) {
   eg.x <- eigen(cov.x)
   eg.y <- eigen(cov.y)
   total_var <- sum(eg.x$values %*% eg.y$values)
@@ -49,8 +49,8 @@ PCAsimilarity.default <- function(cov.x, cov.y) {
 #' @rdname PCAsimilarity
 #' @method PCAsimilarity list
 #' @export
-PCAsimilarity.list <- function (cov.x, cov.y = NULL,
-                         repeat.vector = NULL, num.cores = 1, ...) {
+PCAsimilarity.list <- function (cov.x, cov.y = NULL, ...,
+                         repeat.vector = NULL, num.cores = 1) {
   if (is.null (cov.y)) {
     out <- ComparisonMap(cov.x,
                          function(x, y) return(c(PCAsimilarity(x, y), NA)),

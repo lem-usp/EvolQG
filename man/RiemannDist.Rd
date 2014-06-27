@@ -20,7 +20,7 @@ Return distance between two covariance matrices
 Edgar Zanella
 }
 \references{
-Mitteroecker, P., & Bookstein, F. (2009). The ontogenetic trajectory of the phenotypic covariance matrix, with examples from craniofacial shape in rats and humans. Evolution, 63(3), 727–737. doi:10.1111/j.1558-5646.2008.00587.x
+Mitteroecker, P., & Bookstein, F. (2009). The ontogenetic trajectory of the phenotypic covariance matrix, with examples from craniofacial shape in rats and humans. Evolution, 63(3), 727-737. doi:10.1111/j.1558-5646.2008.00587.x
 }
 \keyword{matrixcomparison}
 \keyword{matrixdistance}

@@ -43,9 +43,10 @@ Calculates distances between covariance matrices.
 c1 <- RandomMatrix(10)
 c2 <- RandomMatrix(10)
 c3 <- RandomMatrix(10)
-MatrixDistance(c1, c2)
+MatrixDistance(c1, c2, "OverlapDist")
+MatrixDistance(c1, c2, "RiemannDist")
 
-MatrixDistance(list(c1, c2, c3))
+MatrixDistance(list(c1, c2, c3), Distance = "OverlapDist")
 
 
 c4 <- RandomMatrix(10)

@@ -7,10 +7,10 @@
 \usage{
 PCAsimilarity(cov.x, cov.y, ...)
 
-\method{PCAsimilarity}{default}(cov.x, cov.y)
+\method{PCAsimilarity}{default}(cov.x, cov.y, ...)
 
-\method{PCAsimilarity}{list}(cov.x, cov.y = NULL, repeat.vector = NULL,
-  num.cores = 1, ...)
+\method{PCAsimilarity}{list}(cov.x, cov.y = NULL, ..., repeat.vector = NULL,
+  num.cores = 1)
 }
 \arguments{
 \item{cov.x}{Single covariance matrix ou list of covariance matrices.
