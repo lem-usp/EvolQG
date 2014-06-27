@@ -24,6 +24,8 @@ If cov.y is suplied, all matrices in list are compared to it.}
 \item{cov.y}{First argument is compared to cov.y.
 If cov.x is a list, every element in cov.x is projected in cov.y.}
 
+\item{repeat.vector}{Vector of repeatabilities for correlation correction.}
+
 \item{num.cores}{If list is passed, number of threads to use in computation.
 Requires doMC library.}
 }

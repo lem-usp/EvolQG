@@ -8,6 +8,7 @@
 #' @param ... aditional arguments passed to other methods
 #' @param cov.y First argument is compared to cov.y.
 #' If cov.x is a list, every element in cov.x is projected in cov.y.
+#' @param repeat.vector Vector of repeatabilities for correlation correction.
 #' @param num.cores If list is passed, number of threads to use in computation.
 #' Requires doMC library.
 #' @return Ratio of projected variance to total variance
