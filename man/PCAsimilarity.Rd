@@ -5,12 +5,12 @@
 \alias{PCAsimilarity.list}
 \title{Compare matrices using PCA similarity factor}
 \usage{
-PCAsimilarity(cov.x, cov.y, ...)
+PCAsimilarity(cov.x, cov.y, ret.dim = NULL, ...)
 
-\method{PCAsimilarity}{default}(cov.x, cov.y, ret.dim = NULL)
+\method{PCAsimilarity}{default}(cov.x, cov.y, ret.dim = NULL, ...)
 
-\method{PCAsimilarity}{list}(cov.x, cov.y = NULL, ret.dim = NULL,
-  repeat.vector = NULL, num.cores = 1, ...)
+\method{PCAsimilarity}{list}(cov.x, cov.y = NULL, ret.dim = NULL, ...,
+  repeat.vector = NULL, num.cores = 1)
 }
 \arguments{
 \item{cov.x}{Single covariance matrix ou list of covariance matrices.
@@ -26,6 +26,8 @@ If cov.x is a list, every element in cov.x is projected in cov.y.}
 
 \item{ret.dim}{number of retained dimensions for matrix comparison,
 default for nxn matrix is n/2-1}
+
+\item{repeat.vector}{Vector of repeatabilities for correlation correction.}
 
 \item{num.cores}{If list is passed, number of threads to use in computation.
 Requires doMC library.}

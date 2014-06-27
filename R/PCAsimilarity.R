@@ -10,6 +10,7 @@
 #' If cov.x is a list, every element in cov.x is projected in cov.y.
 #' @param ret.dim number of retained dimensions for matrix comparison,
 #' default for nxn matrix is n/2-1
+#' @param repeat.vector Vector of repeatabilities for correlation correction.
 #' @param num.cores If list is passed, number of threads to use in computation.
 #' Requires doMC library.
 #' @return Ratio of projected variance to total variance
@@ -36,12 +37,12 @@
 #' @keywords Krzanowski
 #' @keywords PCA
 
-PCAsimilarity <- function(cov.x, cov.y, ...) UseMethod("PCAsimilarity")
+PCAsimilarity <- function(cov.x, cov.y, ret.dim=NULL,...) UseMethod("PCAsimilarity")
 
 #' @rdname PCAsimilarity
 #' @method PCAsimilarity default
 #' @export
-PCAsimilarity.default <- function(cov.x, cov.y, ret.dim=NULL) {
+PCAsimilarity.default <- function(cov.x, cov.y, ret.dim=NULL, ...) {
   if (is.null(ret.dim)) {
     ret.dim = round(dim(cov.x)[1]/2 - 1)
   }
@@ -56,8 +57,8 @@ PCAsimilarity.default <- function(cov.x, cov.y, ret.dim=NULL) {
 #' @method PCAsimilarity list
 #' @export
 PCAsimilarity.list <- function (cov.x, cov.y = NULL,
-                         ret.dim = NULL, repeat.vector = NULL,
-                         num.cores = 1, ...) {
+                         ret.dim = NULL, ..., repeat.vector = NULL,
+                         num.cores = 1) {
   if (is.null (cov.y)) {
     out <- ComparisonMap(cov.x,
                          function(x, y) return(c(PCAsimilarity(x, y, ret.dim), NA)),

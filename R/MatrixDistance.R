@@ -26,9 +26,10 @@
 #' c1 <- RandomMatrix(10)
 #' c2 <- RandomMatrix(10)
 #' c3 <- RandomMatrix(10)
-#' MatrixDistance(c1, c2)
+#' MatrixDistance(c1, c2, "OverlapDist")
+#' MatrixDistance(c1, c2, "RiemannDist")
 #'
-#' MatrixDistance(list(c1, c2, c3))
+#' MatrixDistance(list(c1, c2, c3), Distance = "OverlapDist")
 #'
 #'
 #' c4 <- RandomMatrix(10)
@@ -77,7 +78,7 @@ MatrixDistance.list <- function (cov.x, cov.y = NULL, Distance = c('OverlapDist'
 #' @return Riemann distance between cov.x and cov.y
 #' @author Edgar Zanella
 #' @export
-#' @references Mitteroecker, P., & Bookstein, F. (2009). The ontogenetic trajectory of the phenotypic covariance matrix, with examples from craniofacial shape in rats and humans. Evolution, 63(3), 727–737. doi:10.1111/j.1558-5646.2008.00587.x
+#' @references Mitteroecker, P., & Bookstein, F. (2009). The ontogenetic trajectory of the phenotypic covariance matrix, with examples from craniofacial shape in rats and humans. Evolution, 63(3), 727-737. doi:10.1111/j.1558-5646.2008.00587.x
 #' @keywords matrixdistance
 #' @keywords matrixcomparison
 
@@ -95,7 +96,7 @@ RiemannDist <- function(cov.x, cov.y) {
 #' @param cov.y covariance or correlation matrix
 #' @param iterations number of drows
 #' @return Overlap distance between cov.x and cov.y
-#' @references Ovaskainen, O. (2008). A Bayesian framework for comparative quantitative genetics. … of the Royal …, 669–678. doi:10.1098/rspb.2007.0949
+#' @references Ovaskainen, O. (2008). A Bayesian framework for comparative quantitative genetics. Proceedings of the Royal Society B, 669-678. doi:10.1098/rspb.2007.0949
 #' @export
 #' @importFrom mvtnorm rmvnorm dmvnorm
 OverlapDist <- function(cov.x, cov.y, iterations = 10000){
