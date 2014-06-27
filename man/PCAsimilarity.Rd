@@ -7,10 +7,10 @@
 \usage{
 PCAsimilarity(cov.x, cov.y, ...)
 
-\method{PCAsimilarity}{default}(cov.x, cov.y, ret.dim = NULL)
+\method{PCAsimilarity}{default}(cov.x, cov.y)
 
-\method{PCAsimilarity}{list}(cov.x, cov.y = NULL, ret.dim = NULL,
-  repeat.vector = NULL, num.cores = 1, ...)
+\method{PCAsimilarity}{list}(cov.x, cov.y = NULL, repeat.vector = NULL,
+  num.cores = 1, ...)
 }
 \arguments{
 \item{cov.x}{Single covariance matrix ou list of covariance matrices.
@@ -23,9 +23,6 @@ If cov.y is suplied, all matrices in list are compared to it.}
 
 \item{cov.y}{First argument is compared to cov.y.
 If cov.x is a list, every element in cov.x is projected in cov.y.}
-
-\item{ret.dim}{number of retained dimensions for matrix comparison,
-default for nxn matrix is n/2-1}
 
 \item{num.cores}{If list is passed, number of threads to use in computation.
 Requires doMC library.}
@@ -43,7 +40,6 @@ PCAsimilarity(c1, c2)
 
 m.list <- RandomMatrix(10, 3)
 PCAsimilarity(m.list)
-PCAsimilarity(m.list, ret.dim = 5)
 
 PCAsimilarity(m.list, c1)
 }
