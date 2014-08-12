@@ -3,15 +3,17 @@
 \alias{ExtendMatrix}
 \title{Control Inverse matrix noise with Extension}
 \usage{
-ExtendMatrix(cov.matrix, cut.off = NULL)
+ExtendMatrix(cov.matrix, var.cut.off = 0.001, ret.dim = NULL)
 }
 \arguments{
 \item{cov.matrix}{Covariance matrix}
 
-\item{cut.off}{Cut off for second derivative variance. When below first below cut off, last eigen value is selected.}
+\item{var.cut.off}{Cut off for second derivative variance. Ignored if ret.dim is passed.}
+
+\item{ret.dim}{Number of retained eigen values}
 }
 \value{
-Extended covariance matrix.
+Extended covariance matrix and second derivative variance
 }
 \description{
 Calculates the extented covariance matrix estimation
@@ -21,7 +23,8 @@ Covariance matrix being extended must be larger then 10x10
 }
 \examples{
 cov.matrix = RandomMatrix(11, 1, 1, 100)
-ext.matrix = ExtendMatrix(cov.matrix, cut.off = 10e-4)
+ext.matrix = ExtendMatrix(cov.matrix, var.cut.off = 10e-4)
+ext.matrix = ExtendMatrix(cov.matrix, ret.dim = 6)
 }
 \author{
 Diogo Melo
