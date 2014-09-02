@@ -7,7 +7,7 @@
 \usage{
 PCAsimilarity(cov.x, cov.y, ...)
 
-\method{PCAsimilarity}{default}(cov.x, cov.y, ...)
+\method{PCAsimilarity}{default}(cov.x, cov.y, ret.dim = NULL, ...)
 
 \method{PCAsimilarity}{list}(cov.x, cov.y = NULL, ..., repeat.vector = NULL,
   num.cores = 1)
@@ -21,7 +21,9 @@ If cov.y is suplied, all matrices in list are compared to it.}
 
 \item{...}{aditional arguments passed to other methods}
 
-\item{cov.y}{First argument is compared to cov.y.
+\item{cov.y}{First argument is compared to cov.y.}
+
+\item{ret.dim}{number of retained dimensions in the comparison,
 If cov.x is a list, every element in cov.x is projected in cov.y.}
 
 \item{repeat.vector}{Vector of repeatabilities for correlation correction.}

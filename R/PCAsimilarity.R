@@ -7,6 +7,7 @@
 #' If cov.y is suplied, all matrices in list are compared to it.
 #' @param ... aditional arguments passed to other methods
 #' @param cov.y First argument is compared to cov.y.
+#' @param ret.dim number of retained dimensions in the comparison,
 #' If cov.x is a list, every element in cov.x is projected in cov.y.
 #' @param repeat.vector Vector of repeatabilities for correlation correction.
 #' @param num.cores If list is passed, number of threads to use in computation.
@@ -39,12 +40,20 @@ PCAsimilarity <- function(cov.x, cov.y, ...) UseMethod("PCAsimilarity")
 #' @rdname PCAsimilarity
 #' @method PCAsimilarity default
 #' @export
-PCAsimilarity.default <- function(cov.x, cov.y, ...) {
+PCAsimilarity.default <- function(cov.x, cov.y, ret.dim = NULL, ...) {
+  if (is.null(ret.dim))
+    ret.dim = round(dim(cov.x)[1]/2 - 1)
+
   eg.x <- eigen(cov.x)
   eg.y <- eigen(cov.y)
-  total_var <- sum(eg.x$values %*% eg.y$values)
+  eg.x.values <- eg.x$values[1:ret.dim]
+  eg.y.values <- eg.y$values[1:ret.dim]
+  eg.x.vectors <- eg.x$vectors[,1:ret.dim]
+  eg.y.vectors <- eg.y$vectors[,1:ret.dim]
 
-  return (sum((eg.x$values %o% eg.y$values) * ((t(eg.x$vectors) %*% (eg.y$vectors))**2))/total_var)
+  total_var <- sum(eg.x.values %*% eg.y.values)
+
+  return (sum((eg.x.values %o% eg.y.values) * ((t(eg.x.vectors) %*% (eg.y.vectors))**2))/total_var)
 }
 
 #' @rdname PCAsimilarity
