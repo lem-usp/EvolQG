@@ -53,12 +53,11 @@ KrzCor <- function (cov.x, cov.y, ...) UseMethod("KrzCor")
 KrzCor.default <- function (cov.x, cov.y, ret.dim = NULL, ...) {
   if (is.null(ret.dim))
     ret.dim = round(dim(cov.x)[1]/2 - 1)
-  EigenVectors <- function (x) return (eigen(x)$vectors[,1:ret.dim])
-  A <- EigenVectors (cov.x)
-  B <- EigenVectors (cov.y)
-  S <- t(A) %*% B %*% t(B) %*% A
-  SL <- sum (eigen(S)$values) / ret.dim
-  return (SL)
+
+  eg.x <- eigen(cov.x)
+  eg.y <- eigen(cov.y)
+
+  return (sum((t(eg.x$vectors[,1:ret.dim]) %*% (eg.y$vectors[,1:ret.dim]))**2)/ret.dim)
 }
 
 #' @rdname KrzCor
