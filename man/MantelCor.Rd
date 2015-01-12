@@ -14,7 +14,7 @@ MantelCor(cor.x, cor.y, ...)
   repeat.vector = NULL, mod = FALSE, num.cores = 1, ...)
 }
 \arguments{
-\item{cor.x}{Single covariance matrix or list of covariance matrices.
+\item{cor.x}{Single correlation matrix or list of correlation matrices.
 
 If single matrix is suplied, it is compared to cor.y.
 
@@ -41,7 +41,7 @@ AVG+, AVG- and AVG Ratio based on binary hipotesis matrix.}
 If cor.x and cor.y are passed, returns matrix pearson
 correlation and significance via mantel permutations.
 
-If cor.x and cor.y are passed, same as above, but for all matrices in cor.x.
+If cor.x is a list of matrices and cor.y is passed, same as above, but for all matrices in cor.x.
 
 If only cor.x is passed, a matrix of MantelCor average
 values and probabilities of all comparisons.
