@@ -11,7 +11,7 @@ BootstrapRep(ind.data, ComparisonFunc = c("randomskewers", "mantel",
 
 \item{iterations}{Number of ressamples to take}
 
-\item{ComparisonFunc}{Comparison function for calculated statistic, either "randomskewers", "mantel" or "krznowski" correlations}
+\item{ComparisonFunc}{Comparison function for calculated statistic, either "randomskewers", "mantel" or "krzanowski" correlations}
 
 \item{correlation}{If TRUE, correlation matrix is used, else covariance matrix. MantelCor always uses correlation matrix.}
 

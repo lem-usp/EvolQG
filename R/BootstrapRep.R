@@ -9,7 +9,7 @@
 #'
 #' @param ind.data Matrix of residuals or indiviual measurments
 #' @param iterations Number of ressamples to take
-#' @param ComparisonFunc Comparison function for calculated statistic, either "randomskewers", "mantel" or "krznowski" correlations
+#' @param ComparisonFunc Comparison function for calculated statistic, either "randomskewers", "mantel" or "krzanowski" correlations
 #' @param correlation If TRUE, correlation matrix is used, else covariance matrix. MantelCor always uses correlation matrix.
 #' @param num.cores Number of threads to use in computation. Requires doMC library.
 #' @return returns the mean repeatability, or mean value of comparisons from samples to original statistic.
