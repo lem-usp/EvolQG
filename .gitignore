@@ -7,3 +7,4 @@ Morphometrics.Rcheck/*
 *.Rproj
 Morphometrics.Rproj
 src/
+*.Rdata
