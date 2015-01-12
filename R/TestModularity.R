@@ -1,13 +1,13 @@
-#' Test modularity hipotesis
+#' Test modularity hypoteses
 #'
-#' Tests modularity hipotesis using cor.matrix matrix and trait groupings
+#' Tests modularity hypoteses using cor.matrix matrix and trait groupings
 #' @param cor.matrix Correlation matrix
-#' @param modularity.hipot modularity.hipot: Matrix of hipotesis.
+#' @param modularity.hipot modularity.hipot: Matrix of hypoteses.
 #' Each line represents a trait and each column a module.
 #' if modularity.hipot[i,j] == 1, trait i is in module j.
 #' @param iterations Number of iterations, to be passed to MantelCor
-#' @return Returns mantel correlation and associated probability for each modularity hipotesis, along with AVG+, AVG-, AVG Ratio for each module.
-#' A total hipotesis combining all hipotesis is also tested.
+#' @return Returns mantel correlation and associated probability for each modularity hyphoteses, along with AVG+, AVG-, AVG Ratio for each module.
+#' A total hyphotesis combining all hyphoteses is also tested.
 #' @author Diogo Melo, Guilherme Garcia
 #' @seealso \code{\link{MantelCor}}
 #' @export
