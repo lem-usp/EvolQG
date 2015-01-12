@@ -2,7 +2,7 @@
 \name{TestModularity}
 \alias{CreateHipotMatrix}
 \alias{TestModularity}
-\title{Test modularity hipotesis}
+\title{Test modularity hypoteses}
 \usage{
 TestModularity(cor.matrix, modularity.hipot, iterations = 100)
 
@@ -11,18 +11,18 @@ CreateHipotMatrix(modularity.hipot)
 \arguments{
 \item{cor.matrix}{Correlation matrix}
 
-\item{modularity.hipot}{modularity.hipot: Matrix of hipotesis.
+\item{modularity.hipot}{modularity.hipot: Matrix of hypoteses.
 Each line represents a trait and each column a module.
 if modularity.hipot[i,j] == 1, trait i is in module j.}
 
 \item{iterations}{Number of iterations, to be passed to MantelCor}
 }
 \value{
-Returns mantel correlation and associated probability for each modularity hipotesis, along with AVG+, AVG-, AVG Ratio for each module.
-A total hipotesis combining all hipotesis is also tested.
+Returns mantel correlation and associated probability for each modularity hyphoteses, along with AVG+, AVG-, AVG Ratio for each module.
+A total hyphotesis combining all hyphoteses is also tested.
 }
 \description{
-Tests modularity hipotesis using cor.matrix matrix and trait groupings
+Tests modularity hypoteses using cor.matrix matrix and trait groupings
 }
 \examples{
 cor.matrix <- RandomMatrix(10)
