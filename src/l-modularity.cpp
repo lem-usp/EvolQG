@@ -18,7 +18,7 @@ double hamilton (NumericVector S, NumericMatrix J){
 int flipster (NumericVector S, int x){
    int i, j, e_novo, e_velho;
    e_velho = S[x];
-   e_novo = 1 + (int)((rand()%(NPotts)));
+   e_novo = (int)(R::runif(1, NPotts));
    S[x] = e_novo;
    return e_velho;
 }
@@ -61,7 +61,7 @@ double annealing (NumericMatrix Corr, NumericVector S){
    int i, j, k, l, ntot, N[NPotts+1], NE, e_velho, x;
    double a, t, H0, H1, rand01, sumH,  sumH2, nlocal, m=0, deltaH;
    for (i = 0; i < V; i++)
-      S[i] = 1 + (rand()%NPotts);
+      S[i] = (int)(R::runif(1, NPotts));
    t = tinit;
    H0 = hamilton (S, J);
    while(t>0.0){
@@ -74,12 +74,12 @@ double annealing (NumericMatrix Corr, NumericVector S){
             sumH2 += H0*H0;
             nlocal++;
          }
-         x = (int)((rand()%(V)));
+         x = (int)(R::runif(0, V));
          e_velho = flipster(S, x);
          H1 = hamilton(S, J);
          deltaH = H1-H0;
          if(deltaH>0){
-            rand01 = (double)(rand()) / ((double)(RAND_MAX));
+            rand01 = (double)(R::runif(0,1));
             if(rand01 < exp(-deltaH/t))
                {
                   H0=H1;

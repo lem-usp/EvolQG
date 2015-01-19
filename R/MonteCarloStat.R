@@ -11,7 +11,8 @@
 #' @param iterations Number of random populations
 #' @param ComparisonFunc Comparison functions for the calculated statistic
 #' @param StatFunc Function for calculating the statistic
-#' @param num.cores Number of threads to use in computation. Requires doMC library.
+#' @param num.cores If list is passed, number of threads to use in computation.
+#' The doMC library must be loaded.
 #' @details Since this function uses multivariate normal model to generate populations, only covariance matrices should be used.
 #' @return returns the mean repeatability, or mean value of comparisons from samples to original statistic.
 #' @author Diogo Melo Guilherme Garcia
@@ -27,7 +28,12 @@
 #'                ComparisonFunc = function(x, y) RandomSkewers(x, y)[1],
 #'                StatFunc = cov,
 #'                num.cores = 1)
-#'
+#' #Multiple threads can be used with doMC library
+#' library(doMC)
+#' MonteCarloStat(cov.matrix, sample.size = 30, iterations = 1000,
+#'                ComparisonFunc = function(x, y) RandomSkewers(x, y)[1],
+#'                StatFunc = cov,
+#'                num.cores = 4)
 #'
 #' #Calculating R2 confidence intervals
 #' r2.dist <- MonteCarloR2(RandomMatrix(10, 1, 1, 10), 30)
@@ -39,9 +45,7 @@ MonteCarloStat <- function (cov.matrix, sample.size, iterations,
                             ComparisonFunc, StatFunc,
                             num.cores = 1) {
   if (num.cores > 1) {
-    library(doMC)
-    library(foreach)
-    registerDoMC(num.cores)
+    doMC::registerDoMC(num.cores)
     parallel = TRUE
   } else{
     parallel = FALSE
@@ -67,7 +71,8 @@ MonteCarloStat <- function (cov.matrix, sample.size, iterations,
 #' @param sample.size Size of the random populations
 #' @param iterations Number of random populations
 #' @param correlation If TRUE, correlation matrix is used, else covariance matrix. MantelCor always uses correlation matrix.
-#' @param num.cores Number of threads to use in computation. Requires doMC library.
+#' @param num.cores If list is passed, number of threads to use in computation.
+#' The doMC library must be loaded.
 #' @details Since this function uses multivariate normal model to generate populations, only covariance matrices should be used.
 #' @return returns the mean repeatability, or mean value of comparisons from samples to original statistic.
 #' @author Diogo Melo Guilherme Garcia
@@ -83,6 +88,10 @@ MonteCarloStat <- function (cov.matrix, sample.size, iterations,
 #' MonteCarloRep(cov.matrix, "mantel", 30)
 #' MonteCarloRep(cov.matrix, "krz", 30)
 #' MonteCarloRep(cov.matrix, "krz", 30, TRUE)
+#'
+#' #Multiple threads can be used with doMC library
+#' library(doMC)
+#' MonteCarloRep(cov.matrix, "randomskewers", 30, num.cores = 4)
 #'
 #' #Creating repeatability vector for a list of matrices
 #' mat.list <- RandomMatrix(10, 3, 1, 10)

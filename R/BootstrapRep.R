@@ -11,21 +11,26 @@
 #' @param iterations Number of ressamples to take
 #' @param ComparisonFunc Comparison function for calculated statistic, either "randomskewers", "mantel" or "krzanowski" correlations
 #' @param correlation If TRUE, correlation matrix is used, else covariance matrix. MantelCor always uses correlation matrix.
-#' @param num.cores Number of threads to use in computation. Requires doMC library.
+#' @param num.cores If list is passed, number of threads to use in computation.
+#' The doMC library must be loaded.
 #' @return returns the mean repeatability, or mean value of comparisons from samples to original statistic.
 #' @author Diogo Melo, Guilherme Garcia
 #' @seealso \code{\link{MonteCarloStat}}, \code{\link{AlphaRep}}
 #' @export
 #' @examples
 #' BootstrapRep(iris[,1:4], "mantel",
-#'              iterations = 5,
-#'              num.cores = 1)
+#'              iterations = 5)
 #'              
 #' BootstrapRep(iris[,1:4], "randomskewers", 50)
 #'
 #' # Partial matching for comparison function also works.
 #' BootstrapRep(iris[,1:4], "krz", 50, TRUE)
 #' 
+#' #Multiple threads can be used with doMC library
+#' library(doMC)
+#' BootstrapRep(iris[,1:4], "mantel",
+#'              iterations = 5,
+#'              num.cores = 4)
 #' @keywords bootstrap
 #' @keywords repetabilities
 
@@ -45,9 +50,7 @@ BootstrapRep_primitive <- function (ind.data, iterations,
                                     ComparisonFunc, StatFunc,
                                     num.cores){
   if (num.cores > 1) {
-    library(doMC)
-    library(foreach)
-    registerDoMC(num.cores)
+    doMC::registerDoMC(num.cores)
     parallel = TRUE
   } else{
     parallel = FALSE
@@ -75,7 +78,7 @@ BootstrapRepKrzCor <- function(ind.data, iterations = 1000, correlation = F, num
 
 BootstrapRepMantelCor <- function(ind.data, iterations = 1000, num.cores = 1){
   repeatability <- BootstrapRep_primitive(ind.data, iterations,
-                                          ComparisonFunc = function(x, y) MantelCor(x, y, 1)[1],
+                                          ComparisonFunc = function(x, y) cor(x[lower.tri(x)], y[lower.tri(y)]),
                                           StatFunc = cor,
                                           num.cores = num.cores)
   return(mean(repeatability))

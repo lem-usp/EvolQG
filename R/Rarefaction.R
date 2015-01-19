@@ -12,7 +12,8 @@
 #' @param ComparisonFunc Comparison function for calculated statistic, either "randomskewers", "mantel" or "krznowski" correlations
 #' @param num.reps number of populations sampled per sample size
 #' @param iterations Parameter for comparison function. Number of random skewers or number of permutations in mantel.
-#' @param num.cores Number of threads to use in computation. Requires doMC library.
+#' @param num.cores If list is passed, number of threads to use in computation.
+#' The doMC library must be loaded.
 #' @param correlation If TRUE, correlation matrix is used, else covariance matrix. MantelCor always uses correlation matrix.
 #' @param ret.dim When using Krzanowski Correlation, number o retained dimensions may be specified
 #' @param comparison.list output from rarefaction functions can be used in ploting
@@ -33,7 +34,11 @@
 #' results.Mantel <- Rarefaction(ind.data, "mante", num.reps = 5)
 #' results.KrzCov <- Rarefaction(ind.data, "krz", num.reps = 5)
 #' results.KrzCor <- Rarefaction(ind.data, "krz", TRUE, num.reps = 5)
-#'
+#' 
+#' #Multiple threads can be used with doMC library
+#' library(doMC)
+#' results.KrzCov <- Rarefaction(ind.data, "krz", num.reps = 5, num.cores = 4)
+#' 
 #' #Easy access
 #' library(reshape2)
 #' melt(results.RS)
@@ -77,9 +82,7 @@ Rarefaction_primitive <- function(ind.data,
                                   num.cores = 1)
 {
   if (num.cores > 1) {
-    library(doMC)
-    library(foreach)
-    registerDoMC(num.cores)
+    doMC::registerDoMC(num.cores)
     parallel = TRUE
   } else{
     parallel = FALSE

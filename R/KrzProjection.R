@@ -16,7 +16,7 @@
 #' @param ret.dim.2 number of retained dimensions for second matrix in the comparison,
 #' default for nxn matrix is n/2-1
 #' @param num.cores If list is passed, number of threads to use in computation.
-#' Requires doMC library.
+#' The doMC library must be loaded.
 #' @param full.results if FALSE returns only total variance,
 #' if TRUE also per PC variance.
 #' @return Ratio of projected variance to total variance, and ratio of projected total in each PC
@@ -42,6 +42,10 @@
 #'
 #' KrzProjection(m.list, c1)
 #' KrzProjection(m.list, c1, full.results = TRUE)
+#' 
+#' #Multiple threads can be used with doMC library
+#' library(doMC)
+#' KrzProjection(m.list, c1, num.cores = 4)
 #' @keywords matrixcomparison
 #' @keywords matrixcorrelation
 #' @keywords Krzanowski
@@ -77,9 +81,7 @@ KrzProjection.list <- function(cov.x, cov.y = NULL,
                                ret.dim.1 = NULL, ret.dim.2 = NULL,
                                num.cores = 1, full.results = FALSE, ...){
   if (num.cores > 1) {
-    library(doMC)
-    library(foreach)
-    registerDoMC(num.cores)
+    doMC::registerDoMC(num.cores)
     parallel = TRUE
   } else{
     parallel = FALSE

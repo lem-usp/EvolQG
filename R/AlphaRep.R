@@ -27,6 +27,8 @@
 #' laply(mat.plus.samples, function(x) AlphaRep(x[[1]], x[[2]]))
 
 AlphaRep <- function (cor.matrix, sample.size){
+  if(sum(diag(cor.matrix)) != dim(cor.matrix)[1])
+    stop("Matrices do not appear to be correlation matrices.")
   vec <- cor.matrix[lower.tri(cor.matrix)]
   var.erro <- (1 - mean(vec)^2)/(sample.size-2)
   var.vec <- var(vec)

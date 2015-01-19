@@ -12,9 +12,7 @@
 #' @seealso \code{\link{MantelCor}}, \code{\link{KrzCor}},\code{\link{RandomSkewers}}
 ComparisonMap <- function (matrix.list, MatrixCompFunc, ..., repeat.vector = NULL, num.cores = 1){
   if (num.cores > 1) {
-    library(doMC)
-    library(foreach)
-    registerDoMC(num.cores)
+    doMC::registerDoMC(num.cores)
     parallel = TRUE
   } else{
     parallel = FALSE
