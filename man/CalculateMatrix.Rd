@@ -2,7 +2,7 @@
 % Please edit documentation in R/CalculateMatrix.R
 \name{CalculateMatrix}
 \alias{CalculateMatrix}
-\title{Calculate Covariance Matrix from LinearModel}
+\title{Calculate Covariance Matrix from a linear model fitted with lm()}
 \usage{
 CalculateMatrix(linear.m)
 }

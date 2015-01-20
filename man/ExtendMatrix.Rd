@@ -4,7 +4,7 @@
 \alias{ExtendMatrix}
 \title{Control Inverse matrix noise with Extension}
 \usage{
-ExtendMatrix(cov.matrix, var.cut.off = 0.001, ret.dim = NULL)
+ExtendMatrix(cov.matrix, var.cut.off = 1e-04, ret.dim = NULL)
 }
 \arguments{
 \item{cov.matrix}{Covariance matrix}
@@ -17,14 +17,14 @@ ExtendMatrix(cov.matrix, var.cut.off = 0.001, ret.dim = NULL)
 Extended covariance matrix and second derivative variance
 }
 \description{
-Calculates the extented covariance matrix estimation
+Calculates the extented covariance matrix estimation as described in Marroig et al. 2012
 }
 \note{
-Covariance matrix being extended must be larger then 10x10
+Covariance matrix being extended should be larger then 10x10
 }
 \examples{
 cov.matrix = RandomMatrix(11, 1, 1, 100)
-ext.matrix = ExtendMatrix(cov.matrix, var.cut.off = 10e-4)
+ext.matrix = ExtendMatrix(cov.matrix, var.cut.off = 1e-6)
 ext.matrix = ExtendMatrix(cov.matrix, ret.dim = 6)
 }
 \author{

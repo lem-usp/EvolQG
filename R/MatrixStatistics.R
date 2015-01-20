@@ -5,7 +5,7 @@
 #' @param cov.matrix A covariance matrix
 #' @param iterations Number of random vectors to be used in calculating the stochastic statistics
 #' @param full.results If TRUE, full distribution of statistics will be returned.
-#' @param num.cores If list is passed, number of threads to use in computation.
+#' @param num.cores Number of threads to use in computation.
 #' The doMC library must be loaded.
 #' @return dist Full distribution of stochastic statistics, only if full.resuts == TRUE
 #' @return mean Mean value for all statistics

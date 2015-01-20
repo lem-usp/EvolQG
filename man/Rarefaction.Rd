@@ -3,10 +3,7 @@
 \name{Rarefaction}
 \alias{PlotRarefaction}
 \alias{Rarefaction}
-\title{Rarefaction analysis via ressampling
-Calculates the repeatability of a statistic of the data, such as
-correlation or covariance matrix, via bootstrap ressampling with
-varying sample sizes, from 2 to the size of the original data.}
+\title{Rarefaction analysis via ressampling}
 \usage{
 Rarefaction(ind.data, ComparisonFunc = c("randomskewers", "mantel",
   "krzanowski"), iterations = 1000, num.reps = 10, correlation = F,
@@ -17,7 +14,7 @@ PlotRarefaction(comparison.list, y.axis = "Statistic")
 \arguments{
 \item{ind.data}{Matrix of residuals or indiviual measurments}
 
-\item{ComparisonFunc}{Comparison function for calculated statistic, either "randomskewers", "mantel" or "krznowski" correlations}
+\item{ComparisonFunc}{Comparison function for calculated statistic, either "randomskewers", "mantel" or "krzanowski" correlations}
 
 \item{iterations}{Parameter for comparison function. Number of random skewers or number of permutations in mantel.}
 
@@ -25,10 +22,9 @@ PlotRarefaction(comparison.list, y.axis = "Statistic")
 
 \item{correlation}{If TRUE, correlation matrix is used, else covariance matrix. MantelCor always uses correlation matrix.}
 
-\item{ret.dim}{When using Krzanowski Correlation, number o retained dimensions may be specified}
+\item{ret.dim}{When using Krzanowski Correlation, number of retained dimensions may be specified}
 
-\item{num.cores}{If list is passed, number of threads to use in computation.
-The doMC library must be loaded.}
+\item{num.cores}{Number of threads to use in computation. The doMC library must be loaded.}
 
 \item{comparison.list}{output from rarefaction functions can be used in ploting}
 
@@ -38,10 +34,14 @@ The doMC library must be loaded.}
 returns the mean value of comparisons from samples to original statistic, for all sample sizes.
 }
 \description{
-Samples of various sizes, with replacement, are taken from the full population, a statistic calculated
-and compared to the full population statistic.
+Calculates the repeatability of a statistic of the data, such as
+correlation or covariance matrix, via bootstrap resampling with
+varying sample sizes, from 2 to the size of the original data.
 }
 \details{
+Samples of various sizes, with replacement, are taken from the full population, a statistic calculated
+and compared to the full population statistic.
+
 A specialized ploting function displays the results in publication quality.
 
 Bootstraping may be misleading with very small sample sizes. Use with caution.

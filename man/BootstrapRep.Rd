@@ -2,29 +2,29 @@
 % Please edit documentation in R/BootstrapRep.R
 \name{BootstrapRep}
 \alias{BootstrapRep}
-\title{Bootstrap analysis via ressampling}
+\title{Bootstrap analysis via resampling}
 \usage{
 BootstrapRep(ind.data, ComparisonFunc = c("randomskewers", "mantel",
-  "krzanowski"), iterations = 1000, correlation = F, num.cores = 1)
+  "krzanowski"), iterations = 1000, correlation = FALSE, num.cores = 1)
 }
 \arguments{
 \item{ind.data}{Matrix of residuals or indiviual measurments}
 
 \item{ComparisonFunc}{Comparison function for calculated statistic, either "randomskewers", "mantel" or "krzanowski" correlations}
 
-\item{iterations}{Number of ressamples to take}
+\item{iterations}{Number of resamples to take}
 
-\item{correlation}{If TRUE, correlation matrix is used, else covariance matrix. MantelCor always uses correlation matrix.}
+\item{correlation}{If TRUE, correlation matrix is used, else covariance matrix. Mantel always uses correlation matrix.}
 
-\item{num.cores}{If list is passed, number of threads to use in computation.
+\item{num.cores}{Number of threads to use in computation.
 The doMC library must be loaded.}
 }
 \value{
-returns the mean repeatability, or mean value of comparisons from samples to original statistic.
+returns the mean repeatability, that is, the mean value of comparisons from samples to original statistic.
 }
 \description{
 Calculates the repeatability of the covariance matrix of the suplied data
-  via bootstrap ressampling
+  via bootstrap resampling
 }
 \details{
 Samples with replacement are taken from the full population, a statistic calculated

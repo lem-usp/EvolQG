@@ -10,13 +10,16 @@ LModularity(cor.matrix)
 \item{cor.matrix}{correlation matrix}
 }
 \value{
-List with L-Modulariy value and trait partition
+List with L-Modularity value and trait partition
 }
 \description{
-Calculates the L-Modularity and a partition of traits
+Calculates the L-Modularity (Newman-type modularity) and the partition of traits that minimizes L-Modularity
 }
 \examples{
 cor.matrix = RandomMatrix(10)
 LModularity(cor.matrix)
+}
+\references{
+Modularity and community structure in networks (2006) M. E. J. Newman,  8577-8582, doi: 10.1073/pnas.0601602103
 }
 

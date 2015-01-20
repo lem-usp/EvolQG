@@ -16,26 +16,24 @@ KrzProjection(cov.x, cov.y, ...)
 }
 \arguments{
 \item{cov.x}{Single covariance matrix ou list of covariance matrices.
-If single matrix is suplied, it is compared to cov.y.
-If list is suplied and no cov.y is suplied, all matrices
-are compared.
-If cov.y is suplied, all matrices in list are compared to it.}
+If cov.x is a single matrix is suplied, it is compared to cov.y.
+If cov.x is a list of matrices is suplied and no cov.y is suplied, all matrices
+are compared between each other.
+If cov.x is a list of matrices and a single cov.y matrix is suplied, all matrices in list are compared to it.}
 
 \item{cov.y}{First argument is compared to cov.y.
 If cov.x is a list, every element in cov.x is projected in cov.y.}
 
 \item{...}{aditional arguments passed to other methods}
 
-\item{ret.dim.1}{number of retained dimensions for first matrix in the comparison,}
+\item{ret.dim.1}{number of retained dimensions for first matrix in comparison, default for nxn matrix is n/2-1}
 
-\item{ret.dim.2}{number of retained dimensions for second matrix in the comparison,
-default for nxn matrix is n/2-1}
+\item{ret.dim.2}{number of retained dimensions for second matrix in comparison, default for nxn matrix is n/2-1}
 
-\item{num.cores}{If list is passed, number of threads to use in computation.
+\item{num.cores}{Number of threads to use in computation if list is passed to cov.x.
 The doMC library must be loaded.}
 
-\item{full.results}{if FALSE returns only total variance,
-if TRUE also per PC variance.}
+\item{full.results}{if FALSE returns only total variance, if TRUE also per PC variance.}
 }
 \value{
 Ratio of projected variance to total variance, and ratio of projected total in each PC
@@ -43,7 +41,7 @@ Ratio of projected variance to total variance, and ratio of projected total in e
 \description{
 Calculates the modified Krzanowski correlation between matrices,
 projecting the variance in each principal  components of the first
-matrix in to the ret.dim.2 components of the second for a list of matrices
+matrix in to the ret.dim.2 components of the second matrix.
 }
 \examples{
 c1 <- RandomMatrix(10)
@@ -61,7 +59,7 @@ KrzProjection(m.list, c1, full.results = TRUE)
 
 #Multiple threads can be used with doMC library
 library(doMC)
-KrzProjection(m.list, c1, num.cores = 4)
+KrzProjection(m.list, num.cores = 4)
 }
 \author{
 Diogo Melo, Guilherme Garcia

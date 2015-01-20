@@ -31,12 +31,12 @@ Optional if cor.x is a list.}
 
 \item{iterations}{Number of permutations used in significance calculation.}
 
-\item{mod}{Set TRUE to use mantel in testing modularity hipotesis. Will return
+\item{mod}{Set TRUE to use mantel in testing modularity hypothesis. Will return
 AVG+, AVG- and AVG Ratio based on binary hipotesis matrix.}
 
 \item{repeat.vector}{Vector of repeatabilities for correlation correction.}
 
-\item{num.cores}{If list is passed, number of threads to use in computation. Requires doMC library.}
+\item{num.cores}{If list is passed, number of threads to use in computation. The doMC library must be loaded.}
 }
 \value{
 If cor.x and cor.y are passed, returns matrix pearson
@@ -50,7 +50,7 @@ If repeat.vector is passed, comparison matrix is corrected above
 diagonal and repeatabilities returned in diagonal.
 }
 \description{
-Calculates correlation matrix correlation via Mantel.
+Calculates correlation matrix correlation and significance via Mantel test.
 }
 \examples{
 c1 <- RandomMatrix(10)
@@ -65,6 +65,10 @@ MantelCor(list(c1, c2, c3), repeat.vector = reps)
 
 c4 <- RandomMatrix(10)
 MantelCor(list(c1, c2, c3), c4)
+
+#Multiple threads can be used with the doMC library
+library(doMC)
+MantelCor(list(c1, c2, c3), num.cores = 4)
 }
 \author{
 Diogo Melo, Guilherme Garcia

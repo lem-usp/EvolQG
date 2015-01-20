@@ -3,12 +3,13 @@
 #' Calculates the mean squared correlation of a covariance or correlation matrix. Measures integration.
 #'
 #' @param c.matrix Covariance or correlation matrix.
-#' @return Mean squared value of of diagonal elements of correlations
+#' @return Mean squared value of off diagonal elements of correlation matrix
 #' @export
 #' @author Diogo Melo, Guilherme Garcia
 #' @seealso \code{\link{Flexibility}}
 #' @examples
 #' cov.matrix <- RandomMatrix(10, 1, 1, 10)
+#' # both of the following calls are equivalent, CalcR2() converts covariance matrices to correlation matrices internally
 #' CalcR2(cov.matrix)
 #' CalcR2(cov2cor(cov.matrix))
 #' @keywords correlation

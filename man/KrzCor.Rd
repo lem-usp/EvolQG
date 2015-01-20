@@ -17,7 +17,7 @@ KrzCor(cov.x, cov.y, ...)
 \item{cov.x}{Single covariance matrix or list of covariance matrices.
 If single matrix is suplied, it is compared to cov.y.
 If list is suplied and no cov.y is suplied, all matrices
-are compared.
+are compared to each other.
 If cov.y is suplied, all matrices in list are compared to it.}
 
 \item{cov.y}{First argument is compared to cov.y.
@@ -30,7 +30,7 @@ default for nxn matrix is n/2-1}
 
 \item{repeat.vector}{Vector of repeatabilities for correlation correction.}
 
-\item{num.cores}{If list is passed, number of threads to use in computation. Requires doMC library.}
+\item{num.cores}{If list is passed, number of threads to use in computation. The doMC library must be loaded.}
 }
 \value{
 If cov.x and cov.y are passed, returns Kzranowski correlation
@@ -58,6 +58,10 @@ KrzCor(list(c1, c2, c3), repeat.vector = reps)
 
 c4 <- RandomMatrix(10)
 KrzCor(list(c1, c2, c3), c4)
+
+#Multiple threads can be used with doMC library
+library(doMC)
+KrzCor(list(c1, c2, c3), num.cores = 4)
 }
 \author{
 Diogo Melo, Guilherme Garcia

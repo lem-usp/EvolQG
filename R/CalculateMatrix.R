@@ -1,4 +1,4 @@
-#' Calculate Covariance Matrix from LinearModel
+#' Calculate Covariance Matrix from a linear model fitted with lm()
 #'
 #' Calculates covariance matrix using the maximum likelihood estimator and the model residuals.
 #' @param linear.m Linear model adjusted for original data.

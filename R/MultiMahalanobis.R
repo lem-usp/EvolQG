@@ -2,10 +2,9 @@
 #'
 #' Calculates the Mahalanobis distance between a list of species mean, using a global covariance matrix
 #' @param mean.list list of species means being compared
-#' @param cov.matrix covariance matrix definig the metric tensor to be used
-#' @param num.cores If list is passed, number of threads to use in computation.
-#' The doMC library must be loaded.
-#' @return returns a distance matrix of species-species comparisons.
+#' @param cov.matrix covariance matrix defining the metric tensor to be used
+#' @param num.cores Number of threads to use in computation. The doMC library must be loaded.
+#' @return returns a matrix of species-species distances.
 #' @author Diogo Melo
 #' @export
 #' @seealso \code{\link{mahalanobis}}

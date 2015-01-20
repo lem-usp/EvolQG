@@ -1,6 +1,6 @@
 #' Compare matrices via Mantel Correlation
 #'
-#' Calculates correlation matrix correlation via Mantel.
+#' Calculates correlation matrix correlation and significance via Mantel test.
 #'
 #' @param cor.x Single correlation matrix or list of correlation matrices.
 #'
@@ -13,10 +13,10 @@
 #' @param cor.y First argument is compared to cor.y.
 #' Optional if cor.x is a list.
 #' @param iterations Number of permutations used in significance calculation.
-#' @param mod Set TRUE to use mantel in testing modularity hipotesis. Will return
+#' @param mod Set TRUE to use mantel in testing modularity hypothesis. Will return
 #' AVG+, AVG- and AVG Ratio based on binary hipotesis matrix.
 #' @param repeat.vector Vector of repeatabilities for correlation correction.
-#' @param num.cores If list is passed, number of threads to use in computation. Requires doMC library.
+#' @param num.cores If list is passed, number of threads to use in computation. The doMC library must be loaded.
 #' @param ... aditional arguments passed to other methods
 #' @return If cor.x and cor.y are passed, returns matrix pearson
 #' correlation and significance via mantel permutations.
@@ -46,6 +46,10 @@
 #'
 #' c4 <- RandomMatrix(10)
 #' MantelCor(list(c1, c2, c3), c4)
+#' 
+#' #Multiple threads can be used with the doMC library
+#' library(doMC)
+#' MantelCor(list(c1, c2, c3), num.cores = 4) 
 #' @keywords matrixcomparison
 #' @keywords matrixcorrelation
 #' @keywords randomskewers

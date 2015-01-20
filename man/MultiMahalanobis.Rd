@@ -9,13 +9,12 @@ MultiMahalanobis(mean.list, cov.matrix, num.cores = 1)
 \arguments{
 \item{mean.list}{list of species means being compared}
 
-\item{cov.matrix}{covariance matrix definig the metric tensor to be used}
+\item{cov.matrix}{covariance matrix defining the metric tensor to be used}
 
-\item{num.cores}{If list is passed, number of threads to use in computation.
-The doMC library must be loaded.}
+\item{num.cores}{Number of threads to use in computation. The doMC library must be loaded.}
 }
 \value{
-returns a distance matrix of species-species comparisons.
+returns a matrix of species-species distances.
 }
 \description{
 Calculates the Mahalanobis distance between a list of species mean, using a global covariance matrix

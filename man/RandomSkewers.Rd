@@ -29,7 +29,7 @@ Optional if cov.x is a list.}
 
 \item{repeat.vector}{Vector of repeatabilities for correlation correction.}
 
-\item{num.cores}{If list is passed, number of threads to use in computation. Requires doMC library.}
+\item{num.cores}{If list is passed, number of threads to use in computation. The doMC library must be loaded.}
 }
 \value{
 If cov.x and cov.y are passed, returns average value
@@ -59,6 +59,10 @@ RandomSkewers(list(c1, c2, c3), repeat.vector = reps)
 
 c4 <- RandomMatrix(10)
 RandomSkewers(list(c1, c2, c3), c4)
+
+#Multiple threads can be used with doMC library
+library(doMC)
+RandomSkewers(list(c1, c2, c3), num.cores = 4)
 }
 \author{
 Diogo Melo, Guilherme Garcia

@@ -1,11 +1,12 @@
 #' L Modularity
 #' 
-#' Calculates the L-Modularity and a partition of traits
+#' Calculates the L-Modularity (Newman-type modularity) and the partition of traits that minimizes L-Modularity
 #' @param cor.matrix correlation matrix
-#' @return List with L-Modulariy value and trait partition
+#' @return List with L-Modularity value and trait partition
 #' @export
 #' @useDynLib Morphometrics
 #' @importFrom Rcpp evalCpp
+#' @references Modularity and community structure in networks (2006) M. E. J. Newman,  8577-8582, doi: 10.1073/pnas.0601602103
 #' @examples
 #' cor.matrix = RandomMatrix(10)
 #' LModularity(cor.matrix)
@@ -20,6 +21,6 @@ LModularity <- function(cor.matrix){
   for (mod in modules){
     mod_hipotesis[partition == mod, mod] = 1
   }
-  output = list("L-Modularity" = l_modularity, "Modularity Hipotesis" = mod_hipotesis) 
+  output = list("LModularity" = l_modularity, "Modularity hypothesis" = mod_hipotesis) 
   return(output)
 }

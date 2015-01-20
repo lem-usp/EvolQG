@@ -11,7 +11,7 @@
 #' Optional if cov.x is a list.
 #' @param iterations Number of random vectors used in comparison.
 #' @param repeat.vector Vector of repeatabilities for correlation correction.
-#' @param num.cores If list is passed, number of threads to use in computation. Requires doMC library.
+#' @param num.cores If list is passed, number of threads to use in computation. The doMC library must be loaded.
 #' @param ... aditional arguments passed to other methods
 #' @return
 #' If cov.x and cov.y are passed, returns average value
@@ -44,6 +44,11 @@
 #'
 #' c4 <- RandomMatrix(10)
 #' RandomSkewers(list(c1, c2, c3), c4)
+#' 
+#' #Multiple threads can be used with doMC library
+#' library(doMC)
+#' RandomSkewers(list(c1, c2, c3), num.cores = 4)
+#' 
 #' @keywords matrixcomparison
 #' @keywords matrixcorrelation
 #' @keywords randomskewers

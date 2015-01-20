@@ -2,23 +2,21 @@
 #'
 #' Calculates the modified Krzanowski correlation between matrices,
 #' projecting the variance in each principal  components of the first
-#' matrix in to the ret.dim.2 components of the second for a list of matrices
+#' matrix in to the ret.dim.2 components of the second matrix.
 #'
 #' @param cov.x Single covariance matrix ou list of covariance matrices.
-#' If single matrix is suplied, it is compared to cov.y.
-#' If list is suplied and no cov.y is suplied, all matrices
-#' are compared.
-#' If cov.y is suplied, all matrices in list are compared to it.
+#' If cov.x is a single matrix is suplied, it is compared to cov.y.
+#' If cov.x is a list of matrices is suplied and no cov.y is suplied, all matrices
+#' are compared between each other.
+#' If cov.x is a list of matrices and a single cov.y matrix is suplied, all matrices in list are compared to it.
 #' @param ... aditional arguments passed to other methods
 #' @param cov.y First argument is compared to cov.y.
 #' If cov.x is a list, every element in cov.x is projected in cov.y.
-#' @param ret.dim.1 number of retained dimensions for first matrix in the comparison,
-#' @param ret.dim.2 number of retained dimensions for second matrix in the comparison,
-#' default for nxn matrix is n/2-1
-#' @param num.cores If list is passed, number of threads to use in computation.
+#' @param ret.dim.1 number of retained dimensions for first matrix in comparison, default for nxn matrix is n/2-1
+#' @param ret.dim.2 number of retained dimensions for second matrix in comparison, default for nxn matrix is n/2-1
+#' @param num.cores Number of threads to use in computation if list is passed to cov.x.
 #' The doMC library must be loaded.
-#' @param full.results if FALSE returns only total variance,
-#' if TRUE also per PC variance.
+#' @param full.results if FALSE returns only total variance, if TRUE also per PC variance.
 #' @return Ratio of projected variance to total variance, and ratio of projected total in each PC
 #' @references Krzanowski, W. J. (1979). Between-Groups Comparison of Principal
 #' Components. Journal of the American Statistical Association, 74(367),
@@ -45,7 +43,7 @@
 #' 
 #' #Multiple threads can be used with doMC library
 #' library(doMC)
-#' KrzProjection(m.list, c1, num.cores = 4)
+#' KrzProjection(m.list, num.cores = 4)
 #' @keywords matrixcomparison
 #' @keywords matrixcorrelation
 #' @keywords Krzanowski

@@ -1,6 +1,6 @@
 #' Control Inverse matrix noise with Extension
 #'
-#' Calculates the extented covariance matrix estimation
+#' Calculates the extented covariance matrix estimation as described in Marroig et al. 2012
 #'
 #' @param cov.matrix Covariance matrix
 #' @param var.cut.off Cut off for second derivative variance. Ignored if ret.dim is passed.
@@ -8,18 +8,18 @@
 #' @return Extended covariance matrix and second derivative variance
 #' @references Marroig, G., Melo, D. A. R., and Garcia, G. (2012). Modularity, noise, and natural selection. Evolution; international journal of organic evolution, 66(5), 1506-24. doi:10.1111/j.1558-5646.2011.01555.x
 #' @author Diogo Melo
-#' @note Covariance matrix being extended must be larger then 10x10
+#' @note Covariance matrix being extended should be larger then 10x10
 #' @export
 #' @examples
 #' cov.matrix = RandomMatrix(11, 1, 1, 100)
-#' ext.matrix = ExtendMatrix(cov.matrix, var.cut.off = 10e-4)
+#' ext.matrix = ExtendMatrix(cov.matrix, var.cut.off = 1e-6)
 #' ext.matrix = ExtendMatrix(cov.matrix, ret.dim = 6)
 #' @keywords extension
 #' @keywords covariancematrix
-ExtendMatrix <- function(cov.matrix, var.cut.off = 10e-4, ret.dim = NULL) {
+ExtendMatrix <- function(cov.matrix, var.cut.off = 1e-4, ret.dim = NULL) {
   p = dim(cov.matrix)[1]
   if(p<10)
-    stop("matrix is too small")
+    warning("matrix is too small")
   eigen.cov.matrix = eigen(cov.matrix)
   eVal = eigen.cov.matrix$values
   eVec = eigen.cov.matrix$vectors

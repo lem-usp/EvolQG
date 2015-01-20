@@ -9,6 +9,6 @@ test_that("ExtendMatrix returns correct results",
               extended = sapply(eVals, function(x) isTRUE(all.equal(x, last.eval)))
               expect_that(sum(extended), equals(11-ret.dim+1))
               expect_that(sum(eVals>0), equals(length(eVals)))
-              expect_that(ExtendMatrix(cov.matrix[1:9, 1:9]), throws_error("matrix is too small"))
+              expect_that(ExtendMatrix(cov.matrix[1:9, 1:9]), gives_warning("matrix is too small"))
           }
 )

@@ -9,7 +9,7 @@ AlphaRep(cor.matrix, sample.size)
 \arguments{
 \item{cor.matrix}{Correlation matrix}
 
-\item{sample.size}{Sample size used in matrix estimatio}
+\item{sample.size}{Sample size used in matrix estimation}
 }
 \value{
 Alpha repeatability for correlation matrix
@@ -27,8 +27,7 @@ AlphaRep(cor.matrix, 100)
 #For many matrices
 mat.list <- RandomMatrix(10, 100)
 sample.sizes <- floor(runif(100, 20, 50))
-mat.plus.samples <- alply(1:100, 1, function(x) list(mat.list[[x]], sample.sizes[x]))
-laply(mat.plus.samples, function(x) AlphaRep(x[[1]], x[[2]]))
+unlist(Map(AlphaRep, mat.list, sample.sizes))
 }
 \author{
 Diogo Melo, Guilherme Garcia
@@ -40,5 +39,5 @@ Cheverud 1996 Quantitative genetic analysis of cranial morphology in the cotton-
 \seealso{
 \code{\link{MonteCarloStat}}, \code{\link{BootstrapRep}}
 }
-\keyword{repetatability}
+\keyword{repeatatability}
 

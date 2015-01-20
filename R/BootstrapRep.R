@@ -1,19 +1,19 @@
-#' Bootstrap analysis via ressampling
+#' Bootstrap analysis via resampling
 #'
 #'
 #'   Calculates the repeatability of the covariance matrix of the suplied data
-#'   via bootstrap ressampling
+#'   via bootstrap resampling
 #'
 #'   Samples with replacement are taken from the full population, a statistic calculated
 #'   and compared to the full population statistic. 
 #'
 #' @param ind.data Matrix of residuals or indiviual measurments
-#' @param iterations Number of ressamples to take
 #' @param ComparisonFunc Comparison function for calculated statistic, either "randomskewers", "mantel" or "krzanowski" correlations
-#' @param correlation If TRUE, correlation matrix is used, else covariance matrix. MantelCor always uses correlation matrix.
-#' @param num.cores If list is passed, number of threads to use in computation.
+#' @param iterations Number of resamples to take
+#' @param correlation If TRUE, correlation matrix is used, else covariance matrix. Mantel always uses correlation matrix.
+#' @param num.cores Number of threads to use in computation.
 #' The doMC library must be loaded.
-#' @return returns the mean repeatability, or mean value of comparisons from samples to original statistic.
+#' @return returns the mean repeatability, that is, the mean value of comparisons from samples to original statistic.
 #' @author Diogo Melo, Guilherme Garcia
 #' @seealso \code{\link{MonteCarloStat}}, \code{\link{AlphaRep}}
 #' @export
@@ -37,7 +37,7 @@
 BootstrapRep <- function(ind.data,
                          ComparisonFunc = c("randomskewers", "mantel", "krzanowski"),
                          iterations = 1000, 
-                         correlation = F, 
+                         correlation = FALSE, 
                          num.cores = 1){
   ComparisonFunc = match.arg(ComparisonFunc)
   switch(ComparisonFunc,
@@ -78,7 +78,8 @@ BootstrapRepKrzCor <- function(ind.data, iterations = 1000, correlation = F, num
 
 BootstrapRepMantelCor <- function(ind.data, iterations = 1000, num.cores = 1){
   repeatability <- BootstrapRep_primitive(ind.data, iterations,
-                                          ComparisonFunc = function(x, y) cor(x[lower.tri(x)], y[lower.tri(y)]),
+                                          ComparisonFunc = function(x, y) cor(x[lower.tri(x)], 
+                                                                              y[lower.tri(y)]),
                                           StatFunc = cor,
                                           num.cores = num.cores)
   return(mean(repeatability))

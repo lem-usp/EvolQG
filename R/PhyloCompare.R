@@ -6,8 +6,7 @@
 #'@param node.data list of node data
 #'@param CompareFunc comparison function
 #'@param ... Aditional arguments passed to CompareFunc
-#'@return list with a data.frame of calculated comparisons for each node, using labels or numbers from tree; and a list of 
-#' comparisons for plotting using phytools (see examples)
+#'@return list with a data.frame of calculated comparisons for each node, using labels or numbers from tree; and a list of comparisons for plotting using phytools (see examples)
 #'@note Phylogeny must be fully resolved
 #'@export
 #'@importFrom ape reorder.phylo
@@ -23,6 +22,7 @@
 #'
 #'phylo.comparisons <- PhyloCompare(tree, phylo.state)
 #'
+#'# plotting results on a phylogeny:
 #'library(phytools)
 #'plotBranchbyTrait(tree, phylo.comparisons[[2]])
 PhyloCompare <- function(tree, node.data, CompareFunc = RandomSkewers, ...){

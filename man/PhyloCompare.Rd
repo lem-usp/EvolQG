@@ -16,8 +16,7 @@ PhyloCompare(tree, node.data, CompareFunc = RandomSkewers, ...)
 \item{...}{Aditional arguments passed to CompareFunc}
 }
 \value{
-list with a data.frame of calculated comparisons for each node, using labels or numbers from tree; and a list of
-comparisons for plotting using phytools (see examples)
+list with a data.frame of calculated comparisons for each node, using labels or numbers from tree; and a list of comparisons for plotting using phytools (see examples)
 }
 \description{
 Calculates the comparison of some statistic between sister groups along a phylogeny
@@ -36,6 +35,7 @@ phylo.state <- AncestralStates(tree, mat.list, sample.sizes)
 
 phylo.comparisons <- PhyloCompare(tree, phylo.state)
 
+# plotting results on a phylogeny:
 library(phytools)
 plotBranchbyTrait(tree, phylo.comparisons[[2]])
 }

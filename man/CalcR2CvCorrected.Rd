@@ -19,17 +19,17 @@ CalcR2CvCorrected(ind.data, ...)
 
 \item{...}{aditional arguments passed to other methods}
 
-\item{cv.level}{Coeficient of variation level choosen for integration index ajustment in linear model.}
+\item{cv.level}{Coeficient of variation level choosen for integration index ajustment in linear model. Defaults to 0.06.}
 
-\item{iterations}{Number of ressamples to take}
+\item{iterations}{Number of resamples to take}
 
-\item{num.cores}{Number of threads to use in computation. Requires doMC library.}
+\item{num.cores}{Number of threads to use in computation. The doMC library must be loaded. Not implemented for linear models.}
 }
 \value{
-List with adjusted integration indexes, fitted models and simulated distributions of integration indexes and mean coeficient of variation
+List with adjusted integration indexes, fitted models and simulated distributions of integration indexes and mean coeficient of variation.
 }
 \description{
-Calculates the Young correction for integration, using bootstrap
+Calculates the Young correction for integration, using bootstrap resampling
 }
 \examples{
 integration.dist = CalcR2CvCorrected(iris[,1:4])
@@ -56,6 +56,6 @@ National Academy of Sciences of the United States of America, 107(8),
 \seealso{
 \code{\link{MeanMatrixStatistics}}, \code{\link{CalcR2}}
 }
-\keyword{correlations}
-\keyword{integrations}
+\keyword{correlation}
+\keyword{integration}
 

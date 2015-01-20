@@ -125,7 +125,8 @@ MonteCarloRepRandomSkewers <- function(cov.matrix, sample.size, iterations = 100
 
 MonteCarloRepMantelCor <- function(cov.matrix, sample.size, iterations = 1000, num.cores = 1){
   repeatability <- MonteCarloStat(cov.matrix, sample.size, iterations,
-                                  ComparisonFunc = function(x, y) MantelCor(cov2cor(x), y, 1)[1],
+                                  ComparisonFunc = function(x, y) cor(x[lower.tri(x)], 
+                                                                      y[lower.tri(y)]),
                                   StatFunc = cor,
                                   num.cores = num.cores)
   return(mean(repeatability))

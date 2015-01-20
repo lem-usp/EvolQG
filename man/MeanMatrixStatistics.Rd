@@ -21,7 +21,7 @@ MeanMatrixStatistics(cov.matrix, iterations = 1000, full.results = F,
 
 \item{full.results}{If TRUE, full distribution of statistics will be returned.}
 
-\item{num.cores}{If list is passed, number of threads to use in computation.
+\item{num.cores}{Number of threads to use in computation.
 The doMC library must be loaded.}
 }
 \value{
