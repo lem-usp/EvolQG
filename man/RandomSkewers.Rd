@@ -8,9 +8,9 @@
 \usage{
 RandomSkewers(cov.x, cov.y, ...)
 
-\method{RandomSkewers}{default}(cov.x, cov.y, iterations = 1000, ...)
+\method{RandomSkewers}{default}(cov.x, cov.y, num.vectors = 1000, ...)
 
-\method{RandomSkewers}{list}(cov.x, cov.y = NULL, iterations = 1000,
+\method{RandomSkewers}{list}(cov.x, cov.y = NULL, num.vectors = 1000,
   repeat.vector = NULL, num.cores = 1, ...)
 }
 \arguments{
@@ -25,7 +25,7 @@ Optional if cov.x is a list.}
 
 \item{...}{aditional arguments passed to other methods}
 
-\item{iterations}{Number of random vectors used in comparison.}
+\item{num.vectors}{Number of random vectors used in comparison.}
 
 \item{repeat.vector}{Vector of repeatabilities for correlation correction.}
 

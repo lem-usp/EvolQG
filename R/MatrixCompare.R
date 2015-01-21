@@ -1,6 +1,6 @@
 #' Matrix Compare
 #'
-#' Compare two matrices using all available methods. Currently RandomSkewers, MantelCor and KrzCor
+#' Compare two matrices using all available methods. Currently RandomSkewers, MantelCor, KrzCor and PCASimilarity
 #'
 #' @param cov.x covariance or correlation matrix
 #' @param cov.y covariance or correlation matrix
@@ -16,6 +16,7 @@ MatrixCompare <- function(cov.x, cov.y){
   RS <- RandomSkewers(cov.x, cov.y)[1:2]
   Mantel <- MantelCor(cov2cor(cov.x), cov2cor(cov.y))
   Krz <- c(KrzCor(cov.x, cov.y), NA)
-  out <- data.frame(rbind(RS, Mantel, Krz))
+  PCA <- c(PCAsimilarity(cov.x, cov.y), NA)
+  out <- data.frame(rbind(RS, Mantel, Krz, PCA))
   return(out)
 }

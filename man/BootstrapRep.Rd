@@ -5,12 +5,13 @@
 \title{Bootstrap analysis via resampling}
 \usage{
 BootstrapRep(ind.data, ComparisonFunc = c("randomskewers", "mantel",
-  "krzanowski"), iterations = 1000, correlation = FALSE, num.cores = 1)
+  "krzanowski", "pcasimilarity"), iterations = 1000, correlation = FALSE,
+  num.cores = 1)
 }
 \arguments{
 \item{ind.data}{Matrix of residuals or indiviual measurments}
 
-\item{ComparisonFunc}{Comparison function for calculated statistic, either "randomskewers", "mantel" or "krzanowski" correlations}
+\item{ComparisonFunc}{Comparison function for calculated statistic, either "randomskewers", "mantel" , "krzanowski" or "pcasimilarity" correlations}
 
 \item{iterations}{Number of resamples to take}
 

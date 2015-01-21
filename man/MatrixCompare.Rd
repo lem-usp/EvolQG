@@ -15,7 +15,7 @@ MatrixCompare(cov.x, cov.y)
 data.frame of comparisons
 }
 \description{
-Compare two matrices using all available methods. Currently RandomSkewers, MantelCor and KrzCor
+Compare two matrices using all available methods. Currently RandomSkewers, MantelCor, KrzCor and PCASimilarity
 }
 \examples{
 cov.x = RandomMatrix(10, 1, 1, 10)

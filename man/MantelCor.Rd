@@ -8,10 +8,10 @@
 \usage{
 MantelCor(cor.x, cor.y, ...)
 
-\method{MantelCor}{default}(cor.x, cor.y, iterations = 1000, mod = FALSE,
+\method{MantelCor}{default}(cor.x, cor.y, permutations = 1000, mod = FALSE,
   ...)
 
-\method{MantelCor}{list}(cor.x, cor.y = NULL, iterations = 1000,
+\method{MantelCor}{list}(cor.x, cor.y = NULL, permutations = 1000,
   repeat.vector = NULL, mod = FALSE, num.cores = 1, ...)
 }
 \arguments{
@@ -29,7 +29,7 @@ Optional if cor.x is a list.}
 
 \item{...}{aditional arguments passed to other methods}
 
-\item{iterations}{Number of permutations used in significance calculation.}
+\item{permutations}{Number of permutations used in significance calculation.}
 
 \item{mod}{Set TRUE to use mantel in testing modularity hypothesis. Will return
 AVG+, AVG- and AVG Ratio based on binary hipotesis matrix.}

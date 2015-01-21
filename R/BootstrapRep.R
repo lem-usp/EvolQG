@@ -8,7 +8,7 @@
 #'   and compared to the full population statistic. 
 #'
 #' @param ind.data Matrix of residuals or indiviual measurments
-#' @param ComparisonFunc Comparison function for calculated statistic, either "randomskewers", "mantel" or "krzanowski" correlations
+#' @param ComparisonFunc Comparison function for calculated statistic, either "randomskewers", "mantel" , "krzanowski" or "pcasimilarity" correlations
 #' @param iterations Number of resamples to take
 #' @param correlation If TRUE, correlation matrix is used, else covariance matrix. Mantel always uses correlation matrix.
 #' @param num.cores Number of threads to use in computation.
@@ -35,7 +35,10 @@
 #' @keywords repetabilities
 
 BootstrapRep <- function(ind.data,
-                         ComparisonFunc = c("randomskewers", "mantel", "krzanowski"),
+                         ComparisonFunc = c("randomskewers", 
+                                            "mantel", 
+                                            "krzanowski", 
+                                            "pcasimilarity"),
                          iterations = 1000, 
                          correlation = FALSE, 
                          num.cores = 1){
@@ -43,7 +46,8 @@ BootstrapRep <- function(ind.data,
   switch(ComparisonFunc,
         randomskewers = BootstrapRepRandomSkewers(ind.data, iterations, correlation, num.cores),
         mantel = BootstrapRepMantelCor(ind.data, iterations, num.cores),
-        krzanowski = BootstrapRepKrzCor(ind.data, iterations, correlation, num.cores))
+        krzanowski = BootstrapRepKrzCor(ind.data, iterations, correlation, num.cores),
+        pcasimilarity = BootstrapRepPCAsimilarity(ind.data, iterations, correlation, num.cores))
 }
 
 BootstrapRep_primitive <- function (ind.data, iterations,
@@ -66,7 +70,7 @@ BootstrapRep_primitive <- function (ind.data, iterations,
   return (comparisons)
 }
 
-BootstrapRepKrzCor <- function(ind.data, iterations = 1000, correlation = F, num.cores = 1){
+BootstrapRepKrzCor <- function(ind.data, iterations, correlation, num.cores){
   if(correlation)  StatFunc <- cor
   else             StatFunc <- cov
   repeatability <- BootstrapRep_primitive(ind.data, iterations,
@@ -76,7 +80,7 @@ BootstrapRepKrzCor <- function(ind.data, iterations = 1000, correlation = F, num
   return(mean(repeatability))
 }
 
-BootstrapRepMantelCor <- function(ind.data, iterations = 1000, num.cores = 1){
+BootstrapRepMantelCor <- function(ind.data, iterations, num.cores){
   repeatability <- BootstrapRep_primitive(ind.data, iterations,
                                           ComparisonFunc = function(x, y) cor(x[lower.tri(x)], 
                                                                               y[lower.tri(y)]),
@@ -85,11 +89,21 @@ BootstrapRepMantelCor <- function(ind.data, iterations = 1000, num.cores = 1){
   return(mean(repeatability))
 }
 
-BootstrapRepRandomSkewers <- function(ind.data, iterations = 1000, correlation = F, num.cores = 1){
+BootstrapRepRandomSkewers <- function(ind.data, iterations, correlation, num.cores){
   if(correlation)  StatFunc <- cor
   else             StatFunc <- cov
   repeatability <- BootstrapRep_primitive(ind.data, iterations,
                                           ComparisonFunc = function(x, y) RandomSkewers(x, y)[1],
+                                          StatFunc = StatFunc,
+                                          num.cores = num.cores)
+  return(mean(repeatability))
+}
+
+BootstrapRepPCAsimilarity <- function(ind.data, iterations, correlation, num.cores){
+  if(correlation)  StatFunc <- cor
+  else             StatFunc <- cov
+  repeatability <- BootstrapRep_primitive(ind.data, iterations,
+                                          ComparisonFunc = PCAsimilarity,
                                           StatFunc = StatFunc,
                                           num.cores = num.cores)
   return(mean(repeatability))

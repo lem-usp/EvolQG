@@ -12,7 +12,7 @@
 #' If cor.y is suplied, all matrices in list are compared to it.
 #' @param cor.y First argument is compared to cor.y.
 #' Optional if cor.x is a list.
-#' @param iterations Number of permutations used in significance calculation.
+#' @param permutations Number of permutations used in significance calculation.
 #' @param mod Set TRUE to use mantel in testing modularity hypothesis. Will return
 #' AVG+, AVG- and AVG Ratio based on binary hipotesis matrix.
 #' @param repeat.vector Vector of repeatabilities for correlation correction.
@@ -58,8 +58,8 @@ MantelCor <- function (cor.x, cor.y, ...) UseMethod("MantelCor")
 #' @rdname MantelCor
 #' @method MantelCor default
 #' @export
-MantelCor.default <- function (cor.x, cor.y, iterations = 1000, mod = FALSE, ...) {
-  mantel.out <- mantel(cor.x, cor.y, permutations = iterations)
+MantelCor.default <- function (cor.x, cor.y, permutations = 1000, mod = FALSE, ...) {
+  mantel.out <- mantel(cor.x, cor.y, permutations = permutations)
   correlation <- mantel.out$statistic
   prob <- mantel.out$signif
   if (mod == TRUE){
@@ -82,19 +82,19 @@ MantelCor.default <- function (cor.x, cor.y, iterations = 1000, mod = FALSE, ...
 #' @method MantelCor list
 #' @export
 MantelCor.list <- function (cor.x, cor.y = NULL,
-                            iterations = 1000, repeat.vector = NULL,
+                            permutations = 1000, repeat.vector = NULL,
                             mod = FALSE, num.cores = 1, ...)
 {
   if (is.null (cor.y)) {
     out <- ComparisonMap(cor.x,
-                         function(x, cor.y) MantelCor(x, cor.y, iterations),
+                         function(x, cor.y) MantelCor(x, cor.y, permutations),
                          repeat.vector = repeat.vector,
                          num.cores = num.cores)
   } else{
     out <- SingleComparisonMap(cor.x, cor.y,
                                function(x, y) MantelCor(y,
                                                         x,
-                                                        iterations, mod = mod),
+                                                        permutations, mod = mod),
                                num.cores = num.cores)
   }
   return(out)

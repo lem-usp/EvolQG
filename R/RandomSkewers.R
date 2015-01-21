@@ -9,7 +9,7 @@
 #' If cov.y is suplied, all matrices in list are compared to it.
 #' @param cov.y First argument is compared to cov.y.
 #' Optional if cov.x is a list.
-#' @param iterations Number of random vectors used in comparison.
+#' @param num.vectors Number of random vectors used in comparison.
 #' @param repeat.vector Vector of repeatabilities for correlation correction.
 #' @param num.cores If list is passed, number of threads to use in computation. The doMC library must be loaded.
 #' @param ... aditional arguments passed to other methods
@@ -56,10 +56,10 @@ RandomSkewers <- function(cov.x, cov.y, ...) UseMethod("RandomSkewers")
 
 #' @rdname RandomSkewers
 #' @export
-RandomSkewers.default <- function (cov.x, cov.y, iterations = 1000, ...) {
+RandomSkewers.default <- function (cov.x, cov.y, num.vectors = 1000, ...) {
   traits <- dim (cov.x) [1]
   base.vector <- Normalize(rnorm(traits))
-  random.vectors <- array (rnorm (iterations * traits, mean = 0, sd = 1), c(traits, iterations))
+  random.vectors <- array (rnorm (num.vectors * traits, mean = 0, sd = 1), c(traits, num.vectors))
   random.vectors <- apply (random.vectors, 2, Normalize)
   dist <- base.vector %*% random.vectors
   dz1 <- apply (cov.x %*% random.vectors, 2, Normalize)
@@ -67,7 +67,7 @@ RandomSkewers.default <- function (cov.x, cov.y, iterations = 1000, ...) {
   real <- apply (dz1 * dz2, 2, sum)
   ac <- mean (real)
   stdev <- sd (real)
-  prob <- sum (ac < dist) / iterations
+  prob <- sum (ac < dist) / num.vectors
   output <- c(ac, prob, stdev)
   names(output) <- c("correlation","probability","correlation_sd")
   return(output)
@@ -76,16 +76,16 @@ RandomSkewers.default <- function (cov.x, cov.y, iterations = 1000, ...) {
 #' @rdname RandomSkewers
 #' @method RandomSkewers list
 #' @export
-RandomSkewers.list <- function (cov.x, cov.y = NULL, iterations = 1000, repeat.vector = NULL, num.cores = 1, ...)
+RandomSkewers.list <- function (cov.x, cov.y = NULL, num.vectors = 1000, repeat.vector = NULL, num.cores = 1, ...)
 {
   if (is.null (cov.y)) {
     out <- ComparisonMap(cov.x,
-                         function(x, y) RandomSkewers(x, y, iterations),
+                         function(x, y) RandomSkewers(x, y, num.vectors),
                          repeat.vector = repeat.vector,
                          num.cores = num.cores)
   } else{
     out <- SingleComparisonMap(cov.x, cov.y,
-                               function(x, y) RandomSkewers(x, y, iterations),
+                               function(x, y) RandomSkewers(x, y, num.vectors),
                                num.cores = num.cores)
   }
   return(out)

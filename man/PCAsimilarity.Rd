@@ -24,8 +24,7 @@ If cov.x is a list and cov.y is suplied, all matrices in cov.x are compared to c
 
 \item{...}{aditional arguments passed to other methods}
 
-\item{ret.dim}{number of retained dimensions in the comparison,
-If cov.x is a list, every element in cov.x is projected in cov.y.}
+\item{ret.dim}{number of retained dimensions in the comparison. Defaults to all.}
 
 \item{repeat.vector}{Vector of repeatabilities for correlation correction.}
 

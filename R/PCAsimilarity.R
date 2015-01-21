@@ -7,8 +7,7 @@
 #' If cov.x is a list and cov.y is suplied, all matrices in cov.x are compared to cov.y.
 #' @param ... aditional arguments passed to other methods
 #' @param cov.y First argument is compared to cov.y.
-#' @param ret.dim number of retained dimensions in the comparison,
-#' If cov.x is a list, every element in cov.x is projected in cov.y.
+#' @param ret.dim number of retained dimensions in the comparison. Defaults to all.
 #' @param repeat.vector Vector of repeatabilities for correlation correction.
 #' @param num.cores If list is passed in cov.x, number of threads to use in computation.
 #' The doMC library must be loaded.
@@ -40,7 +39,7 @@ PCAsimilarity <- function(cov.x, cov.y, ...) UseMethod("PCAsimilarity")
 #' @export
 PCAsimilarity.default <- function(cov.x, cov.y, ret.dim = NULL, ...) {
   if (is.null(ret.dim))
-    ret.dim = round(dim(cov.x)[1]/2 - 1)
+    ret.dim = dim(cov.x)[1]
 
   eg.x <- eigen(cov.x)
   eg.y <- eigen(cov.y)
@@ -61,13 +60,13 @@ PCAsimilarity.list <- function (cov.x, cov.y = NULL, ...,
                          repeat.vector = NULL, num.cores = 1) {
   if (is.null (cov.y)) {
     out <- ComparisonMap(cov.x,
-                         function(x, y) return(c(PCAsimilarity(x, y), NA)),
+                         function(x, y) return(c(PCAsimilarity(x, y, ...), NA)),
                          repeat.vector = repeat.vector,
                          num.cores = num.cores)
     out <- out[[1]]
   } else{
     out <- SingleComparisonMap(cov.x, cov.y,
-                         function(x, y) return(c(PCAsimilarity(x, y), NA)),
+                         function(x, y) return(c(PCAsimilarity(x, y, ...), NA)),
                                num.cores = num.cores)
     out <- out[,-length(out)]
   }
