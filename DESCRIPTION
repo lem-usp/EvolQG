@@ -2,7 +2,7 @@ Package: Morphometrics
 Type: Package
 Title: General Quantitative Genetics functions
 Version: 0.1-0
-Commit: 556cfa44258db2e710e2845482ae5fa75e94424c
+Commit: c1e85a26f9ddc65a60302bbaca2aa8ff927048c2
 Date: 2013-09-16
 Author: Diogo Melo, Edgar Zanella, Fabio Machado, Guilherme Garcia
 Maintainer: Diogo Melo <diogro@cecm.usp.br>
