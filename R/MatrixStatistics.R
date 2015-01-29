@@ -5,7 +5,8 @@
 #' @param cov.matrix A covariance matrix
 #' @param iterations Number of random vectors to be used in calculating the stochastic statistics
 #' @param full.results If TRUE, full distribution of statistics will be returned.
-#' @param num.cores Number of threads to use in calculations. Requires doMC library.
+#' @param num.cores Number of threads to use in computation.
+#' The doMC library must be loaded.
 #' @return dist Full distribution of stochastic statistics, only if full.resuts == TRUE
 #' @return mean Mean value for all statistics
 #' @export
@@ -16,6 +17,10 @@
 #' @examples
 #' cov.matrix <- cov(iris[,1:4])
 #' MeanMatrixStatistics(cov.matrix)
+#' 
+#' #Multiple threads can be used with doMC library
+#' library(doMC)
+#' MeanMatrixStatistics(cov.matrix, num.cores = 2)
 #' @keywords Autonomy
 #' @keywords ConditionalEvolvability
 #' @keywords Constraints
@@ -25,9 +30,7 @@
 #' @keywords Respondability
 MeanMatrixStatistics <- function (cov.matrix, iterations = 1000, full.results = F, num.cores = 1) {
   if (num.cores > 1) {
-    library(doMC)
-    library(foreach)
-    registerDoMC(num.cores)
+    doMC::registerDoMC(num.cores)
     parallel = TRUE
   } else{
     parallel = FALSE

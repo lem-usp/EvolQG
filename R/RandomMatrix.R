@@ -1,13 +1,13 @@
 #' Random matrices for tests
 #'
 #' Provides random covariance/correlation matrices for quick tests.
-#' Should not be used for statistics.
+#' Should not be used for statistics or hypothesis testing.
 #' @param num.traits Number of traits in random matrix
 #' @param num.matrices Number of generated matrix. If greater than 1, a list is returned.
 #' @param min.var Lower value for random variance in covariance matrices
 #' @param max.var Upper value for random variance in covariance matrices
 #' @param variance Variance vector. If present will be used in all matrices
-#' @param ke Parameter for correlation matrix generation. Involves check for positive defitness
+#' @param ke Parameter for correlation matrix generation. Involves check for positive definiteness
 #' @export
 #' @return Returns either a single matrix, or a list of matrices of equal dimension
 #' @author Diogo Melo Edgar Zanella

@@ -6,9 +6,9 @@
 #'
 #'
 #' @param cor.matrix Correlation matrix
-#' @param sample.size Sample size used in matrix estimatio
+#' @param sample.size Sample size used in matrix estimation
 #' @return Alpha repeatability for correlation matrix
-#' @keywords repetatability
+#' @keywords repeatatability
 #' @seealso \code{\link{MonteCarloStat}}, \code{\link{BootstrapRep}}
 #' @author Diogo Melo, Guilherme Garcia
 #' @references Cheverud 1996 Quantitative genetic analysis of cranial morphology in the cotton-top
@@ -23,10 +23,11 @@
 #' #For many matrices
 #' mat.list <- RandomMatrix(10, 100)
 #' sample.sizes <- floor(runif(100, 20, 50))
-#' mat.plus.samples <- alply(1:100, 1, function(x) list(mat.list[[x]], sample.sizes[x]))
-#' laply(mat.plus.samples, function(x) AlphaRep(x[[1]], x[[2]]))
+#' unlist(Map(AlphaRep, mat.list, sample.sizes))
 
 AlphaRep <- function (cor.matrix, sample.size){
+  if(sum(diag(cor.matrix)) != dim(cor.matrix)[1])
+    stop("Matrices do not appear to be correlation matrices.")
   vec <- cor.matrix[lower.tri(cor.matrix)]
   var.erro <- (1 - mean(vec)^2)/(sample.size-2)
   var.vec <- var(vec)

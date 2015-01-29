@@ -1,13 +1,13 @@
 #' Corrected integration value
 #'
-#' Calculates the Young correction for integration, using bootstrap
+#' Calculates the Young correction for integration, using bootstrap resampling
 #'
 #' @param ind.data Matrix of indiviual measurments, or ajusted linear model
-#' @param cv.level Coeficient of variation level choosen for integration index ajustment in linear model.
-#' @param iterations Number of ressamples to take
-#' @param num.cores Number of threads to use in computation. Requires doMC library.
+#' @param cv.level Coeficient of variation level choosen for integration index ajustment in linear model. Defaults to 0.06.
+#' @param iterations Number of resamples to take
+#' @param num.cores Number of threads to use in computation. The doMC library must be loaded. Not implemented for linear models.
 #' @param ... aditional arguments passed to other methods
-#' @return List with adjusted integration indexes, fitted models and simulated distributions of integration indexes and mean coeficient of variation
+#' @return List with adjusted integration indexes, fitted models and simulated distributions of integration indexes and mean coeficient of variation.
 #' @references Young, N. M., Wagner, G. P., and Hallgrimsson, B. (2010).
 #' Development and the evolvability of human limbs. Proceedings of the
 #' National Academy of Sciences of the United States of America, 107(8),
@@ -28,8 +28,8 @@
 #'
 #' plot(integration.dist[[3]][,2], integration.dist[[3]][,3])
 #' abline(integration.dist[[2]]$eVals_cv)
-#' @keywords correlations
-#' @keywords integrations
+#' @keywords correlation
+#' @keywords integration
 
 CalcR2CvCorrected  <- function(ind.data, ...) UseMethod("CalcR2CvCorrected")
 

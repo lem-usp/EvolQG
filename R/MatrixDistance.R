@@ -1,6 +1,6 @@
-#' Matrix Distance
+#' Matrix distance
 #' 
-#' Calculates distances between covariance matrices.
+#' Calculates Distances between covariance matrices.
 #' 
 #' @param cov.x Single covariance matrix or list of covariance matrices.
 #' If single matrix is suplied, it is compared to cov.y.
@@ -9,7 +9,7 @@
 #' If cov.y is suplied, all matrices in list are compared to it.
 #' @param cov.y First argument is compared to cov.y.
 #' Optional if cov.x is a list.
-#' @param Distance Distance function for use in calculation. Currently supports "Riemann" and "Overlap".
+#' @param distance distance function for use in calculation. Currently supports "Riemann" and "Overlap".
 #' @param ... aditional arguments passed to other methods
 #' @param num.cores If list is passed, number of threads to use in computation. Requires doMC library.
 #' @return
@@ -29,39 +29,39 @@
 #' MatrixDistance(c1, c2, "OverlapDist")
 #' MatrixDistance(c1, c2, "RiemannDist")
 #'
-#' MatrixDistance(list(c1, c2, c3), Distance = "OverlapDist")
+#' MatrixDistance(list(c1, c2, c3), distance = "OverlapDist")
 #'
 #'
 #' c4 <- RandomMatrix(10)
 #' MatrixDistance(list(c1, c2, c3), c4)
 #' @keywords matrixcomparison
-#' @keywords matrixdistance
-MatrixDistance <- function(cov.x, cov.y, Distance, ...) 
+#' @keywords matrixDistance
+MatrixDistance <- function(cov.x, cov.y, distance, ...) 
   UseMethod("MatrixDistance")
 
 #' @rdname MatrixDistance
 #' @method MatrixDistance default
 #' @export
-MatrixDistance.default <- function (cov.x, cov.y, Distance = c('OverlapDist', 'RiemannDist'), ...) {
-  Distance <- match.fun(match.arg(Distance))
-  output <- Distance(cov.x, cov.y)
+MatrixDistance.default <- function (cov.x, cov.y, distance = c('OverlapDist', 'RiemannDist'), ...) {
+  distance <- match.fun(match.arg(distance))
+  output <- distance(cov.x, cov.y)
   return(output)
 }
 
 #' @rdname MatrixDistance
 #' @method MatrixDistance list
 #' @export
-MatrixDistance.list <- function (cov.x, cov.y = NULL, Distance = c('OverlapDist', 'RiemannDist'), ...,  num.cores = 1)
+MatrixDistance.list <- function (cov.x, cov.y = NULL, distance = c('OverlapDist', 'RiemannDist'), ...,  num.cores = 1)
 {
-  Distance <- match.fun(match.arg(Distance))
+  distance <- match.fun(match.arg(distance))
   if (is.null (cov.y)) {
     out <- ComparisonMap(cov.x,
-                         function(x, y) return(c(Distance(x, y,...), NA)),
+                         function(x, y) return(c(distance(x, y,...), NA)),
                          num.cores = num.cores)
     out <- out[[1]]
   } else{
     out <- SingleComparisonMap(cov.x, cov.y,
-                               function(x, y) return(c(Distance(x, y,...), NA)),
+                               function(x, y) return(c(distance(x, y,...), NA)),
                                num.cores = num.cores)
     out <- out[-length(out)]
   }
@@ -69,7 +69,7 @@ MatrixDistance.list <- function (cov.x, cov.y = NULL, Distance = c('OverlapDist'
 }
 
 
-#' Matrix Riemann Distance
+#' Matrix Riemann distance
 #'
 #' Return distance between two covariance matrices
 #'
@@ -79,7 +79,7 @@ MatrixDistance.list <- function (cov.x, cov.y = NULL, Distance = c('OverlapDist'
 #' @author Edgar Zanella
 #' @export
 #' @references Mitteroecker, P., & Bookstein, F. (2009). The ontogenetic trajectory of the phenotypic covariance matrix, with examples from craniofacial shape in rats and humans. Evolution, 63(3), 727-737. doi:10.1111/j.1558-5646.2008.00587.x
-#' @keywords matrixdistance
+#' @keywords matrixDistance
 #' @keywords matrixcomparison
 
 RiemannDist <- function(cov.x, cov.y) {

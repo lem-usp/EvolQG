@@ -1,6 +1,6 @@
 #' Compare matrices via Mantel Correlation
 #'
-#' Calculates correlation matrix correlation via Mantel.
+#' Calculates correlation matrix correlation and significance via Mantel test.
 #'
 #' @param cor.x Single correlation matrix or list of correlation matrices.
 #'
@@ -12,11 +12,11 @@
 #' If cor.y is suplied, all matrices in list are compared to it.
 #' @param cor.y First argument is compared to cor.y.
 #' Optional if cor.x is a list.
-#' @param iterations Number of permutations used in significance calculation.
-#' @param mod Set TRUE to use mantel in testing modularity hipotesis. Will return
+#' @param permutations Number of permutations used in significance calculation.
+#' @param mod Set TRUE to use mantel in testing modularity hypothesis. Will return
 #' AVG+, AVG- and AVG Ratio based on binary hipotesis matrix.
 #' @param repeat.vector Vector of repeatabilities for correlation correction.
-#' @param num.cores If list is passed, number of threads to use in computation. Requires doMC library.
+#' @param num.cores If list is passed, number of threads to use in computation. The doMC library must be loaded.
 #' @param ... aditional arguments passed to other methods
 #' @return If cor.x and cor.y are passed, returns matrix pearson
 #' correlation and significance via mantel permutations.
@@ -46,6 +46,10 @@
 #'
 #' c4 <- RandomMatrix(10)
 #' MantelCor(list(c1, c2, c3), c4)
+#' 
+#' #Multiple threads can be used with the doMC library
+#' library(doMC)
+#' MantelCor(list(c1, c2, c3), num.cores = 2) 
 #' @keywords matrixcomparison
 #' @keywords matrixcorrelation
 #' @keywords randomskewers
@@ -54,8 +58,8 @@ MantelCor <- function (cor.x, cor.y, ...) UseMethod("MantelCor")
 #' @rdname MantelCor
 #' @method MantelCor default
 #' @export
-MantelCor.default <- function (cor.x, cor.y, iterations = 1000, mod = FALSE, ...) {
-  mantel.out <- mantel(cor.x, cor.y, permutations = iterations)
+MantelCor.default <- function (cor.x, cor.y, permutations = 1000, mod = FALSE, ...) {
+  mantel.out <- mantel(cor.x, cor.y, permutations = permutations)
   correlation <- mantel.out$statistic
   prob <- mantel.out$signif
   if (mod == TRUE){
@@ -78,19 +82,19 @@ MantelCor.default <- function (cor.x, cor.y, iterations = 1000, mod = FALSE, ...
 #' @method MantelCor list
 #' @export
 MantelCor.list <- function (cor.x, cor.y = NULL,
-                            iterations = 1000, repeat.vector = NULL,
+                            permutations = 1000, repeat.vector = NULL,
                             mod = FALSE, num.cores = 1, ...)
 {
   if (is.null (cor.y)) {
     out <- ComparisonMap(cor.x,
-                         function(x, cor.y) MantelCor(x, cor.y, iterations),
+                         function(x, cor.y) MantelCor(x, cor.y, permutations),
                          repeat.vector = repeat.vector,
                          num.cores = num.cores)
   } else{
     out <- SingleComparisonMap(cor.x, cor.y,
                                function(x, y) MantelCor(y,
                                                         x,
-                                                        iterations, mod = mod),
+                                                        permutations, mod = mod),
                                num.cores = num.cores)
   }
   return(out)

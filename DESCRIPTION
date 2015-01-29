@@ -1,14 +1,14 @@
 Package: Morphometrics
 Type: Package
-Title: General Morphometrics functions
+Title: General Quantitative Genetics functions
 Version: 0.1-0
-Commit: d96b5a5bcea7e52af30f74ce85b86b29dddfd1a9
+Commit: c1e85a26f9ddc65a60302bbaca2aa8ff927048c2
 Date: 2013-09-16
 Author: Diogo Melo, Edgar Zanella, Fabio Machado, Guilherme Garcia
 Maintainer: Diogo Melo <diogro@cecm.usp.br>
-Description: More about what it does (maybe more than one line)
+Description: Provides functions for covariance matrix comparisons, estimation of repeatabilities in measurments and matrices, and general evolutionary quantitative genetics tools
 Depends:
-    R (>= 2.11.0),
+    R (>= 3.1.0),
     plyr (>= 1.7.1)
 Imports:
     Rcpp,

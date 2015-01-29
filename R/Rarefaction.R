@@ -1,6 +1,7 @@
 #' Rarefaction analysis via ressampling
+#' 
 #' Calculates the repeatability of a statistic of the data, such as
-#' correlation or covariance matrix, via bootstrap ressampling with
+#' correlation or covariance matrix, via bootstrap resampling with
 #' varying sample sizes, from 2 to the size of the original data.
 #'
 #' Samples of various sizes, with replacement, are taken from the full population, a statistic calculated
@@ -9,12 +10,12 @@
 #' A specialized ploting function displays the results in publication quality.
 #' @aliases  Rarefaction PlotRarefaction
 #' @param ind.data Matrix of residuals or indiviual measurments
-#' @param ComparisonFunc Comparison function for calculated statistic, either "randomskewers", "mantel" or "krznowski" correlations
+#' @param ComparisonFunc Comparison function for calculated statistic, either "randomskewers", "mantel" or "krzanowski" correlations
 #' @param num.reps number of populations sampled per sample size
 #' @param iterations Parameter for comparison function. Number of random skewers or number of permutations in mantel.
-#' @param num.cores Number of threads to use in computation. Requires doMC library.
+#' @param num.cores Number of threads to use in computation. The doMC library must be loaded.
 #' @param correlation If TRUE, correlation matrix is used, else covariance matrix. MantelCor always uses correlation matrix.
-#' @param ret.dim When using Krzanowski Correlation, number o retained dimensions may be specified
+#' @param ret.dim When using Krzanowski Correlation, number of retained dimensions may be specified
 #' @param comparison.list output from rarefaction functions can be used in ploting
 #' @param y.axis Y axis lable in plot
 #' @details Bootstraping may be misleading with very small sample sizes. Use with caution.
@@ -33,7 +34,11 @@
 #' results.Mantel <- Rarefaction(ind.data, "mante", num.reps = 5)
 #' results.KrzCov <- Rarefaction(ind.data, "krz", num.reps = 5)
 #' results.KrzCor <- Rarefaction(ind.data, "krz", TRUE, num.reps = 5)
-#'
+#' 
+#' #Multiple threads can be used with doMC library
+#' library(doMC)
+#' results.KrzCov <- Rarefaction(ind.data, "krz", num.reps = 5, num.cores = 2)
+#' 
 #' #Easy access
 #' library(reshape2)
 #' melt(results.RS)
@@ -77,9 +82,7 @@ Rarefaction_primitive <- function(ind.data,
                                   num.cores = 1)
 {
   if (num.cores > 1) {
-    library(doMC)
-    library(foreach)
-    registerDoMC(num.cores)
+    doMC::registerDoMC(num.cores)
     parallel = TRUE
   } else{
     parallel = FALSE
@@ -140,7 +143,8 @@ RarefactionMantelCor <- function(ind.data,
                                  num.cores = 1){
   comparison.list <- Rarefaction_primitive(ind.data,
                                  cor,
-                                 function(x, y) MantelCor(x, cov2cor(y), iterations)[1],
+                                 function(x, y) cor(x[lower.tri(x)], 
+                                                    cov2cor(y)[lower.tri(y)]),
                                  num.reps=num.reps,
                                  num.cores = num.cores)
   return(comparison.list)

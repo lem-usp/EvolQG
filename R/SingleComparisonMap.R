@@ -10,14 +10,12 @@
 #' @seealso \code{\link{MantelCor}}, \code{\link{KrzCor}},\code{\link{RandomSkewers}}
 SingleComparisonMap  <- function(matrix.list, y.mat, MatrixCompFunc, ..., num.cores){
   if (num.cores > 1) {
-    library(doMC)
-    library(foreach)
-    registerDoMC(num.cores)
+    doMC::registerDoMC(num.cores)
     parallel = TRUE
-  } else {
+  } else{
     parallel = FALSE
   }
-  if(!all.equal(dim(matrix.list[[1]]),dim(y.mat)))
+  if(!all(c(laply(matrix.list, dim)) == dim(y.mat)[1]))
     stop("Matrices on list and single matrice dimension do not match")
   else
     out <- ldply(matrix.list,

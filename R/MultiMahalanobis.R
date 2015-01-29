@@ -2,9 +2,9 @@
 #'
 #' Calculates the Mahalanobis distance between a list of species mean, using a global covariance matrix
 #' @param mean.list list of species means being compared
-#' @param cov.matrix covariance matrix definig the metric tensor to be used
-#' @param num.cores Number of threads to use in computation. Requires doMC library.
-#' @return returns a distance matrix of species-species comparisons.
+#' @param cov.matrix covariance matrix defining the metric tensor to be used
+#' @param num.cores Number of threads to use in computation. The doMC library must be loaded.
+#' @return returns a matrix of species-species distances.
 #' @author Diogo Melo
 #' @export
 #' @seealso \code{\link{mahalanobis}}
@@ -18,14 +18,15 @@
 #' euclidian <- MultiMahalanobis(mean.list, diag(rep(1, 10)))
 #' # else, it is not
 #' half.euclidian <- MultiMahalanobis(mean.list, diag(rep(0.5, 10)))
+#' 
+#' #Multiple threads can be used with doMC library
+#' library(doMC)
+#' MultiMahalanobis(mean.list, RandomMatrix(10), num.cores = 2)
 MultiMahalanobis <- function (mean.list, cov.matrix, num.cores = 1) {
   if (num.cores > 1) {
-    library(doMC)
-    library(foreach)
-    registerDoMC(num.cores)
+    doMC::registerDoMC(num.cores)
     parallel = TRUE
-  }
-  else{
+  } else{
     parallel = FALSE
   }
   num.mean<- length(mean.list)

@@ -8,6 +8,7 @@ test_that("MonteCarloR2 returns sensible results",
             expect_that(MonteCarloR2(RandomMatrix(10), 10), gives_warning("Matrix appears to be a correlation matrix! Only covariance matrices should be used in parametric resampling."))
           }
 )
+
 test_that("MonteCarloRep returns sensible results",
           {
             cov.matrix <- RandomMatrix(10, 1, 1, 10)

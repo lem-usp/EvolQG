@@ -12,9 +12,7 @@
 #' @seealso \code{\link{MantelCor}}, \code{\link{KrzCor}},\code{\link{RandomSkewers}}
 ComparisonMap <- function (matrix.list, MatrixCompFunc, ..., repeat.vector = NULL, num.cores = 1){
   if (num.cores > 1) {
-    library(doMC)
-    library(foreach)
-    registerDoMC(num.cores)
+    doMC::registerDoMC(num.cores)
     parallel = TRUE
   } else{
     parallel = FALSE
@@ -26,8 +24,8 @@ ComparisonMap <- function (matrix.list, MatrixCompFunc, ..., repeat.vector = NUL
                                   function(x) {MatrixCompFunc(x, matrix.list[[n]], ...)[1:2]},
                                   .parallel = parallel)
   comparisons <- adply(1:(n.matrix-1), 1,  CompareToN, .parallel = parallel)
-  corrs <- acast(comparisons[-4], X1~.id)[,matrix.names[-1]]
-  probs <- acast(comparisons[-3], X1~.id)[,matrix.names[-1]]
+  corrs <- suppressMessages(acast(comparisons[-4], X1~.id)[,matrix.names[-1]])
+  probs <- suppressMessages(acast(comparisons[-3], X1~.id)[,matrix.names[-1]])
   probabilities <- array (0, c(n.matrix, n.matrix))
   correlations <- probabilities
   probabilities[upper.tri(probabilities)] <- probs[upper.tri(probs, diag=T)]
