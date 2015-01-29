@@ -43,7 +43,7 @@
 #' 
 #' #Multiple threads can be used with doMC library
 #' library(doMC)
-#' KrzProjection(m.list, num.cores = 4)
+#' KrzProjection(m.list, num.cores = 2)
 #' @keywords matrixcomparison
 #' @keywords matrixcorrelation
 #' @keywords Krzanowski

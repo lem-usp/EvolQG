@@ -59,7 +59,7 @@ KrzProjection(m.list, c1, full.results = TRUE)
 
 #Multiple threads can be used with doMC library
 library(doMC)
-KrzProjection(m.list, num.cores = 4)
+KrzProjection(m.list, num.cores = 2)
 }
 \author{
 Diogo Melo, Guilherme Garcia

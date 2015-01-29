@@ -44,7 +44,7 @@ MonteCarloRep(cov.matrix, "krz", 30, TRUE)
 
 #Multiple threads can be used with doMC library
 library(doMC)
-MonteCarloRep(cov.matrix, "randomskewers", 30, num.cores = 4)
+MonteCarloRep(cov.matrix, "randomskewers", 30, num.cores = 2)
 
 #Creating repeatability vector for a list of matrices
 mat.list <- RandomMatrix(10, 3, 1, 10)

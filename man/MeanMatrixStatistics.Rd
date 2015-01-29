@@ -38,7 +38,7 @@ MeanMatrixStatistics(cov.matrix)
 
 #Multiple threads can be used with doMC library
 library(doMC)
-MeanMatrixStatistics(cov.matrix, num.cores = 4)
+MeanMatrixStatistics(cov.matrix, num.cores = 2)
 }
 \author{
 Diogo Melo Guilherme Garcia

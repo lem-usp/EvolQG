@@ -37,7 +37,7 @@
 #' 
 #' #Multiple threads can be used with doMC library
 #' library(doMC)
-#' results.KrzCov <- Rarefaction(ind.data, "krz", num.reps = 5, num.cores = 4)
+#' results.KrzCov <- Rarefaction(ind.data, "krz", num.reps = 5, num.cores = 2)
 #' 
 #' #Easy access
 #' library(reshape2)

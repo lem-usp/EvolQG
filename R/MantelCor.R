@@ -49,7 +49,7 @@
 #' 
 #' #Multiple threads can be used with the doMC library
 #' library(doMC)
-#' MantelCor(list(c1, c2, c3), num.cores = 4) 
+#' MantelCor(list(c1, c2, c3), num.cores = 2) 
 #' @keywords matrixcomparison
 #' @keywords matrixcorrelation
 #' @keywords randomskewers

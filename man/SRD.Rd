@@ -76,7 +76,7 @@ PlotSRD(srd.array.result[3,4][[1]])
 
 #Multiple threads can be used with doMC library
 library(doMC)
-SRD(m.list, num.cores = 4)
+SRD(m.list, num.cores = 2)
 }
 \author{
 Diogo Melo, Guilherme Garcia

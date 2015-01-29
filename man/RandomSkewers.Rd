@@ -62,7 +62,7 @@ RandomSkewers(list(c1, c2, c3), c4)
 
 #Multiple threads can be used with doMC library
 library(doMC)
-RandomSkewers(list(c1, c2, c3), num.cores = 4)
+RandomSkewers(list(c1, c2, c3), num.cores = 2)
 }
 \author{
 Diogo Melo, Guilherme Garcia

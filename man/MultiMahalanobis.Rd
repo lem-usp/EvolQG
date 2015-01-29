@@ -32,7 +32,7 @@ half.euclidian <- MultiMahalanobis(mean.list, diag(rep(0.5, 10)))
 
 #Multiple threads can be used with doMC library
 library(doMC)
-MultiMahalanobis(mean.list, RandomMatrix(10), num.cores = 4)
+MultiMahalanobis(mean.list, RandomMatrix(10), num.cores = 2)
 }
 \author{
 Diogo Melo

@@ -49,7 +49,7 @@
 #' 
 #' #Multiple threads can be used with doMC library
 #' library(doMC)
-#' SRD(m.list, num.cores = 4)
+#' SRD(m.list, num.cores = 2)
 #' @keywords SRD
 #' @keywords RandomSkewers
 #' @keywords selectionresponsedecomposition

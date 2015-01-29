@@ -20,7 +20,7 @@
 #' 
 #' #Multiple threads can be used with doMC library
 #' library(doMC)
-#' MeanMatrixStatistics(cov.matrix, num.cores = 4)
+#' MeanMatrixStatistics(cov.matrix, num.cores = 2)
 #' @keywords Autonomy
 #' @keywords ConditionalEvolvability
 #' @keywords Constraints

@@ -21,7 +21,7 @@
 #' 
 #' #Multiple threads can be used with doMC library
 #' library(doMC)
-#' MultiMahalanobis(mean.list, RandomMatrix(10), num.cores = 4)
+#' MultiMahalanobis(mean.list, RandomMatrix(10), num.cores = 2)
 MultiMahalanobis <- function (mean.list, cov.matrix, num.cores = 1) {
   if (num.cores > 1) {
     doMC::registerDoMC(num.cores)

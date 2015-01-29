@@ -44,7 +44,7 @@ BootstrapRep(iris[,1:4], "krz", 50, TRUE)
 library(doMC)
 BootstrapRep(iris[,1:4], "mantel",
              iterations = 5,
-             num.cores = 4)
+             num.cores = 2)
 }
 \author{
 Diogo Melo, Guilherme Garcia
