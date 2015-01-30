@@ -23,13 +23,13 @@
 #' @examples
 #' cov.matrix <- RandomMatrix(10, 1, 1, 10)
 #'
-#' MonteCarloStat(cov.matrix, sample.size = 30, iterations = 1000,
+#' MonteCarloStat(cov.matrix, sample.size = 30, iterations = 100,
 #'                ComparisonFunc = function(x, y) RandomSkewers(x, y)[1],
 #'                StatFunc = cov,
 #'                num.cores = 1)
 #' #Multiple threads can be used with doMC library
 #' library(doMC)
-#' MonteCarloStat(cov.matrix, sample.size = 30, iterations = 1000,
+#' MonteCarloStat(cov.matrix, sample.size = 30, iterations = 100,
 #'                ComparisonFunc = function(x, y) RandomSkewers(x, y)[1],
 #'                StatFunc = cov,
 #'                num.cores = 2)
@@ -54,7 +54,7 @@ MonteCarloStat <- function (cov.matrix, sample.size, iterations,
   populations  <- alply(1:iterations, 1,
                         function(x) rmvnorm (sample.size, sigma = cov.matrix, method = 'chol'),
                         .parallel=parallel)
-  comparisons <- laply (populations, function (x) ComparisonFunc (cov.matrix, StatFunc(x)),
+  comparisons <- ldply (populations, function (x) ComparisonFunc (cov.matrix, StatFunc(x)),
                         .parallel = parallel)
   return (comparisons)
 }
@@ -67,8 +67,9 @@ MonteCarloStat <- function (cov.matrix, sample.size, iterations,
 #' original matrix. 
 #'
 #' @param cov.matrix Covariance matrix.
-#' @param ComparisonFunc Comparison function for calculated statistic, either "randomskewers", "mantel" or "krznowski" correlations
+#' @param ComparisonFunc comparison function
 #' @param sample.size Size of the random populations
+#' @param ... Aditional arguments passed to CompareFunc
 #' @param iterations Number of random populations
 #' @param correlation If TRUE, correlation matrix is used, else covariance matrix. MantelCor always uses correlation matrix.
 #' @param num.cores If list is passed, number of threads to use in computation.
@@ -84,62 +85,38 @@ MonteCarloStat <- function (cov.matrix, sample.size, iterations,
 #' @examples
 #' cov.matrix <- RandomMatrix(10, 1, 1, 10)
 #'
-#' MonteCarloRep(cov.matrix, "randomskewers", 30)
-#' MonteCarloRep(cov.matrix, "mantel", 30)
-#' MonteCarloRep(cov.matrix, "krz", 30)
-#' MonteCarloRep(cov.matrix, "krz", 30, TRUE)
+#' MonteCarloRep(cov.matrix, RandomSkewers, 30, iterations = 50)
+#' MonteCarloRep(cov.matrix, RandomSkewers, 30, num.vectors = 100, iterations = 50, correlation = TRUE)
+#' MonteCarloRep(cov.matrix, MantelCor, 30, permutations = 1, correlation = TRUE)
+#' MonteCarloRep(cov.matrix, KrzCor, 30)
+#' MonteCarloRep(cov.matrix, KrzCor, 30, correlation = TRUE)
 #'
 #' #Multiple threads can be used with doMC library
 #' library(doMC)
-#' MonteCarloRep(cov.matrix, "randomskewers", 30, num.cores = 2)
+#' MonteCarloRep(cov.matrix, RandomSkewers, 30, iterations = 100, num.cores = 2)
 #'
 #' #Creating repeatability vector for a list of matrices
 #' mat.list <- RandomMatrix(10, 3, 1, 10)
-#' unlist(lapply(mat.list, MonteCarloRep, "krz", 30, correlation = TRUE))
+#' laply(mat.list, MonteCarloRep, KrzCor, 30, correlation = TRUE)
 #'
 #' @keywords parametricsampling
 #' @keywords montecarlo
 #' @keywords repeatability
 MonteCarloRep <- function(cov.matrix,
-                          ComparisonFunc = c("randomskewers", "mantel", "krzanowski"),
+                          ComparisonFunc,
                           sample.size,
+                          ...,
                           iterations = 1000, 
-                          correlation = F, 
+                          correlation = FALSE, 
                           num.cores = 1){
-  ComparisonFunc = match.arg(ComparisonFunc)
-  switch(ComparisonFunc,
-         randomskewers = MonteCarloRepRandomSkewers(cov.matrix, sample.size, iterations, correlation, num.cores),
-         mantel = MonteCarloRepMantelCor(cov.matrix, sample.size, iterations, num.cores),
-         krzanowski = MonteCarloRepKrzCor(cov.matrix, sample.size, iterations, correlation, num.cores))
-}
-
-MonteCarloRepRandomSkewers <- function(cov.matrix, sample.size, iterations = 1000, correlation, num.cores = 1){
-  if(correlation)  StatFunc <- cor
-  else             StatFunc <- cov
-  repeatability <- MonteCarloStat(cov.matrix, sample.size, iterations,
-                                  ComparisonFunc = function(x, y) RandomSkewers(x, y)[1],
-                                  StatFunc = StatFunc,
-                                  num.cores = num.cores)
-  return(mean(repeatability))
-}
-
-MonteCarloRepMantelCor <- function(cov.matrix, sample.size, iterations = 1000, num.cores = 1){
-  repeatability <- MonteCarloStat(cov.matrix, sample.size, iterations,
-                                  ComparisonFunc = function(x, y) cor(x[lower.tri(x)], 
-                                                                      y[lower.tri(y)]),
-                                  StatFunc = cor,
-                                  num.cores = num.cores)
-  return(mean(repeatability))
-}
-
-MonteCarloRepKrzCor <- function(cov.matrix, sample.size, correlation = F, iterations = 1000, num.cores = 1){
-  if(correlation)  {StatFunc <- cor; c2v <- cov2cor
+  if(correlation)  {StatFunc <- cov; c2v <- cov2cor
   } else {StatFunc <- cov; c2v <- function(x) x}
   repeatability <- MonteCarloStat(cov.matrix, sample.size, iterations,
-                                  ComparisonFunc = function(x, y) KrzCor(c2v(x), c2v(y), 1)[1],
+                                  ComparisonFunc = function(x, y) ComparisonFunc(c2v(x), 
+                                                                                 c2v(y), ...),
                                   StatFunc = StatFunc,
                                   num.cores = num.cores)
-  return(mean(repeatability))
+  return(mean(repeatability[,2]))
 }
 
 #' R2 confidence intervals by parametric sampling
@@ -171,6 +148,6 @@ MonteCarloR2 <- function (cov.matrix, sample.size, iterations = 1000, num.cores 
                           ComparisonFunc = function(x, y) y,
                           StatFunc = function(x) CalcR2(cor(x)),
                           num.cores = num.cores)
-  return (it.r2)
+  return (it.r2[,2])
 }
 

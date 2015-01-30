@@ -36,13 +36,13 @@ Since this function uses multivariate normal model to generate populations, only
 \examples{
 cov.matrix <- RandomMatrix(10, 1, 1, 10)
 
-MonteCarloStat(cov.matrix, sample.size = 30, iterations = 1000,
+MonteCarloStat(cov.matrix, sample.size = 30, iterations = 100,
                ComparisonFunc = function(x, y) RandomSkewers(x, y)[1],
                StatFunc = cov,
                num.cores = 1)
 #Multiple threads can be used with doMC library
 library(doMC)
-MonteCarloStat(cov.matrix, sample.size = 30, iterations = 1000,
+MonteCarloStat(cov.matrix, sample.size = 30, iterations = 100,
                ComparisonFunc = function(x, y) RandomSkewers(x, y)[1],
                StatFunc = cov,
                num.cores = 2)

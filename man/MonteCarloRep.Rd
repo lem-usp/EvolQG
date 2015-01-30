@@ -4,16 +4,17 @@
 \alias{MonteCarloRep}
 \title{Parametric repeatabilities with covariance or correlation matrices}
 \usage{
-MonteCarloRep(cov.matrix, ComparisonFunc = c("randomskewers", "mantel",
-  "krzanowski"), sample.size, iterations = 1000, correlation = F,
-  num.cores = 1)
+MonteCarloRep(cov.matrix, ComparisonFunc, sample.size, ..., iterations = 1000,
+  correlation = FALSE, num.cores = 1)
 }
 \arguments{
 \item{cov.matrix}{Covariance matrix.}
 
-\item{ComparisonFunc}{Comparison function for calculated statistic, either "randomskewers", "mantel" or "krznowski" correlations}
+\item{ComparisonFunc}{comparison function}
 
 \item{sample.size}{Size of the random populations}
+
+\item{...}{Aditional arguments passed to CompareFunc}
 
 \item{iterations}{Number of random populations}
 
@@ -37,18 +38,19 @@ Since this function uses multivariate normal model to generate populations, only
 \examples{
 cov.matrix <- RandomMatrix(10, 1, 1, 10)
 
-MonteCarloRep(cov.matrix, "randomskewers", 30)
-MonteCarloRep(cov.matrix, "mantel", 30)
-MonteCarloRep(cov.matrix, "krz", 30)
-MonteCarloRep(cov.matrix, "krz", 30, TRUE)
+MonteCarloRep(cov.matrix, RandomSkewers, 30, iterations = 50)
+MonteCarloRep(cov.matrix, RandomSkewers, 30, num.vectors = 100, iterations = 50, correlation = TRUE)
+MonteCarloRep(cov.matrix, MantelCor, 30, permutations = 1, correlation = TRUE)
+MonteCarloRep(cov.matrix, KrzCor, 30)
+MonteCarloRep(cov.matrix, KrzCor, 30, correlation = TRUE)
 
 #Multiple threads can be used with doMC library
 library(doMC)
-MonteCarloRep(cov.matrix, "randomskewers", 30, num.cores = 2)
+MonteCarloRep(cov.matrix, RandomSkewers, 30, iterations = 100, num.cores = 2)
 
 #Creating repeatability vector for a list of matrices
 mat.list <- RandomMatrix(10, 3, 1, 10)
-unlist(lapply(mat.list, MonteCarloRep, "krz", 30, correlation = TRUE))
+laply(mat.list, MonteCarloRep, KrzCor, 30, correlation = TRUE)
 }
 \author{
 Diogo Melo Guilherme Garcia

@@ -4,8 +4,8 @@
 #'
 #'@param tree phylogenetic tree
 #'@param node.data list of node data
-#'@param CompareFunc comparison function
-#'@param ... Aditional arguments passed to CompareFunc
+#'@param ComparisonFunc comparison function, default is PCAsimilarity
+#'@param ... Aditional arguments passed to ComparisonFunc
 #'@return list with a data.frame of calculated comparisons for each node, using labels or numbers from tree; and a list of comparisons for plotting using phytools (see examples)
 #'@note Phylogeny must be fully resolved
 #'@export
@@ -25,7 +25,7 @@
 #'# plotting results on a phylogeny:
 #'library(phytools)
 #'plotBranchbyTrait(tree, phylo.comparisons[[2]])
-PhyloCompare <- function(tree, node.data, CompareFunc = RandomSkewers, ...){
+PhyloCompare <- function(tree, node.data, ComparisonFunc = PCAsimilarity, ...){
   if(is.null(tree$node.label)){
     node.names <- tree$tip.label
   } else{
@@ -39,7 +39,7 @@ PhyloCompare <- function(tree, node.data, CompareFunc = RandomSkewers, ...){
       node.names[node] <- as.character(node)
     }
     current.nodes <- tree$edge[which(tree$edge[,1]==node),2]
-    phylo.comparisons[[node.names[node]]] <- CompareFunc(node.data[[current.nodes[1]]], node.data[[current.nodes[2]]], ...)
+    phylo.comparisons[[node.names[node]]] <- ComparisonFunc(node.data[[current.nodes[1]]], node.data[[current.nodes[2]]], ...)
     tree.comparisons[[node.names[current.nodes[1]]]] <- phylo.comparisons[[node.names[node]]][1]
     tree.comparisons[[node.names[current.nodes[2]]]] <- phylo.comparisons[[node.names[node]]][1]
     names(tree.comparisons)[which(names(tree.comparisons) == node.names[current.nodes[1]])] <- paste(node, current.nodes[1], sep = ',')

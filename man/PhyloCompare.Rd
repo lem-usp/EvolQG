@@ -4,16 +4,16 @@
 \alias{PhyloCompare}
 \title{Compares sister groups}
 \usage{
-PhyloCompare(tree, node.data, CompareFunc = RandomSkewers, ...)
+PhyloCompare(tree, node.data, ComparisonFunc = PCAsimilarity, ...)
 }
 \arguments{
 \item{tree}{phylogenetic tree}
 
 \item{node.data}{list of node data}
 
-\item{CompareFunc}{comparison function}
+\item{ComparisonFunc}{comparison function, default is PCAsimilarity}
 
-\item{...}{Aditional arguments passed to CompareFunc}
+\item{...}{Aditional arguments passed to ComparisonFunc}
 }
 \value{
 list with a data.frame of calculated comparisons for each node, using labels or numbers from tree; and a list of comparisons for plotting using phytools (see examples)
