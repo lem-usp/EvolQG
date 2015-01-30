@@ -40,7 +40,7 @@ AVG+, AVG- and AVG Ratio based on binary hipotesis matrix.}
 }
 \value{
 If cor.x and cor.y are passed, returns matrix pearson
-correlation and significance via mantel permutations.
+correlation and significance via Mantel permutations.
 
 If cor.x is a list of matrices and cor.y is passed, same as above, but for all matrices in cor.x.
 

@@ -19,7 +19,7 @@
 #' @param num.cores If list is passed, number of threads to use in computation. The doMC library must be loaded.
 #' @param ... aditional arguments passed to other methods
 #' @return If cor.x and cor.y are passed, returns matrix pearson
-#' correlation and significance via mantel permutations.
+#' correlation and significance via Mantel permutations.
 #'
 #' If cor.x is a list of matrices and cor.y is passed, same as above, but for all matrices in cor.x.
 #'

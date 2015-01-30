@@ -12,7 +12,7 @@
 #' @param num.vectors Number of random vectors used in comparison.
 #' @param repeat.vector Vector of repeatabilities for correlation correction.
 #' @param num.cores If list is passed, number of threads to use in computation. The doMC library must be loaded.
-#' @param ... aditional arguments passed to other methods
+#' @param ... aditional arguments passed to other methods.
 #' @return
 #' If cov.x and cov.y are passed, returns average value
 #' of response vectors correlation ('correlation'), significance ('probability') and standard deviation

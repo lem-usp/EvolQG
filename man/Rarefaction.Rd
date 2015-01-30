@@ -50,7 +50,7 @@ Bootstraping may be misleading with very small sample sizes. Use with caution.
 ind.data <- matrix(rnorm(30*10), 30, 10)
 
 results.RS <- Rarefaction(ind.data, "randomskewers", num.reps = 5)
-results.Mantel <- Rarefaction(ind.data, "mante", num.reps = 5)
+results.Mantel <- Rarefaction(ind.data, "mantel", num.reps = 5)
 results.KrzCov <- Rarefaction(ind.data, "krz", num.reps = 5)
 results.KrzCor <- Rarefaction(ind.data, "krz", TRUE, num.reps = 5)
 

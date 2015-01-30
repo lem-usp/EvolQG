@@ -23,7 +23,7 @@ If cov.y is suplied, all matrices in list are compared to it.}
 \item{cov.y}{First argument is compared to cov.y.
 Optional if cov.x is a list.}
 
-\item{...}{aditional arguments passed to other methods}
+\item{...}{aditional arguments passed to other methods.}
 
 \item{num.vectors}{Number of random vectors used in comparison.}
 

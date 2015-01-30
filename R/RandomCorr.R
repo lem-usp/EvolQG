@@ -1,7 +1,7 @@
 #' Random correlation matrix
 #'
-#' Provides random correlation matrices for quick tests.
-#' Should not be used for statistics.
+#' Internal function for generating random correlation matrices.
+#' Use RandomMatrix() instead.
 #' @param num.traits Number of traits in random matrix
 #' @param ke Parameter for correlation matrix generation. Involves check for positive defitness
 #' @return Random Matrix

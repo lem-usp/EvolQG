@@ -19,3 +19,8 @@ test_that("MonteCarloRep returns sensible results",
             expect_that(MonteCarloRep(cov.matrix, "krz", 30, T) <= 1, is_true())
           }
 )
+test_that("MonteCarloStat throws error",
+{
+  expect_that(MonteCarloStat(array(1:100, c(10, 10)), 10, 10, RandomSkewers, cov), 
+              throws_error("covariance matrix must be symmetric."))
+})

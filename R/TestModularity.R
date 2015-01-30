@@ -11,6 +11,7 @@
 #' @seealso \code{\link{MantelCor}}
 #' @export
 #' @rdname TestModularity
+#' @references Porto, Arthur, Felipe B. Oliveira, Leila T. Shirai, Valderes Conto, and Gabriel Marroig. 2009. "The Evolution of Modularity in the Mammalian Skull I: Morphological Integration Patterns and Magnitudes." Evolutionary Biology 36 (1): 118-35. doi:10.1007/s11692-008-9038-3.
 #' @examples
 #' cor.matrix <- RandomMatrix(10)
 #' rand.hipots <- matrix(sample(c(1, 0), 30, replace=TRUE), 10, 3)
@@ -22,6 +23,7 @@ TestModularity <- function (cor.matrix, modularity.hipot, iterations = 100) {
   if(is.null(colnames(modularity.hipot))) colnames(modularity.hipot) <- 1:dim (modularity.hipot) [2]
   names(m.hip.list) <- c(colnames (modularity.hipot),"Full Integration")
   output <- MantelCor (m.hip.list, cor.matrix, iterations = iterations, mod = TRUE)
+  names(output)[1] <- 'hypothesis'
   return (output)
 }
 

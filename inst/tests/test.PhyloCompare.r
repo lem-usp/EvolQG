@@ -5,7 +5,8 @@ test_that("PhyloCompare gives correct results",
   iris.cov.list <- dlply(iris, "Species", function(x) cov(x[,1:4]))
   cov.matrices <- AncestralStates(tree.iris, iris.cov.list)
   RS.iris = PhyloCompare(tree.iris, cov.matrices)
-  mantel.iris = PhyloCompare(tree.iris, llply(cov.matrices, cov2cor), MantelCor)
+  mantel.iris = PhyloCompare(tree.iris, llply(cov.matrices, cov2cor), function(x, y) cor(x[lower.tri(x)],
+                                                                                         y[lower.tri(y)]))
   krz.iris = PhyloCompare(tree.iris, cov.matrices, KrzCor)
   dist.iris = PhyloCompare(tree.iris, cov.matrices, MatrixDistance, "Over")
   
