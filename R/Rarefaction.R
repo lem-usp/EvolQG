@@ -10,7 +10,8 @@
 #' A specialized ploting function displays the results in publication quality.
 #' @aliases  Rarefaction PlotRarefaction
 #' @param ind.data Matrix of residuals or indiviual measurments
-#' @param ComparisonFunc Comparison function for calculated statistic, either "randomskewers", "mantel" or "krzanowski" correlations
+#' @param ComparisonFunc comparison function
+#' @param ... Aditional arguments passed to ComparisonFunc
 #' @param num.reps number of populations sampled per sample size
 #' @param iterations Parameter for comparison function. Number of random skewers or number of permutations in mantel.
 #' @param num.cores Number of threads to use in computation. The doMC library must be loaded.
@@ -28,16 +29,16 @@
 #' @importFrom ggplot2 ggplot aes layer scale_x_continuous scale_y_continuous theme_bw
 #' @importFrom reshape2 melt
 #' @examples
-#' ind.data <- matrix(rnorm(30*10), 30, 10)
+#' ind.data <- iris[,1:4]
 #' 
-#' results.RS <- Rarefaction(ind.data, "randomskewers", num.reps = 5)
-#' results.Mantel <- Rarefaction(ind.data, "mantel", num.reps = 5)
-#' results.KrzCov <- Rarefaction(ind.data, "krz", num.reps = 5)
-#' results.KrzCor <- Rarefaction(ind.data, "krz", TRUE, num.reps = 5)
+#' results.RS <- Rarefaction(ind.data, PCAsimilarity, num.reps = 5)
+#' results.Mantel <- Rarefaction(ind.data, MatrixCor, correlation = TRUE, num.reps = 5)
+#' results.KrzCov <- Rarefaction(ind.data, KrzCor, num.reps = 5)
+#' results.KrzCor <- Rarefaction(ind.data, KrzCor, correlation = TRUE, num.reps = 5)
 #' 
 #' #Multiple threads can be used with doMC library
 #' library(doMC)
-#' results.KrzCov <- Rarefaction(ind.data, "krz", num.reps = 5, num.cores = 2)
+#' results.KrzCov <- Rarefaction(ind.data, KrzCor, num.reps = 5, num.cores = 2)
 #' 
 #' #Easy access
 #' library(reshape2)
@@ -62,18 +63,23 @@
 #' @keywords bootstap
 #' @keywords repeatability
 Rarefaction <- function(ind.data,
-                        ComparisonFunc = c("randomskewers", "mantel", "krzanowski"),
+                        ComparisonFunc,
+                        ...,
                         iterations = 1000, 
                         num.reps = 10,
-                        correlation = F, 
+                        correlation = FALSE, 
                         ret.dim = NULL,
                         num.cores = 1){
-    ComparisonFunc = match.arg(ComparisonFunc)
-    switch(ComparisonFunc,
-           randomskewers = RarefactionRandomSkewers(ind.data, iterations, num.reps, correlation, num.cores),
-           mantel = RarefactionMantelCor(ind.data, iterations, num.reps, num.cores),
-           krzanowski = RarefactionKrzCor(ind.data, ret.dim, num.reps, correlation, num.cores))
-  }
+  if(correlation)  {StatFunc <- cor; c2v <- cov2cor
+  } else {StatFunc <- cov; c2v <- function(x) x}
+  rarefaction.list <- Rarefaction_primitive(ind.data,
+                                            StatFunc = StatFunc,
+                                            ComparisonFunc = function(x, y) ComparisonFunc(c2v(x), 
+                                                                                           c2v(y), ...),
+                                            num.reps = num.reps,
+                                            num.cores = num.cores)
+  return(rarefaction.list)
+}
 
 Rarefaction_primitive <- function(ind.data,
                                   StatFunc,
@@ -103,7 +109,7 @@ Rarefaction_primitive <- function(ind.data,
   }
   sample.stats = alply(2:num.ind, 1, MapStatFunc, .parallel = parallel)
   MapComparisonFunc <- function(stat.list){
-    laply(stat.list, function(x) ComparisonFunc(x, observed.stat))
+    ldply(stat.list, function(x) ComparisonFunc(x, observed.stat))[,2]
   }
   comparison.list = llply(sample.stats, MapComparisonFunc, .parallel = parallel)
   return(comparison.list)
@@ -116,51 +122,8 @@ PlotRarefaction <- function(comparison.list, y.axis = "Statistic"){
   plot.df = as.data.frame(lapply(plot.df, as.numeric))
   rarefaction.plot = ggplot(plot.df, aes(L1, avg.corr, group = L1)) +
   layer(geom = "boxplot") +
-  scale_x_continuous("ReSample Size") +
+  scale_x_continuous("Resample Size") +
   scale_y_continuous(y.axis) +
   theme_bw()
   return(rarefaction.plot)
-}
-
-RarefactionRandomSkewers <- function(ind.data,
-                                     iterations = 1000,
-                                     num.reps = 10,
-                                     correlation,
-                                     num.cores = 1){
-  if(correlation)  StatFunc <- cor
-  else             StatFunc <- cov
-  comparison.list <- Rarefaction_primitive(ind.data,
-                                 StatFunc,
-                                 function(x, y) RandomSkewers(x, y, iterations)[1],
-                                 num.reps=num.reps,
-                                 num.cores = num.cores)
-  return(comparison.list)
-}
-
-RarefactionMantelCor <- function(ind.data,
-                                 iterations = 1,
-                                 num.reps = 10,
-                                 num.cores = 1){
-  comparison.list <- Rarefaction_primitive(ind.data,
-                                 cor,
-                                 function(x, y) cor(x[lower.tri(x)], 
-                                                    cov2cor(y)[lower.tri(y)]),
-                                 num.reps=num.reps,
-                                 num.cores = num.cores)
-  return(comparison.list)
-}
-
-RarefactionKrzCor <- function(ind.data,
-                              ret.dim = NULL,
-                              num.reps = 10,
-                              correlation = FALSE,
-                              num.cores = 1){
-  if(correlation) StatFunc <- cor
-  else StatFunc <- cov
-  comparison.list <- Rarefaction_primitive(ind.data,
-                                 StatFunc,
-                                 function(x, y) KrzCor(x, y, ret.dim),
-                                 num.reps=num.reps,
-                                 num.cores = num.cores)
-  return(comparison.list)
 }

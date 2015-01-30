@@ -5,16 +5,17 @@
 \alias{Rarefaction}
 \title{Rarefaction analysis via ressampling}
 \usage{
-Rarefaction(ind.data, ComparisonFunc = c("randomskewers", "mantel",
-  "krzanowski"), iterations = 1000, num.reps = 10, correlation = F,
-  ret.dim = NULL, num.cores = 1)
+Rarefaction(ind.data, ComparisonFunc, ..., iterations = 1000, num.reps = 10,
+  correlation = FALSE, ret.dim = NULL, num.cores = 1)
 
 PlotRarefaction(comparison.list, y.axis = "Statistic")
 }
 \arguments{
 \item{ind.data}{Matrix of residuals or indiviual measurments}
 
-\item{ComparisonFunc}{Comparison function for calculated statistic, either "randomskewers", "mantel" or "krzanowski" correlations}
+\item{ComparisonFunc}{comparison function}
+
+\item{...}{Aditional arguments passed to ComparisonFunc}
 
 \item{iterations}{Parameter for comparison function. Number of random skewers or number of permutations in mantel.}
 
@@ -47,16 +48,16 @@ A specialized ploting function displays the results in publication quality.
 Bootstraping may be misleading with very small sample sizes. Use with caution.
 }
 \examples{
-ind.data <- matrix(rnorm(30*10), 30, 10)
+ind.data <- iris[,1:4]
 
-results.RS <- Rarefaction(ind.data, "randomskewers", num.reps = 5)
-results.Mantel <- Rarefaction(ind.data, "mantel", num.reps = 5)
-results.KrzCov <- Rarefaction(ind.data, "krz", num.reps = 5)
-results.KrzCor <- Rarefaction(ind.data, "krz", TRUE, num.reps = 5)
+results.RS <- Rarefaction(ind.data, PCAsimilarity, num.reps = 5)
+results.Mantel <- Rarefaction(ind.data, MatrixCor, correlation = TRUE, num.reps = 5)
+results.KrzCov <- Rarefaction(ind.data, KrzCor, num.reps = 5)
+results.KrzCor <- Rarefaction(ind.data, KrzCor, correlation = TRUE, num.reps = 5)
 
 #Multiple threads can be used with doMC library
 library(doMC)
-results.KrzCov <- Rarefaction(ind.data, "krz", num.reps = 5, num.cores = 2)
+results.KrzCov <- Rarefaction(ind.data, KrzCor, num.reps = 5, num.cores = 2)
 
 #Easy access
 library(reshape2)

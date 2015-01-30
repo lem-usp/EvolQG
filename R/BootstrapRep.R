@@ -41,7 +41,7 @@ BootstrapRep <- function(ind.data,
                          iterations = 1000, 
                          correlation = FALSE, 
                          num.cores = 1){
-  if(correlation)  {StatFunc <- cov; c2v <- cov2cor
+  if(correlation)  {StatFunc <- cor; c2v <- cov2cor
   } else {StatFunc <- cov; c2v <- function(x) x}
   repeatability <- BootstrapRep_primitive(ind.data, iterations,
                                           ComparisonFunc = function(x, y) ComparisonFunc(c2v(x), 
