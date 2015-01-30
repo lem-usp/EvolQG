@@ -99,3 +99,12 @@ MantelCor.list <- function (cor.x, cor.y = NULL,
   }
   return(out)
 }
+
+#' @rdname MantelCor
+#' @export
+MatrixCor <- function (cor.x, cor.y)                           
+{
+ if(sum(diag(cor.x)) != dim(cor.x)[1] | sum(diag(cor.y))!= dim(cor.y)[1])
+    warning("Matrices do not appear to be correlation matrices. Use with caution.")
+ cor(cor.x[lower.tri(cor.x)], cor.y[lower.tri(cor.y)])
+}

@@ -4,6 +4,7 @@
 \alias{MantelCor}
 \alias{MantelCor.default}
 \alias{MantelCor.list}
+\alias{MatrixCor}
 \title{Compare matrices via Mantel Correlation}
 \usage{
 MantelCor(cor.x, cor.y, ...)
@@ -13,6 +14,8 @@ MantelCor(cor.x, cor.y, ...)
 
 \method{MantelCor}{list}(cor.x, cor.y = NULL, permutations = 1000,
   repeat.vector = NULL, mod = FALSE, num.cores = 1, ...)
+
+MatrixCor(cor.x, cor.y)
 }
 \arguments{
 \item{cor.x}{Single correlation matrix or list of correlation matrices.

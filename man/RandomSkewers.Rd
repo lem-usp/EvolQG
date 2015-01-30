@@ -54,7 +54,9 @@ RandomSkewers(c1, c2)
 
 RandomSkewers(list(c1, c2, c3))
 
-reps <- unlist(lapply(list(c1, c2, c3), MonteCarloRep, RandomSkewers, 10, num.vectors = 100, iterations = 10))
+reps <- unlist(lapply(list(c1, c2, c3), MonteCarloRep,
+                                        RandomSkewers, 10, num.vectors = 100,
+                                        iterations = 10))
 RandomSkewers(list(c1, c2, c3), repeat.vector = reps)
 
 c4 <- RandomMatrix(10)

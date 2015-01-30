@@ -5,7 +5,7 @@ test_that("CalcR2CvCorrected returns sensible results on residuals",
               expect_that(results, is_a('list'))
               expect_that(results[[1]], is_a('numeric'))
               expect_that(results[[2]], is_a('list'))
-              expect_that(results[[3]], is_a('matrix'))
+              expect_that(results[[3]], is_a('data.frame'))
               expect_that(names(results), equals(c("adjusted.integration.index",
                                                       "models", "dist")))
               expect_that(colnames(results[[3]]), equals(c("r2", "eVals_cv", "mean_cv")))

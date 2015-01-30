@@ -69,7 +69,7 @@ MonteCarloStat <- function (cov.matrix, sample.size, iterations,
 #' @param cov.matrix Covariance matrix.
 #' @param ComparisonFunc comparison function
 #' @param sample.size Size of the random populations
-#' @param ... Aditional arguments passed to CompareFunc
+#' @param ... Aditional arguments passed to ComparisonFunc
 #' @param iterations Number of random populations
 #' @param correlation If TRUE, correlation matrix is used, else covariance matrix. MantelCor always uses correlation matrix.
 #' @param num.cores If list is passed, number of threads to use in computation.

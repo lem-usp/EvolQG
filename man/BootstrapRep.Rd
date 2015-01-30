@@ -4,18 +4,19 @@
 \alias{BootstrapRep}
 \title{Bootstrap analysis via resampling}
 \usage{
-BootstrapRep(ind.data, ComparisonFunc = c("randomskewers", "mantel",
-  "krzanowski", "pcasimilarity"), iterations = 1000, correlation = FALSE,
-  num.cores = 1)
+BootstrapRep(ind.data, ComparisonFunc, ..., iterations = 1000,
+  correlation = FALSE, num.cores = 1)
 }
 \arguments{
 \item{ind.data}{Matrix of residuals or indiviual measurments}
 
-\item{ComparisonFunc}{Comparison function for calculated statistic, either "randomskewers", "mantel" , "krzanowski" or "pcasimilarity" correlations}
+\item{ComparisonFunc}{comparison function}
+
+\item{...}{Aditional arguments passed to ComparisonFunc}
 
 \item{iterations}{Number of resamples to take}
 
-\item{correlation}{If TRUE, correlation matrix is used, else covariance matrix. Mantel always uses correlation matrix.}
+\item{correlation}{If TRUE, correlation matrix is used, else covariance matrix.}
 
 \item{num.cores}{Number of threads to use in computation.
 The doMC library must be loaded.}
@@ -32,17 +33,17 @@ Samples with replacement are taken from the full population, a statistic calcula
   and compared to the full population statistic.
 }
 \examples{
-BootstrapRep(iris[,1:4], "mantel",
-             iterations = 5)
+BootstrapRep(iris[,1:4], MantelCor, iterations = 5, correlation = TRUE)
 
-BootstrapRep(iris[,1:4], "randomskewers", 50)
+BootstrapRep(iris[,1:4], RandomSkewers, iterations = 50)
 
-# Partial matching for comparison function also works.
-BootstrapRep(iris[,1:4], "krz", 50, TRUE)
+BootstrapRep(iris[,1:4], KrzCor, iterations = 50, correlation = TRUE)
+
+BootstrapRep(iris[,1:4], PCAsimilarity, iterations = 50)
 
 #Multiple threads can be used with doMC library
 library(doMC)
-BootstrapRep(iris[,1:4], "mantel",
+BootstrapRep(iris[,1:4], PCAsimilarity,
              iterations = 5,
              num.cores = 2)
 }

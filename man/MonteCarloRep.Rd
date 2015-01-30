@@ -14,7 +14,7 @@ MonteCarloRep(cov.matrix, ComparisonFunc, sample.size, ..., iterations = 1000,
 
 \item{sample.size}{Size of the random populations}
 
-\item{...}{Aditional arguments passed to CompareFunc}
+\item{...}{Aditional arguments passed to ComparisonFunc}
 
 \item{iterations}{Number of random populations}
 
