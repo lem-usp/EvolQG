@@ -38,11 +38,12 @@ integration.dist = CalcR2CvCorrected(iris[,1:4])
 integration.dist[[1]]
 
 #ploting models
-plot(integration.dist$dist[,1], integration.dist$dist[,3])
-abline(integration.dist$models$r2)
+library(ggplot2)
+ggplot(integration.dist$dist, aes(r2, mean_cv)) + geom_point() +
+       geom_smooth(method = 'lm', color= 'black') + theme_bw()
 
-plot(integration.dist[[3]][,2], integration.dist[[3]][,3])
-abline(integration.dist[[2]]$eVals_cv)
+ggplot(integration.dist$dist, aes(eVals_cv, mean_cv)) + geom_point() +
+       geom_smooth(method = 'lm', color= 'black') + theme_bw()
 }
 \author{
 Diogo Melo, Guilherme Garcia
