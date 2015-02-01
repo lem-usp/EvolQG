@@ -27,6 +27,8 @@
 #' values and probabilities of all comparisons.
 #' If repeat.vector is passed, comparison matrix is corrected above
 #' diagonal and repeatabilities returned in diagonal.
+#' @note If the significance is not needed, MatrixCor provides the 
+#' correlation and skips the permutations, so it is much faster.
 #' @export
 #' @importFrom vegan mantel
 #' @rdname MantelCor
@@ -34,22 +36,26 @@
 #' @author Diogo Melo, Guilherme Garcia
 #' @seealso \code{\link{KrzCor}},\code{\link{RandomSkewers}},\code{\link{mantel}},\code{\link{RandomSkewers}},\code{\link{TestModularity}}
 #' @examples
-#' c1 <- RandomMatrix(10)
-#' c2 <- RandomMatrix(10)
-#' c3 <- RandomMatrix(10)
-#' MantelCor(c1, c2)
+#' c1 <- RandomMatrix(10, 1, 1, 10)
+#' c2 <- RandomMatrix(10, 1, 1, 10)
+#' c3 <- RandomMatrix(10, 1, 1, 10)
+#' MantelCor(cov2cor(c1), cov2cor(c2))
+#' 
+#' cov.list <- list(c1, c2, c3)
+#' cor.list <- llply(list(c1, c2, c3), cov2cor)
 #'
-#' MantelCor(list(c1, c2, c3))
+#' MantelCor(cor.list)
 #'
-#' reps <- unlist(lapply(list(c1, c2, c3), MonteCarloRep, MantelCor, 10, permutations = 1))
-#' MantelCor(list(c1, c2, c3), repeat.vector = reps)
+#'# For repeatabilities we can use MatrixCor, which skips the significance calculation
+#' reps <- unlist(lapply(cov.list, MonteCarloRep, MatrixCor, 10, correlation = TRUE))
+#' MantelCor(llply(cor.list, repeat.vector = reps))
 #'
 #' c4 <- RandomMatrix(10)
-#' MantelCor(list(c1, c2, c3), c4)
+#' MantelCor(cor.list, c4)
 #' 
 #' #Multiple threads can be used with the doMC library
 #' library(doMC)
-#' MantelCor(list(c1, c2, c3), num.cores = 2) 
+#' MantelCor(cor.list, num.cores = 2) 
 #' @keywords matrixcomparison
 #' @keywords matrixcorrelation
 #' @keywords randomskewers
