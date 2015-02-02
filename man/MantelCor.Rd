@@ -71,7 +71,7 @@ cor.list <- llply(list(c1, c2, c3), cov2cor)
 MantelCor(cor.list)
 
 # For repeatabilities we can use MatrixCor, which skips the significance calculation
-reps <- unlist(lapply(cov.list, MonteCarloRep, MatrixCor, 10, correlation = TRUE))
+reps <- unlist(lapply(cov.list, MonteCarloRep, 10, MatrixCor, correlation = TRUE))
 MantelCor(llply(cor.list, repeat.vector = reps))
 
 c4 <- RandomMatrix(10)

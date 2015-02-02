@@ -67,14 +67,14 @@ MonteCarloStat <- function (cov.matrix, sample.size, iterations,
 #' original matrix. 
 #'
 #' @param cov.matrix Covariance matrix.
-#' @param ComparisonFunc comparison function
-#' @param sample.size Size of the random populations
-#' @param ... Aditional arguments passed to ComparisonFunc
-#' @param iterations Number of random populations
-#' @param correlation If TRUE, correlation matrix is used, else covariance matrix. MantelCor always uses correlation matrix.
+#' @param sample.size Size of the random populations.
+#' @param ComparisonFunc comparison function.
+#' @param ... Aditional arguments passed to ComparisonFunc.
+#' @param iterations Number of random populations.
+#' @param correlation If TRUE, correlation matrix is used, else covariance matrix. MantelCor and MatrixCor should always uses correlation matrix.
 #' @param num.cores If list is passed, number of threads to use in computation.
 #' The doMC library must be loaded.
-#' @details Since this function uses multivariate normal model to generate populations, only covariance matrices should be used.
+#' @details Since this function uses multivariate normal model to generate populations, only covariance matrices should be used, even when computing repeatabilities for covariances matrices.
 #' @return returns the mean repeatability, or mean value of comparisons from samples to original statistic.
 #' @author Diogo Melo Guilherme Garcia
 #' @seealso \code{\link{BootstrapRep}}, \code{\link{AlphaRep}}
@@ -85,26 +85,27 @@ MonteCarloStat <- function (cov.matrix, sample.size, iterations,
 #' @examples
 #' cov.matrix <- RandomMatrix(10, 1, 1, 10)
 #'
-#' MonteCarloRep(cov.matrix, RandomSkewers, 30, iterations = 50)
-#' MonteCarloRep(cov.matrix, RandomSkewers, 30, num.vectors = 100, iterations = 50, correlation = TRUE)
-#' MonteCarloRep(cov.matrix, MantelCor, 30, permutations = 1, correlation = TRUE)
-#' MonteCarloRep(cov.matrix, KrzCor, 30)
-#' MonteCarloRep(cov.matrix, KrzCor, 30, correlation = TRUE)
+#' MonteCarloRep(cov.matrix, sample.size = 30, RandomSkewers, iterations = 50)
+#' MonteCarloRep(cov.matrix, sample.size = 30, RandomSkewers, num.vectors = 100, 
+#'               iterations = 50, correlation = TRUE)
+#' MonteCarloRep(cov.matrix, sample.size = 30, MantelCor, permutations = 1, correlation = TRUE)
+#' MonteCarloRep(cov.matrix, sample.size = 30, KrzCor)
+#' MonteCarloRep(cov.matrix, sample.size = 30, KrzCor, correlation = TRUE)
 #'
 #' #Multiple threads can be used with doMC library
 #' library(doMC)
-#' MonteCarloRep(cov.matrix, RandomSkewers, 30, iterations = 100, num.cores = 2)
+#' MonteCarloRep(cov.matrix, 30, RandomSkewers, iterations = 100, num.cores = 2)
 #'
 #' #Creating repeatability vector for a list of matrices
 #' mat.list <- RandomMatrix(10, 3, 1, 10)
-#' laply(mat.list, MonteCarloRep, KrzCor, 30, correlation = TRUE)
+#' laply(mat.list, MonteCarloRep, 30, KrzCor, correlation = TRUE)
 #'
 #' @keywords parametricsampling
 #' @keywords montecarlo
 #' @keywords repeatability
 MonteCarloRep <- function(cov.matrix,
-                          ComparisonFunc,
                           sample.size,
+                          ComparisonFunc,
                           ...,
                           iterations = 1000, 
                           correlation = FALSE, 
