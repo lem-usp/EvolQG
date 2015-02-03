@@ -4,18 +4,26 @@
 \alias{DriftTest}
 \title{Test drift hypothesis}
 \usage{
-DriftTest(means, cov.matrix, verbose = TRUE)
+DriftTest(means, cov.matrix, show.plot = TRUE)
 }
 \arguments{
 \item{means}{list or array of species means being compared. array must have means in the rows.}
 
 \item{cov.matrix}{ancestral covariance matrix for all populations}
 
-\item{verbose}{If TRUE all results are returned, is FALSE only regression coeficient}
+\item{show.plot}{boolean. If TRUE, plot of eigenvalues of ancetral matrix by between group variance is showed.}
+}
+\value{
+list os results
 }
 \description{
 Given a set of covariance matrices and means for terminals, test the hypothesis
 that obseved divergency is larger/smaller than expected by drift alone.
+}
+\examples{
+means = array(rnorm(40*10), c(10, 40))
+cov.matrix = RandomMatrix(40, 1, 1, 10)
+DriftTest(means, cov.matrix)
 }
 \author{
 Ana Paula Assis, Diogo Melo
