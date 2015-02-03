@@ -67,7 +67,7 @@ DriftTest <- function(means, cov.matrix, show.plot=TRUE)
 #'@param sample.sizes vector of tip nodes sample sizes
 #'@return A list of regression drift tests performed in nodes with over 4 descendant tips.
 #'@export
-#'@seealso DriftTest
+#'@seealso DriftTest PlotTreeDriftTest
 #'@examples
 #'library(ape)
 #'data(bird.orders)
@@ -88,12 +88,42 @@ TreeDriftTest <- function(tree, mean.list, cov.matrix.list, sample.sizes = NULL)
   if(!all(tree$tip.label %in% names(cov.matrix.list))) stop("All tip labels must be in names(cov.matrix.list).")
   cov.matrices <- AncestralStates(tree, cov.matrix.list, sample.sizes)
   nodes <- names(cov.matrices)
-  node.mask <- laply(nodes, function(x) length(getMeans(mean.list, tree, x))) > 4
+  node.mask <- laply(nodes, function(x) length(getMeans(mean.list, tree, x))) > 3
   if(!any(node.mask)) stop("At least one node must have more than 4 descendents in mean.list")
   test.list <- llply(nodes[node.mask], function(node) DriftTest(getMeans(mean.list, tree, node), 
                                                                 cov.matrices[[node]], FALSE))
   names(test.list) <- nodes[node.mask]
   return(test.list)
+}
+
+#'Plot results from TreeDriftTest
+#'
+#'Plot which labels reject drift hypothesis.
+#'
+#'@param test.list Output from TreeDriftTest
+#'@param tree phylogenetic tree
+#'@seealso DriftTest TreeDriftTest
+#'@importFrom ape nodelabels
+#'@export
+#'@examples
+#'library(ape)
+#'data(bird.orders)
+#'
+#'tree <- bird.orders
+#'mean.list <- llply(tree$tip.label, function(x) rnorm(5))
+#'names(mean.list) <- tree$tip.label
+#'cov.matrix.list <- RandomMatrix(5, length(tree$tip.label))
+#'names(cov.matrix.list) <- tree$tip.label
+#'sample.sizes <- runif(length(tree$tip.label), 15, 20)
+#'
+#'test.list <- TreeDriftTest(tree, mean.list, cov.matrix.list, sample.sizes)
+#'PlotTreeDriftTest(test.list, tree)
+PlotTreeDriftTest <- function(test.list, tree){
+  containsOne <- function(x) ifelse( x[1] < 1 & x[2] > 1, TRUE, FALSE)
+  tested.nodes <- as.numeric(names(test.list))
+  drift.nodes <- laply(test.list, function(x) containsOne(x$coefficient_CI_95[2,]))
+  plot(tree)
+  nodelabels(node = tested.nodes, thermo = as.numeric(!drift.nodes))  
 }
 
 #'@importFrom phytools getDescendants

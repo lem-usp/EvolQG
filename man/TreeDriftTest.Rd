@@ -38,6 +38,6 @@ test.list <- TreeDriftTest(tree, mean.list, cov.matrix.list, sample.sizes)
 test.list[[length(test.list)]]$plot
 }
 \seealso{
-DriftTest
+DriftTest PlotTreeDriftTest
 }
 
