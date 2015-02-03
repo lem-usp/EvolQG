@@ -14,11 +14,24 @@ DriftTest(means, cov.matrix, show.plot = TRUE)
 \item{show.plot}{boolean. If TRUE, plot of eigenvalues of ancetral matrix by between group variance is showed.}
 }
 \value{
-list os results
+list of results containing:
+
+regresion: the linear regression between the log of the eigenvalues of the ancestral matrix and the log of the between group variance (projected on the eigenvectors of the ancenstral matrix)
+
+coefficient_CI_95: confidence intervals for the regression coefficients
+
+log.between_group_variance: log of the between group variance (projected on the ancestral matrix eigenvectors)
+
+log.W_eVals: log of the ancestral matrix eigenvalues
+
+plot: plot of the regression using ggplot2
 }
 \description{
 Given a set of covariance matrices and means for terminals, test the hypothesis
 that obseved divergency is larger/smaller than expected by drift alone.
+}
+\note{
+If the regression coefficient is significantly different to one, the null hypothesis of drift is rejected.
 }
 \examples{
 means = array(rnorm(40*10), c(10, 40))
@@ -29,7 +42,9 @@ DriftTest(means, cov.matrix)
 Ana Paula Assis, Diogo Melo
 }
 \references{
-Marroig, G., & Cheverud, J. M. (2004). Did natural selection or genetic drift
+Marroig, G., and Cheverud, J. M. (2004). Did natural selection or genetic drift
 produce the cranial diversification of neotropical monkeys? The American Naturalist, 163(3), 417-428. doi:10.1086/381693
+
+Prôa, M., O'Higgins, P. and Monteiro, L. R. (2013), Type I error rates for testing genetic drift with phenotypic covariance matrices: A simulation study. Evolution, 67: 185-195. doi: 10.1111/j.1558-5646.2012.01746.x
 }
 

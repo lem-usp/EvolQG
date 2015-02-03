@@ -6,10 +6,16 @@
 #'@param means list or array of species means being compared. array must have means in the rows.
 #'@param cov.matrix ancestral covariance matrix for all populations
 #'@param show.plot boolean. If TRUE, plot of eigenvalues of ancetral matrix by between group variance is showed.
-#'@return list os results
-#'
-#'@references Marroig, G., & Cheverud, J. M. (2004). Did natural selection or genetic drift 
+#'@return list of results containing:
+#'@return regresion: the linear regression between the log of the eigenvalues of the ancestral matrix and the log of the between group variance (projected on the eigenvectors of the ancenstral matrix)
+#'@return coefficient_CI_95: confidence intervals for the regression coefficients
+#'@return log.between_group_variance: log of the between group variance (projected on the ancestral matrix eigenvectors)
+#'@return log.W_eVals: log of the ancestral matrix eigenvalues
+#'@return plot: plot of the regression using ggplot2
+#'@note If the regression coefficient is significantly different to one, the null hypothesis of drift is rejected.
+#'@references Marroig, G., and Cheverud, J. M. (2004). Did natural selection or genetic drift 
 #'produce the cranial diversification of neotropical monkeys? The American Naturalist, 163(3), 417-428. doi:10.1086/381693
+#'@references Prôa, M., O'Higgins, P. and Monteiro, L. R. (2013), Type I error rates for testing genetic drift with phenotypic covariance matrices: A simulation study. Evolution, 67: 185-195. doi: 10.1111/j.1558-5646.2012.01746.x
 #'@author Ana Paula Assis, Diogo Melo
 #'@export
 #'@import plyr
@@ -25,7 +31,7 @@ DriftTest <- function(means, cov.matrix, show.plot=TRUE)
     stop("means must be in a list or an array.")
   if(!isSymmetric(cov.matrix)) stop("covariance matrix must be symmetric.")
   if(is.list(means)){
-    mean.array = laply(means, identity)
+    mean.array <- laply(means, identity)
   }  else{ 
     mean.array <- means
   }
