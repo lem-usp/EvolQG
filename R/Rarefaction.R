@@ -34,7 +34,7 @@
 #' results.RS <- Rarefaction(ind.data, PCAsimilarity, num.reps = 5)
 #' results.Mantel <- Rarefaction(ind.data, MatrixCor, correlation = TRUE, num.reps = 5)
 #' results.KrzCov <- Rarefaction(ind.data, KrzCor, num.reps = 5)
-#' results.KrzCor <- Rarefaction(ind.data, KrzCor, correlation = TRUE, num.reps = 5)
+#' results.PCA <- Rarefaction(ind.data, PCAsimilarity, num.reps = 5)
 #' 
 #' #Multiple threads can be used with doMC library
 #' library(doMC)
@@ -47,8 +47,8 @@
 #' #Plotting using ggplot2
 #' a <- PlotRarefaction(results.RS, "Random Skewers")
 #' b <- PlotRarefaction(results.Mantel, "Mantel")
-#' c <- PlotRarefaction(results.KrzCov, "Krz - Covariance")
-#' d <- PlotRarefaction(results.KrzCor, "Krz - Correlation")
+#' c <- PlotRarefaction(results.KrzCov, "KrzCor")
+#' d <- PlotRarefaction(results.PCA, "PCAsimilarity")
 #'
 #' library(grid)
 #' grid.newpage()
