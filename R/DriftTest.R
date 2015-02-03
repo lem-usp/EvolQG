@@ -7,7 +7,12 @@
 #'@param cov.matrix ancestral covariance matrix for all populations
 #'@param verbose If TRUE all results are returned, is FALSE only regression coeficient
 #'
-drift <- function(means, cov.matrix, verbose=TRUE)
+#'@references Marroig, G., & Cheverud, J. M. (2004). Did natural selection or genetic drift 
+#'produce the cranial diversification of neotropical monkeys? The American Naturalist, 163(3), 417-428. doi:10.1086/381693
+#'@author Ana Paula Assis, Diogo Melo
+#'@export
+#'@import plyr
+DriftTest <- function(means, cov.matrix, verbose=TRUE)
 {
   if(is.data.frame(means) | (!is.array(means) & !is.list(means)))
     stop("means must be in a list or an array.")
@@ -33,7 +38,6 @@ drift <- function(means, cov.matrix, verbose=TRUE)
   else{
     objeto <- list("Coeficiente"=regression.coef,"Confidence interval 95%"=CI.95)
   }
-  quartz()
   plot(log.B~ log.W.pc, xlab="log(W Eigenvalues)", ylab= "log(B variances)", las=1,
        type= "n")
   text(log.W.pc, log.B,  labels=as.character(1:ncol(cov.matrix)), cex=0.8)  
@@ -43,6 +47,6 @@ drift <- function(means, cov.matrix, verbose=TRUE)
 return(objeto)
 }
 
-drift(medias.morfologia.reid, cov.matrix= w.morfologia, verbose= FALSE)
-drift(medias.morfologia.reid, cov.matrix= w.morfologia, verbose= TRUE)
-########################################################
+# drift(medias.morfologia.reid, cov.matrix= w.morfologia, verbose= FALSE)
+# drift(medias.morfologia.reid, cov.matrix= w.morfologia, verbose= TRUE)
+# ########################################################
