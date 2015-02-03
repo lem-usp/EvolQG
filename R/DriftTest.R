@@ -15,7 +15,7 @@
 #'@note If the regression coefficient is significantly different to one, the null hypothesis of drift is rejected.
 #'@references Marroig, G., and Cheverud, J. M. (2004). Did natural selection or genetic drift 
 #'produce the cranial diversification of neotropical monkeys? The American Naturalist, 163(3), 417-428. doi:10.1086/381693
-#'@references Prôa, M., O'Higgins, P. and Monteiro, L. R. (2013), Type I error rates for testing genetic drift with phenotypic covariance matrices: A simulation study. Evolution, 67: 185-195. doi: 10.1111/j.1558-5646.2012.01746.x
+#'@references Proa, M., O'Higgins, P. and Monteiro, L. R. (2013), Type I error rates for testing genetic drift with phenotypic covariance matrices: A simulation study. Evolution, 67: 185-195. doi: 10.1111/j.1558-5646.2012.01746.x
 #'@author Ana Paula Assis, Diogo Melo
 #'@export
 #'@import plyr
@@ -55,4 +55,49 @@ DriftTest <- function(means, cov.matrix, show.plot=TRUE)
                  "log.W_eVals" = log.W_eVals,
                  "plot" = reg.plot)
   return(objeto)
+}
+
+#'Drift test along phylogeny
+#'
+#'Performs a regression drift test along a phylogeny using DriftTest function.
+#'
+#'@param tree phylogenetic tree
+#'@param mean.list list of tip node means. Names must match tip node labels.
+#'@param cov.matrix.list list of tip node covariance matrices. Names must match tip node labels.
+#'@param sample.sizes vector of tip nodes sample sizes
+#'@return A list of regression drift tests performed in nodes with over 4 descendant tips.
+#'@export
+#'@seealso DriftTest
+#'@examples
+#'library(ape)
+#'data(bird.orders)
+#'
+#'tree <- bird.orders
+#'mean.list <- llply(tree$tip.label, function(x) rnorm(5))
+#'names(mean.list) <- tree$tip.label
+#'cov.matrix.list <- RandomMatrix(5, length(tree$tip.label))
+#'names(cov.matrix.list) <- tree$tip.label
+#'sample.sizes <- runif(length(tree$tip.label), 15, 20)
+#'
+#'test.list <- TreeDriftTest(tree, mean.list, cov.matrix.list, sample.sizes)
+#'
+#'#Ancestral node plot:
+#'test.list[[length(test.list)]]$plot
+TreeDriftTest <- function(tree, mean.list, cov.matrix.list, sample.sizes = NULL){
+  if(!all(tree$tip.label %in% names(mean.list))) stop("All tip labels must be in names(mean.list).")
+  if(!all(tree$tip.label %in% names(cov.matrix.list))) stop("All tip labels must be in names(cov.matrix.list).")
+  cov.matrices <- AncestralStates(tree, cov.matrix.list, sample.sizes)
+  nodes <- names(cov.matrices)
+  node.mask <- laply(nodes, function(x) length(getMeans(mean.list, tree, x))) > 4
+  if(!any(node.mask)) stop("At least one node must have more than 4 descendents in mean.list")
+  test.list <- llply(nodes[node.mask], function(node) DriftTest(getMeans(mean.list, tree, node), 
+                                                                cov.matrices[[node]], FALSE))
+  names(test.list) <- nodes[node.mask]
+  return(test.list)
+}
+
+#'@importFrom phytools getDescendants
+getMeans <- function(mean.list, tree, node){
+  means <- mean.list[getDescendants(tree, node)]
+  means[!laply(means, is.null)]
 }

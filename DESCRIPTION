@@ -16,10 +16,10 @@ Imports:
     ggplot2,
     vegan,
     ape,
+    phytools,
     mvtnorm
 Suggests:
     testthat (>= 0.2),
-    phytools,
     foreach,
     doMC
 LinkinTo: Rcpp
