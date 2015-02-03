@@ -50,7 +50,7 @@ PCAsimilarity.default <- function(cov.x, cov.y, ret.dim = NULL, ...) {
 
   total_var <- sum(eg.x.values %*% eg.y.values)
 
-  return (sum((eg.x.values %o% eg.y.values) * ((t(eg.x.vectors) %*% (eg.y.vectors))**2))/total_var)
+  return (c(PCAsimilarity = sum((eg.x.values %o% eg.y.values) * ((t(eg.x.vectors) %*% (eg.y.vectors))**2))/total_var))
 }
 
 #' @rdname PCAsimilarity

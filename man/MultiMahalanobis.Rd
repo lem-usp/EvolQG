@@ -4,12 +4,12 @@
 \alias{MultiMahalanobis}
 \title{Calculate Mahalonabis distance for many vectors}
 \usage{
-MultiMahalanobis(mean.list, cov.matrix, num.cores = 1)
+MultiMahalanobis(means, cov.matrix, num.cores = 1)
 }
 \arguments{
-\item{mean.list}{list of species means being compared}
+\item{means}{list or array of species means being compared. array must have means in the rows.}
 
-\item{cov.matrix}{covariance matrix defining the metric tensor to be used}
+\item{cov.matrix}{covariance matrix defining the scale (or metric tensor) to be used in the distance calculation.}
 
 \item{num.cores}{Number of threads to use in computation. The doMC library must be loaded.}
 }
@@ -25,10 +25,15 @@ mean.2 <- colMeans(matrix(rnorm(30*10), 30, 10))
 mean.3 <- colMeans(matrix(rnorm(30*10), 30, 10))
 mean.list <- list(mean.1, mean.2, mean.3)
 
-# If cov.matrix is identity, calculated distance is euclidian
-euclidian <- MultiMahalanobis(mean.list, diag(rep(1, 10)))
-# else, it is not
-half.euclidian <- MultiMahalanobis(mean.list, diag(rep(0.5, 10)))
+# If cov.matrix is the identity, calculated distance is euclidian
+euclidian <- MultiMahalanobis(mean.list, diag(10))
+# Other covariance matrices will give different distances, measured in the scale of the matrix
+half.euclidian <- MultiMahalanobis(mean.list, RandomMatrix(10))
+
+#Input can be an array with means in each row
+mean.array = array(1:36, c(9, 4))
+mat = RandomMatrix(4)
+MultiMahalanobis(mean.array, mat)
 
 #Multiple threads can be used with doMC library
 library(doMC)
@@ -36,6 +41,9 @@ MultiMahalanobis(mean.list, RandomMatrix(10), num.cores = 2)
 }
 \author{
 Diogo Melo
+}
+\references{
+http://en.wikipedia.org/wiki/Mahalanobis_distance
 }
 \seealso{
 \code{\link{mahalanobis}}

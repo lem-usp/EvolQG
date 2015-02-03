@@ -3,7 +3,7 @@
 #' Provides random covariance/correlation matrices for quick tests.
 #' Should not be used for statistics or hypothesis testing.
 #' @param num.traits Number of traits in random matrix
-#' @param num.matrices Number of generated matrix. If greater than 1, a list is returned.
+#' @param num.matrices Number of matrices to be generated. If greater than 1, a list is returned.
 #' @param min.var Lower value for random variance in covariance matrices
 #' @param max.var Upper value for random variance in covariance matrices
 #' @param variance Variance vector. If present will be used in all matrices

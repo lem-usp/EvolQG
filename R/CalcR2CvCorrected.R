@@ -23,11 +23,12 @@
 #' integration.dist[[1]]
 #'
 #' #ploting models
-#' plot(integration.dist$dist[,1], integration.dist$dist[,3])
-#' abline(integration.dist$models$r2)
-#'
-#' plot(integration.dist[[3]][,2], integration.dist[[3]][,3])
-#' abline(integration.dist[[2]]$eVals_cv)
+#' library(ggplot2)
+#' ggplot(integration.dist$dist, aes(r2, mean_cv)) + geom_point() + 
+#'        geom_smooth(method = 'lm', color= 'black') + theme_bw()
+#'        
+#' ggplot(integration.dist$dist, aes(eVals_cv, mean_cv)) + geom_point() + 
+#'        geom_smooth(method = 'lm', color= 'black') + theme_bw()
 #' @keywords correlation
 #' @keywords integration
 
@@ -46,7 +47,7 @@ CalcR2CvCorrected.default <- function (ind.data, cv.level = 0.06, iterations = 1
   it.stats <- BootstrapRep_primitive(ind.data, iterations,
                            ComparisonFunc = function(x, y) y,
                            StatFunc = Stats,
-                           num.cores = num.cores)
+                           num.cores = num.cores)[,-1]
   colnames(it.stats) <- c("r2", "eVals_cv", "mean_cv")
   lm.r2 <- lm(it.stats[,1]~it.stats[,3])
   lm.eVals.cv <- lm(it.stats[,2]~it.stats[,3])

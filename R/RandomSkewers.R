@@ -12,7 +12,7 @@
 #' @param num.vectors Number of random vectors used in comparison.
 #' @param repeat.vector Vector of repeatabilities for correlation correction.
 #' @param num.cores If list is passed, number of threads to use in computation. The doMC library must be loaded.
-#' @param ... aditional arguments passed to other methods
+#' @param ... aditional arguments passed to other methods.
 #' @return
 #' If cov.x and cov.y are passed, returns average value
 #' of response vectors correlation ('correlation'), significance ('probability') and standard deviation
@@ -39,7 +39,9 @@
 #'
 #' RandomSkewers(list(c1, c2, c3))
 #'
-#' reps <- unlist(lapply(list(c1, c2, c3), MonteCarloRep, "randomskewers", 10, 10))
+#' reps <- unlist(lapply(list(c1, c2, c3), MonteCarloRep, sample.size = 10,
+#'                                         RandomSkewers, num.vectors = 100, 
+#'                                         iterations = 10))
 #' RandomSkewers(list(c1, c2, c3), repeat.vector = reps)
 #'
 #' c4 <- RandomMatrix(10)

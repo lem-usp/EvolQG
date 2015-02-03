@@ -19,7 +19,7 @@
 #' @param num.cores If list is passed, number of threads to use in computation. The doMC library must be loaded.
 #' @param ... aditional arguments passed to other methods
 #' @return If cor.x and cor.y are passed, returns matrix pearson
-#' correlation and significance via mantel permutations.
+#' correlation and significance via Mantel permutations.
 #'
 #' If cor.x is a list of matrices and cor.y is passed, same as above, but for all matrices in cor.x.
 #'
@@ -27,6 +27,8 @@
 #' values and probabilities of all comparisons.
 #' If repeat.vector is passed, comparison matrix is corrected above
 #' diagonal and repeatabilities returned in diagonal.
+#' @note If the significance is not needed, MatrixCor provides the 
+#' correlation and skips the permutations, so it is much faster.
 #' @export
 #' @importFrom vegan mantel
 #' @rdname MantelCor
@@ -34,22 +36,26 @@
 #' @author Diogo Melo, Guilherme Garcia
 #' @seealso \code{\link{KrzCor}},\code{\link{RandomSkewers}},\code{\link{mantel}},\code{\link{RandomSkewers}},\code{\link{TestModularity}}
 #' @examples
-#' c1 <- RandomMatrix(10)
-#' c2 <- RandomMatrix(10)
-#' c3 <- RandomMatrix(10)
-#' MantelCor(c1, c2)
+#' c1 <- RandomMatrix(10, 1, 1, 10)
+#' c2 <- RandomMatrix(10, 1, 1, 10)
+#' c3 <- RandomMatrix(10, 1, 1, 10)
+#' MantelCor(cov2cor(c1), cov2cor(c2))
+#' 
+#' cov.list <- list(c1, c2, c3)
+#' cor.list <- llply(list(c1, c2, c3), cov2cor)
 #'
-#' MantelCor(list(c1, c2, c3))
+#' MantelCor(cor.list)
 #'
-#' reps <- unlist(lapply(list(c1, c2, c3), MonteCarloRep, "mantel", 10, 10))
-#' MantelCor(list(c1, c2, c3), repeat.vector = reps)
+#'# For repeatabilities we can use MatrixCor, which skips the significance calculation
+#' reps <- unlist(lapply(cov.list, MonteCarloRep, 10, MatrixCor, correlation = TRUE))
+#' MantelCor(llply(cor.list, repeat.vector = reps))
 #'
 #' c4 <- RandomMatrix(10)
-#' MantelCor(list(c1, c2, c3), c4)
+#' MantelCor(cor.list, c4)
 #' 
 #' #Multiple threads can be used with the doMC library
 #' library(doMC)
-#' MantelCor(list(c1, c2, c3), num.cores = 2) 
+#' MantelCor(cor.list, num.cores = 2) 
 #' @keywords matrixcomparison
 #' @keywords matrixcorrelation
 #' @keywords randomskewers
@@ -98,4 +104,13 @@ MantelCor.list <- function (cor.x, cor.y = NULL,
                                num.cores = num.cores)
   }
   return(out)
+}
+
+#' @rdname MantelCor
+#' @export
+MatrixCor <- function (cor.x, cor.y)                           
+{
+ if(sum(diag(cor.x)) != dim(cor.x)[1] | sum(diag(cor.y))!= dim(cor.y)[1])
+    warning("Matrices do not appear to be correlation matrices. Use with caution.")
+ cor(cor.x[lower.tri(cor.x)], cor.y[lower.tri(cor.y)])
 }

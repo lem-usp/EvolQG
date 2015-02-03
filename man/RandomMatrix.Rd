@@ -10,7 +10,7 @@ RandomMatrix(num.traits, num.matrices = 1, min.var = 1, max.var = 1,
 \arguments{
 \item{num.traits}{Number of traits in random matrix}
 
-\item{num.matrices}{Number of generated matrix. If greater than 1, a list is returned.}
+\item{num.matrices}{Number of matrices to be generated. If greater than 1, a list is returned.}
 
 \item{min.var}{Lower value for random variance in covariance matrices}
 

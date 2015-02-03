@@ -15,8 +15,8 @@ RandCorr(num.traits, ke = 10^-3)
 Random Matrix
 }
 \description{
-Provides random correlation matrices for quick tests.
-Should not be used for statistics.
+Internal function for generating random correlation matrices.
+Use RandomMatrix() instead.
 }
 \author{
 Diogo Melo Edgar Zanella

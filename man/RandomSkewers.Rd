@@ -23,7 +23,7 @@ If cov.y is suplied, all matrices in list are compared to it.}
 \item{cov.y}{First argument is compared to cov.y.
 Optional if cov.x is a list.}
 
-\item{...}{aditional arguments passed to other methods}
+\item{...}{aditional arguments passed to other methods.}
 
 \item{num.vectors}{Number of random vectors used in comparison.}
 
@@ -54,7 +54,9 @@ RandomSkewers(c1, c2)
 
 RandomSkewers(list(c1, c2, c3))
 
-reps <- unlist(lapply(list(c1, c2, c3), MonteCarloRep, "randomskewers", 10, 10))
+reps <- unlist(lapply(list(c1, c2, c3), MonteCarloRep, sample.size = 10,
+                                        RandomSkewers, num.vectors = 100,
+                                        iterations = 10))
 RandomSkewers(list(c1, c2, c3), repeat.vector = reps)
 
 c4 <- RandomMatrix(10)

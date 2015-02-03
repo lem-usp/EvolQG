@@ -4,6 +4,7 @@
 \alias{MantelCor}
 \alias{MantelCor.default}
 \alias{MantelCor.list}
+\alias{MatrixCor}
 \title{Compare matrices via Mantel Correlation}
 \usage{
 MantelCor(cor.x, cor.y, ...)
@@ -13,6 +14,8 @@ MantelCor(cor.x, cor.y, ...)
 
 \method{MantelCor}{list}(cor.x, cor.y = NULL, permutations = 1000,
   repeat.vector = NULL, mod = FALSE, num.cores = 1, ...)
+
+MatrixCor(cor.x, cor.y)
 }
 \arguments{
 \item{cor.x}{Single correlation matrix or list of correlation matrices.
@@ -40,7 +43,7 @@ AVG+, AVG- and AVG Ratio based on binary hipotesis matrix.}
 }
 \value{
 If cor.x and cor.y are passed, returns matrix pearson
-correlation and significance via mantel permutations.
+correlation and significance via Mantel permutations.
 
 If cor.x is a list of matrices and cor.y is passed, same as above, but for all matrices in cor.x.
 
@@ -52,23 +55,31 @@ diagonal and repeatabilities returned in diagonal.
 \description{
 Calculates correlation matrix correlation and significance via Mantel test.
 }
+\note{
+If the significance is not needed, MatrixCor provides the
+correlation and skips the permutations, so it is much faster.
+}
 \examples{
-c1 <- RandomMatrix(10)
-c2 <- RandomMatrix(10)
-c3 <- RandomMatrix(10)
-MantelCor(c1, c2)
+c1 <- RandomMatrix(10, 1, 1, 10)
+c2 <- RandomMatrix(10, 1, 1, 10)
+c3 <- RandomMatrix(10, 1, 1, 10)
+MantelCor(cov2cor(c1), cov2cor(c2))
 
-MantelCor(list(c1, c2, c3))
+cov.list <- list(c1, c2, c3)
+cor.list <- llply(list(c1, c2, c3), cov2cor)
 
-reps <- unlist(lapply(list(c1, c2, c3), MonteCarloRep, "mantel", 10, 10))
-MantelCor(list(c1, c2, c3), repeat.vector = reps)
+MantelCor(cor.list)
+
+# For repeatabilities we can use MatrixCor, which skips the significance calculation
+reps <- unlist(lapply(cov.list, MonteCarloRep, 10, MatrixCor, correlation = TRUE))
+MantelCor(llply(cor.list, repeat.vector = reps))
 
 c4 <- RandomMatrix(10)
-MantelCor(list(c1, c2, c3), c4)
+MantelCor(cor.list, c4)
 
 #Multiple threads can be used with the doMC library
 library(doMC)
-MantelCor(list(c1, c2, c3), num.cores = 2)
+MantelCor(cor.list, num.cores = 2)
 }
 \author{
 Diogo Melo, Guilherme Garcia
