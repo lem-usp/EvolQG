@@ -62,5 +62,5 @@ Install [devtools](http://www.rstudio.com/projects/devtools/) and [Rcpp](http://
 
 ```R
 > library(devtools)
-> install_github("Morphometrics", "lem-usp")
+> install_github("lem-usp/Morphometrics")
 ```
