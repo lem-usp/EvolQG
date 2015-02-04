@@ -69,6 +69,7 @@ DriftTest <- function(means, cov.matrix, show.plot=TRUE)
 #'@return A list of regression drift tests performed in nodes with over 4 descendant tips.
 #'@export
 #'@seealso DriftTest PlotTreeDriftTest
+#'@author Diogo Melo
 #'@examples
 #'library(ape)
 #'data(bird.orders)
