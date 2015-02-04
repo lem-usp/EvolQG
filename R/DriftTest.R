@@ -106,6 +106,7 @@ TreeDriftTest <- function(tree, mean.list, cov.matrix.list, sample.sizes = NULL)
 #'@param tree phylogenetic tree
 #'@seealso DriftTest TreeDriftTest
 #'@importFrom ape nodelabels
+#'@author Diogo Melo
 #'@export
 #'@examples
 #'library(ape)
