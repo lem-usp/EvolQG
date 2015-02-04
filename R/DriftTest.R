@@ -50,10 +50,14 @@ DriftTest <- function(means, cov.matrix, show.plot=TRUE)
               geom_smooth(method = "lm", color = 'black') + 
               labs(x = "log(W Eigenvalues)", y = "log(B variances)") + theme_bw()
   if(show.plot) print(reg.plot)
+  containsOne <- function(x) ifelse(x[1] < 1 & x[2] > 1, TRUE, FALSE)
+  test <- !containsOne(confint(regression)[2,])
+  names(test) <- '5 %'
   objeto <- list("regression" = regression,
                  "coefficient_CI_95" = confint(regression),
                  "log.between_group_variance" = log.B_variance, 
                  "log.W_eVals" = log.W_eVals,
+                 "drift_rejected" = test,
                  "plot" = reg.plot)
   return(objeto)
 }
@@ -104,6 +108,7 @@ TreeDriftTest <- function(tree, mean.list, cov.matrix.list, sample.sizes = NULL)
 #'
 #'@param test.list Output from TreeDriftTest
 #'@param tree phylogenetic tree
+#'@param ... adition arguments to plot
 #'@seealso DriftTest TreeDriftTest
 #'@importFrom ape nodelabels
 #'@author Diogo Melo
@@ -121,12 +126,11 @@ TreeDriftTest <- function(tree, mean.list, cov.matrix.list, sample.sizes = NULL)
 #'
 #'test.list <- TreeDriftTest(tree, mean.list, cov.matrix.list, sample.sizes)
 #'PlotTreeDriftTest(test.list, tree)
-PlotTreeDriftTest <- function(test.list, tree){
-  containsOne <- function(x) ifelse( x[1] < 1 & x[2] > 1, TRUE, FALSE)
+PlotTreeDriftTest <- function(test.list, tree, ...){
   tested.nodes <- as.numeric(names(test.list))
-  drift.nodes <- laply(test.list, function(x) containsOne(x$coefficient_CI_95[2,]))
-  plot(tree)
-  nodelabels(node = tested.nodes, thermo = as.numeric(!drift.nodes))  
+  non.drift.nodes <- laply(test.list, function(x) x$drift_rejected)
+  plot(tree, ...)
+  nodelabels(node = tested.nodes, thermo = as.numeric(non.drift.nodes))  
 }
 
 #'@importFrom phytools getDescendants

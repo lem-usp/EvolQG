@@ -4,12 +4,14 @@
 \alias{PlotTreeDriftTest}
 \title{Plot results from TreeDriftTest}
 \usage{
-PlotTreeDriftTest(test.list, tree)
+PlotTreeDriftTest(test.list, tree, ...)
 }
 \arguments{
 \item{test.list}{Output from TreeDriftTest}
 
 \item{tree}{phylogenetic tree}
+
+\item{...}{adition arguments to plot}
 }
 \description{
 Plot which labels reject drift hypothesis.
