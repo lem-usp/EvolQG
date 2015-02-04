@@ -22,6 +22,7 @@
 #'@importFrom ggplot2 ggplot geom_text geom_smooth labs theme_bw
 #'@examples
 #'
+#' #Input can be an array with means in each row or a list of mean vectors
 #'means = array(rnorm(40*10), c(10, 40)) 
 #'cov.matrix = RandomMatrix(40, 1, 1, 10)
 #'DriftTest(means, cov.matrix)

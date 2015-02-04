@@ -34,6 +34,7 @@ that obseved divergency is larger/smaller than expected by drift alone.
 If the regression coefficient is significantly different to one, the null hypothesis of drift is rejected.
 }
 \examples{
+#Input can be an array with means in each row or a list of mean vectors
 means = array(rnorm(40*10), c(10, 40))
 cov.matrix = RandomMatrix(40, 1, 1, 10)
 DriftTest(means, cov.matrix)

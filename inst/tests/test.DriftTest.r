@@ -24,7 +24,19 @@ test_that("DriftTest returns resonable results",
 
 test_that("TreeDriftTest returns resonable results",
 {
-  expect_equal(TRUE, FALSE)
+  library(ape)
+  data(bird.orders)
+  tree <- bird.orders
+  mean.list <- llply(tree$tip.label, function(x) rnorm(5))
+  names(mean.list) <- tree$tip.label
+  cov.matrix.list <- RandomMatrix(5, length(tree$tip.label))
+  names(cov.matrix.list) <- tree$tip.label
+  w.cov <- AncestralStates(tree, cov.matrix.list)$'24'
+  test.list <- TreeDriftTest(tree, mean.list, cov.matrix.list)
+  expect_is(test.list, 'list')
+  expect_equal(length(test.list), 13)
+  expect_equal(test.list[[length(test.list)]], 
+               DriftTest(mean.list, w.cov, FALSE))
 })
 
           
