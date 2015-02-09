@@ -8,16 +8,16 @@
 \usage{
 PrintMatrix(x, ...)
 
-\method{PrintMatrix}{default}(x, out.file = "./matrix.csv", ...)
+\method{PrintMatrix}{default}(x, output.file = "./matrix.csv", ...)
 
-\method{PrintMatrix}{list}(x, out.file = "./matrix.csv", ...)
+\method{PrintMatrix}{list}(x, output.file = "./matrix.csv", ...)
 }
 \arguments{
 \item{x}{Matrix or list of matrices}
 
 \item{...}{Aditional parameters}
 
-\item{out.file}{Output file}
+\item{output.file}{Output file}
 }
 \value{
 Prints coma separated matrices, with labels

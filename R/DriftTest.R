@@ -1,7 +1,8 @@
 #'Test drift hypothesis
 #'
 #'Given a set of covariance matrices and means for terminals, test the hypothesis
-#'that obseved divergency is larger/smaller than expected by drift alone.
+#'that obseved divergency is larger/smaller than expected by drift alone using a regression of
+#' the between-group varicances on the within-group eigenvalues.
 #'
 #'@param means list or array of species means being compared. array must have means in the rows.
 #'@param cov.matrix ancestral covariance matrix for all populations

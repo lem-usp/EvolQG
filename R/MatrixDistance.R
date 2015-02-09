@@ -55,17 +55,17 @@ MatrixDistance.list <- function (cov.x, cov.y = NULL, distance = c('OverlapDist'
 {
   distance <- match.fun(match.arg(distance))
   if (is.null (cov.y)) {
-    out <- ComparisonMap(cov.x,
+    output <- ComparisonMap(cov.x,
                          function(x, y) return(c(distance(x, y,...), NA)),
                          num.cores = num.cores)
-    out <- out[[1]]
+    output <- output[[1]]
   } else{
-    out <- SingleComparisonMap(cov.x, cov.y,
+    output <- SingleComparisonMap(cov.x, cov.y,
                                function(x, y) return(c(distance(x, y,...), NA)),
                                num.cores = num.cores)
-    out <- out[-length(out)]
+    output <- output[-length(output)]
   }
-  return(out)
+  return(output)
 }
 
 

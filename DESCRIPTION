@@ -21,6 +21,8 @@ Imports:
 Suggests:
     testthat (>= 0.2),
     foreach,
+    grid,
+    gridExtra,
     doMC
 LinkinTo: Rcpp
 License: MIT + file LICENSE
