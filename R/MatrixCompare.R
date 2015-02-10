@@ -17,6 +17,6 @@ MatrixCompare <- function(cov.x, cov.y){
   Mantel <- MantelCor(cov2cor(cov.x), cov2cor(cov.y))
   Krz <- c(KrzCor(cov.x, cov.y), NA)
   PCA <- c(PCAsimilarity(cov.x, cov.y), NA)
-  out <- data.frame(rbind(RS, Mantel, Krz, PCA))
-  return(out)
+  output <- data.frame(rbind(RS, Mantel, Krz, PCA))
+  return(output)
 }

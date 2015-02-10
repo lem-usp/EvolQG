@@ -18,8 +18,8 @@ SingleComparisonMap  <- function(matrix.list, y.mat, MatrixCompFunc, ..., num.co
   if(!all(c(laply(matrix.list, dim)) == dim(y.mat)[1]))
     stop("Matrices on list and single matrice dimension do not match")
   else
-    out <- ldply(matrix.list,
+    output <- ldply(matrix.list,
                  function(x) {MatrixCompFunc(x, y.mat, ...)},
                  .parallel = parallel)
-  return(out)
+  return(output)
 }

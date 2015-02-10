@@ -11,11 +11,13 @@ test_that("DriftTest returns resonable results",
   expect_is(test.array[[2]], "matrix")
   expect_is(test.array[[3]], "numeric")
   expect_is(test.array[[4]], "numeric")
-  expect_is(test.array[[5]], c("gg", "ggplot"))
+  expect_is(test.array[[5]], "logical")
+  expect_is(test.array[[6]], c("gg", "ggplot"))
   expect_equal(names(test.array), c("regression",
                                     "coefficient_CI_95",
                                     "log.between_group_variance",
                                     "log.W_eVals",
+                                    "drift_rejected",
                                     "plot"))
   expect_equal(length(test.array$log.between_group_variance), dim(means)[2])
   expect_equal(length(test.array$log.W_eVals), dim(means)[2])
