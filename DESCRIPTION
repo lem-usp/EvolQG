@@ -12,6 +12,7 @@ Depends:
     plyr (>= 1.7.1)
 Imports:
     Rcpp,
+    RcppEigen,
     reshape2,
     ggplot2,
     vegan,
@@ -24,6 +25,6 @@ Suggests:
     grid,
     gridExtra,
     doMC
-LinkinTo: Rcpp
+LinkingTo: Rcpp, RcppEigen
 License: MIT + file LICENSE
 BugReports: https://github.com/lem-usp/Morphometrics/issues
