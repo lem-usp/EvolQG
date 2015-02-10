@@ -6,5 +6,6 @@ Morphometrics.Rcheck/*
 .Rproj.user
 *.Rproj
 Morphometrics.Rproj
-src/
+src/*.o
+src/*.so
 *.Rdata

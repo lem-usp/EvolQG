@@ -5,3 +5,7 @@ annealing <- function(Corr, S) {
     .Call('Morphometrics_annealing', PACKAGE = 'Morphometrics', Corr, S)
 }
 
+createRandomMatrix <- function(dimension, ke) {
+    .Call('Morphometrics_createRandomMatrix', PACKAGE = 'Morphometrics', dimension, ke)
+}
+
