@@ -1,9 +1,7 @@
-#' Mean Squared Correlations
+#' Calculates the ICV of a covariance matrix.
 #'
-#' Calculates the ICV of a covariance matrix. Measures integration.
-#'
-#'Calculates the coefficient of variation of the eigenvalues of a covariance matrix, a measure of 
-#'integration comparable to the R^2 in correlation matrices.
+#' Calculates the coefficient of variation of the eigenvalues of a covariance matrix, a measure of 
+#' integration comparable to the R^2 in correlation matrices.
 #'
 #' @param cov.matrix Covariance matrix.
 #' @return coefficient of variation of the eigenvalues of a covariance matrix
@@ -15,7 +13,7 @@
 #' @examples
 #' cov.matrix <- RandomMatrix(10, 1, 1, 10)
 #' CalcICV(cov.matrix)
-#' @keywords correlation
+#' @keywords covariance
 #' @keywords integration
 
 CalcICV <- function (cov.matrix){

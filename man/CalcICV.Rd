@@ -2,7 +2,7 @@
 % Please edit documentation in R/CalcICV.R
 \name{CalcICV}
 \alias{CalcICV}
-\title{Mean Squared Correlations}
+\title{Calculates the ICV of a covariance matrix.}
 \usage{
 CalcICV(cov.matrix)
 }
@@ -13,9 +13,6 @@ CalcICV(cov.matrix)
 coefficient of variation of the eigenvalues of a covariance matrix
 }
 \description{
-Calculates the ICV of a covariance matrix. Measures integration.
-}
-\details{
 Calculates the coefficient of variation of the eigenvalues of a covariance matrix, a measure of
 integration comparable to the R^2 in correlation matrices.
 }
@@ -34,6 +31,6 @@ Porto, Arthur, Leila Teruko Shirai, Felipe Bandoni de Oliveira, and Gabriel Marr
 \seealso{
 \code{\link{CalcR2}}
 }
-\keyword{correlation}
+\keyword{covariance}
 \keyword{integration}
 
