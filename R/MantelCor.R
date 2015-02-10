@@ -65,9 +65,9 @@ MantelCor <- function (cor.x, cor.y, ...) UseMethod("MantelCor")
 #' @method MantelCor default
 #' @export
 MantelCor.default <- function (cor.x, cor.y, permutations = 1000, mod = FALSE, ...) {
-  mantel.out <- mantel(cor.x, cor.y, permutations = permutations)
-  correlation <- mantel.out$statistic
-  prob <- mantel.out$signif
+  mantel.output <- mantel(cor.x, cor.y, permutations = permutations)
+  correlation <- mantel.output$statistic
+  prob <- mantel.output$signif
   if (mod == TRUE){
     index <- cor.y[lower.tri(cor.y)]
     avg.plus <- mean (cor.x [lower.tri(cor.x)] [index != 0])
@@ -92,18 +92,18 @@ MantelCor.list <- function (cor.x, cor.y = NULL,
                             mod = FALSE, num.cores = 1, ...)
 {
   if (is.null (cor.y)) {
-    out <- ComparisonMap(cor.x,
+    output <- ComparisonMap(cor.x,
                          function(x, cor.y) MantelCor(x, cor.y, permutations),
                          repeat.vector = repeat.vector,
                          num.cores = num.cores)
   } else{
-    out <- SingleComparisonMap(cor.x, cor.y,
+    output <- SingleComparisonMap(cor.x, cor.y,
                                function(x, y) MantelCor(y,
                                                         x,
                                                         permutations, mod = mod),
                                num.cores = num.cores)
   }
-  return(out)
+  return(output)
 }
 
 #' @rdname MantelCor

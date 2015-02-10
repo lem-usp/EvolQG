@@ -28,7 +28,8 @@ plot: plot of the regression using ggplot2
 }
 \description{
 Given a set of covariance matrices and means for terminals, test the hypothesis
-that obseved divergency is larger/smaller than expected by drift alone.
+that obseved divergency is larger/smaller than expected by drift alone using a regression of
+the between-group varicances on the within-group eigenvalues.
 }
 \note{
 If the regression coefficient is significantly different to one, the null hypothesis of drift is rejected.

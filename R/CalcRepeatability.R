@@ -23,10 +23,10 @@ CalcRepeatability <- function (ID, ind.data)
   rep.itself <- function (lm.model){
     msq <- lm.model$'Mean Sq' ## 1 entre, 2 dentro
     s2a <- (msq[1] - msq[2])/2
-    out <- s2a / (s2a + msq[2])
-    return (out)
+    output <- s2a / (s2a + msq[2])
+    return (output)
   }
-  out <- sapply (models.list, rep.itself)
-  names (out) <- colnames (ind.data)
-  return (out)
+  output <- sapply (models.list, rep.itself)
+  names (output) <- colnames (ind.data)
+  return (output)
 }

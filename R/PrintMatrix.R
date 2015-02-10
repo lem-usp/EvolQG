@@ -2,7 +2,7 @@
 #'
 #' Print a matrix or a list of matrices to file
 #' @param  x Matrix or list of matrices
-#' @param  out.file Output file
+#' @param  output.file Output file
 #' @param  ... Aditional parameters
 #' @return Prints coma separated matrices, with labels
 #' @export
@@ -16,16 +16,16 @@ PrintMatrix <- function(x, ...) UseMethod('PrintMatrix')
 #' @rdname PrintMatrix
 #' @method PrintMatrix default
 #' @export
-PrintMatrix.default <- function(x, out.file = './matrix.csv', ...){
-    write.csv(x, out.file)
+PrintMatrix.default <- function(x, output.file = './matrix.csv', ...){
+    write.csv(x, output.file)
 }
 
 #' @rdname PrintMatrix
 #' @method PrintMatrix list
 #' @export
-PrintMatrix.list <- function(x, out.file = './matrix.csv', ...){
+PrintMatrix.list <- function(x, output.file = './matrix.csv', ...){
     if(is.null(names(x))) names(x) <- 1:length(x)
-    sink(out.file, type="output")
+    sink(output.file, type="output")
     invisible(
               lapply(names(x), function(mat) {
                      y <- x[names(x) == mat]
