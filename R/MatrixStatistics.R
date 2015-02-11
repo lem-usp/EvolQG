@@ -1,6 +1,6 @@
 #' Calculate mean values for various matrix statistics
 #'
-#' Calculates: Mean Squared Correlation, Autonomy, ConditionalEvolvability, Constraints, Evolvability, Flexibility, Pc1Percent, Respondability.
+#' Calculates: Mean Squared Correlation, ICV, Autonomy, ConditionalEvolvability, Constraints, Evolvability, Flexibility, Pc1Percent, Respondability.
 #' @aliases Autonomy ConditionalEvolvability Constraints Evolvability Flexibility Pc1Percent Respondability
 #' @param cov.matrix A covariance matrix
 #' @param iterations Number of random vectors to be used in calculating the stochastic statistics
@@ -60,8 +60,8 @@ MeanMatrixStatistics <- function (cov.matrix, iterations = 1000, full.results = 
                             'constraints',
                             'null.dist')
   stat.mean <- colMeans (stat.dist[,-7])
-  integration <- c (CalcR2 (cov2cor(cov.matrix)), Pc1Percent (cov.matrix))
-  names (integration) <- c ('MeanSquaredCorrelation', 'pc1%')
+  integration <- c (CalcR2 (cov2cor(cov.matrix)), Pc1Percent (cov.matrix), CalcICV(cov.matrix))
+  names (integration) <- c ('MeanSquaredCorrelation', 'pc1%', 'ICV')
   stat.mean <- c (integration, stat.mean)
   if(full.results)
     return (list ('dist' = stat.dist, 'mean' = stat.mean))

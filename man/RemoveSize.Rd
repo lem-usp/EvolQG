@@ -10,7 +10,7 @@ RemoveSize(cov.matrix)
 \item{cov.matrix}{Covariance matrix}
 }
 \value{
-Altered covariance matriz, with no variation on former first principal component
+Altered covariance matrix with no variation on former first principal component
 }
 \description{
 Removes first principal component effect in a covariance matrix.

@@ -30,7 +30,7 @@ dist Full distribution of stochastic statistics, only if full.resuts == TRUE
 mean Mean value for all statistics
 }
 \description{
-Calculates: Mean Squared Correlation, Autonomy, ConditionalEvolvability, Constraints, Evolvability, Flexibility, Pc1Percent, Respondability.
+Calculates: Mean Squared Correlation, ICV, Autonomy, ConditionalEvolvability, Constraints, Evolvability, Flexibility, Pc1Percent, Respondability.
 }
 \examples{
 cov.matrix <- cov(iris[,1:4])

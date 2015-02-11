@@ -21,7 +21,7 @@ test_that("DriftTest returns resonable results",
                                     "plot"))
   expect_equal(length(test.array$log.between_group_variance), dim(means)[2])
   expect_equal(length(test.array$log.W_eVals), dim(means)[2])
-  expect_equal(test.array$log.W_eVals, log(eigen(cov.matrix, only.values = TRUE)$values))
+  expect_equal(test.array$log.W_eVals, log(eigen(cov.matrix)$values))
 })
 
 test_that("TreeDriftTest returns resonable results",
