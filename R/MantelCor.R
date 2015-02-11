@@ -106,11 +106,36 @@ MantelCor.list <- function (cor.x, cor.y = NULL,
   return(output)
 }
 
-#' @rdname MantelCor
 #' @export
-MatrixCor <- function (cor.x, cor.y)                           
+#' @rdname MantelCor
+MatrixCor <- function (cor.x, cor.y, ...) UseMethod("MatrixCor")
+
+#' @rdname MantelCor
+#' @method MatrixCor default
+#' @export
+MatrixCor.default <- function (cor.x, cor.y)                           
 {
- if(sum(diag(cor.x)) != dim(cor.x)[1] | sum(diag(cor.y))!= dim(cor.y)[1])
+  if(sum(diag(cor.x)) != dim(cor.x)[1] | sum(diag(cor.y))!= dim(cor.y)[1])
     warning("Matrices do not appear to be correlation matrices. Use with caution.")
- cor(cor.x[lower.tri(cor.x)], cor.y[lower.tri(cor.y)])
+  cor(cor.x[lower.tri(cor.x)], cor.y[lower.tri(cor.y)])
+}
+
+#' @rdname MantelCor
+#' @method MatrixCor list
+#' @export
+MatrixCor.list <- function (cor.x, cor.y = NULL,
+                            permutations = 1000, repeat.vector = NULL,
+                            mod = FALSE, num.cores = 1, ...)
+{
+  if (is.null (cor.y)) {
+    output <- ComparisonMap(cor.x,
+                            function(x, cor.y) c(MatrixCor(x, cor.y), NA),
+                            repeat.vector = repeat.vector,
+                            num.cores = num.cores)[[1]]
+  } else{
+    output <- SingleComparisonMap(cor.x, cor.y,
+                                  function(x, y) MatrixCor(x, y),                                                    
+                                  num.cores = num.cores)
+  }
+  return(output)
 }
