@@ -23,7 +23,6 @@ RandCorr <- function(num.traits, ke = 10^-3){
       y = b1 - b2
       if (b2 < ke){
         random.corr[i, j] = b1
-        cosinv = 0
       } else
         random.corr[i, j] = y + (z - y)*round(runif(1)*10^8)/10^8
       cosinv = (random.corr[i, j] - b1)/b2
@@ -36,8 +35,7 @@ RandCorr <- function(num.traits, ke = 10^-3){
         } else {
           b[i, j] = b[i, j]*cosinv
           sinTheta = sqrt(1 - cosinv^2)
-          for (k in (j+1):num.traits)
-            b[i, k] = b[i, k]*sinTheta
+          b[i, (j+1):num.traits] = b[i, (j+1):num.traits]*sinTheta
         }
       }
     }
