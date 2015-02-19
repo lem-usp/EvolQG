@@ -19,7 +19,7 @@ MantelCor(cor.x, cor.y, ...)
 
 MatrixCor(cor.x, cor.y, ...)
 
-\method{MatrixCor}{default}(cor.x, cor.y)
+\method{MatrixCor}{default}(cor.x, cor.y, ...)
 
 \method{MatrixCor}{list}(cor.x, cor.y = NULL, permutations = 1000,
   repeat.vector = NULL, mod = FALSE, num.cores = 1, ...)

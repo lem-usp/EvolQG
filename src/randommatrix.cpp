@@ -7,10 +7,13 @@ using Eigen::MatrixXd;
 Eigen::MatrixXd createRandomMatrix(int dimension, float ke) {
     MatrixXd randomMatrix = MatrixXd::Zero(dimension, dimension) ;
     MatrixXd b = MatrixXd::Zero(dimension, dimension);
-
     b.triangularView<Eigen::Lower>().fill(1.0);
-    MatrixXd fixed = MatrixXd::Ones(dimension, dimension);
-    randomMatrix.block(1, 0, dimension - 1, 1) = Eigen::MatrixXd::Random(dimension - 1, 1);
+    //MatrixXd fixed = MatrixXd::Ones(dimension, dimension); //what is this line?
+    
+    randomMatrix.block(1, 0, dimension - 1, 1) = Eigen::MatrixXd::Random(dimension - 1, 1); //contains call to the 
+                                                                                              // C random number generator;
+                                                                                              //must be replaced by an R
+                                                                                              //equivalent for CRAN
     b.block(1, 0, dimension - 1, 1) = randomMatrix.block(1, 0, dimension - 1, 1);
 
     for (int i = 1; i < dimension; ++i)

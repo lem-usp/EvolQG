@@ -113,11 +113,11 @@ MatrixCor <- function (cor.x, cor.y, ...) UseMethod("MatrixCor")
 #' @rdname MantelCor
 #' @method MatrixCor default
 #' @export
-MatrixCor.default <- function (cor.x, cor.y)                           
+MatrixCor.default <- function (cor.x, cor.y, ...)                           
 {
   if(sum(diag(cor.x)) != dim(cor.x)[1] | sum(diag(cor.y))!= dim(cor.y)[1])
     warning("Matrices do not appear to be correlation matrices. Use with caution.")
-  cor(cor.x[lower.tri(cor.x)], cor.y[lower.tri(cor.y)])
+  cor(cor.x[lower.tri(cor.x)], cor.y[lower.tri(cor.y)], ...)
 }
 
 #' @rdname MantelCor

@@ -2,20 +2,21 @@
 % Please edit documentation in R/RandomCorrelation.R
 \name{RandomCorrelation}
 \alias{RandomCorrelation}
-\title{Random Correlation}
+\title{Random correlation matrix}
 \usage{
 RandomCorrelation(dimension, k = 10^-3)
 }
 \arguments{
-\item{num.traits}{Number of traits in random matrix}
+\item{dimension}{Number of traits in random matrix}
 
-\item{ke}{Parameter for correlation matrix generation. Involves check for positive defitness}
+\item{k}{Parameter for correlation matrix generation. Involves check for positive defitness}
 }
 \value{
 Random correlation matrix with size (dimension x dimension)
 }
 \description{
-Create a random correlation matrix using RcppEigen
+Internal function for generating random correlation matrices.
+Use RandomMatrix() instead.
 }
 \author{
 Edgar Zanella
