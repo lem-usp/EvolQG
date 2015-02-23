@@ -4,7 +4,7 @@
 #' @param linear.m Linear model adjusted for original data.
 #'
 #' @return Estimated covariance matrix.
-#' @references https://github.com/lem-usp/Morphometrics/wiki/
+#' @references https://github.com/lem-usp/evolqg/wiki/
 #' @author Diogo Melo, Fabio Machado
 #' @export
 #' @examples

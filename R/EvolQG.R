@@ -1,6 +1,6 @@
-#' Morphometrics
+#' EvolQG
 #'
-#' @name Morphometrics
+#' @name evolqg
 #' @docType package
 #' @import plyr
 NULL

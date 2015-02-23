@@ -8,7 +8,7 @@
 #' @author Edgar Zanella
 #' @keywords randommatrices
 #' @export
-#' @useDynLib Morphometrics
+#' @useDynLib evolqg
 #' @import RcppEigen
 #' @importFrom Rcpp evalCpp
 RandomCorrelation <- function (dimension, k=10**-3) {

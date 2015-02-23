@@ -28,7 +28,7 @@ cor.matrix <- cov2cor(cov.matrix)
 Diogo Melo, Fabio Machado
 }
 \references{
-https://github.com/lem-usp/Morphometrics/wiki/
+https://github.com/lem-usp/evolqg/wiki/
 }
 \keyword{covariancematrix}
 

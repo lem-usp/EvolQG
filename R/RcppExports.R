@@ -2,10 +2,10 @@
 # Generator token: 10BE3573-1514-4C36-9D1C-5A225CD40393
 
 annealing <- function(Corr, S) {
-    .Call('Morphometrics_annealing', PACKAGE = 'Morphometrics', Corr, S)
+    .Call('evolqg_annealing', PACKAGE = 'evolqg', Corr, S)
 }
 
 createRandomMatrix <- function(dimension, ke) {
-    .Call('Morphometrics_createRandomMatrix', PACKAGE = 'Morphometrics', dimension, ke)
+    .Call('evolqg_createRandomMatrix', PACKAGE = 'evolqg', dimension, ke)
 }
 
