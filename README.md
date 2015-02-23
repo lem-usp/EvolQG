@@ -1,5 +1,9 @@
-Morphometrics Package
+EvolQG Package
 ======================
+
+[![Join the chat at https://gitter.im/diogro/evolqg](https://badges.gitter.im/Join%20Chat.svg)](https://gitter.im/diogro/evolqg?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge&utm_content=badge)
+
+[![Gitter](https://badges.gitter.im/Join%20Chat.svg)](https://gitter.im/lem-usp/evolqg?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge&utm_content=badge)
 
 Proto package.
 
@@ -60,5 +64,5 @@ Install [devtools](http://www.rstudio.com/projects/devtools/) and [Rcpp](http://
 
 ```R
 > library(devtools)
-> install_github("Morphometrics", "lem-usp")
+> install_github("lem-usp/evolqg")
 ```
