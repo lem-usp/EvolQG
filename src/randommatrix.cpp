@@ -11,9 +11,9 @@ Eigen::MatrixXd createRandomMatrix(int dimension, float ke) {
     //MatrixXd fixed = MatrixXd::Ones(dimension, dimension); //what is this line?
     
     randomMatrix.block(1, 0, dimension - 1, 1) = Eigen::MatrixXd::Random(dimension - 1, 1); //contains call to the 
-                                                                                              // C random number generator;
-                                                                                              //must be replaced by an R
-                                                                                              //equivalent for CRAN
+                                                                                            // C random number generator;
+                                                                                            //must be replaced by an R
+                                                                                            //equivalent for CRAN
     b.block(1, 0, dimension - 1, 1) = randomMatrix.block(1, 0, dimension - 1, 1);
 
     for (int i = 1; i < dimension; ++i)

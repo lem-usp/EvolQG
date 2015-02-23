@@ -8,7 +8,7 @@ using namespace Rcpp;
 
 // annealing
 double annealing(NumericMatrix Corr, NumericVector S);
-RcppExport SEXP Morphometrics_annealing(SEXP CorrSEXP, SEXP SSEXP) {
+RcppExport SEXP evolqg_annealing(SEXP CorrSEXP, SEXP SSEXP) {
 BEGIN_RCPP
     SEXP __sexp_result;
     {
@@ -24,7 +24,7 @@ END_RCPP
 }
 // createRandomMatrix
 Eigen::MatrixXd createRandomMatrix(int dimension, float ke);
-RcppExport SEXP Morphometrics_createRandomMatrix(SEXP dimensionSEXP, SEXP keSEXP) {
+RcppExport SEXP evolqg_createRandomMatrix(SEXP dimensionSEXP, SEXP keSEXP) {
 BEGIN_RCPP
     SEXP __sexp_result;
     {

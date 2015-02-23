@@ -1,3 +1,3 @@
 library(testthat)
-library(Morphometrics)
-test_package("Morphometrics")
+library(evolqg)
+test_package("evolqg")
