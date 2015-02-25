@@ -4,7 +4,8 @@
 #' @param cor.matrix Correlation matrix
 #' @param modularity.hipot Matrix of hypothesis. Each line represents a trait and each column a module.
 #' if modularity.hipot[i,j] == 1, trait i is in module j.
-#' @param iterations Number of iterations, to be passed to MantelCor
+#' @param permutations Number of permutations, to be passed to MantelCor
+#' @param ICV Indicates if test should use AVG Index instead of AVG Ratio
 #' @return Returns mantel correlation and associated probability for each modularity hypothesis, along with AVG+, AVG-, AVG Ratio for each module.
 #' A total hypothesis combining all hypotesis is also tested.
 #' @author Diogo Melo, Guilherme Garcia
@@ -16,13 +17,17 @@
 #' cor.matrix <- RandomMatrix(10)
 #' rand.hipots <- matrix(sample(c(1, 0), 30, replace=TRUE), 10, 3)
 #' mod.test <- TestModularity(cor.matrix, rand.hipots)
+#' 
+#' cov.matrix <- RandomMatrix(10, 1, 1, 10)
+#' cov.mod.test <- TestModularity(cov.matrix, rand.hipots, ICV = TRUE)
+#' nosize.cov.mod.test <- TestModularity(RemoveSize(cov.matrix), rand.hipots, ICV = TRUE)
 #' @keywords mantel
 #' @keywords modularity
-TestModularity <- function (cor.matrix, modularity.hipot, iterations = 100) {
+TestModularity <- function (cor.matrix, modularity.hipot, permutations = 100, ICV = FALSE) {
   m.hip.list <- CreateHipotMatrix(as.matrix(modularity.hipot))
   if(is.null(colnames(modularity.hipot))) colnames(modularity.hipot) <- 1:dim (modularity.hipot) [2]
   names(m.hip.list) <- c(colnames (modularity.hipot),"Full Integration")
-  output <- MantelCor (m.hip.list, cor.matrix, iterations = iterations, mod = TRUE)
+  output <- MantelCor (m.hip.list, cor.matrix, permutations = permutations, mod = TRUE, ICV = ICV)
   names(output)[1] <- 'hypothesis'
   return (output)
 }

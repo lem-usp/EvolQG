@@ -5,7 +5,8 @@
 \alias{TestModularity}
 \title{Test modularity hypothesis}
 \usage{
-TestModularity(cor.matrix, modularity.hipot, iterations = 100)
+TestModularity(cor.matrix, modularity.hipot, permutations = 100,
+  ICV = FALSE)
 
 CreateHipotMatrix(modularity.hipot)
 }
@@ -15,7 +16,9 @@ CreateHipotMatrix(modularity.hipot)
 \item{modularity.hipot}{Matrix of hypothesis. Each line represents a trait and each column a module.
 if modularity.hipot[i,j] == 1, trait i is in module j.}
 
-\item{iterations}{Number of iterations, to be passed to MantelCor}
+\item{permutations}{Number of permutations, to be passed to MantelCor}
+
+\item{ICV}{Indicates if test should use AVG Index instead of AVG Ratio}
 }
 \value{
 Returns mantel correlation and associated probability for each modularity hypothesis, along with AVG+, AVG-, AVG Ratio for each module.
@@ -28,6 +31,10 @@ Tests modularity hypothesis using cor.matrix matrix and trait groupings
 cor.matrix <- RandomMatrix(10)
 rand.hipots <- matrix(sample(c(1, 0), 30, replace=TRUE), 10, 3)
 mod.test <- TestModularity(cor.matrix, rand.hipots)
+
+cov.matrix <- RandomMatrix(10, 1, 1, 10)
+cov.mod.test <- TestModularity(cov.matrix, rand.hipots, ICV = TRUE)
+nosize.cov.mod.test <- TestModularity(RemoveSize(cov.matrix), rand.hipots, ICV = TRUE)
 }
 \author{
 Diogo Melo, Guilherme Garcia
