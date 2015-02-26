@@ -33,8 +33,8 @@ The doMC library must be loaded.}
 \item{matrix.label}{Plot label}
 }
 \value{
-List of SRD scores mean, confidence intervals, standard
-deviation, centerd mean e centerd standard deviation
+List of SRD scores means, confidence intervals, standard
+deviations, centered means e centered standard deviations
 
 pc1 scored along the pc1 of the mean/SD correlation matrix
 

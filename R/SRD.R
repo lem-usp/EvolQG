@@ -12,8 +12,8 @@
 #' @param output Output from SRD function, used in ploting
 #' @param matrix.label Plot label
 #' @details Output can be ploted using PlotSRD function
-#' @return List of SRD scores mean, confidence intervals, standard
-#' deviation, centerd mean e centerd standard deviation
+#' @return List of SRD scores means, confidence intervals, standard
+#' deviations, centered means e centered standard deviations
 #' @return pc1 scored along the pc1 of the mean/SD correlation matrix
 #' @return model List of linear model results from mean/SD correlation. Quantiles, interval and divergent traits
 #' @return cormat Mean/Sd model correlation matrix
