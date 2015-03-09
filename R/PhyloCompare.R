@@ -8,6 +8,7 @@
 #'@param ... Aditional arguments passed to ComparisonFunc
 #'@return list with a data.frame of calculated comparisons for each node, using labels or numbers from tree; and a list of comparisons for plotting using phytools (see examples)
 #'@note Phylogeny must be fully resolved
+#'@author Diogo Melo
 #'@export
 #'@importFrom ape reorder.phylo
 #'@import plyr
