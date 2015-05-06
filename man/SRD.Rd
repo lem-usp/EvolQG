@@ -14,7 +14,7 @@ SRD(cov.x, cov.y, ...)
 \method{SRD}{list}(cov.x, cov.y = NULL, iterations = 1000, num.cores = 1,
   ...)
 
-\method{plot}{SRD}(output, matrix.label = "")
+\method{plot}{SRD}(x, matrix.label = "", ...)
 }
 \arguments{
 \item{cov.x}{Covariance matrix being compared. cov.x can be a matrix or a list.}
@@ -28,7 +28,7 @@ SRD(cov.x, cov.y, ...)
 \item{num.cores}{If list is passed, number of threads to use in computation.
 The doMC library must be loaded.}
 
-\item{output}{Output from SRD function, used in ploting}
+\item{x}{Output from SRD function, used in ploting}
 
 \item{matrix.label}{Plot label}
 }
