@@ -39,4 +39,7 @@ phylo.comparisons <- PhyloCompare(tree, phylo.state)
 library(phytools)
 plotBranchbyTrait(tree, phylo.comparisons[[2]])
 }
+\author{
+Diogo Melo
+}
 
