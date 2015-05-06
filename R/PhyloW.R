@@ -1,25 +1,24 @@
 #'Calculates ancestral states of some statistic
 #'
-#'Calculates weighted average of some statistic along a phylogeny
+#'Calculates weighted average of covariances matrices along a phylogeny, returning a withing-group covariance matrice for each node.
 #'
 #'@param tree phylogenetic tree
-#'@param tip.data list of tip nodes data
+#'@param tip.data list of tip nodes covariance matrices
 #'@param tip.sample.size vector of tip nodes sample sizes
-#'
-#'@return list with calculated ancestral states, using labels or numbers from tree
+#'@return list with calculated within-group matrices, using labels or numbers from tree
 #'@export
 #'@importFrom ape reorder.phylo
 #'@import plyr
 #'@examples
 #'library(ape)
-#'data(bird.orders)
-#'tree <- bird.orders
-#'mat.list <- RandomMatrix(5, length(tree$tip.label))
-#'names(mat.list) <- tree$tip.label
+#'data(dentus)
+#'data(dentus.tree)
+#'tree <- dentus.tree
+#'mat.list <- dlply(dentus, 'species', function(x) cov(x[,1:4]))
 #'sample.sizes <- runif(length(tree$tip.label), 15, 20)
-#'AncestralStates(tree, mat.list, sample.sizes)
+#'PhyloW(tree, mat.list, sample.sizes)
 
-AncestralStates <- function(tree, tip.data, tip.sample.size = NULL){
+PhyloW <- function(tree, tip.data, tip.sample.size = NULL){
   if(is.null(tree$node.label)){
     node.names <- tree$tip.label
   } else{

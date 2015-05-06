@@ -33,7 +33,7 @@ test_that("TreeDriftTest returns resonable results",
   names(mean.list) <- tree$tip.label
   cov.matrix.list <- RandomMatrix(5, length(tree$tip.label))
   names(cov.matrix.list) <- tree$tip.label
-  w.cov <- AncestralStates(tree, cov.matrix.list)$'24'
+  w.cov <- PhyloW(tree, cov.matrix.list)$'24'
   test.list <- TreeDriftTest(tree, mean.list, cov.matrix.list)
   expect_is(test.list, 'list')
   expect_equal(length(test.list), 13)

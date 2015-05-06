@@ -2,7 +2,7 @@
 #'
 #' Calculates the Mahalanobis distance between a list of species mean, using a global covariance matrix
 #' @param means list or array of species means being compared. array must have means in the rows.
-#' @param cov.matrix covariance matrix defining the scale (or metric tensor) to be used in the distance calculation.
+#' @param cov.matrix a single covariance matrix defining the scale (or metric tensor) to be used in the distance calculation.
 #' @param num.cores Number of threads to use in computation. The doMC library must be loaded.
 #' @return returns a matrix of species-species distances.
 #' @author Diogo Melo
@@ -15,10 +15,13 @@
 #' mean.3 <- colMeans(matrix(rnorm(30*10), 30, 10))
 #' mean.list <- list(mean.1, mean.2, mean.3)
 #'
-#' # If cov.matrix is the identity, calculated distance is euclidian
+#' # If cov.matrix is the identity, calculated distance is euclidian:
 #' euclidian <- MultiMahalanobis(mean.list, diag(10))
+#' # Using a matrix with half the variance will give twice the distance between each mean:
+#' half.euclidian  <- MultiMahalanobis(mean.list, diag(10)/2) 
+#' 
 #' # Other covariance matrices will give different distances, measured in the scale of the matrix
-#' half.euclidian <- MultiMahalanobis(mean.list, RandomMatrix(10))
+#' non.euclidian <- MultiMahalanobis(mean.list, RandomMatrix(10))
 #' 
 #' #Input can be an array with means in each row
 #' mean.array = array(1:36, c(9, 4))

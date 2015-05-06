@@ -18,7 +18,7 @@
 #'mat.list <- RandomMatrix(5, length(tree$tip.label))
 #'names(mat.list) <- tree$tip.label
 #'sample.sizes <- runif(length(tree$tip.label), 15, 20)
-#'phylo.state <- AncestralStates(tree, mat.list, sample.sizes)
+#'phylo.state <- PhyloW(tree, mat.list, sample.sizes)
 #'
 #'phylo.comparisons <- PhyloCompare(tree, phylo.state)
 #'

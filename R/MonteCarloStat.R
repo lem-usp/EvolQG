@@ -14,7 +14,7 @@
 #' The doMC library must be loaded.
 #' @details Since this function uses multivariate normal model to generate populations, only covariance matrices should be used.
 #' @return returns the mean repeatability, or mean value of comparisons from samples to original statistic.
-#' @author Diogo Melo Guilherme Garcia
+#' @author Diogo Melo, Guilherme Garcia
 #' @seealso \code{\link{BootstrapRep}}, \code{\link{AlphaRep}}
 #' @rdname MonteCarloStat
 #' @export

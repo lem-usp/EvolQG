@@ -93,7 +93,7 @@ DriftTest <- function(means, cov.matrix, show.plot=TRUE)
 TreeDriftTest <- function(tree, mean.list, cov.matrix.list, sample.sizes = NULL){
   if(!all(tree$tip.label %in% names(mean.list))) stop("All tip labels must be in names(mean.list).")
   if(!all(tree$tip.label %in% names(cov.matrix.list))) stop("All tip labels must be in names(cov.matrix.list).")
-  cov.matrices <- AncestralStates(tree, cov.matrix.list, sample.sizes)
+  cov.matrices <- PhyloW(tree, cov.matrix.list, sample.sizes)
   nodes <- names(cov.matrices)
   node.mask <- laply(nodes, function(x) length(getMeans(mean.list, tree, x))) > 3
   if(!any(node.mask)) stop("At least one node must have more than 4 descendents in mean.list")

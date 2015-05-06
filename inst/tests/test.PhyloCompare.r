@@ -3,7 +3,7 @@ test_that("PhyloCompare gives correct results",
   TREE <- "iris((setosa:1,versicolor:1):1,virginica:2);"
   tree.iris <- ape::read.tree(text = TREE)
   iris.cov.list <- dlply(iris, "Species", function(x) cov(x[,1:4]))
-  cov.matrices <- AncestralStates(tree.iris, iris.cov.list)
+  cov.matrices <- PhyloW(tree.iris, iris.cov.list)
   RS.iris = PhyloCompare(tree.iris, cov.matrices)
   mantel.iris = PhyloCompare(tree.iris, llply(cov.matrices, cov2cor), function(x, y) cor(x[lower.tri(x)],
                                                                                          y[lower.tri(y)]))

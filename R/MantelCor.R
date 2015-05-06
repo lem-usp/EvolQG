@@ -74,7 +74,7 @@ MantelCor.default <- function (cor.x, cor.y, permutations = 1000, mod = FALSE, I
     avg.plus <- mean (cor.x [lower.tri(cor.x)] [index != 0])
     avg.minus <- mean (cor.x [lower.tri(cor.x)] [index == 0])
     if(ICV){
-      avg.index <- abs(avg.plus - avg.minus)/CalcICV(cor.x)
+      avg.index <- (avg.plus - avg.minus)/CalcICV(cor.x)
       output <- c(correlation, prob, avg.plus, avg.minus, avg.index)
       names(output) <- c("Rsquared", "Probability", "AVG+", "AVG-", "AVG Index")
     } else{

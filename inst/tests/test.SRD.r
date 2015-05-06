@@ -3,7 +3,7 @@ test_that("SRD returns correct results",
             cov.matrix.1 <- cov(matrix(rnorm(30*10), 30, 10))
             cov.matrix.2 <- cov(matrix(rnorm(30*10), 30, 10))
             srd.output <- SRD(cov.matrix.1, cov.matrix.2)
-            expect_that(srd.output, is_a("list"))
+            expect_that(srd.output, is_a("SRD"))
             expect_that(names(srd.output), equals(c("output", "pc1", "model", "cormat")))
             expect_that(names(srd.output[[3]]), equals(c("quantiles", "interval", "code")))
             expect_that(dim(srd.output[[1]]), equals(c(10, 6)))

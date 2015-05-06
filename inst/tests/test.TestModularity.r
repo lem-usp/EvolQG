@@ -26,7 +26,7 @@ test_that("TestModularity returns correct results for AVG Index",
   expect_that(colnames(mod.test), equals(c("hypothesis", "Rsquared", "Probability", "AVG+", "AVG-", "AVG Index")))
   expect_true(all(mod.test[1:4, 2:5] >= -1))
   expect_true(all(mod.test[1:4, 2:5] <= 1))
-  expect_that(abs(mod.test[,4] - mod.test[,5])/CalcICV(cov.matrix), equals(mod.test[,6]))
+  expect_that((mod.test[,4] - mod.test[,5])/CalcICV(cov.matrix), equals(mod.test[,6]))
 }
 )
 
