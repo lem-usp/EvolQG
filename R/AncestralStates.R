@@ -51,7 +51,7 @@ AncestralStates <- function(tree, x, ...){
                   vars = variances))
     }
     else{
-      idence_intervals <- bidimension_df_format(anc[[2]])
+      confidence_intervals <- bidimension_df_format(anc[[2]])
       return(list(ace = ancestral_states,
                   CI = confidence_intervals))
     }
