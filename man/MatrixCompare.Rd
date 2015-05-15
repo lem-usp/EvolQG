@@ -4,12 +4,14 @@
 \alias{MatrixCompare}
 \title{Matrix Compare}
 \usage{
-MatrixCompare(cov.x, cov.y)
+MatrixCompare(cov.x, cov.y, id = ".id")
 }
 \arguments{
 \item{cov.x}{covariance or correlation matrix}
 
 \item{cov.y}{covariance or correlation matrix}
+
+\item{id}{name of the comparison column}
 }
 \value{
 data.frame of comparisons
