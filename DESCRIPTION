@@ -1,7 +1,7 @@
 Package: evolqg
 Type: Package
 Title: A suite of tools for evolutionary quantitative genetics
-Version: 0.1-0
+Version: 0.1-1
 Commit: 6658a4832e6e5fd426e8f17ed6b6bfcc90e7f4d7
 Date: 2013-09-16
 Author: Ana Paula Assis, Diogo Melo, Edgar Zanella, Fabio Machado, Guilherme Garcia
@@ -12,7 +12,6 @@ Depends:
     plyr (>= 1.7.1)
 Imports:
     Rcpp,
-    RcppEigen,
     reshape2,
     ggplot2,
     magrittr,
@@ -27,6 +26,6 @@ Suggests:
     grid,
     gridExtra,
     doMC
-LinkingTo: Rcpp, RcppEigen
+LinkingTo: Rcpp
 License: MIT + file LICENSE
 BugReports: https://github.com/lem-usp/evolqg/issues
