@@ -5,7 +5,3 @@ annealing <- function(Corr, S) {
     .Call('evolqg_annealing', PACKAGE = 'evolqg', Corr, S)
 }
 
-createRandomMatrix <- function(dimension, ke) {
-    .Call('evolqg_createRandomMatrix', PACKAGE = 'evolqg', dimension, ke)
-}
-

@@ -18,15 +18,3 @@ BEGIN_RCPP
     return __result;
 END_RCPP
 }
-// createRandomMatrix
-Eigen::MatrixXd createRandomMatrix(int dimension, float ke);
-RcppExport SEXP evolqg_createRandomMatrix(SEXP dimensionSEXP, SEXP keSEXP) {
-BEGIN_RCPP
-    Rcpp::RObject __result;
-    Rcpp::RNGScope __rngScope;
-    Rcpp::traits::input_parameter< int >::type dimension(dimensionSEXP);
-    Rcpp::traits::input_parameter< float >::type ke(keSEXP);
-    __result = Rcpp::wrap(createRandomMatrix(dimension, ke));
-    return __result;
-END_RCPP
-}
