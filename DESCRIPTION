@@ -2,7 +2,7 @@ Package: evolqg
 Type: Package
 Title: A suite of tools for evolutionary quantitative genetics
 Version: 0.1-1
-Commit: 83ccd04ce514182a0c59a72fb71a84d57e242553
+Commit: 2d7b76d026a1cf48cc3d05c35b8df71e8defb0fe
 Date: 2013-09-16
 Author: Ana Paula Assis, Diogo Melo, Edgar Zanella, Fabio Machado, Guilherme Garcia
 Maintainer: Diogo Melo <diogro@usp.br>
