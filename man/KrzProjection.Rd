@@ -12,7 +12,7 @@ KrzProjection(cov.x, cov.y, ...)
   ret.dim.2 = NULL, ...)
 
 \method{KrzProjection}{list}(cov.x, cov.y = NULL, ret.dim.1 = NULL,
-  ret.dim.2 = NULL, num.cores = 1, full.results = FALSE, ...)
+  ret.dim.2 = NULL, parallel = FALSE, full.results = FALSE, ...)
 }
 \arguments{
 \item{cov.x}{Single covariance matrix ou list of covariance matrices.
@@ -30,8 +30,7 @@ If cov.x is a list, every element in cov.x is projected in cov.y.}
 
 \item{ret.dim.2}{number of retained dimensions for second matrix in comparison, default for nxn matrix is n/2-1}
 
-\item{num.cores}{Number of threads to use in computation if list is passed to cov.x.
-The doMC library must be loaded.}
+\item{parallel}{if TRUE computations are done in parallel. Some foreach backend must be registered, like doParallel or doMC.}
 
 \item{full.results}{if FALSE returns only total variance, if TRUE also per PC variance.}
 }
@@ -57,9 +56,14 @@ KrzProjection(m.list, ret.dim.1 = 4, ret.dim.2 = 5)
 KrzProjection(m.list, c1)
 KrzProjection(m.list, c1, full.results = TRUE)
 
-#Multiple threads can be used with doMC library
-library(doMC)
-KrzProjection(m.list, num.cores = 2)
+#Multiple threads can be used with some foreach backend library, like doMC or doParallel
+#library(doParallel)
+##Windows:
+#cl <- makeCluster(2)
+#registerDoParallel(cl)
+##Mac and Linux:
+#registerDoParallel(cores = 2)
+#KrzProjection(m.list, parallel = TRUE)
 }
 \author{
 Diogo Melo, Guilherme Garcia

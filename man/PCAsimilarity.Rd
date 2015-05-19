@@ -11,7 +11,7 @@ PCAsimilarity(cov.x, cov.y, ...)
 \method{PCAsimilarity}{default}(cov.x, cov.y, ret.dim = NULL, ...)
 
 \method{PCAsimilarity}{list}(cov.x, cov.y = NULL, ..., repeat.vector = NULL,
-  num.cores = 1)
+  parallel = FALSE)
 }
 \arguments{
 \item{cov.x}{Single covariance matrix ou list of covariance matrices.
@@ -28,8 +28,7 @@ If cov.x is a list and cov.y is suplied, all matrices in cov.x are compared to c
 
 \item{repeat.vector}{Vector of repeatabilities for correlation correction.}
 
-\item{num.cores}{If list is passed in cov.x, number of threads to use in computation.
-The doMC library must be loaded.}
+\item{parallel}{if TRUE computations are done in parallel. Some foreach backend must be registered, like doParallel or doMC.}
 }
 \value{
 Ratio of projected variance to total variance

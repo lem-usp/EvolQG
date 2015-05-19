@@ -4,14 +4,14 @@
 \alias{MultiMahalanobis}
 \title{Calculate Mahalonabis distance for many vectors}
 \usage{
-MultiMahalanobis(means, cov.matrix, num.cores = 1)
+MultiMahalanobis(means, cov.matrix, parallel = FALSE)
 }
 \arguments{
 \item{means}{list or array of species means being compared. array must have means in the rows.}
 
 \item{cov.matrix}{a single covariance matrix defining the scale (or metric tensor) to be used in the distance calculation.}
 
-\item{num.cores}{Number of threads to use in computation. The doMC library must be loaded.}
+\item{parallel}{if TRUE computations are done in parallel. Some foreach backend must be registered, like doParallel or doMC.}
 }
 \value{
 returns a matrix of species-species distances.
@@ -38,9 +38,14 @@ mean.array = array(1:36, c(9, 4))
 mat = RandomMatrix(4)
 MultiMahalanobis(mean.array, mat)
 
-#Multiple threads can be used with doMC library
-library(doMC)
-MultiMahalanobis(mean.list, RandomMatrix(10), num.cores = 2)
+#Multiple threads can be used with some foreach backend library, like doMC or doParallel
+#library(doParallel)
+##Windows:
+#cl <- makeCluster(2)
+#registerDoParallel(cl)
+##Mac and Linux:
+#registerDoParallel(cores = 2)
+#MultiMahalanobis(mean.list, RandomMatrix(10), parallel = TRUE)
 }
 \author{
 Diogo Melo

@@ -6,7 +6,7 @@
 \title{Rarefaction analysis via ressampling}
 \usage{
 Rarefaction(ind.data, ComparisonFunc, ..., iterations = 1000, num.reps = 10,
-  correlation = FALSE, ret.dim = NULL, num.cores = 1)
+  correlation = FALSE, ret.dim = NULL, parallel = FALSE)
 
 PlotRarefaction(comparison.list, y.axis = "Statistic")
 }
@@ -25,7 +25,7 @@ PlotRarefaction(comparison.list, y.axis = "Statistic")
 
 \item{ret.dim}{When using Krzanowski Correlation, number of retained dimensions may be specified}
 
-\item{num.cores}{Number of threads to use in computation. The doMC library must be loaded.}
+\item{parallel}{if TRUE computations are done in parallel. Some foreach backend must be registered, like doParallel or doMC.}
 
 \item{comparison.list}{output from rarefaction functions can be used in ploting}
 
@@ -55,9 +55,14 @@ results.Mantel <- Rarefaction(ind.data, MatrixCor, correlation = TRUE, num.reps 
 results.KrzCov <- Rarefaction(ind.data, KrzCor, num.reps = 5)
 results.PCA <- Rarefaction(ind.data, PCAsimilarity, num.reps = 5)
 
-#Multiple threads can be used with doMC library
-library(doMC)
-results.KrzCov <- Rarefaction(ind.data, KrzCor, num.reps = 5, num.cores = 2)
+#Multiple threads can be used with some foreach backend library, like doMC or doParallel
+#library(doParallel)
+##Windows:
+#cl <- makeCluster(2)
+#registerDoParallel(cl)
+##Mac and Linux:
+#registerDoParallel(cores = 2)
+#results.KrzCov <- Rarefaction(ind.data, KrzCor, num.reps = 5, parallel = TRUE)
 
 #Easy access
 library(reshape2)

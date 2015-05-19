@@ -5,7 +5,7 @@
 #' @param ind.data Matrix of indiviual measurments, or ajusted linear model
 #' @param cv.level Coeficient of variation level choosen for integration index ajustment in linear model. Defaults to 0.06.
 #' @param iterations Number of resamples to take
-#' @param num.cores Number of threads to use in computation. The doMC library must be loaded. Not implemented for linear models.
+#' @param parallel if TRUE computations are done in parallel. Some foreach backend must be registered, like doParallel or doMC.
 #' @param ... aditional arguments passed to other methods
 #' @return List with adjusted integration indexes, fitted models and simulated distributions of integration indexes and mean coeficient of variation.
 #' @references Young, N. M., Wagner, G. P., and Hallgrimsson, B. (2010).
@@ -37,7 +37,7 @@ CalcR2CvCorrected  <- function(ind.data, ...) UseMethod("CalcR2CvCorrected")
 #' @rdname CalcR2CvCorrected
 #' @method CalcR2CvCorrected default
 #' @export
-CalcR2CvCorrected.default <- function (ind.data, cv.level = 0.06, iterations = 1000, num.cores = 1, ...) {
+CalcR2CvCorrected.default <- function (ind.data, cv.level = 0.06, iterations = 1000, parallel = FALSE, ...) {
   cv <- function (x) return (sd(x)/mean(x))
   Stats = function(x) {
     cov.matrix = var(x)
@@ -47,7 +47,7 @@ CalcR2CvCorrected.default <- function (ind.data, cv.level = 0.06, iterations = 1
   it.stats <- BootstrapRep_primitive(ind.data, iterations,
                            ComparisonFunc = function(x, y) y,
                            StatFunc = Stats,
-                           num.cores = num.cores)[,-1]
+                           parallel = parallel)[,-1]
   colnames(it.stats) <- c("r2", "eVals_cv", "mean_cv")
   lm.r2 <- lm(it.stats[,1]~it.stats[,3])
   lm.eVals.cv <- lm(it.stats[,2]~it.stats[,3])

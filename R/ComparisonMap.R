@@ -4,19 +4,13 @@
 #' @param MatrixCompFunc Function used to compare pair of matrices, must output a vector: comparisons and probabilities
 #' @param ... Aditional arguments to MatrixCompFunc
 #' @param repeat.vector Vector of repeatabilities for correlation correction.
-#' @param num.cores Number of threads to use in computation. Requires doMC library.
+#' @param parallel if TRUE computations are done in parallel. Some foreach backend must be registered, like doParallel or doMC.
 #' @return Matrix of comparisons, matrix of probabilities.
 #' @import plyr
 #' @importFrom reshape2 acast
 #' @author Diogo Melo
 #' @seealso \code{\link{MantelCor}}, \code{\link{KrzCor}},\code{\link{RandomSkewers}}
-ComparisonMap <- function (matrix.list, MatrixCompFunc, ..., repeat.vector = NULL, num.cores = 1){
-  if (num.cores > 1) {
-    doMC::registerDoMC(num.cores)
-    parallel = TRUE
-  } else{
-    parallel = FALSE
-  }
+ComparisonMap <- function (matrix.list, MatrixCompFunc, ..., repeat.vector = NULL, parallel = FALSE){
   n.matrix <- length(matrix.list)
   if(is.null(names(matrix.list))) {names(matrix.list) <- 1:n.matrix}
   matrix.names <- names (matrix.list)

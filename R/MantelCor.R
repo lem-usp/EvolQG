@@ -17,7 +17,7 @@
 #' AVG+, AVG- and AVG Ratio based on binary hipotesis matrix.
 #' @param ICV Indicates if modularity hypothesis test should use AVG Index instead of AVG Ratio. Ignored if mod is FALSE.
 #' @param repeat.vector Vector of repeatabilities for correlation correction.
-#' @param num.cores If list is passed, number of threads to use in computation. The doMC library must be loaded.
+#' @param parallel if TRUE computations are done in parallel. Some foreach backend must be registered, like doParallel or doMC.
 #' @param ... aditional arguments passed to other methods
 #' @return If cor.x and cor.y are passed, returns matrix pearson
 #' correlation and significance via Mantel permutations.
@@ -54,9 +54,14 @@
 #' c4 <- RandomMatrix(10)
 #' MantelCor(cor.list, c4)
 #' 
-#' #Multiple threads can be used with the doMC library
-#' library(doMC)
-#' MantelCor(cor.list, num.cores = 2) 
+#' #Multiple threads can be used with some foreach backend library, like doMC or doParallel
+#' #library(doParallel)
+#' ##Windows:
+#' #cl <- makeCluster(2)
+#' #registerDoParallel(cl)
+#' ##Mac and Linux:
+#' #registerDoParallel(cores = 2)
+#' #MantelCor(cor.list, parallel = TRUE) 
 #' @keywords matrixcomparison
 #' @keywords matrixcorrelation
 #' @keywords randomskewers
@@ -96,19 +101,19 @@ MantelCor.default <- function (cor.x, cor.y, permutations = 1000, mod = FALSE, I
 #' @export
 MantelCor.list <- function (cor.x, cor.y = NULL,
                             permutations = 1000, repeat.vector = NULL,
-                            mod = FALSE, ICV = FALSE, num.cores = 1, ...)
+                            mod = FALSE, ICV = FALSE, parallel = FALSE, ...)
 {
   if (is.null (cor.y)) {
     output <- ComparisonMap(cor.x,
                          function(x, cor.y) MantelCor(x, cor.y, permutations),
                          repeat.vector = repeat.vector,
-                         num.cores = num.cores)
+                         parallel = parallel)
   } else{
     output <- SingleComparisonMap(cor.x, cor.y,
                                function(x, y) MantelCor(y,
                                                         x,
                                                         permutations, mod = mod, ICV = ICV),
-                               num.cores = num.cores)
+                               parallel = parallel)
   }
   return(output)
 }
@@ -132,17 +137,17 @@ MatrixCor.default <- function (cor.x, cor.y, ...)
 #' @export
 MatrixCor.list <- function (cor.x, cor.y = NULL,
                             permutations = 1000, repeat.vector = NULL,
-                            mod = FALSE, num.cores = 1, ...)
+                            mod = FALSE, parallel = FALSE, ...)
 {
   if (is.null (cor.y)) {
     output <- ComparisonMap(cor.x,
                             function(x, cor.y) c(MatrixCor(x, cor.y), NA),
                             repeat.vector = repeat.vector,
-                            num.cores = num.cores)[[1]]
+                            parallel = parallel)[[1]]
   } else{
     output <- SingleComparisonMap(cor.x, cor.y,
                                   function(x, y) MatrixCor(x, y),                                                    
-                                  num.cores = num.cores)
+                                  parallel = parallel)
   }
   return(output)
 }

@@ -12,8 +12,7 @@
 #' @param ... Aditional arguments passed to ComparisonFunc
 #' @param iterations Number of resamples to take
 #' @param correlation If TRUE, correlation matrix is used, else covariance matrix. 
-#' @param num.cores Number of threads to use in computation.
-#' The doMC library must be loaded.
+#' @param parallel if TRUE computations are done in parallel. Some foreach backend must be registered, like doParallel or doMC.
 #' @return returns the mean repeatability, that is, the mean value of comparisons from samples to original statistic.
 #' @author Diogo Melo, Guilherme Garcia
 #' @seealso \code{\link{MonteCarloStat}}, \code{\link{AlphaRep}}
@@ -27,11 +26,16 @@
 #' 
 #' BootstrapRep(iris[,1:4], PCAsimilarity, iterations = 50)
 #' 
-#' #Multiple threads can be used with doMC library
-#' library(doMC)
-#' BootstrapRep(iris[,1:4], PCAsimilarity,
-#'              iterations = 5,
-#'              num.cores = 2)
+#' #Multiple threads can be used with some foreach backend library, like doMC or doParallel
+#' #library(doParallel)
+#' ##Windows:
+#' #cl <- makeCluster(2)
+#' #registerDoParallel(cl)
+#' ##Mac and Linux:
+#' #registerDoParallel(cores = 2)
+#' #BootstrapRep(iris[,1:4], PCAsimilarity,
+#' #             iterations = 5,
+#' #             parallel = TRUE)
 #' @keywords bootstrap
 #' @keywords repetabilities
 
@@ -40,26 +44,20 @@ BootstrapRep <- function(ind.data,
                          ...,
                          iterations = 1000, 
                          correlation = FALSE, 
-                         num.cores = 1){
+                         parallel = FALSE){
   if(correlation)  {StatFunc <- cor; c2v <- cov2cor
   } else {StatFunc <- cov; c2v <- function(x) x}
   repeatability <- BootstrapRep_primitive(ind.data, iterations,
                                           ComparisonFunc = function(x, y) ComparisonFunc(c2v(x), 
                                                                                          c2v(y), ...),
                                           StatFunc = StatFunc,
-                                          num.cores = num.cores)
+                                          parallel = parallel)
   return(mean(repeatability[,2]))
 }
 
 BootstrapRep_primitive <- function (ind.data, iterations,
                                     ComparisonFunc, StatFunc,
-                                    num.cores){
-  if (num.cores > 1) {
-    doMC::registerDoMC(num.cores)
-    parallel = TRUE
-  } else{
-    parallel = FALSE
-  }
+                                    parallel = FALSE){
   if(isSymmetric(as.matrix(ind.data))) stop("input appears to be a matrix, use residuals.")
   sample.size <-  dim (ind.data) [1]
   c.matrix <- StatFunc(ind.data)
@@ -79,8 +77,7 @@ BootstrapRep_primitive <- function (ind.data, iterations,
 #'
 #' @param ind.data Matrix of residuals or indiviual measurments
 #' @param iterations Number of resamples to take
-#' @param num.cores Number of threads to use in computation.
-#' The doMC library must be loaded.
+#' @param parallel if TRUE computations are done in parallel. Some foreach backend must be registered, like doParallel or doMC.
 #' @return returns a vector with the R2 for all populations
 #' @author Diogo Melo Guilherme Garcia
 #' @seealso \code{\link{BootstrapRep}}, \code{\link{AlphaRep}}
@@ -93,10 +90,10 @@ BootstrapRep_primitive <- function (ind.data, iterations,
 #' @keywords bootstrap
 #' @keywords integration
 #' @keywords repeatability
-BootstrapR2 <- function (ind.data, iterations = 1000, num.cores = 1) {
+BootstrapR2 <- function (ind.data, iterations = 1000, parallel = FALSE) {
   it.r2 <- BootstrapRep_primitive(ind.data, iterations,
                           ComparisonFunc = function(x, y) y,
                           StatFunc = function(x) CalcR2(cor(x)),
-                          num.cores = num.cores)
+                          parallel = parallel)
   return (it.r2[,2])
 }

@@ -3,7 +3,7 @@
 #' Calculates the Mahalanobis distance between a list of species mean, using a global covariance matrix
 #' @param means list or array of species means being compared. array must have means in the rows.
 #' @param cov.matrix a single covariance matrix defining the scale (or metric tensor) to be used in the distance calculation.
-#' @param num.cores Number of threads to use in computation. The doMC library must be loaded.
+#' @param parallel if TRUE computations are done in parallel. Some foreach backend must be registered, like doParallel or doMC.
 #' @return returns a matrix of species-species distances.
 #' @author Diogo Melo
 #' @export
@@ -28,16 +28,15 @@
 #' mat = RandomMatrix(4)
 #' MultiMahalanobis(mean.array, mat)
 #' 
-#' #Multiple threads can be used with doMC library
-#' library(doMC)
-#' MultiMahalanobis(mean.list, RandomMatrix(10), num.cores = 2)
-MultiMahalanobis <- function (means, cov.matrix, num.cores = 1) {
-  if (num.cores > 1) {
-    doMC::registerDoMC(num.cores)
-    parallel = TRUE
-  } else{
-    parallel = FALSE
-  }
+#' #Multiple threads can be used with some foreach backend library, like doMC or doParallel
+#' #library(doParallel)
+#' ##Windows:
+#' #cl <- makeCluster(2)
+#' #registerDoParallel(cl)
+#' ##Mac and Linux:
+#' #registerDoParallel(cores = 2)
+#' #MultiMahalanobis(mean.list, RandomMatrix(10), parallel = TRUE)
+MultiMahalanobis <- function (means, cov.matrix, parallel = FALSE) {
   if(is.data.frame(means) | (!is.array(means) & !is.list(means)))
     stop("means must be in a list or an array.")
   if(!isSymmetric(cov.matrix)) stop("covariance matrix must be symmetric.")

@@ -11,7 +11,7 @@ KrzCor(cov.x, cov.y, ...)
 \method{KrzCor}{default}(cov.x, cov.y, ret.dim = NULL, ...)
 
 \method{KrzCor}{list}(cov.x, cov.y = NULL, ret.dim = NULL,
-  repeat.vector = NULL, num.cores = 1, ...)
+  repeat.vector = NULL, parallel = FALSE, ...)
 }
 \arguments{
 \item{cov.x}{Single covariance matrix or list of covariance matrices.
@@ -30,7 +30,7 @@ default for nxn matrix is n/2-1}
 
 \item{repeat.vector}{Vector of repeatabilities for correlation correction.}
 
-\item{num.cores}{If list is passed, number of threads to use in computation. The doMC library must be loaded.}
+\item{parallel}{if TRUE and a list is passed, computations are done in parallel. Some foreach backend must be registered, like doParallel or doMC.}
 }
 \value{
 If cov.x and cov.y are passed, returns Kzranowski correlation
@@ -59,9 +59,14 @@ KrzCor(list(c1, c2, c3), repeat.vector = reps)
 c4 <- RandomMatrix(10)
 KrzCor(list(c1, c2, c3), c4)
 
-#Multiple threads can be used with doMC library
-library(doMC)
-KrzCor(list(c1, c2, c3), num.cores = 2)
+#Multiple threads can be used with some foreach backend library, like doMC or doParallel
+#library(doParallel)
+##Windows:
+#cl <- makeCluster(2)
+#registerDoParallel(cl)
+##Mac and Linux:
+#registerDoParallel(cores = 2)
+#KrzCor(list(c1, c2, c3), parallel = TRUE)
 }
 \author{
 Diogo Melo, Guilherme Garcia

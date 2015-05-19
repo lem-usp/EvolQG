@@ -11,7 +11,7 @@
 #' Optional if cov.x is a list.
 #' @param distance distance function for use in calculation. Currently supports "Riemann" and "Overlap".
 #' @param ... aditional arguments passed to other methods
-#' @param num.cores If list is passed, number of threads to use in computation. Requires doMC library.
+#' @param parallel if TRUE and a list is passed, computations are done in parallel. Some foreach backend must be registered, like doParallel or doMC.
 #' @return
 #' If cov.x and cov.y are passed, returns distance between them.
 #'
@@ -51,18 +51,18 @@ MatrixDistance.default <- function (cov.x, cov.y, distance = c('OverlapDist', 'R
 #' @rdname MatrixDistance
 #' @method MatrixDistance list
 #' @export
-MatrixDistance.list <- function (cov.x, cov.y = NULL, distance = c('OverlapDist', 'RiemannDist'), ...,  num.cores = 1)
+MatrixDistance.list <- function (cov.x, cov.y = NULL, distance = c('OverlapDist', 'RiemannDist'), ...,  parallel = FALSE)
 {
   distance <- match.fun(match.arg(distance))
   if (is.null (cov.y)) {
     output <- ComparisonMap(cov.x,
                          function(x, y) return(c(distance(x, y,...), NA)),
-                         num.cores = num.cores)
+                         parallel = parallel)
     output <- output[[1]]
   } else{
     output <- SingleComparisonMap(cov.x, cov.y,
                                function(x, y) return(c(distance(x, y,...), NA)),
-                               num.cores = num.cores)
+                               parallel = parallel)
     output <- output[-length(output)]
   }
   return(output)

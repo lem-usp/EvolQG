@@ -5,7 +5,7 @@
 \title{Generic Single Comparison Map functions for creating parallel list methods
 Internal functions for making eficient comparisons.}
 \usage{
-SingleComparisonMap(matrix.list, y.mat, MatrixCompFunc, ..., num.cores)
+SingleComparisonMap(matrix.list, y.mat, MatrixCompFunc, ..., parallel = FALSE)
 }
 \arguments{
 \item{matrix.list}{list of matrices being compared}
@@ -16,7 +16,7 @@ SingleComparisonMap(matrix.list, y.mat, MatrixCompFunc, ..., num.cores)
 
 \item{...}{Aditional arguments to MatrixCompFunc}
 
-\item{num.cores}{Number of threads to use in computation. Requires doMC library.}
+\item{parallel}{if TRUE computations are done in parallel. Some foreach backend must be registered, like doParallel or doMC.}
 }
 \value{
 Matrix of comparisons, matrix of probabilities.

@@ -9,8 +9,7 @@
 #' @param cov.y First argument is compared to cov.y.
 #' @param ret.dim number of retained dimensions in the comparison. Defaults to all.
 #' @param repeat.vector Vector of repeatabilities for correlation correction.
-#' @param num.cores If list is passed in cov.x, number of threads to use in computation.
-#' The doMC library must be loaded.
+#' @param parallel if TRUE computations are done in parallel. Some foreach backend must be registered, like doParallel or doMC.
 #' @return Ratio of projected variance to total variance
 #' @references Singhal, A. and Seborg, D. E. (2005), Clustering multivariate time-series data. J. Chemometrics, 19: 427-438. doi: 10.1002/cem.945
 #' @author Edgar Zanella Alvarenga
@@ -57,17 +56,17 @@ PCAsimilarity.default <- function(cov.x, cov.y, ret.dim = NULL, ...) {
 #' @method PCAsimilarity list
 #' @export
 PCAsimilarity.list <- function (cov.x, cov.y = NULL, ...,
-                         repeat.vector = NULL, num.cores = 1) {
+                         repeat.vector = NULL, parallel = FALSE) {
   if (is.null (cov.y)) {
     output <- ComparisonMap(cov.x,
                          function(x, y) return(c(PCAsimilarity(x, y, ...), NA)),
                          repeat.vector = repeat.vector,
-                         num.cores = num.cores)
+                         parallel = parallel)
     output <- output[[1]]
   } else{
     output <- SingleComparisonMap(cov.x, cov.y,
                          function(x, y) return(c(PCAsimilarity(x, y, ...), NA)),
-                               num.cores = num.cores)
+                               parallel = parallel)
     output <- output[,-length(output)]
   }
   return(output)

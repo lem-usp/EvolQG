@@ -15,14 +15,14 @@ MantelCor(cor.x, cor.y, ...)
   ICV = FALSE, ...)
 
 \method{MantelCor}{list}(cor.x, cor.y = NULL, permutations = 1000,
-  repeat.vector = NULL, mod = FALSE, ICV = FALSE, num.cores = 1, ...)
+  repeat.vector = NULL, mod = FALSE, ICV = FALSE, parallel = FALSE, ...)
 
 MatrixCor(cor.x, cor.y, ...)
 
 \method{MatrixCor}{default}(cor.x, cor.y, ...)
 
 \method{MatrixCor}{list}(cor.x, cor.y = NULL, permutations = 1000,
-  repeat.vector = NULL, mod = FALSE, num.cores = 1, ...)
+  repeat.vector = NULL, mod = FALSE, parallel = FALSE, ...)
 }
 \arguments{
 \item{cor.x}{Single correlation matrix or list of correlation matrices.
@@ -48,7 +48,7 @@ AVG+, AVG- and AVG Ratio based on binary hipotesis matrix.}
 
 \item{repeat.vector}{Vector of repeatabilities for correlation correction.}
 
-\item{num.cores}{If list is passed, number of threads to use in computation. The doMC library must be loaded.}
+\item{parallel}{if TRUE computations are done in parallel. Some foreach backend must be registered, like doParallel or doMC.}
 }
 \value{
 If cor.x and cor.y are passed, returns matrix pearson
@@ -86,9 +86,14 @@ MantelCor(llply(cor.list, repeat.vector = reps))
 c4 <- RandomMatrix(10)
 MantelCor(cor.list, c4)
 
-#Multiple threads can be used with the doMC library
-library(doMC)
-MantelCor(cor.list, num.cores = 2)
+#Multiple threads can be used with some foreach backend library, like doMC or doParallel
+#library(doParallel)
+##Windows:
+#cl <- makeCluster(2)
+#registerDoParallel(cl)
+##Mac and Linux:
+#registerDoParallel(cores = 2)
+#MantelCor(cor.list, parallel = TRUE)
 }
 \author{
 Diogo Melo, Guilherme Garcia

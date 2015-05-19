@@ -12,7 +12,7 @@
 \title{Calculate mean values for various matrix statistics}
 \usage{
 MeanMatrixStatistics(cov.matrix, iterations = 1000, full.results = F,
-  num.cores = 1)
+  parallel = FALSE)
 }
 \arguments{
 \item{cov.matrix}{A covariance matrix}
@@ -21,8 +21,7 @@ MeanMatrixStatistics(cov.matrix, iterations = 1000, full.results = F,
 
 \item{full.results}{If TRUE, full distribution of statistics will be returned.}
 
-\item{num.cores}{Number of threads to use in computation.
-The doMC library must be loaded.}
+\item{parallel}{if TRUE computations are done in parallel. Some foreach backend must be registered, like doParallel or doMC.}
 }
 \value{
 dist Full distribution of stochastic statistics, only if full.resuts == TRUE
@@ -36,9 +35,14 @@ Calculates: Mean Squared Correlation, ICV, Autonomy, ConditionalEvolvability, Co
 cov.matrix <- cov(iris[,1:4])
 MeanMatrixStatistics(cov.matrix)
 
-#Multiple threads can be used with doMC library
-library(doMC)
-MeanMatrixStatistics(cov.matrix, num.cores = 2)
+#Multiple threads can be used with some foreach backend library, like doMC or doParallel
+#library(doParallel)
+##Windows:
+#cl <- makeCluster(2)
+#registerDoParallel(cl)
+##Mac and Linux:
+#registerDoParallel(cores = 2)
+#MeanMatrixStatistics(cov.matrix, parallel = TRUE)
 }
 \author{
 Diogo Melo Guilherme Garcia

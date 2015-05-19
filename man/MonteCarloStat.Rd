@@ -5,7 +5,7 @@
 \title{Parametric population samples with covariance or correlation matrices}
 \usage{
 MonteCarloStat(cov.matrix, sample.size, iterations, ComparisonFunc, StatFunc,
-  num.cores = 1)
+  parallel = FALSE)
 }
 \arguments{
 \item{cov.matrix}{Covariance matrix.}
@@ -18,8 +18,7 @@ MonteCarloStat(cov.matrix, sample.size, iterations, ComparisonFunc, StatFunc,
 
 \item{StatFunc}{Function for calculating the statistic}
 
-\item{num.cores}{If list is passed, number of threads to use in computation.
-The doMC library must be loaded.}
+\item{parallel}{if TRUE computations are done in parallel. Some foreach backend must be registered, like doParallel or doMC.}
 }
 \value{
 returns the mean repeatability, or mean value of comparisons from samples to original statistic.
@@ -38,18 +37,18 @@ cov.matrix <- RandomMatrix(10, 1, 1, 10)
 
 MonteCarloStat(cov.matrix, sample.size = 30, iterations = 100,
                ComparisonFunc = function(x, y) RandomSkewers(x, y)[1],
-               StatFunc = cov,
-               num.cores = 1)
+               StatFunc = cov)
+
+#Calculating R2 confidence intervals
+r2.dist <- MonteCarloR2(RandomMatrix(10, 1, 1, 10), 30)
+quantile(r2.dist)
+
 #Multiple threads can be used with doMC library
 library(doMC)
 MonteCarloStat(cov.matrix, sample.size = 30, iterations = 100,
                ComparisonFunc = function(x, y) RandomSkewers(x, y)[1],
                StatFunc = cov,
-               num.cores = 2)
-
-#Calculating R2 confidence intervals
-r2.dist <- MonteCarloR2(RandomMatrix(10, 1, 1, 10), 30)
-quantile(r2.dist)
+               parallel = TRUE)
 }
 \author{
 Diogo Melo, Guilherme Garcia

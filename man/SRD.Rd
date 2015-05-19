@@ -11,8 +11,8 @@ SRD(cov.x, cov.y, ...)
 
 \method{SRD}{default}(cov.x, cov.y, iterations = 1000, ...)
 
-\method{SRD}{list}(cov.x, cov.y = NULL, iterations = 1000, num.cores = 1,
-  ...)
+\method{SRD}{list}(cov.x, cov.y = NULL, iterations = 1000,
+  parallel = FALSE, ...)
 
 \method{plot}{SRD}(x, matrix.label = "", ...)
 }
@@ -25,8 +25,7 @@ SRD(cov.x, cov.y, ...)
 
 \item{iterations}{Number of random vectors used in comparison}
 
-\item{num.cores}{If list is passed, number of threads to use in computation.
-The doMC library must be loaded.}
+\item{parallel}{if TRUE computations are done in parallel. Some foreach backend must be registered, like doParallel or doMC.}
 
 \item{x}{Output from SRD function, used in ploting}
 
@@ -74,9 +73,14 @@ plot(srd.output)
 plot(srd.array.result[1,2][[1]])
 plot(srd.array.result[3,4][[1]])
 
-#Multiple threads can be used with doMC library
-library(doMC)
-SRD(m.list, num.cores = 2)
+#Multiple threads can be used with some foreach backend library, like doMC or doParallel
+#library(doParallel)
+##Windows:
+#cl <- makeCluster(2)
+#registerDoParallel(cl)
+##Mac and Linux:
+#registerDoParallel(cores = 2)
+#SRD(m.list, parallel = TRUE)
 }
 \author{
 Diogo Melo, Guilherme Garcia

@@ -14,8 +14,7 @@
 #' If cov.x is a list, every element in cov.x is projected in cov.y.
 #' @param ret.dim.1 number of retained dimensions for first matrix in comparison, default for nxn matrix is n/2-1
 #' @param ret.dim.2 number of retained dimensions for second matrix in comparison, default for nxn matrix is n/2-1
-#' @param num.cores Number of threads to use in computation if list is passed to cov.x.
-#' The doMC library must be loaded.
+#' @param parallel if TRUE computations are done in parallel. Some foreach backend must be registered, like doParallel or doMC.
 #' @param full.results if FALSE returns only total variance, if TRUE also per PC variance.
 #' @return Ratio of projected variance to total variance, and ratio of projected total in each PC
 #' @references Krzanowski, W. J. (1979). Between-Groups Comparison of Principal
@@ -41,9 +40,14 @@
 #' KrzProjection(m.list, c1)
 #' KrzProjection(m.list, c1, full.results = TRUE)
 #' 
-#' #Multiple threads can be used with doMC library
-#' library(doMC)
-#' KrzProjection(m.list, num.cores = 2)
+#' #Multiple threads can be used with some foreach backend library, like doMC or doParallel
+#' #library(doParallel)
+#' ##Windows:
+#' #cl <- makeCluster(2)
+#' #registerDoParallel(cl)
+#' ##Mac and Linux:
+#' #registerDoParallel(cores = 2)
+#' #KrzProjection(m.list, parallel = TRUE)
 #' @keywords matrixcomparison
 #' @keywords matrixcorrelation
 #' @keywords Krzanowski
@@ -77,13 +81,7 @@ KrzProjection.default <- function (cov.x, cov.y, ret.dim.1 = NULL, ret.dim.2 = N
 #' @export
 KrzProjection.list <- function(cov.x, cov.y = NULL,
                                ret.dim.1 = NULL, ret.dim.2 = NULL,
-                               num.cores = 1, full.results = FALSE, ...){
-  if (num.cores > 1) {
-    doMC::registerDoMC(num.cores)
-    parallel = TRUE
-  } else{
-    parallel = FALSE
-  }
+                               parallel = FALSE, full.results = FALSE, ...){
   if(is.null(cov.y)){
     if(full.results){
       CompareToNProj <- function(n) llply(cov.x,

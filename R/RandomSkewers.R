@@ -11,7 +11,7 @@
 #' Optional if cov.x is a list.
 #' @param num.vectors Number of random vectors used in comparison.
 #' @param repeat.vector Vector of repeatabilities for correlation correction.
-#' @param num.cores If list is passed, number of threads to use in computation. The doMC library must be loaded.
+#' @param parallel if TRUE computations are done in parallel. Some foreach backend must be registered, like doParallel or doMC.
 #' @param ... aditional arguments passed to other methods.
 #' @return
 #' If cov.x and cov.y are passed, returns average value
@@ -47,9 +47,14 @@
 #' c4 <- RandomMatrix(10)
 #' RandomSkewers(list(c1, c2, c3), c4)
 #' 
-#' #Multiple threads can be used with doMC library
-#' library(doMC)
-#' RandomSkewers(list(c1, c2, c3), num.cores = 2)
+#' #Multiple threads can be used with some foreach backend library, like doMC or doParallel
+#' #library(doParallel)
+#' ##Windows:
+#' #cl <- makeCluster(2)
+#' #registerDoParallel(cl)
+#' ##Mac and Linux:
+#' #registerDoParallel(cores = 2)
+#' #RandomSkewers(list(c1, c2, c3), parallel = TRUE)
 #' 
 #' @keywords matrixcomparison
 #' @keywords matrixcorrelation
@@ -78,17 +83,17 @@ RandomSkewers.default <- function (cov.x, cov.y, num.vectors = 1000, ...) {
 #' @rdname RandomSkewers
 #' @method RandomSkewers list
 #' @export
-RandomSkewers.list <- function (cov.x, cov.y = NULL, num.vectors = 1000, repeat.vector = NULL, num.cores = 1, ...)
+RandomSkewers.list <- function (cov.x, cov.y = NULL, num.vectors = 1000, repeat.vector = NULL, parallel = FALSE, ...)
 {
   if (is.null (cov.y)) {
     output <- ComparisonMap(cov.x,
                          function(x, y) RandomSkewers(x, y, num.vectors),
                          repeat.vector = repeat.vector,
-                         num.cores = num.cores)
+                         parallel = parallel)
   } else{
     output <- SingleComparisonMap(cov.x, cov.y,
                                function(x, y) RandomSkewers(x, y, num.vectors),
-                               num.cores = num.cores)
+                               parallel = parallel)
   }
   return(output)
 }

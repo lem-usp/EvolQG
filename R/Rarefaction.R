@@ -14,7 +14,7 @@
 #' @param ... Aditional arguments passed to ComparisonFunc
 #' @param num.reps number of populations sampled per sample size
 #' @param iterations Parameter for comparison function. Number of random skewers or number of permutations in mantel.
-#' @param num.cores Number of threads to use in computation. The doMC library must be loaded.
+#' @param parallel if TRUE computations are done in parallel. Some foreach backend must be registered, like doParallel or doMC.
 #' @param correlation If TRUE, correlation matrix is used, else covariance matrix. MantelCor always uses correlation matrix.
 #' @param ret.dim When using Krzanowski Correlation, number of retained dimensions may be specified
 #' @param comparison.list output from rarefaction functions can be used in ploting
@@ -36,9 +36,14 @@
 #' results.KrzCov <- Rarefaction(ind.data, KrzCor, num.reps = 5)
 #' results.PCA <- Rarefaction(ind.data, PCAsimilarity, num.reps = 5)
 #' 
-#' #Multiple threads can be used with doMC library
-#' library(doMC)
-#' results.KrzCov <- Rarefaction(ind.data, KrzCor, num.reps = 5, num.cores = 2)
+#' #Multiple threads can be used with some foreach backend library, like doMC or doParallel
+#' #library(doParallel)
+#' ##Windows:
+#' #cl <- makeCluster(2)
+#' #registerDoParallel(cl)
+#' ##Mac and Linux:
+#' #registerDoParallel(cores = 2)
+#' #results.KrzCov <- Rarefaction(ind.data, KrzCor, num.reps = 5, parallel = TRUE)
 #' 
 #' #Easy access
 #' library(reshape2)
@@ -69,7 +74,7 @@ Rarefaction <- function(ind.data,
                         num.reps = 10,
                         correlation = FALSE, 
                         ret.dim = NULL,
-                        num.cores = 1){
+                        parallel = FALSE){
   if(correlation)  {StatFunc <- cor; c2v <- cov2cor
   } else {StatFunc <- cov; c2v <- function(x) x}
   rarefaction.list <- Rarefaction_primitive(ind.data,
@@ -77,7 +82,7 @@ Rarefaction <- function(ind.data,
                                             ComparisonFunc = function(x, y) ComparisonFunc(c2v(x), 
                                                                                            c2v(y), ...),
                                             num.reps = num.reps,
-                                            num.cores = num.cores)
+                                            parallel = parallel)
   return(rarefaction.list)
 }
 
@@ -85,14 +90,8 @@ Rarefaction_primitive <- function(ind.data,
                                   StatFunc,
                                   ComparisonFunc,
                                   num.reps = 10,
-                                  num.cores = 1)
+                                  parallel = FALSE)
 {
-  if (num.cores > 1) {
-    doMC::registerDoMC(num.cores)
-    parallel = TRUE
-  } else{
-    parallel = FALSE
-  }
   if(isSymmetric(as.matrix(ind.data))) stop("input appears to be a matrix, use residuals.")
   observed.stat = StatFunc(ind.data)
   num.ind = dim(ind.data)[1]

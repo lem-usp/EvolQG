@@ -4,15 +4,14 @@
 \alias{BootstrapR2}
 \title{R2 confidence intervals by bootstrap resampling}
 \usage{
-BootstrapR2(ind.data, iterations = 1000, num.cores = 1)
+BootstrapR2(ind.data, iterations = 1000, parallel = FALSE)
 }
 \arguments{
 \item{ind.data}{Matrix of residuals or indiviual measurments}
 
 \item{iterations}{Number of resamples to take}
 
-\item{num.cores}{Number of threads to use in computation.
-The doMC library must be loaded.}
+\item{parallel}{if TRUE computations are done in parallel. Some foreach backend must be registered, like doParallel or doMC.}
 }
 \value{
 returns a vector with the R2 for all populations

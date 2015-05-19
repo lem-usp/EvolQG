@@ -12,7 +12,7 @@
 #' @param ret.dim number of retained dimensions in the comparison,
 #' default for nxn matrix is n/2-1
 #' @param repeat.vector Vector of repeatabilities for correlation correction.
-#' @param num.cores If list is passed, number of threads to use in computation. The doMC library must be loaded.
+#' @param parallel if TRUE and a list is passed, computations are done in parallel. Some foreach backend must be registered, like doParallel or doMC.
 #' @param ... aditional arguments passed to other methods
 #' @return If cov.x and cov.y are passed, returns Kzranowski correlation
 #' 
@@ -43,9 +43,14 @@
 #' c4 <- RandomMatrix(10)
 #' KrzCor(list(c1, c2, c3), c4)
 #' 
-#' #Multiple threads can be used with doMC library
-#' library(doMC)
-#' KrzCor(list(c1, c2, c3), num.cores = 2)
+#' #Multiple threads can be used with some foreach backend library, like doMC or doParallel
+#' #library(doParallel)
+#' ##Windows:
+#' #cl <- makeCluster(2)
+#' #registerDoParallel(cl)
+#' ##Mac and Linux:
+#' #registerDoParallel(cores = 2)
+#' #KrzCor(list(c1, c2, c3), parallel = TRUE)
 #' 
 #' @keywords matrixcomparison
 #' @keywords matrixcorrelation
@@ -70,17 +75,17 @@ KrzCor.default <- function (cov.x, cov.y, ret.dim = NULL, ...) {
 #' @export
 KrzCor.list <- function (cov.x, cov.y = NULL,
                          ret.dim = NULL, repeat.vector = NULL,
-                         num.cores = 1, ...) {
+                         parallel = FALSE, ...) {
   if (is.null (cov.y)) {
     output <- ComparisonMap(cov.x,
                          function(x, y) return(c(KrzCor(x, y, ret.dim), NA)),
                          repeat.vector = repeat.vector,
-                         num.cores = num.cores)
+                         parallel = parallel)
     output <- output[[1]]
   } else{
     output <- SingleComparisonMap(cov.x, cov.y,
                          function(x, y) return(c(KrzCor(x, y, ret.dim), NA)),
-                               num.cores = num.cores)
+                               parallel = parallel)
     output <- output[,-length(output)]
   }
   return(output)

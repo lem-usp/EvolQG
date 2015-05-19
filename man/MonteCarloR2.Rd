@@ -4,7 +4,7 @@
 \alias{MonteCarloR2}
 \title{R2 confidence intervals by parametric sampling}
 \usage{
-MonteCarloR2(cov.matrix, sample.size, iterations = 1000, num.cores = 1)
+MonteCarloR2(cov.matrix, sample.size, iterations = 1000, parallel = FALSE)
 }
 \arguments{
 \item{cov.matrix}{Covariance matrix.}
@@ -13,8 +13,7 @@ MonteCarloR2(cov.matrix, sample.size, iterations = 1000, num.cores = 1)
 
 \item{iterations}{Number of random populations}
 
-\item{num.cores}{Number of threads to use in computation.
-The doMC library must be loaded.}
+\item{parallel}{if TRUE computations are done in parallel. Some foreach backend must be registered, like doParallel or doMC.}
 }
 \value{
 returns a vector with the R2 for all populations

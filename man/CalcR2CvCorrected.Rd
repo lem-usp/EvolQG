@@ -9,7 +9,7 @@
 CalcR2CvCorrected(ind.data, ...)
 
 \method{CalcR2CvCorrected}{default}(ind.data, cv.level = 0.06,
-  iterations = 1000, num.cores = 1, ...)
+  iterations = 1000, parallel = FALSE, ...)
 
 \method{CalcR2CvCorrected}{lm}(ind.data, cv.level = 0.06, iterations = 1000,
   ...)
@@ -23,7 +23,7 @@ CalcR2CvCorrected(ind.data, ...)
 
 \item{iterations}{Number of resamples to take}
 
-\item{num.cores}{Number of threads to use in computation. The doMC library must be loaded. Not implemented for linear models.}
+\item{parallel}{if TRUE computations are done in parallel. Some foreach backend must be registered, like doParallel or doMC.}
 }
 \value{
 List with adjusted integration indexes, fitted models and simulated distributions of integration indexes and mean coeficient of variation.

@@ -5,7 +5,7 @@
 \title{Bootstrap analysis via resampling}
 \usage{
 BootstrapRep(ind.data, ComparisonFunc, ..., iterations = 1000,
-  correlation = FALSE, num.cores = 1)
+  correlation = FALSE, parallel = FALSE)
 }
 \arguments{
 \item{ind.data}{Matrix of residuals or indiviual measurments}
@@ -18,8 +18,7 @@ BootstrapRep(ind.data, ComparisonFunc, ..., iterations = 1000,
 
 \item{correlation}{If TRUE, correlation matrix is used, else covariance matrix.}
 
-\item{num.cores}{Number of threads to use in computation.
-The doMC library must be loaded.}
+\item{parallel}{if TRUE computations are done in parallel. Some foreach backend must be registered, like doParallel or doMC.}
 }
 \value{
 returns the mean repeatability, that is, the mean value of comparisons from samples to original statistic.
@@ -41,11 +40,16 @@ BootstrapRep(iris[,1:4], KrzCor, iterations = 50, correlation = TRUE)
 
 BootstrapRep(iris[,1:4], PCAsimilarity, iterations = 50)
 
-#Multiple threads can be used with doMC library
-library(doMC)
-BootstrapRep(iris[,1:4], PCAsimilarity,
-             iterations = 5,
-             num.cores = 2)
+#Multiple threads can be used with some foreach backend library, like doMC or doParallel
+#library(doParallel)
+##Windows:
+#cl <- makeCluster(2)
+#registerDoParallel(cl)
+##Mac and Linux:
+#registerDoParallel(cores = 2)
+#BootstrapRep(iris[,1:4], PCAsimilarity,
+#             iterations = 5,
+#             parallel = TRUE)
 }
 \author{
 Diogo Melo, Guilherme Garcia

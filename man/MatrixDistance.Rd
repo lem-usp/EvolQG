@@ -12,7 +12,7 @@ MatrixDistance(cov.x, cov.y, distance, ...)
   "RiemannDist"), ...)
 
 \method{MatrixDistance}{list}(cov.x, cov.y = NULL,
-  distance = c("OverlapDist", "RiemannDist"), ..., num.cores = 1)
+  distance = c("OverlapDist", "RiemannDist"), ..., parallel = FALSE)
 }
 \arguments{
 \item{cov.x}{Single covariance matrix or list of covariance matrices.
@@ -28,7 +28,7 @@ Optional if cov.x is a list.}
 
 \item{...}{aditional arguments passed to other methods}
 
-\item{num.cores}{If list is passed, number of threads to use in computation. Requires doMC library.}
+\item{parallel}{if TRUE and a list is passed, computations are done in parallel. Some foreach backend must be registered, like doParallel or doMC.}
 }
 \value{
 If cov.x and cov.y are passed, returns distance between them.

@@ -5,7 +5,7 @@
 \title{Parametric repeatabilities with covariance or correlation matrices}
 \usage{
 MonteCarloRep(cov.matrix, sample.size, ComparisonFunc, ..., iterations = 1000,
-  correlation = FALSE, num.cores = 1)
+  correlation = FALSE, parallel = FALSE)
 }
 \arguments{
 \item{cov.matrix}{Covariance matrix.}
@@ -20,8 +20,7 @@ MonteCarloRep(cov.matrix, sample.size, ComparisonFunc, ..., iterations = 1000,
 
 \item{correlation}{If TRUE, correlation matrix is used, else covariance matrix. MantelCor and MatrixCor should always uses correlation matrix.}
 
-\item{num.cores}{If list is passed, number of threads to use in computation.
-The doMC library must be loaded.}
+\item{parallel}{If is TRUE and list is passed, computations are done in parallel. Some foreach backend must be registered, like doParallel or doMC.}
 }
 \value{
 returns the mean repeatability, or mean value of comparisons from samples to original statistic.
@@ -45,13 +44,18 @@ MonteCarloRep(cov.matrix, sample.size = 30, MantelCor, permutations = 1, correla
 MonteCarloRep(cov.matrix, sample.size = 30, KrzCor)
 MonteCarloRep(cov.matrix, sample.size = 30, KrzCor, correlation = TRUE)
 
-#Multiple threads can be used with doMC library
-library(doMC)
-MonteCarloRep(cov.matrix, 30, RandomSkewers, iterations = 100, num.cores = 2)
-
 #Creating repeatability vector for a list of matrices
 mat.list <- RandomMatrix(10, 3, 1, 10)
 laply(mat.list, MonteCarloRep, 30, KrzCor, correlation = TRUE)
+
+##Multiple threads can be used with doMC library
+#library(doParallel)
+##Windows:
+#cl <- makeCluster(2)
+#registerDoParallel(cl)
+##Mac and Linux:
+#registerDoParallel(cores = 2)
+#MonteCarloRep(cov.matrix, 30, RandomSkewers, iterations = 100, parallel = TRUE)
 }
 \author{
 Diogo Melo Guilherme Garcia

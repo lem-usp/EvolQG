@@ -10,8 +10,7 @@
 #' @param iterations Number of random populations
 #' @param ComparisonFunc Comparison functions for the calculated statistic
 #' @param StatFunc Function for calculating the statistic
-#' @param num.cores If list is passed, number of threads to use in computation.
-#' The doMC library must be loaded.
+#' @param parallel if TRUE computations are done in parallel. Some foreach backend must be registered, like doParallel or doMC.
 #' @details Since this function uses multivariate normal model to generate populations, only covariance matrices should be used.
 #' @return returns the mean repeatability, or mean value of comparisons from samples to original statistic.
 #' @author Diogo Melo, Guilherme Garcia
@@ -25,30 +24,24 @@
 #'
 #' MonteCarloStat(cov.matrix, sample.size = 30, iterations = 100,
 #'                ComparisonFunc = function(x, y) RandomSkewers(x, y)[1],
-#'                StatFunc = cov,
-#'                num.cores = 1)
+#'                StatFunc = cov)
+#'
+#' #Calculating R2 confidence intervals
+#' r2.dist <- MonteCarloR2(RandomMatrix(10, 1, 1, 10), 30)
+#' quantile(r2.dist)
+#' 
 #' #Multiple threads can be used with doMC library
 #' library(doMC)
 #' MonteCarloStat(cov.matrix, sample.size = 30, iterations = 100,
 #'                ComparisonFunc = function(x, y) RandomSkewers(x, y)[1],
 #'                StatFunc = cov,
-#'                num.cores = 2)
-#'
-#' #Calculating R2 confidence intervals
-#' r2.dist <- MonteCarloR2(RandomMatrix(10, 1, 1, 10), 30)
-#' quantile(r2.dist)
+#'                parallel = TRUE)
 #' @keywords parametricsampling
 #' @keywords montecarlo
 #' @keywords repeatability
 MonteCarloStat <- function (cov.matrix, sample.size, iterations,
                             ComparisonFunc, StatFunc,
-                            num.cores = 1) {
-  if (num.cores > 1) {
-    doMC::registerDoMC(num.cores)
-    parallel = TRUE
-  } else{
-    parallel = FALSE
-  }
+                            parallel = FALSE) {
   if(!isSymmetric(cov.matrix)) stop("covariance matrix must be symmetric.")
   if(sum(diag(cov.matrix)) == dim(cov.matrix)[1]) warning("Matrix appears to be a correlation matrix! Only covariance matrices should be used in parametric resampling.")
   populations  <- alply(1:iterations, 1,
@@ -72,8 +65,7 @@ MonteCarloStat <- function (cov.matrix, sample.size, iterations,
 #' @param ... Aditional arguments passed to ComparisonFunc.
 #' @param iterations Number of random populations.
 #' @param correlation If TRUE, correlation matrix is used, else covariance matrix. MantelCor and MatrixCor should always uses correlation matrix.
-#' @param num.cores If list is passed, number of threads to use in computation.
-#' The doMC library must be loaded.
+#' @param parallel If is TRUE and list is passed, computations are done in parallel. Some foreach backend must be registered, like doParallel or doMC.
 #' @details Since this function uses multivariate normal model to generate populations, only covariance matrices should be used, even when computing repeatabilities for covariances matrices.
 #' @return returns the mean repeatability, or mean value of comparisons from samples to original statistic.
 #' @author Diogo Melo Guilherme Garcia
@@ -92,14 +84,18 @@ MonteCarloStat <- function (cov.matrix, sample.size, iterations,
 #' MonteCarloRep(cov.matrix, sample.size = 30, KrzCor)
 #' MonteCarloRep(cov.matrix, sample.size = 30, KrzCor, correlation = TRUE)
 #'
-#' #Multiple threads can be used with doMC library
-#' library(doMC)
-#' MonteCarloRep(cov.matrix, 30, RandomSkewers, iterations = 100, num.cores = 2)
-#'
 #' #Creating repeatability vector for a list of matrices
 #' mat.list <- RandomMatrix(10, 3, 1, 10)
 #' laply(mat.list, MonteCarloRep, 30, KrzCor, correlation = TRUE)
 #'
+#' ##Multiple threads can be used with doMC library
+#' #library(doParallel)
+#' ##Windows:
+#' #cl <- makeCluster(2)
+#' #registerDoParallel(cl)
+#' ##Mac and Linux:
+#' #registerDoParallel(cores = 2)
+#' #MonteCarloRep(cov.matrix, 30, RandomSkewers, iterations = 100, parallel = TRUE)
 #' @keywords parametricsampling
 #' @keywords montecarlo
 #' @keywords repeatability
@@ -109,14 +105,14 @@ MonteCarloRep <- function(cov.matrix,
                           ...,
                           iterations = 1000, 
                           correlation = FALSE, 
-                          num.cores = 1){
+                          parallel = FALSE){
   if(correlation)  {StatFunc <- cov; c2v <- cov2cor
   } else {StatFunc <- cov; c2v <- function(x) x}
   repeatability <- MonteCarloStat(cov.matrix, sample.size, iterations,
                                   ComparisonFunc = function(x, y) ComparisonFunc(c2v(x), 
                                                                                  c2v(y), ...),
                                   StatFunc = StatFunc,
-                                  num.cores = num.cores)
+                                  parallel = parallel)
   return(mean(repeatability[,2]))
 }
 
@@ -129,8 +125,7 @@ MonteCarloRep <- function(cov.matrix,
 #' @param cov.matrix Covariance matrix.
 #' @param sample.size Size of the random populations
 #' @param iterations Number of random populations
-#' @param num.cores Number of threads to use in computation.
-#' The doMC library must be loaded.
+#' @param parallel if TRUE computations are done in parallel. Some foreach backend must be registered, like doParallel or doMC.
 #' @details Since this function uses multivariate normal model to generate populations, only covariance matrices should be used.
 #' @return returns a vector with the R2 for all populations
 #' @author Diogo Melo Guilherme Garcia
@@ -144,11 +139,11 @@ MonteCarloRep <- function(cov.matrix,
 #' @keywords parametricsampling
 #' @keywords montecarlo
 #' @keywords repeatability
-MonteCarloR2 <- function (cov.matrix, sample.size, iterations = 1000, num.cores = 1) {
+MonteCarloR2 <- function (cov.matrix, sample.size, iterations = 1000, parallel = FALSE) {
   it.r2 <- MonteCarloStat(cov.matrix, sample.size, iterations,
                           ComparisonFunc = function(x, y) y,
                           StatFunc = function(x) CalcR2(cor(x)),
-                          num.cores = num.cores)
+                          parallel = parallel)
   return (it.r2[,2])
 }
 

@@ -6,7 +6,7 @@
 Internal functions for making eficient comparisons.}
 \usage{
 ComparisonMap(matrix.list, MatrixCompFunc, ..., repeat.vector = NULL,
-  num.cores = 1)
+  parallel = FALSE)
 }
 \arguments{
 \item{matrix.list}{list of matrices being compared}
@@ -17,7 +17,7 @@ ComparisonMap(matrix.list, MatrixCompFunc, ..., repeat.vector = NULL,
 
 \item{repeat.vector}{Vector of repeatabilities for correlation correction.}
 
-\item{num.cores}{Number of threads to use in computation. Requires doMC library.}
+\item{parallel}{if TRUE computations are done in parallel. Some foreach backend must be registered, like doParallel or doMC.}
 }
 \value{
 Matrix of comparisons, matrix of probabilities.
