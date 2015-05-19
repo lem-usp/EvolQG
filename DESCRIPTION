@@ -24,7 +24,6 @@ Suggests:
     foreach,
     grid,
     gridExtra,
-    doMC,
     doParallel
 LinkingTo: Rcpp
 License: MIT + file LICENSE
