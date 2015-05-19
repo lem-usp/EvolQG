@@ -1,12 +1,11 @@
 Package: evolqg
 Type: Package
-Title: A suite of tools for evolutionary quantitative genetics
-Version: 0.1-1
-Commit: 2d7b76d026a1cf48cc3d05c35b8df71e8defb0fe
-Date: 2013-09-16
+Title: A Suite of Tools for Evolutionary Quantitative Genetics
+Version: 0.1-2
+Date: 2015-05-18
 Author: Ana Paula Assis, Diogo Melo, Edgar Zanella, Fabio Machado, Guilherme Garcia
 Maintainer: Diogo Melo <diogro@usp.br>
-Description: Provides functions for covariance matrix comparisons, estimation of repeatabilities in measurments and matrices, and general evolutionary quantitative genetics tools.
+Description: Provides functions for covariance matrix comparisons, estimation of repeatabilities in measurements and matrices, and general evolutionary quantitative genetics tools.
 Depends:
     R (>= 3.1.0),
     plyr (>= 1.7.1)
