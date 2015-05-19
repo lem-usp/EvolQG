@@ -22,10 +22,11 @@ AncestralStates <- function(tree, x, ...){
   p <- length(x[[1]])
   if(any(laply(x, length) != p)) stop("all tip vectors must have the same length")
   anc = vector("list", p)
-  if(is.null(trait_names <- names(x[[1]]))) trait_names = paste(trait, 1:p, sep = "_")
+  if(is.null(trait_names <- names(x[[1]]))) trait_names = paste('trait', 1:p, sep = "_")
   for(i in 1:p){
     tip_traits = laply(x, function(x) x[[i]])
     anc[[i]] = fastAnc(tree, tip_traits, ...)
+    #anc[[i]] = phytools::fastAnc(tree, tip_traits, CI = T)
   }
   names(anc) <- trait_names
   n = length(anc[[1]])
@@ -59,18 +60,18 @@ AncestralStates <- function(tree, x, ...){
 }
 
 #'@import plyr
-#'@importFrom tidyr gather spread 
+#'@importFrom tidyr gather_ spread_ 
 #'@importFrom magrittr %>% 
 unidimension_df_format <- function(x) x %>%
   ldply(.id = 'traits') %>%
-  gather(nodes, estimate, -traits) %>% 
-  spread(traits, estimate)
+  gather_('nodes', 'estimate', names(.)[!"traits" == names(.)]) %>% 
+  spread_('traits', 'estimate')
 #'@import plyr
-#'@importFrom tidyr gather spread 
+#'@importFrom tidyr gather_ spread_ 
 #'@importFrom magrittr %>% 
 bidimension_df_format <- function(x) x %>% 
   ldply(.fun = function(x) data.frame(nodes = rownames(x), 
                                       upper = x[,2],
                                       lower = x[,1]), .id = 'traits') %>%
-  gather(bound, estimate, -c(traits:nodes)) %>%
-  spread(bound, estimate)
+  gather_('bound', 'estimate', names(.)[!("traits" == names(.) | "nodes" == names(.))]) %>%
+  spread_('bound', 'estimate')

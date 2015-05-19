@@ -20,7 +20,7 @@
 #'@author Ana Paula Assis, Diogo Melo
 #'@export
 #'@import plyr
-#'@importFrom ggplot2 ggplot geom_text geom_smooth labs theme_bw
+#'@importFrom ggplot2 ggplot geom_text geom_smooth labs theme_bw aes_string
 #'@examples
 #'
 #' #Input can be an array with means in each row or a list of mean vectors
@@ -46,8 +46,8 @@ DriftTest <- function(means, cov.matrix, show.plot=TRUE)
   reg.plot <- ggplot(data.frame(log.B_variance, 
                                 log.W_eVals, 
                                 names = 1:(dim(mean.array)[2])), 
-                     aes(log.W_eVals, log.B_variance)) + 
-              geom_text(aes(label = names)) + 
+                     aes_string('log.W_eVals', 'log.B_variance')) + 
+              geom_text(aes_string(label = 'names')) + 
               geom_smooth(method = "lm", color = 'black') + 
               labs(x = "log(W Eigenvalues)", y = "log(B variances)") + theme_bw()
   if(show.plot) print(reg.plot)
