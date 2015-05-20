@@ -33,10 +33,10 @@ original matrix.
 Since this function uses multivariate normal model to generate populations, only covariance matrices should be used.
 }
 \examples{
-cov.matrix <- RandomMatrix(10, 1, 1, 10)
+cov.matrix <- RandomMatrix(5, 1, 1, 10)
 
-MonteCarloStat(cov.matrix, sample.size = 30, iterations = 100,
-               ComparisonFunc = function(x, y) RandomSkewers(x, y)[1],
+MonteCarloStat(cov.matrix, sample.size = 30, iterations = 50,
+               ComparisonFunc = function(x, y) PCAsimilarity(x, y)[1],
                StatFunc = cov)
 
 #Calculating R2 confidence intervals
@@ -51,7 +51,7 @@ quantile(r2.dist)
 ##Mac and Linux:
 #registerDoParallel(cores = 2)
 #MonteCarloStat(cov.matrix, sample.size = 30, iterations = 100,
-#               ComparisonFunc = function(x, y) RandomSkewers(x, y)[1],
+#               ComparisonFunc = function(x, y) KrzCor(x, y)[1],
 #               StatFunc = cov,
 #               parallel = TRUE)
 }

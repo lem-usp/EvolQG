@@ -35,17 +35,17 @@ original matrix.
 Since this function uses multivariate normal model to generate populations, only covariance matrices should be used, even when computing repeatabilities for covariances matrices.
 }
 \examples{
-cov.matrix <- RandomMatrix(10, 1, 1, 10)
+cov.matrix <- RandomMatrix(5, 1, 1, 10)
 
-MonteCarloRep(cov.matrix, sample.size = 30, RandomSkewers, iterations = 50)
+MonteCarloRep(cov.matrix, sample.size = 30, RandomSkewers, iterations = 20)
 MonteCarloRep(cov.matrix, sample.size = 30, RandomSkewers, num.vectors = 100,
-              iterations = 50, correlation = TRUE)
-MonteCarloRep(cov.matrix, sample.size = 30, MantelCor, permutations = 1, correlation = TRUE)
+              iterations = 20, correlation = TRUE)
+MonteCarloRep(cov.matrix, sample.size = 30, MatrixCor, correlation = TRUE)
 MonteCarloRep(cov.matrix, sample.size = 30, KrzCor)
 MonteCarloRep(cov.matrix, sample.size = 30, KrzCor, correlation = TRUE)
 
 #Creating repeatability vector for a list of matrices
-mat.list <- RandomMatrix(10, 3, 1, 10)
+mat.list <- RandomMatrix(5, 3, 1, 10)
 laply(mat.list, MonteCarloRep, 30, KrzCor, correlation = TRUE)
 
 ##Multiple threads can be used with doMC library
