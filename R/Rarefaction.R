@@ -29,12 +29,13 @@
 #' @importFrom ggplot2 ggplot aes_string layer scale_x_continuous scale_y_continuous theme_bw
 #' @importFrom reshape2 melt
 #' @examples
-#' ind.data <- iris[,1:4]
+#' ind.data <- iris[1:50,1:4]
 #' 
-#' results.RS <- Rarefaction(ind.data, PCAsimilarity, num.reps = 5)
-#' results.Mantel <- Rarefaction(ind.data, MatrixCor, correlation = TRUE, num.reps = 5)
-#' results.KrzCov <- Rarefaction(ind.data, KrzCor, num.reps = 5)
-#' results.PCA <- Rarefaction(ind.data, PCAsimilarity, num.reps = 5)
+#' results.RS <- Rarefaction(ind.data, PCAsimilarity, num.reps = 5, iterations = 100)
+#' results.Mantel <- Rarefaction(ind.data, MatrixCor, correlation = TRUE, 
+#'                               num.reps = 5, iterations = 100)
+#' results.KrzCov <- Rarefaction(ind.data, KrzCor, num.reps = 5, iterations = 100)
+#' results.PCA <- Rarefaction(ind.data, PCAsimilarity, num.reps = 5, iterations = 100)
 #' 
 #' #Multiple threads can be used with some foreach backend library, like doMC or doParallel
 #' #library(doParallel)

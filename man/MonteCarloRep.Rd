@@ -41,7 +41,7 @@ MonteCarloRep(cov.matrix, sample.size = 30, RandomSkewers, iterations = 20)
 MonteCarloRep(cov.matrix, sample.size = 30, RandomSkewers, num.vectors = 100,
               iterations = 20, correlation = TRUE)
 MonteCarloRep(cov.matrix, sample.size = 30, MatrixCor, correlation = TRUE)
-MonteCarloRep(cov.matrix, sample.size = 30, KrzCor)
+MonteCarloRep(cov.matrix, sample.size = 30, KrzCor, iterations = 20)
 MonteCarloRep(cov.matrix, sample.size = 30, KrzCor, correlation = TRUE)
 
 #Creating repeatability vector for a list of matrices

@@ -48,12 +48,13 @@ A specialized ploting function displays the results in publication quality.
 Bootstraping may be misleading with very small sample sizes. Use with caution.
 }
 \examples{
-ind.data <- iris[,1:4]
+ind.data <- iris[1:50,1:4]
 
-results.RS <- Rarefaction(ind.data, PCAsimilarity, num.reps = 5)
-results.Mantel <- Rarefaction(ind.data, MatrixCor, correlation = TRUE, num.reps = 5)
-results.KrzCov <- Rarefaction(ind.data, KrzCor, num.reps = 5)
-results.PCA <- Rarefaction(ind.data, PCAsimilarity, num.reps = 5)
+results.RS <- Rarefaction(ind.data, PCAsimilarity, num.reps = 5, iterations = 100)
+results.Mantel <- Rarefaction(ind.data, MatrixCor, correlation = TRUE,
+                              num.reps = 5, iterations = 100)
+results.KrzCov <- Rarefaction(ind.data, KrzCor, num.reps = 5, iterations = 100)
+results.PCA <- Rarefaction(ind.data, PCAsimilarity, num.reps = 5, iterations = 100)
 
 #Multiple threads can be used with some foreach backend library, like doMC or doParallel
 #library(doParallel)
