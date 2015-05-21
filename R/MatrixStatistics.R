@@ -13,6 +13,7 @@
 #' and constraint in multivariate characters. Journal of evolutionary
 #' biology, 21(5), 1201-19. doi:10.1111/j.1420-9101.2008.01573.x
 #' @author Diogo Melo Guilherme Garcia
+#' @importFrom Matrix Matrix solve chol
 #' @examples
 #' cov.matrix <- cov(iris[,1:4])
 #' MeanMatrixStatistics(cov.matrix)
@@ -47,7 +48,7 @@ MeanMatrixStatistics <- function (cov.matrix, iterations = 1000, full.results = 
   null.dist <- sort (null.dist)
   crit.value <- null.dist [round (0.95 * iterations)]
   if(full.results) cat ('critical value: ', crit.value, '\n')
-  MatrixStatisticsMap <- function (CurrentFunc) return (apply (beta.mat, 2, CurrentFunc, cov.matrix = cov.matrix))
+  MatrixStatisticsMap <- function (CurrentFunc) CurrentFunc(cov.matrix = cov.matrix, beta.mat = beta.mat)
   stat.dist <- t(laply (matrix.stat.functions, MatrixStatisticsMap, .parallel = parallel))
   stat.dist <- cbind (stat.dist, null.dist)
   colnames (stat.dist) <- c('respondability',
@@ -68,16 +69,73 @@ MeanMatrixStatistics <- function (cov.matrix, iterations = 1000, full.results = 
 }
 
 #' @export
-Autonomy <- function (beta, cov.matrix) return ((1/(t (beta) %*% solve (cov.matrix, beta))) / (t (beta) %*% cov.matrix %*% beta))
+#' @importFrom Matrix Matrix solve chol nearPD diag
+Autonomy <- function (cov.matrix, beta.mat = NULL, iterations = 1000){
+  cov.matrix <- Matrix(cov.matrix)
+  num.traits <- dim (cov.matrix) [1]
+  if(is.null(beta.mat)){
+    beta.mat <- array (rnorm (num.traits * iterations), c(num.traits, iterations))
+    beta.mat <- apply (beta.mat, 2, Normalize)
+  }
+  tryCatch({cv = chol(cov.matrix)}, error = function(cond){
+    warning("matrix is singular, can't compute autonomy directly. Using nearPD, results could be wrong")
+  })
+   (1/diag(t (beta.mat) %*% solve (cov.matrix, beta.mat))) / diag(t (beta.mat) %*% cov.matrix %*% beta.mat)
+} 
 #' @export
-ConditionalEvolvability <- function (beta, cov.matrix) return (1/(t (beta) %*% solve (cov.matrix, beta)))
+#' @importFrom Matrix Matrix solve chol nearPD diag
+ConditionalEvolvability <- function (cov.matrix, beta.mat = NULL, iterations = 1000){
+  cov.matrix <- Matrix(cov.matrix)
+  num.traits <- dim (cov.matrix) [1]
+  if(is.null(beta.mat)){
+    beta.mat <- array (rnorm (num.traits * iterations), c(num.traits, iterations))
+    beta.mat <- apply (beta.mat, 2, Normalize)
+  }
+  tryCatch({chol(cov.matrix)}, error = function(cond){
+    warning("matrix is singular, can't compute conditional evolvability directly. Using nearPD, results could be wrong")
+    cov.matrix <- nearPD(cov.matrix)[[1]]
+    chol(cov.matrix)
+  })
+  return (1/diag(t (beta.mat) %*% solve (cov.matrix, beta.mat)))
+}
 #' @export
-Constraints <- function (beta, cov.matrix) return (abs (t (Normalize (eigen (cov.matrix)$vectors[,1])) %*% Normalize (cov.matrix %*% beta)))
+Constraints <- function  (cov.matrix, beta.mat = NULL, iterations = 1000){
+  num.traits <- dim (cov.matrix) [1]
+  if(is.null(beta.mat)){
+    beta.mat <- array (rnorm (num.traits * iterations), c(num.traits, iterations))
+    beta.mat <- apply (beta.mat, 2, Normalize)
+  }
+  PC1 <- eigen(cov.matrix)$vectors[,1]
+  Cb <- apply(cov.matrix %*% beta.mat, 2, Normalize)
+  abs(apply(Cb, 2, `%*%`, PC1))
+}
 #' @export
-Evolvability <- function (beta, cov.matrix) return (t (beta) %*% cov.matrix %*% beta)
+Evolvability <- function (cov.matrix, beta.mat = NULL, iterations = 1000){
+  num.traits <- dim (cov.matrix) [1]
+  if(is.null(beta.mat)){
+    beta.mat <- array (rnorm (num.traits * iterations), c(num.traits, iterations))
+    beta.mat <- apply (beta.mat, 2, Normalize)
+  } 
+  diag(t(beta.mat) %*% cov.matrix %*% beta.mat)
+}
 #' @export
-Flexibility <- function (beta, cov.matrix) return (t (beta) %*% cov.matrix %*% beta / Norm (cov.matrix %*% beta))
+Flexibility <- function (cov.matrix, beta.mat = NULL, iterations = 1000){
+  num.traits <- dim (cov.matrix) [1]
+  if(is.null(beta.mat)){
+    beta.mat <- array (rnorm (num.traits * iterations), c(num.traits, iterations))
+    beta.mat <- apply (beta.mat, 2, Normalize)
+  }
+  Cb <- apply(cov.matrix %*% beta.mat, 2, Normalize)
+  diag(t (beta.mat) %*% Cb)
+  }
 #' @export
 Pc1Percent <- function (cov.matrix) return (eigen (cov.matrix)$values [1] / sum (eigen (cov.matrix)$values))
 #' @export
-Respondability <- function (beta, cov.matrix) return (Norm (cov.matrix %*% beta))
+Respondability <- function (cov.matrix, beta.mat = NULL, iterations = 1000) {
+  num.traits <- dim (cov.matrix) [1]
+  if(is.null(beta.mat)){
+    beta.mat <- array (rnorm (num.traits * iterations), c(num.traits, iterations))
+    beta.mat <- apply (beta.mat, 2, Normalize)
+  }
+  apply(cov.matrix %*% beta.mat, 2, Norm)
+}

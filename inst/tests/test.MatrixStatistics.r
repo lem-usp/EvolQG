@@ -4,7 +4,13 @@ test_that("Autonomy returns correct results",
               cov.matrix <- cov(iris[,1:4])
               beta <- Normalize(rnorm(4))
               auto <- ((t (beta) %*% solve (cov.matrix) %*% beta)^(-1)) / (t (beta) %*% cov.matrix %*% beta)
-              expect_that(Autonomy(beta, cov.matrix), equals(auto))
+              expect_that(Autonomy(cov.matrix, beta), equals(as.numeric(auto)))
+              rmatrix <- RandomMatrix(40, 1, 1, 10)
+              ev <- eigen(rmatrix)
+              ev$values[35:40] <- 0
+              singular.matrix <- ev$vectors %*% diag(ev$values) %*% t(ev$vectors)
+              expect_warning(Autonomy(singular.matrix), 
+                             "matrix is singular, can't compute autonomy directly. Using nearPD, results could be wrong")
           }
 )
 test_that("ConditionalEvolvability returns correct restults",
@@ -13,7 +19,13 @@ test_that("ConditionalEvolvability returns correct restults",
               cov.matrix <- cov(iris[,1:4])
               beta <- Normalize(rnorm(4))
               cond.evol <- (t (beta) %*% solve (cov.matrix) %*% beta)^(-1)
-              expect_that(ConditionalEvolvability(beta, cov.matrix), equals(cond.evol))
+              expect_that(ConditionalEvolvability(cov.matrix, beta), equals(as.numeric(cond.evol)))
+              rmatrix <- RandomMatrix(40, 1, 1, 10)
+              ev <- eigen(rmatrix)
+              ev$values[35:40] <- 0
+              singular.matrix <- ev$vectors %*% diag(ev$values) %*% t(ev$vectors)
+              expect_warning(ConditionalEvolvability(singular.matrix), 
+                             "matrix is singular, can't compute conditional evolvability directly. Using nearPD, results could be wrong")
           }
 )
 test_that("Constraints returns correct results",
@@ -22,7 +34,7 @@ test_that("Constraints returns correct results",
               cov.matrix <- cov(iris[,1:4])
               beta = Normalize(rnorm(4))
               const = abs (t (Normalize (eigen (cov.matrix)$vectors[,1])) %*% Normalize (cov.matrix %*% beta))
-              expect_that(Constraints(beta, cov.matrix), equals(const))
+              expect_that(Constraints(cov.matrix, beta), equals(as.numeric(const)))
           }
 )
 test_that("Evolvability returns correct results",
@@ -31,7 +43,7 @@ test_that("Evolvability returns correct results",
               cov.matrix <- cov(iris[,1:4])
               beta <- Normalize(rnorm(4))
               evol <- t (beta) %*% cov.matrix %*% beta
-              expect_that(Evolvability(beta, cov.matrix), equals(evol))
+              expect_that(Evolvability(cov.matrix, beta), equals(as.numeric(evol)))
           }
 )
 test_that("Flexibility returns correct result",
@@ -40,9 +52,9 @@ test_that("Flexibility returns correct result",
            beta <- Normalize(rnorm(4))
            cov.matrix <- cov(iris[,1:4])
            flex <- t (beta) %*% cov.matrix %*% beta / Norm (cov.matrix %*% beta)
-           expect_that(Flexibility(beta, cov.matrix), equals(flex))
-           expect_that(Flexibility(beta, cov.matrix) <=  1, is_true())
-           expect_that(Flexibility(beta, cov.matrix) >= -1, is_true())
+           expect_that(Flexibility(cov.matrix, beta), equals(as.numeric(flex)))
+           expect_that(Flexibility(cov.matrix, beta) <=  1, is_true())
+           expect_that(Flexibility(cov.matrix, beta) >= -1, is_true())
          }
 )
 
@@ -61,7 +73,7 @@ test_that("Respondability returns correct result",
            beta <- Normalize(rnorm(4))
            cov.matrix <- cov(iris[,1:4])
            repond <- Norm(cov.matrix %*% beta)
-           expect_that(Respondability(beta, cov.matrix), equals(repond))
+           expect_that(Respondability(cov.matrix, beta), equals(repond))
          }
 )
 

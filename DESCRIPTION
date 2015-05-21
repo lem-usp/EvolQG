@@ -11,6 +11,7 @@ Depends:
     plyr (>= 1.7.1)
 Imports:
     Rcpp (>= 0.11),
+    Matrix,
     reshape2,
     ggplot2,
     magrittr,
