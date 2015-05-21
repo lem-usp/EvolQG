@@ -28,7 +28,8 @@ NumericMatrix prepara_J (NumericMatrix x){
    int i, j, k, V;
    V = x.nrow();
    NumericMatrix J = clone(x);
-   double K[V], m = 0;
+   NumericVector K(V);
+   double m = 0;
    for(i = 0; i < V; i++)
       for(j = 0; j < V; j++){
          K[i] = 0;

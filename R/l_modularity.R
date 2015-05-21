@@ -21,6 +21,6 @@ LModularity <- function(cor.matrix){
   for (mod in modules){
     mod_hipotesis[partition == mod, mod] = 1
   }
-  output = list("LModularity" = l_modularity, "Modularity hypothesis" = mod_hipotesis) 
+  output = list("LModularity" = l_modularity, "Modularity_hypothesis" = mod_hipotesis) 
   return(output)
 }
