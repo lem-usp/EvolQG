@@ -1,7 +1,7 @@
 Package: evolqg
 Type: Package
 Title: Tools for Evolutionary Quantitative Genetics
-Version: 0.1-3
+Version: 0.1-4
 Date: 2015-05-18
 Author: Ana Paula Assis, Diogo Melo, Edgar Zanella, Fabio Machado, Guilherme Garcia
 Maintainer: Diogo Melo <diogro@usp.br>
@@ -10,7 +10,7 @@ Depends:
     R (>= 3.1.0),
     plyr (>= 1.7.1)
 Imports:
-    Rcpp,
+    Rcpp (>= 0.11),
     reshape2,
     ggplot2,
     magrittr,
