@@ -33,7 +33,7 @@ ExtendMatrix <- function(cov.matrix, var.cut.off = 1e-4, ret.dim = NULL) {
     var.grad[i] = var(grad[i:(i+4)])
   }
   if(is.null(ret.dim)){
-    ret.dim = which(var.grad<1e-4)[1]
+    ret.dim = which(var.grad < var.cut.off)[1]
   }
   eVal[eVal < eVal[ret.dim]] = eVal[ret.dim]
   extended.cov.matrix = eVec%*%diag(eVal)%*%t(eVec)
