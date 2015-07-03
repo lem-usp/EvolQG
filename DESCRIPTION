@@ -19,7 +19,12 @@ Imports:
     vegan,
     ape,
     phytools,
-    mvtnorm
+    mvtnorm,
+    graphics,
+    grDevices,
+    methods,
+    stats,
+    utils
 Suggests:
     testthat (>= 0.2),
     foreach,

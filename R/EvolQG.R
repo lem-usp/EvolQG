@@ -3,6 +3,11 @@
 #' @name evolqg
 #' @docType package
 #' @import plyr
+#' @importFrom graphics abline arrows axis layout mtext par plot text
+#' @importFrom grDevices rgb
+#' @importFrom methods is
+#' @importFrom stats anova confint cor cor.test cov cov2cor lm mahalanobis princomp quantile reorder residuals rnorm runif sd var
+#' @importFrom utils write.csv write.table
 NULL
 
 #' Example multivariate data set
