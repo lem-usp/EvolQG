@@ -58,5 +58,5 @@ MultiMahalanobis <- function (means, cov.matrix, parallel = FALSE) {
   distances[lower.tri(distances)] <- t(distances)[lower.tri(distances)]
   rownames (distances) <- mean.names
   colnames (distances) <- mean.names
-  return (distances)
+  return (sqrt(distances))
 }
