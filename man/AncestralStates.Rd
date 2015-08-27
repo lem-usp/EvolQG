@@ -20,7 +20,7 @@ list with calculated ancestral states, using labels or numbers from tree
 This function is a wrapper for using phytools::fastAnc on multivariate data.
 }
 \note{
-Each trait is estimated independently. Parcimony estimation can be made by setting tree brach lengths to 1.
+Each trait is estimated independently. Squared prcimony estimation can be made by setting tree brach lengths to 1.
 }
 \examples{
 data(dentus)

@@ -5,7 +5,7 @@
 #'@param tree phylogenetic tree
 #'@param x list of tip nodes data. Expects one vector for each terminal.
 #'@param ... aditional arguments for phytools::fastAnc
-#'@note Each trait is estimated independently. Parcimony estimation can be made by setting tree brach lengths to 1.
+#'@note Each trait is estimated independently. Squared prcimony estimation can be made by setting tree brach lengths to 1.
 #'@return list with calculated ancestral states, using labels or numbers from tree
 #'@export
 #'@importFrom ape reorder.phylo 
