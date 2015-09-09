@@ -52,11 +52,28 @@ MonteCarloStat <- function (cov.matrix, sample.size, iterations,
   populations  <- alply(1:iterations, 1,
                         function(x) rmvnorm (sample.size, sigma = cov.matrix, method = 'chol'),
                         .parallel=parallel)
-  comparisons <- ldply (populations, function (x) ComparisonFunc (cov.matrix, StatFunc(x)),
+  comparisons <- ldply (populations, 
+                        doComparison, ComparisonFunc, StatFunc, cov.matrix, sample.size,
                         .parallel = parallel)
   return (comparisons)
 }
 
+
+#' @importFrom mvtnorm rmvnorm
+doComparison <- function (x, ComparisonFunc, StatFunc, cov.matrix, sample.size){
+  while(TRUE){
+    out = tryCatch(ComparisonFunc (cov.matrix, StatFunc(x)), 
+                   error = function(c) {
+                     "Error in MonteCarlo sample, trying again"
+                     return(NA)
+                   })
+    if(is.na(out))
+      x = rmvnorm (sample.size, sigma = cov.matrix, method = 'chol')
+    else
+      break
+  }
+  return(out)
+}
 #' Parametric repeatabilities with covariance or correlation matrices
 #'
 #' Using a multivariate normal model, random populations are generated
