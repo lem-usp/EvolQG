@@ -4,17 +4,17 @@
 \alias{BootstrapRep}
 \title{Bootstrap analysis via resampling}
 \usage{
-BootstrapRep(ind.data, ComparisonFunc, ..., iterations = 1000,
-  correlation = FALSE, parallel = FALSE)
+BootstrapRep(ind.data, ComparisonFunc, iterations = 1000,
+  sample.size = dim(ind.data)[1], correlation = FALSE, parallel = FALSE)
 }
 \arguments{
 \item{ind.data}{Matrix of residuals or indiviual measurments}
 
 \item{ComparisonFunc}{comparison function}
 
-\item{...}{Aditional arguments passed to ComparisonFunc}
-
 \item{iterations}{Number of resamples to take}
+
+\item{sample.size}{Size of ressamples, default is the same size as ind.data}
 
 \item{correlation}{If TRUE, correlation matrix is used, else covariance matrix.}
 

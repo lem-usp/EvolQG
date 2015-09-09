@@ -53,14 +53,14 @@ MonteCarloStat <- function (cov.matrix, sample.size, iterations,
                         function(x) rmvnorm (sample.size, sigma = cov.matrix, method = 'chol'),
                         .parallel=parallel)
   comparisons <- ldply (populations, 
-                        doComparison, ComparisonFunc, StatFunc, cov.matrix, sample.size,
+                        doComparisonMC, ComparisonFunc, StatFunc, cov.matrix, sample.size,
                         .parallel = parallel)
   return (comparisons)
 }
 
 
 #' @importFrom mvtnorm rmvnorm
-doComparison <- function (x, ComparisonFunc, StatFunc, cov.matrix, sample.size){
+doComparisonMC <- function (x, ComparisonFunc, StatFunc, cov.matrix, sample.size){
   while(TRUE){
     out = tryCatch(ComparisonFunc (cov.matrix, StatFunc(x)), 
                    error = function(c) {
