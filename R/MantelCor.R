@@ -15,7 +15,7 @@
 #' @param permutations Number of permutations used in significance calculation.
 #' @param mod Set TRUE to use mantel in testing modularity hypothesis. Will return
 #' AVG+, AVG- and AVG Ratio based on binary hipotesis matrix.
-#' @param ICV Indicates if modularity hypothesis test should use AVG Index instead of AVG Ratio. Ignored if mod is FALSE.
+#' @param MHI Indicates if modularity hypothesis test should use Modularity Hypothesis Index instead of AVG Ratio. Ignored if mod is FALSE.
 #' @param repeat.vector Vector of repeatabilities for correlation correction.
 #' @param parallel if TRUE computations are done in parallel. Some foreach backend must be registered, like doParallel or doMC.
 #' @param ... aditional arguments passed to other methods
@@ -70,7 +70,7 @@ MantelCor <- function (cor.x, cor.y, ...) UseMethod("MantelCor")
 #' @rdname MantelCor
 #' @method MantelCor default
 #' @export
-MantelCor.default <- function (cor.x, cor.y, permutations = 1000, mod = FALSE, ICV = FALSE, ...) {
+MantelCor.default <- function (cor.x, cor.y, permutations = 1000, mod = FALSE, MHI = FALSE, ...) {
   mantel.output <- mantel(cor.x, cor.y, permutations = permutations)
   correlation <- mantel.output$statistic
   prob <- mantel.output$signif
@@ -78,10 +78,10 @@ MantelCor.default <- function (cor.x, cor.y, permutations = 1000, mod = FALSE, I
     index <- cor.y[lower.tri(cor.y)]
     avg.plus <- mean (cor.x [lower.tri(cor.x)] [index != 0])
     avg.minus <- mean (cor.x [lower.tri(cor.x)] [index == 0])
-    if(ICV){
+    if(MHI){
       avg.index <- (avg.plus - avg.minus)/CalcICV(cor.x)
       output <- c(correlation, prob, avg.plus, avg.minus, avg.index)
-      names(output) <- c("Rsquared", "Probability", "AVG+", "AVG-", "AVG Index")
+      names(output) <- c("Rsquared", "Probability", "AVG+", "AVG-", "MHI")
     } else{
       avg.ratio <- avg.plus / avg.minus
       output <- c(correlation, prob, avg.plus, avg.minus, avg.ratio)
@@ -101,7 +101,7 @@ MantelCor.default <- function (cor.x, cor.y, permutations = 1000, mod = FALSE, I
 #' @export
 MantelCor.list <- function (cor.x, cor.y = NULL,
                             permutations = 1000, repeat.vector = NULL,
-                            mod = FALSE, ICV = FALSE, parallel = FALSE, ...)
+                            mod = FALSE, MHI = FALSE, parallel = FALSE, ...)
 {
   if (is.null (cor.y)) {
     output <- ComparisonMap(cor.x,
@@ -112,7 +112,7 @@ MantelCor.list <- function (cor.x, cor.y = NULL,
     output <- SingleComparisonMap(cor.x, cor.y,
                                function(x, y) MantelCor(y,
                                                         x,
-                                                        permutations, mod = mod, ICV = ICV),
+                                                        permutations, mod = mod, MHI = MHI),
                                parallel = parallel)
   }
   return(output)
