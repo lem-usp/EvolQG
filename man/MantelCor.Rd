@@ -12,10 +12,10 @@
 MantelCor(cor.x, cor.y, ...)
 
 \method{MantelCor}{default}(cor.x, cor.y, permutations = 1000, mod = FALSE,
-  ICV = FALSE, ...)
+  MHI = FALSE, ...)
 
 \method{MantelCor}{list}(cor.x, cor.y = NULL, permutations = 1000,
-  repeat.vector = NULL, mod = FALSE, ICV = FALSE, parallel = FALSE, ...)
+  repeat.vector = NULL, mod = FALSE, MHI = FALSE, parallel = FALSE, ...)
 
 MatrixCor(cor.x, cor.y, ...)
 
@@ -44,7 +44,7 @@ Optional if cor.x is a list.}
 \item{mod}{Set TRUE to use mantel in testing modularity hypothesis. Will return
 AVG+, AVG- and AVG Ratio based on binary hipotesis matrix.}
 
-\item{ICV}{Indicates if modularity hypothesis test should use AVG Index instead of AVG Ratio. Ignored if mod is FALSE.}
+\item{MHI}{Indicates if modularity hypothesis test should use Modularity Hypothesis Index instead of AVG Ratio. Ignored if mod is FALSE.}
 
 \item{repeat.vector}{Vector of repeatabilities for correlation correction.}
 
