@@ -24,6 +24,7 @@ Imports:
     grDevices,
     methods,
     stats,
+    depth,
     utils
 Suggests:
     testthat (>= 0.2),

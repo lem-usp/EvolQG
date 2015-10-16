@@ -3,7 +3,7 @@
 #'Wagner optimization
 #'
 #'@param tree phylogenetic tree
-#'@param x list of tip nodes data. Expects one vector for each terminal.
+#'@param tip_means list of tip nodes data. Expects one vector for each terminal.
 #'@param ... aditional arguments for phytools::fastAnc
 #'@return list with calculated ancestral states, using labels or numbers from tree
 #'@export
@@ -15,8 +15,8 @@
 #'data(dentus.tree)
 #'mean.list <- dlply(dentus, .(species), numcolwise(mean))
 #'names(mean.list) <- dentus.tree$tip.label
-#'LinearParcimony(dentus.tree, mean.list)
-LinearParcimony <- function(tree, tip_means, ...){
+#'LinearParsimony(dentus.tree, mean.list)
+LinearParsimony <- function(tree, tip_means, ...){
     if(is.null(tree$node.label)){
         node.names <- tree$tip.label
     } else{
@@ -35,7 +35,7 @@ LinearParcimony <- function(tree, tip_means, ...){
         descendants.list <- node.names[tree$edge[which(tree$edge[,1]==node),2]]
         ancestral.stats[[node.names[node]]] <- spatialMedian(ancestral.stats[descendants.list])
     }
-    total_dist = totalDist(tree$edge)
+    total_dist = totalDist(tree$edge, ancestral.stats, node.names)
 
     #First up pass using descendants and ancestral median
     for (node in rev(node.order)){
@@ -43,7 +43,7 @@ LinearParcimony <- function(tree, tip_means, ...){
                               node.names[tree$edge[which(tree$edge[,2]==node), 1]])
         ancestral.stats[[node.names[node]]] <- spatialMedian(ancestral.stats[descendants.list])
     }
-    total_dist = totalDist(tree$edge)
+    total_dist = totalDist(tree$edge, ancestral.stats, node.names)
 
     #Up pass using descendants and ancestral median
     for (node in (node.order)){
@@ -51,7 +51,7 @@ LinearParcimony <- function(tree, tip_means, ...){
                               node.names[tree$edge[which(tree$edge[,2]==node), 1]])
         ancestral.stats[[node.names[node]]] <- spatialMedian(ancestral.stats[descendants.list])
     }
-    total_dist = totalDist(tree$edge)
+    total_dist = totalDist(tree$edge, ancestral.stats, node.names)
     return(ancestral.stats)
 }
 
@@ -63,4 +63,4 @@ spatialMedian <- function(x) {
         suppressWarnings(med(ldply(x, identity, .id = NULL), method = "Spatial"))$median
 }
 euclidianDist <- function(x, y) sqrt(sum((x - y)**2))
-totalDist <- function(edges) sum(aaply(edges, 1, function(edge) euclidianDist(ancestral.stats[[node.names[[edge[1]]]]], ancestral.stats[[node.names[[edge[2]]]]])))
+totalDist <- function(edges, ancestral.stats, node.names) sum(aaply(edges, 1, function(edge) euclidianDist(ancestral.stats[[node.names[[edge[1]]]]], ancestral.stats[[node.names[[edge[2]]]]])))
