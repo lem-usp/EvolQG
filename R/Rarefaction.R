@@ -26,7 +26,7 @@
 #' @rdname Rarefaction
 #' @export
 #' @import plyr
-#' @importFrom ggplot2 ggplot aes_string layer scale_x_continuous scale_y_continuous theme_bw
+#' @importFrom ggplot2 ggplot aes_string geom_boxplot scale_x_continuous scale_y_continuous theme_bw
 #' @importFrom reshape2 melt
 #' @examples
 #' ind.data <- iris[1:50,1:4]
@@ -121,7 +121,7 @@ PlotRarefaction <- function(comparison.list, y.axis = "Statistic"){
   plot.df = melt(comparison.list, value.name = 'avg.corr')
   plot.df = as.data.frame(lapply(plot.df, as.numeric))
   rarefaction.plot = ggplot(plot.df, aes_string('L1', 'avg.corr', group = 'L1')) +
-  layer(geom = "boxplot") +
+  geom_boxplot() +
   scale_x_continuous("Resample Size") +
   scale_y_continuous(y.axis) +
   theme_bw()

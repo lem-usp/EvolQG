@@ -5,7 +5,7 @@ test_that("DriftTest returns resonable results",
   cov.matrix <- RandomMatrix(40, 1, 1, 10)
   test.array <- DriftTest(means, cov.matrix, FALSE)
   test.list <- DriftTest(means.list, cov.matrix, FALSE)
-  expect_equal(test.array, test.list)
+  expect_equal(test.array[-6], test.list[-6])
   expect_is(test.array, "list")
   expect_is(test.array[[1]], "lm")
   expect_is(test.array[[2]], "matrix")
@@ -37,8 +37,8 @@ test_that("TreeDriftTest returns resonable results",
   test.list <- TreeDriftTest(tree, mean.list, cov.matrix.list)
   expect_is(test.list, 'list')
   expect_equal(length(test.list), 13)
-  expect_equal(test.list[[length(test.list)]], 
-               DriftTest(mean.list, w.cov, FALSE))
+  expect_equal(test.list[[length(test.list)]][-6], 
+               DriftTest(mean.list, w.cov, FALSE)[-6])
 })
 
           
