@@ -6,7 +6,6 @@
 #'@param tip_means list of tip nodes data. Expects one vector for each terminal.
 #'@param ... aditional arguments for phytools::fastAnc
 #'@return list with calculated ancestral states, using labels or numbers from tree
-#'@export
 #'@importFrom ape reorder.phylo 
 #'@import plyr
 #'@examples
