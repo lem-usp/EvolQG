@@ -6,7 +6,6 @@
 #'@param tip_means list of tip nodes data. Expects one vector for each terminal.
 #'@param ... aditional arguments for phytools::fastAnc
 #'@return list with calculated ancestral states, using labels or numbers from tree
-#'@export
 #'@importFrom ape reorder.phylo 
 #'@importFrom stats median
 #'@import plyr
@@ -16,7 +15,7 @@
 #'data(dentus.tree)
 #'mean.list <- dlply(dentus, .(species), numcolwise(mean))
 #'names(mean.list) <- dentus.tree$tip.label
-#'LinearParsimony(dentus.tree, mean.list)
+#'evolqg:::LinearParsimony(dentus.tree, mean.list)
 LinearParsimony <- function(tree, tip_means, ...){
     if(is.null(tree$node.label)){
         node.names <- tree$tip.label

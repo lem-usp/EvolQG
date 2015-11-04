@@ -24,6 +24,6 @@ data(dentus)
 data(dentus.tree)
 mean.list <- dlply(dentus, .(species), numcolwise(mean))
 names(mean.list) <- dentus.tree$tip.label
-LinearParsimony(dentus.tree, mean.list)
+evolqg:::LinearParsimony(dentus.tree, mean.list)
 }
 

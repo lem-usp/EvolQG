@@ -50,7 +50,7 @@ MonteCarloStat <- function (cov.matrix, sample.size, iterations,
   if(!isSymmetric(cov.matrix)) stop("covariance matrix must be symmetric.")
   if(sum(diag(cov.matrix)) == dim(cov.matrix)[1]) warning("Matrix appears to be a correlation matrix! Only covariance matrices should be used in parametric resampling.")
   populations <- alply(1:iterations, 1,
-                        function(x) rmvnorm (sample.size, sigma = cov.matrix, method = 'chol'),
+                        function(x) rmvnorm (sample.size, sigma = cov.matrix, method = 'svd'),
                         .parallel=parallel)
   comparisons <- ldply (populations, 
                         doComparisonMC, ComparisonFunc, StatFunc, cov.matrix, sample.size,
@@ -68,7 +68,7 @@ doComparisonMC <- function (x, ComparisonFunc, StatFunc, cov.matrix, sample.size
                      return(NA)
                    })
     if(is.na(out))
-      x = rmvnorm (sample.size, sigma = cov.matrix, method = 'chol')
+      x = rmvnorm (sample.size, sigma = cov.matrix, method = 'svd')
     else
       break
   }
