@@ -7,6 +7,7 @@
 #'@param ... aditional arguments for phytools::fastAnc
 #'@return list with calculated ancestral states, using labels or numbers from tree
 #'@importFrom ape reorder.phylo 
+#'@importFrom stats median
 #'@import plyr
 #'@examples
 #'
