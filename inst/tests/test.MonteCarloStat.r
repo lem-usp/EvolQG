@@ -25,3 +25,12 @@ test_that("MonteCarloStat throws error",
   expect_that(MonteCarloStat(array(1:100, c(10, 10)), 10, 10, RandomSkewers, cov), 
               throws_error("covariance matrix must be symmetric."))
 })
+test_that("MonteCarloRep returns correct results for scalled crappy matrices",
+          {
+           mat = RandomMatrix(35, 1, 1 ,10)
+           crappy_mat = var(mvtnorm::rmvnorm(10, sigma = mat))
+           rep_c = MonteCarloRep(crappy_mat, 10, PCAsimilarity)
+           rep_sc = MonteCarloRep(100000*crappy_mat, 10, PCAsimilarity)
+           expect_less_than(abs(rep_c - rep_sc), 0.05)
+          }
+)
