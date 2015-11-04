@@ -8,6 +8,7 @@
 #'@return list with calculated ancestral states, using labels or numbers from tree
 #'@export
 #'@importFrom ape reorder.phylo 
+#'@importFrom stats median
 #'@import plyr
 #'@examples
 #'
