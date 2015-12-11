@@ -23,6 +23,7 @@ Imports:
     ape,
     phytools,
     mvtnorm,
+    coda,
     graphics,
     grDevices,
     methods,
