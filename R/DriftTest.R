@@ -136,6 +136,6 @@ PlotTreeDriftTest <- function(test.list, tree, ...){
 
 #'@importFrom phytools getDescendants
 getMeans <- function(mean.list, tree, node){
-  means <- mean.list[getDescendants(tree, node)]
+  means <- mean.list[names(mean.list)[getDescendants(tree, node)]]
   means[!laply(means, is.null)]
 }
