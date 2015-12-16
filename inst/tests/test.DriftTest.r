@@ -50,12 +50,14 @@ test_that("TreeDriftTest returns resonable results",
             names(mean.list) <- tree$tip.label
             cov.matrix.list <- RandomMatrix(5, length(tree$tip.label))
             names(cov.matrix.list) <- tree$tip.label
+            cov.matrix.list = cov.matrix.list[sample(1:length(cov.matrix.list))]
+            mean.list_2 = mean.list[sample(1:length(mean.list))]
             w.cov <- PhyloW(tree, cov.matrix.list)$'32'
-            test.list <- TreeDriftTest(tree, mean.list, cov.matrix.list)
+            test.list <- TreeDriftTest(tree, mean.list_2, cov.matrix.list)
             expect_is(test.list, 'list')
             expect_equal(length(test.list), 13)
             expect_equal(test.list[["32"]][-6], 
-                         DriftTest(mean.list[na.omit(tree$tip.label[phytools::getDescendants(tree, 32)])], 
+                         DriftTest(mean.list[na.omit(tree$tip.label[phytools::getDescendants(tree, "32")])], 
                                    w.cov, FALSE)[-6])
           })
 
