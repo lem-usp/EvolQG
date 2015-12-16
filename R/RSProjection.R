@@ -1,5 +1,6 @@
 #' Random Skewers projection
 #' 
+#' Not tested!
 #' Uses MCMC Bayeisian posterior samples of a set of covariance matrices to identify 
 #' directions of the morphospace in which these matrices differ in their amount of genetic variance.
 #' 
