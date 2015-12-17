@@ -21,6 +21,7 @@
 #'@export
 #'@import plyr
 #'@importFrom ggplot2 ggplot geom_text geom_smooth labs theme_bw aes_string
+#'@importFrom stats na.omit
 #'@examples
 #'
 #' #Input can be an array with means in each row or a list of mean vectors
