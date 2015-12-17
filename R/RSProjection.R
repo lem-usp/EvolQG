@@ -7,21 +7,24 @@
 #' @param cov.matrix.array Array with dimentions traits x traits x populations x MCMCsamples
 #' @param p significance treashhold for comparison of variation in each random direction
 #' @param num.vectors number of random vectors
+#' @param rs_proj output from RSProjection
+#' @param ncols number of columns in plot
 #' @return projection of all matrices in all random vectors
 #' @return set of random vectors and confidence intervals for the projections
 #' @return eigen decomposition of the random vectors in directions with significant differences of variations
-#' #@export
+#' @export
 #' @importFrom coda HPDinterval as.mcmc
 #' @references Aguirre, J. D., E. Hine, K. McGuigan, and M. W. Blows. "Comparing G: multivariate analysis of genetic variation in multiple populations." Heredity 112, no. 1 (2014): 21-29.
 #' @examples
 #' #random set of covariance matrices 
-#' cov.matrices = aperm(aaply(1:15, 1, function(x) 
-#'                      laply(RandomMatrix(10, 100, 
-#'                            variance = runif(10, 1, 10)), 
+#' cov.matrices = aperm(aaply(1:10, 1, function(x) 
+#'                      laply(RandomMatrix(6, 40, 
+#'                            variance = runif(6, 1, 10)), 
 #'                            identity)), 
 #'                      c(3, 4, 1, 2))
-#' #rs_proj = evolqg:::RSProjection(cov.matrices, p = 0.8)  
-#' #plot(rs.proj, cov.matrices)
+#' rs_proj = RSProjection(cov.matrices, p = 0.8)  
+#' PlotRSprojection(rs_proj, cov.matrices, ncol = 5)
+#' 
 RSProjection <- function(cov.matrix.array, p = 0.95, num.vectors = 1000){
   if (dim(cov.matrix.array)[[1]] != dim(cov.matrix.array)[[2]]){
     stop("Covariance matrix array must be of order n x n x m x MCMCsamplele")
@@ -74,26 +77,37 @@ RSProjection <- function(cov.matrix.array, p = 0.95, num.vectors = 1000){
   class(out) = "rs_proj"
   return(out)
 }
-# 
-# plot.rs_proj <- function (rs_proj, cov.matrix.array){
-#   
-#   n <- length(rs_proj$eig.R$values)
-# 
-#   HPD.int <- aaply(rs_proj$cov.projection, 3, function(proj) HPDinterval(as.mcmc(proj), prob = 0.95))
-#   HPD.int <- aperm(HPD.int, c(2, 3, 1))
-#   dimnames(HPD.int) = list(colnames(rs_proj$cov.projection), NULL, NULL)
-#   dat = adply(HPD.int, 1:3)
-#   
-#   names(dat) = c('Population', 'interval', 'trait', 'value')
-#   dat = dcast(dat, Population+trait~interval)
-#   names(dat) = c('Population', 'trait', 'lower', 'upper')
-#   dat$trait = paste0("PC", 1:n)
-#   order.list = paste0("PC", 1:n) 
-#   dat$trait = factor(dat$trait, levels = order.list)
-#   dat$mean = rowMeans(cbind(dat$upper, dat$lower))
-#   plot = ggplot(dat, aes(Population, mean)) + geom_point() +
-#     geom_errorbar(aes( ymin=lower, ymax=upper)) +
-#     theme(axis.text.x = element_text(angle = 45, hjust = 1)) +
-#     ylab('Genetic Variance') + facet_wrap(~ trait, scales = "free_y")
-#   return(plot)
-# }
+
+#' @export
+#' @rdname RSProjection
+#' @importFrom reshape2 dcast
+#' @importFrom ggplot2 aes_string theme ylab element_text facet_wrap geom_point geom_errorbar
+#' @importFrom coda HPDinterval as.mcmc
+PlotRSprojection <- function (rs_proj, cov.matrix.array, p = 0.95, ncols = 5){
+  
+  n <- dim(cov.matrix.array)[[1]]
+  
+  evecs = t(rs_proj$eig.R$vectors)
+  
+  R_eigen_projection <- apply(cov.matrix.array, 3:4, function(mat) diag(evecs %*% mat %*% t(evecs)))
+  R_eigen_projection <- aperm(R_eigen_projection, c(3, 2, 1))
+  colnames(R_eigen_projection) <- dimnames(cov.matrix.array)[[3]]
+
+  HPD.int <- aaply(R_eigen_projection, 3, function(proj) HPDinterval(as.mcmc(proj), prob = p))
+  HPD.int <- aperm(HPD.int, c(2, 3, 1))
+  dimnames(HPD.int) = list(dimnames(cov.matrix.array)[[3]], NULL, NULL)
+  dat = adply(HPD.int, 1:3)
+  
+  names(dat) = c('Population', 'interval', 'trait', 'value')
+  dat = dcast(dat, as.formula("Population+trait~interval"))
+  names(dat) = c('Population', 'trait', 'lower', 'upper')
+  dat$trait = paste0("PC", dat$trait)
+  order.list = paste0("PC", 1:n)
+  dat$trait = factor(dat$trait, levels = order.list)
+  dat$mean = rowMeans(cbind(dat$upper, dat$lower))
+  plot = ggplot(dat, aes_string("Population", "mean")) + geom_point() +
+    geom_errorbar(aes_string( ymin="lower", ymax="upper")) + theme_bw() +
+    theme(axis.text.x = element_text(angle = 45, hjust = 1)) +
+    ylab('Genetic Variance') + facet_wrap(~ trait, ncol = ncols, scales = "free_y")
+  return(plot)
+}
