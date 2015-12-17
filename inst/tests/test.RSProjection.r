@@ -1,4 +1,3 @@
-
 test_that("RSProjection returns correct results",
           {
             rs_benchmark_aguirre <- function(Gs, p = 0.8, vec = 1000){

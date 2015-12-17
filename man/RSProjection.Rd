@@ -36,7 +36,7 @@ directions of the morphospace in which these matrices differ in their amount of 
 #random set of covariance matrices 
 cov.matrices = aperm(aaply(1:10, 1, function(x) 
                      laply(RandomMatrix(6, 40, 
-                           variance = runif(10, 1, 10)), 
+                           variance = runif(6, 1, 10)), 
                            identity)), 
                      c(3, 4, 1, 2))
 rs_proj = RSProjection(cov.matrices, p = 0.8)  
