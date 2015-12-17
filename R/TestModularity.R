@@ -42,3 +42,11 @@ CreateHipotMatrix <- function(modularity.hipot) {
                                     num.traits, num.traits, byrow=T)
   return(m.hip.list[1:(num.hip+1)])
 }
+
+gamma <- function(S, S_0) sum(diag((x <- (S - S_0)) %*% t(x)))
+
+TestModularityGamma <- function(cor.matrix, hipot){
+  hipot = CreateHipotMatrix(hipot)
+  hipot = hipot[[length(hipot)]]
+  gamma(cor.matrix, cor.matrix * hipot)
+}
