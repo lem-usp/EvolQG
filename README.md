@@ -18,6 +18,9 @@ From CRAN
 > install.packages("evolqg")
 ```
 
+From github
+-----------
+
 If Windows
 ----------
 
