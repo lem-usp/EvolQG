@@ -8,8 +8,8 @@ Package for evolutionary quantitative genetics, described in Melo D, Garcia G, H
 
 
 
-Instalation
-===========
+Installation
+============
 
 From CRAN
 ---------
