@@ -25,9 +25,9 @@ CalculateMatrix <- function(linear.m){
 CalculateMatrix_Baysean <- function(linear.m, samples = NULL, ..., nu = NULL, S_0 = NULL){
   x <- linear.m$residuals
   S_x = t(x) %*% x
-  N = dim(x)[1]
+  N = linear.m$df.residual
   p = dim(x)[2]
-  if(is.null(nu)) nu = dim(x)[2] + 1
+  if(is.null(nu)) nu = dim(x)[2]
   if(is.null(S_0)){
     S_0 = diag(0, p)
     diag(S_0) = diag(S_x/N) * nu
@@ -35,9 +35,19 @@ CalculateMatrix_Baysean <- function(linear.m, samples = NULL, ..., nu = NULL, S_
   S_N <- S_0 + S_x
   nu_N <- nu + N
   MAP <- (S_0 + S_x) / (nu + N)
+  MLE <- S_x/N
   if(!is.null(samples)){
    S_sample <- rlply(samples, riwish(nu_N, S_N))
-   return(list(MAP = MAP, Ps = S_sample))
+   median.P <- matrix_median(S_sample)
+   return(list(MAP = MAP, 
+               MLE = MLE, 
+               P = median.P, 
+               Ps = S_sample))
   }
-  else return(MAP)
+  else return(list(MAP = MAP, MLE = MLE))
+}
+
+matrix_median <- function(mat.list){
+  x = laply(mat.list, identity)
+  aaply(x, 2:3, median)
 }
