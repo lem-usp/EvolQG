@@ -37,7 +37,7 @@ CalculateMatrix_Baysean <- function(linear.m, samples = NULL, ..., nu = NULL, S_
   MAP <- (S_0 + S_x) / (nu + N)
   if(!is.null(samples)){
    S_sample <- rlply(samples, riwish(nu_N, S_N))
-   return(list(MAP = MAP, posterior_samples = S_sample))
+   return(list(MAP = MAP, Ps = S_sample))
   }
   else return(MAP)
 }
