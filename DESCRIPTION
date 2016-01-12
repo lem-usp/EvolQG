@@ -24,6 +24,7 @@ Imports:
     phytools,
     mvtnorm,
     coda,
+    MCMCpack,
     graphics,
     grDevices,
     methods,
