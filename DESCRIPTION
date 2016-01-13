@@ -40,4 +40,4 @@ Suggests:
 LinkingTo: Rcpp
 License: MIT + file LICENSE
 BugReports: https://github.com/lem-usp/evolqg/issues
-RoxygenNote: 5.0.0
+RoxygenNote: 5.0.1

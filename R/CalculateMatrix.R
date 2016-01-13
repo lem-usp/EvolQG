@@ -37,17 +37,12 @@ CalculateMatrix_Baysean <- function(linear.m, samples = NULL, ..., nu = NULL, S_
   MAP <- (S_0 + S_x) / (nu + N)
   MLE <- S_x/N
   if(!is.null(samples)){
-   S_sample <- rlply(samples, riwish(nu_N, S_N))
-   median.P <- matrix_median(S_sample)
+   S_sample <- laply(rlply(samples, riwish(nu_N, S_N)), identity)
+   median.P <- aaply(S_sample, 2:3, median)
    return(list(MAP = MAP, 
                MLE = MLE, 
                P = median.P, 
                Ps = S_sample))
   }
   else return(list(MAP = MAP, MLE = MLE))
-}
-
-matrix_median <- function(mat.list){
-  x = laply(mat.list, identity)
-  aaply(x, 2:3, median)
 }
