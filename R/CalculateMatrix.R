@@ -52,7 +52,9 @@ CalculateMatrix_Baysean <- function(linear.m, samples = NULL, ..., nu = NULL, S_
 #' @method print mcmc_sample
 #' @aliases CalculateMatrix
 print.mcmc_sample <- function(x, ...) {
-  cat(paste0("MCMC sample of ", dim(x)[1], " matrices of dimension ", dim(x)[2], "x", dim(x)[3]), "\n")
+  cat(paste0("MCMC sample of ", dim(x)[1], 
+             " matrices of dimension ", dim(x)[2], 
+             "x", dim(x)[3]), "\n")
   cat("Median matrix:\n")
   print(aaply(x, 2:3, median))
 }
