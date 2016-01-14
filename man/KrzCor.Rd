@@ -4,6 +4,7 @@
 \alias{KrzCor}
 \alias{KrzCor.default}
 \alias{KrzCor.list}
+\alias{KrzCor.mcmc_sample}
 \title{Compare matrices via Krzanowski Correlation}
 \usage{
 KrzCor(cov.x, cov.y, ...)
@@ -12,6 +13,9 @@ KrzCor(cov.x, cov.y, ...)
 
 \method{KrzCor}{list}(cov.x, cov.y = NULL, ret.dim = NULL,
   repeat.vector = NULL, parallel = FALSE, ...)
+
+\method{KrzCor}{mcmc_sample}(cov.x, cov.y, ret.dim = NULL, parallel = FALSE,
+  ...)
 }
 \arguments{
 \item{cov.x}{Single covariance matrix or list of covariance matrices.

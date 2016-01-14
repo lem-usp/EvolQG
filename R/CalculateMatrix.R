@@ -39,10 +39,20 @@ CalculateMatrix_Baysean <- function(linear.m, samples = NULL, ..., nu = NULL, S_
   if(!is.null(samples)){
    S_sample <- laply(rlply(samples, riwish(nu_N, S_N)), identity)
    median.P <- aaply(S_sample, 2:3, median)
+   class(S_sample) <- "mcmc_sample"
    return(list(MAP = MAP, 
                MLE = MLE, 
                P = median.P, 
                Ps = S_sample))
   }
   else return(list(MAP = MAP, MLE = MLE))
+}
+
+#' @export
+#' @method print mcmc_sample
+#' @aliases CalculateMatrix
+print.mcmc_sample <- function(x, ...) {
+  cat(paste0("MCMC sample of ", dim(x)[1], " matrices of dimension ", dim(x)[2], "x", dim(x)[3]), "\n")
+  cat("Median matrix:\n")
+  print(aaply(x, 2:3, median))
 }

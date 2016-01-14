@@ -97,3 +97,23 @@ RandomSkewers.list <- function (cov.x, cov.y = NULL, num.vectors = 1000, repeat.
   }
   return(output)
 }
+
+#' @rdname RandomSkewers
+#' @method RandomSkewers mcmc_sample
+#' @export
+RandomSkewers.mcmc_sample <- function (cov.x, cov.y, num.vectors = 1000, parallel = FALSE, ...)
+{
+  if (class (cov.y) == "mcmc_sample") {
+    n = dim(cov.x)[1]
+    if(dim(cov.y)[1] != n) stop("samples must be of same size")
+    output <- aaply(1:n, 1, function(i) RandomSkewers.default(cov.x[i,,], 
+                                                              cov.y[i,,], 
+                                                              num.vectors = num.vectors)[1],
+                    .parallel = parallel)
+  } else{
+    output <- SingleComparisonMap(alply(cov.x, 1), cov.y,
+                                  function(x, y) RandomSkewers(x, y, num.vectors),
+                                  parallel = parallel)
+  }
+  return(output)
+}

@@ -90,3 +90,23 @@ KrzCor.list <- function (cov.x, cov.y = NULL,
   }
   return(output)
 }
+
+#' @rdname KrzCor
+#' @method KrzCor mcmc_sample
+#' @export
+KrzCor.mcmc_sample <- function (cov.x, cov.y, ret.dim = NULL, parallel = FALSE, ...)
+{
+  if (class (cov.y) == "mcmc_sample") {
+    n = dim(cov.x)[1]
+    if(dim(cov.y)[1] != n) stop("samples must be of same size")
+    output <- aaply(1:n, 1, function(i) KrzCor.default(cov.x[i,,], 
+                                                       cov.y[i,,], 
+                                                       ret.dim = ret.dim),
+                    .parallel = parallel)
+  } else{
+    output <- SingleComparisonMap(alply(cov.x, 1), cov.y,
+                                  function(x, y) KrzCor(x, y, ret.dim),
+                                  parallel = parallel)
+  }
+  return(output)
+}

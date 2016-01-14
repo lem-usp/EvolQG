@@ -4,6 +4,7 @@
 \alias{PCAsimilarity}
 \alias{PCAsimilarity.default}
 \alias{PCAsimilarity.list}
+\alias{PCAsimilarity.mcmc_sample}
 \title{Compare matrices using PCA similarity factor}
 \usage{
 PCAsimilarity(cov.x, cov.y, ...)
@@ -12,6 +13,8 @@ PCAsimilarity(cov.x, cov.y, ...)
 
 \method{PCAsimilarity}{list}(cov.x, cov.y = NULL, ..., repeat.vector = NULL,
   parallel = FALSE)
+
+\method{PCAsimilarity}{mcmc_sample}(cov.x, cov.y, ..., parallel = FALSE)
 }
 \arguments{
 \item{cov.x}{Single covariance matrix ou list of covariance matrices.

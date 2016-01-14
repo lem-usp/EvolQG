@@ -42,13 +42,13 @@
 #' c3 <- RandomMatrix(10, 1, 1, 10)
 #' MantelCor(cov2cor(c1), cov2cor(c2))
 #' 
-#' cov.list <- list(c1, c2, c3)
+#' cor.list <- list(c1, c2, c3)
 #' cor.list <- llply(list(c1, c2, c3), cov2cor)
 #'
 #' MantelCor(cor.list)
 #'
 #'# For repeatabilities we can use MatrixCor, which skips the significance calculation
-#' reps <- unlist(lapply(cov.list, MonteCarloRep, 10, MatrixCor, correlation = TRUE))
+#' reps <- unlist(lapply(cor.list, MonteCarloRep, 10, MatrixCor, correlation = TRUE))
 #' MantelCor(llply(cor.list, repeat.vector = reps))
 #'
 #' c4 <- RandomMatrix(10)
@@ -118,6 +118,14 @@ MantelCor.list <- function (cor.x, cor.y = NULL,
   return(output)
 }
 
+#' @rdname MantelCor
+#' @method MantelCor mcmc_sample
+#' @export
+MantelCor.mcmc_sample <- function (cor.x, cor.y, ..., parallel = FALSE)
+{
+  MatrixCor(cor.x, cor.y, parallel)
+}
+
 #' @export
 #' @rdname MantelCor
 MatrixCor <- function (cor.x, cor.y, ...) UseMethod("MatrixCor")
@@ -147,6 +155,25 @@ MatrixCor.list <- function (cor.x, cor.y = NULL,
   } else{
     output <- SingleComparisonMap(cor.x, cor.y,
                                   function(x, y) MatrixCor(x, y),                                                    
+                                  parallel = parallel)
+  }
+  return(output)
+}
+
+#' @rdname MantelCor
+#' @method MatrixCor mcmc_sample
+#' @export
+MatrixCor.mcmc_sample <- function (cor.x, cor.y, ..., parallel = FALSE)
+{
+  if (class (cor.y) == "mcmc_sample") {
+    n = dim(cor.x)[1]
+    if(dim(cor.y)[1] != n) stop("samples must be of same size")
+    output <- aaply(1:n, 1, function(i) MatrixCor.default(cor.x[i,,], 
+                                                          cor.y[i,,]),
+                    .parallel = parallel)
+  } else{
+    output <- SingleComparisonMap(alply(cor.x, 1), cor.y,
+                                  function(x, y) MatrixCor(x, y),
                                   parallel = parallel)
   }
   return(output)
