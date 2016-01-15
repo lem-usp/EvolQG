@@ -36,8 +36,6 @@ matrices <- BayesianCalculateMatrix(iris.lm, nu = 0.1, samples = 100)
 Diogo Melo, Fabio Machado
 }
 \references{
-https://github.com/lem-usp/evolqg/wiki/
-
 Murphy, K. P. (2012). Machine learning: a probabilistic perspective. MIT press.
 
 Schafer, J., e Strimmer, K. (2005). A shrinkage approach to large-scale covariance matrix estimation and implications for functional genomics. Statistical applications in genetics and molecular biology, 4(1).
