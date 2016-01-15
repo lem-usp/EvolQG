@@ -33,9 +33,10 @@ Uses MCMC Bayeisian posterior samples of a set of covariance matrices to identif
 directions of the morphospace in which these matrices differ in their amount of genetic variance.
 }
 \examples{
-#random set of covariance matrices 
-cov.matrices = aperm(aaply(1:10, 1, function(x) 
-                     laply(RandomMatrix(6, 40, 
+# random set of covariance matrices, 
+# small MCMCsample to reduce run time, acctual sample should be larger 
+cov.matrices = aperm(aaply(1:8, 1, function(x) 
+                     laply(RandomMatrix(6, 30, 
                            variance = runif(6, 1, 10)), 
                            identity)), 
                      c(3, 4, 1, 2))

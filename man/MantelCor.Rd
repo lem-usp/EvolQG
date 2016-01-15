@@ -4,9 +4,11 @@
 \alias{MantelCor}
 \alias{MantelCor.default}
 \alias{MantelCor.list}
+\alias{MantelCor.mcmc_sample}
 \alias{MatrixCor}
 \alias{MatrixCor.default}
 \alias{MatrixCor.list}
+\alias{MatrixCor.mcmc_sample}
 \title{Compare matrices via Mantel Correlation}
 \usage{
 MantelCor(cor.x, cor.y, ...)
@@ -17,12 +19,16 @@ MantelCor(cor.x, cor.y, ...)
 \method{MantelCor}{list}(cor.x, cor.y = NULL, permutations = 1000,
   repeat.vector = NULL, mod = FALSE, MHI = FALSE, parallel = FALSE, ...)
 
+\method{MantelCor}{mcmc_sample}(cor.x, cor.y, ..., parallel = FALSE)
+
 MatrixCor(cor.x, cor.y, ...)
 
 \method{MatrixCor}{default}(cor.x, cor.y, ...)
 
 \method{MatrixCor}{list}(cor.x, cor.y = NULL, permutations = 1000,
   repeat.vector = NULL, mod = FALSE, parallel = FALSE, ...)
+
+\method{MatrixCor}{mcmc_sample}(cor.x, cor.y, ..., parallel = FALSE)
 }
 \arguments{
 \item{cor.x}{Single correlation matrix or list of correlation matrices.
@@ -74,13 +80,13 @@ c2 <- RandomMatrix(10, 1, 1, 10)
 c3 <- RandomMatrix(10, 1, 1, 10)
 MantelCor(cov2cor(c1), cov2cor(c2))
 
-cov.list <- list(c1, c2, c3)
+cor.list <- list(c1, c2, c3)
 cor.list <- llply(list(c1, c2, c3), cov2cor)
 
 MantelCor(cor.list)
 
 # For repeatabilities we can use MatrixCor, which skips the significance calculation
-reps <- unlist(lapply(cov.list, MonteCarloRep, 10, MatrixCor, correlation = TRUE))
+reps <- unlist(lapply(cor.list, MonteCarloRep, 10, MatrixCor, correlation = TRUE))
 MantelCor(llply(cor.list, repeat.vector = reps))
 
 c4 <- RandomMatrix(10)

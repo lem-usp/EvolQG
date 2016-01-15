@@ -71,3 +71,22 @@ PCAsimilarity.list <- function (cov.x, cov.y = NULL, ...,
   }
   return(output)
 }
+
+#' @rdname PCAsimilarity
+#' @method PCAsimilarity mcmc_sample
+#' @export
+PCAsimilarity.mcmc_sample <- function (cov.x, cov.y, ..., parallel = FALSE)
+{
+  if (class (cov.y) == "mcmc_sample") {
+    n = dim(cov.x)[1]
+    if(dim(cov.y)[1] != n) stop("samples must be of same size")
+    output <- aaply(1:n, 1, function(i) PCAsimilarity.default(cov.x[i,,], 
+                                                       cov.y[i,,], ...),
+                    .parallel = parallel)
+  } else{
+    output <- SingleComparisonMap(alply(cov.x, 1), cov.y,
+                                  function(x, y) PCAsimilarity(x, y, ...),
+                                  parallel = parallel)
+  }
+  return(output)
+}

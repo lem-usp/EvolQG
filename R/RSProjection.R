@@ -16,9 +16,10 @@
 #' @importFrom coda HPDinterval as.mcmc
 #' @references Aguirre, J. D., E. Hine, K. McGuigan, and M. W. Blows. "Comparing G: multivariate analysis of genetic variation in multiple populations." Heredity 112, no. 1 (2014): 21-29.
 #' @examples
-#' #random set of covariance matrices 
-#' cov.matrices = aperm(aaply(1:10, 1, function(x) 
-#'                      laply(RandomMatrix(6, 40, 
+#' # random set of covariance matrices, 
+#' # small MCMCsample to reduce run time, acctual sample should be larger 
+#' cov.matrices = aperm(aaply(1:8, 1, function(x) 
+#'                      laply(RandomMatrix(6, 30, 
 #'                            variance = runif(6, 1, 10)), 
 #'                            identity)), 
 #'                      c(3, 4, 1, 2))

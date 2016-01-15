@@ -59,8 +59,8 @@ MeanMatrixStatistics <- function (cov.matrix, iterations = 1000, full.results = 
                             'constraints',
                             'null.dist')
   stat.mean <- colMeans (stat.dist[,-7])
-  integration <- c (CalcR2 (cov2cor(cov.matrix)), Pc1Percent (cov.matrix), CalcICV(cov.matrix))
-  names (integration) <- c ('MeanSquaredCorrelation', 'pc1%', 'ICV')
+  integration <- c (CalcR2 (cov.matrix), Pc1Percent (cov.matrix), CalcICV(cov.matrix))
+  names (integration) <- c ('MeanSquaredCorrelation', 'pc1.percent', 'ICV')
   stat.mean <- c (integration, stat.mean)
   if(full.results)
     return (list ('dist' = stat.dist, 'mean' = stat.mean))
