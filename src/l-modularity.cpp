@@ -47,7 +47,7 @@ NumericMatrix prepara_J (NumericMatrix x){
    }
    for( i = 0; i < V; i++){
       for( j = 0; j < V; j++){
-         J(i,j) = J(i,j) - (K[i]*K[j])/m;
+         J(i,j) = J(i,j) - (K[i]*K[j])/(2*m);
       }
    }
    return J;
