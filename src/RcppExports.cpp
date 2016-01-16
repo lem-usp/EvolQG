@@ -5,6 +5,30 @@
 
 using namespace Rcpp;
 
+// normalize
+NumericVector normalize(NumericVector x);
+RcppExport SEXP evolqg_normalize(SEXP xSEXP) {
+BEGIN_RCPP
+    Rcpp::RObject __result;
+    Rcpp::RNGScope __rngScope;
+    Rcpp::traits::input_parameter< NumericVector >::type x(xSEXP);
+    __result = Rcpp::wrap(normalize(x));
+    return __result;
+END_RCPP
+}
+// RS
+NumericVector RS(NumericMatrix x, NumericMatrix y, int num_vectors);
+RcppExport SEXP evolqg_RS(SEXP xSEXP, SEXP ySEXP, SEXP num_vectorsSEXP) {
+BEGIN_RCPP
+    Rcpp::RObject __result;
+    Rcpp::RNGScope __rngScope;
+    Rcpp::traits::input_parameter< NumericMatrix >::type x(xSEXP);
+    Rcpp::traits::input_parameter< NumericMatrix >::type y(ySEXP);
+    Rcpp::traits::input_parameter< int >::type num_vectors(num_vectorsSEXP);
+    __result = Rcpp::wrap(RS(x, y, num_vectors));
+    return __result;
+END_RCPP
+}
 // annealing
 double annealing(NumericMatrix Corr, NumericVector S);
 RcppExport SEXP evolqg_annealing(SEXP CorrSEXP, SEXP SSEXP) {

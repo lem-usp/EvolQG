@@ -64,18 +64,7 @@ RandomSkewers <- function(cov.x, cov.y, ...) UseMethod("RandomSkewers")
 #' @rdname RandomSkewers
 #' @export
 RandomSkewers.default <- function (cov.x, cov.y, num.vectors = 1000, ...) {
-  traits <- dim (cov.x) [1]
-  base.vector <- Normalize(rnorm(traits))
-  random.vectors <- array (rnorm (num.vectors * traits, mean = 0, sd = 1), c(traits, num.vectors))
-  random.vectors <- apply (random.vectors, 2, Normalize)
-  dist <- base.vector %*% random.vectors
-  dz1 <- apply (cov.x %*% random.vectors, 2, Normalize)
-  dz2 <- apply (cov.y %*% random.vectors, 2, Normalize)
-  real <- apply (dz1 * dz2, 2, sum)
-  ac <- mean (real)
-  stdev <- sd (real)
-  prob <- sum (ac < dist) / num.vectors
-  output <- c(ac, prob, stdev)
+  output <- RS(cov.x, cov.y, num.vectors)
   names(output) <- c("correlation","probability","correlation_sd")
   return(output)
 }
