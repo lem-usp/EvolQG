@@ -1,6 +1,9 @@
-#include <Rcpp.h>
-#include <numeric>
+#include <RcppArmadillo.h>
+// [[Rcpp::depends(RcppArmadillo)]]
+
 using namespace Rcpp;
+using namespace arma;
+
 
 // This is a simple example of exporting a C++ function to R. You can
 // source this function into an R session using the Rcpp::sourceCpp 
@@ -13,47 +16,26 @@ using namespace Rcpp;
 //
 
 // [[Rcpp::export]]
-NumericVector normalize(NumericVector x) {
-  int n = x.size();
-  x = x / sqrt(sum(pow((x), 2)));
-  return x;
-}
-
-// [[Rcpp::export]]
-NumericVector RS(NumericMatrix x, NumericMatrix y, int num_vectors) {
-  int traits = x.nrow();
-  int i, j, k;
-
-  NumericVector out(3);
-  NumericVector base_vector(traits);
-  NumericVector random_vector(traits);
-  NumericVector dz_x(traits);
-  NumericVector dz_y(traits);
-  NumericVector null_dist(num_vectors);
-  NumericVector comparisons(num_vectors);
-  base_vector = normalize(rnorm(traits));
-  
+arma::mat RS(arma::mat x, arma::mat y, int num_vectors) {
+  int traits = x.n_cols, k;
+  arma::vec comparisons(num_vectors);
+  arma::vec null_dist(num_vectors);
+  arma::vec base_vector = rnorm(traits);
+  arma::vec out(3);
+  arma::mat random_vectors = arma::randn(traits, num_vectors);
+  arma::mat dz_x = x * random_vectors;
+  arma::mat dz_y = y * random_vectors;
   for(k = 0; k < num_vectors; ++k){
-    random_vector = normalize(rnorm(traits));
-    null_dist[k] = sum(random_vector * base_vector);
-    for(i = 0; i < traits; ++i){
-      dz_x[i] = 0;
-      dz_y[i] = 0;
-      for(j = 0; j < traits; ++j){
-        dz_x[i] += x(i, j) * random_vector[j];
-        dz_y[i] += y(i, j) * random_vector[j];
-      }
-      comparisons[k] = sum(normalize(dz_x) * normalize(dz_y));
-    }
+    comparisons(k) = arma::norm_dot(dz_x.col(k), dz_y.col(k));
+    null_dist(k) = arma::norm_dot(base_vector, random_vectors.col(k));
   }
-  
-  out[0] = mean(comparisons);
-  out[1] = 0;
+  out(0) = arma::mean(comparisons);
+  out(1) = 0;
   for(k = 0; k < num_vectors; k++){
-    if(null_dist[k] > out[0]) out[1]++;
+    if(null_dist(k) > out(0)) out(1)++;
   }
-  out[1] /= num_vectors;
-  out[2] = sd(comparisons);
+  out(1) /= num_vectors;
+  out(2) = arma::stddev(comparisons);
   return out;
 }
 
@@ -65,10 +47,12 @@ NumericVector RS(NumericMatrix x, NumericMatrix y, int num_vectors) {
 /*** R
 library(evolqg)
 library(microbenchmark)
-x = RandomMatrix(40)
-y = RandomMatrix(40)
+x = RandomMatrix(100)
+y = RandomMatrix(100)
+RS(x, y, 1000)
+RandomSkewers(x, y)
 microbenchmark(
-  rscpp = RS(x, y, 1000),
+  rsarma = RS(x, y, 1000),
   rsR = RandomSkewers(x, y)
 )
 */

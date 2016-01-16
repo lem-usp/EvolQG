@@ -64,7 +64,7 @@ RandomSkewers <- function(cov.x, cov.y, ...) UseMethod("RandomSkewers")
 #' @rdname RandomSkewers
 #' @export
 RandomSkewers.default <- function (cov.x, cov.y, num.vectors = 1000, ...) {
-  output <- RS(cov.x, cov.y, num.vectors)
+  output <- as.numeric(RS(cov.x, cov.y, num.vectors))
   names(output) <- c("correlation","probability","correlation_sd")
   return(output)
 }
