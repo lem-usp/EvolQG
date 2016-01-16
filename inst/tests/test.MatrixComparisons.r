@@ -134,9 +134,9 @@ test_that("KrzCor returns correct results",
               B <- EigenVectors (cov.matrix.2)
               S <- t(A) %*% B %*% t(B) %*% A
               SL <- sum (eigen(S)$values) / ret.dim
-              expect_that(KrzCor(cov.matrix.1, cov.matrix.2), equals(SL))
-              expect_that(KrzCor(cov.matrix.1, cov.matrix.2, 10), equals(1))
-              expect_that(KrzCor(x  <- RandomMatrix(11), x), equals(1))
+              expect_that(KrzCor(cov.matrix.1, cov.matrix.2), is_equivalent_to(SL))
+              expect_that(KrzCor(cov.matrix.1, cov.matrix.2, 10), is_equivalent_to(1))
+              expect_that(KrzCor(x  <- RandomMatrix(11), x), is_equivalent_to(1))
               expect_that(KrzCor(cov.matrix.1, cov.matrix.2) <= 1, is_true())
               expect_that(KrzCor(cov.matrix.1, cov.matrix.2) > 0, is_true())
           }

@@ -137,7 +137,7 @@ MatrixCor.default <- function (cor.x, cor.y, ...)
 {
   if(sum(diag(cor.x)) != dim(cor.x)[1] | sum(diag(cor.y))!= dim(cor.y)[1])
     warning("Matrices do not appear to be correlation matrices. Use with caution.")
-  cor(cor.x[lower.tri(cor.x)], cor.y[lower.tri(cor.y)], ...)
+  c("correlations" = cor(cor.x[lower.tri(cor.x)], cor.y[lower.tri(cor.y)], ...))
 }
 
 #' @rdname MantelCor
@@ -168,9 +168,11 @@ MatrixCor.mcmc_sample <- function (cor.x, cor.y, ..., parallel = FALSE)
   if (class (cor.y) == "mcmc_sample") {
     n = dim(cor.x)[1]
     if(dim(cor.y)[1] != n) stop("samples must be of same size")
-    output <- aaply(1:n, 1, function(i) MatrixCor.default(cor.x[i,,], 
-                                                          cor.y[i,,]),
+    cor.x <- alply(cor.x, 1, cov2cor)
+    output <- aaply(1:n, 1, function(i) MatrixCor(cor.x, 
+                                                  cov2cor(cor.y[i,,]))$correlation,
                     .parallel = parallel)
+    output <- as.numeric(output)
   } else{
     output <- SingleComparisonMap(alply(cor.x, 1), cor.y,
                                   function(x, y) MatrixCor(x, y),

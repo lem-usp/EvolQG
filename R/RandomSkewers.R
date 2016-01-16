@@ -95,10 +95,12 @@ RandomSkewers.mcmc_sample <- function (cov.x, cov.y, num.vectors = 1000, paralle
   if (class (cov.y) == "mcmc_sample") {
     n = dim(cov.x)[1]
     if(dim(cov.y)[1] != n) stop("samples must be of same size")
-    output <- aaply(1:n, 1, function(i) RandomSkewers.default(cov.x[i,,], 
-                                                              cov.y[i,,], 
-                                                              num.vectors = num.vectors)[1],
+    cov.x <- alply(cov.x, 1)
+    output <- aaply(1:n, 1, function(i) RandomSkewers(cov.x, 
+                                                      cov.y[i,,], 
+                                                      num.vectors = num.vectors)$correlation,
                     .parallel = parallel)
+    output <- as.numeric(output)
   } else{
     output <- SingleComparisonMap(alply(cov.x, 1), cov.y,
                                   function(x, y) RandomSkewers(x, y, num.vectors),

@@ -33,13 +33,12 @@ Uses MCMC Bayeisian posterior samples of a set of covariance matrices to identif
 directions of the morphospace in which these matrices differ in their amount of genetic variance.
 }
 \examples{
-# random set of covariance matrices, 
+library(magrittr)
 # small MCMCsample to reduce run time, acctual sample should be larger 
-cov.matrices = aperm(aaply(1:8, 1, function(x) 
-                     laply(RandomMatrix(6, 30, 
-                           variance = runif(6, 1, 10)), 
-                           identity)), 
-                     c(3, 4, 1, 2))
+data(dentus)
+cov.matrices = dlply(dentus, .(species), function(x) lm(as.matrix(x[,1:4])~1)) \%>\% 
+               laply(function(x) BayesianCalculateMatrix(x, samples = 50)$Ps)
+cov.matrices = aperm(cov.matrices, c(3, 4, 1, 2))
 rs_proj = RSProjection(cov.matrices, p = 0.8)  
 PlotRSprojection(rs_proj, cov.matrices, ncol = 5)
 
