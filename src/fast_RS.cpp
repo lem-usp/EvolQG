@@ -65,8 +65,8 @@ NumericVector RS(NumericMatrix x, NumericMatrix y, int num_vectors) {
 /*** R
 library(evolqg)
 library(microbenchmark)
-x = RandomMatrix(5)
-y = RandomMatrix(5)
+x = RandomMatrix(40)
+y = RandomMatrix(40)
 microbenchmark(
   rscpp = RS(x, y, 1000),
   rsR = RandomSkewers(x, y)
