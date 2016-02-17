@@ -25,7 +25,7 @@ In Windows you first need to install [Rtools](http://cran.r-project.org/bin/wind
 Using devtools
 --------------
 
-Install [devtools](http://www.rstudio.com/projects/devtools/) and [Rcpp](http://cran.r-project.org/web/packages/Rcpp/index.html), then:
+Install [devtools](http://www.rstudio.com/projects/devtools/), then:
 
 ```R
 > library(devtools)
