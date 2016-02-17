@@ -38,6 +38,6 @@ Troubleshooting
 Occasionally some dependencies fail to install. This is usually related to missing packages not available from CRAN. As far as I can tell, installing graph, Biostrings and Rgraphviz from Bioconductor should solve this.
 
 ```R
-> source("https://bioconductor.org/biocLite.R")
+> source("http://bioconductor.org/biocLite.R")
 > biocLite(c("graph", "Rgraphviz", "Biostrings"))
 ```
