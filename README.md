@@ -39,5 +39,5 @@ Occasionally some dependencies fail to install. This is usually related to missi
 
 ```R
 > source("https://bioconductor.org/biocLite.R")
-> biocLite(c("graph","Rgraphviz", "Biostrings"))
+> biocLite(c("graph", "Rgraphviz", "Biostrings"))
 ```
