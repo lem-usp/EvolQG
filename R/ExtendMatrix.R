@@ -33,12 +33,12 @@ ExtendMatrix <- function(cov.matrix, var.cut.off = 1e-4, ret.dim = NULL) {
     var.grad[i] = var(grad[i:(i+4)])
   }
   if(is.null(ret.dim)){
-    ret.dim = 3 + which(var.grad < var.cut.off)[1]
+    ret.dim = 4 + which(var.grad < var.cut.off)[1]
   }
   eVal[eVal < eVal[ret.dim]] = eVal[ret.dim]
   extended.cov.matrix = eVec%*%diag(eVal)%*%t(eVec)
   colnames(extended.cov.matrix) = colnames(cov.matrix)
   rownames(extended.cov.matrix) = rownames(cov.matrix)
-  names(var.grad) = 3:(p-3)
+  var.grad = data.frame(PC = 3:(p-3), "Gradient Variance" = var.grad)
   return(list(ExtMat = extended.cov.matrix, var.grad = var.grad, eVals = eVal))
 }
