@@ -21,7 +21,6 @@ Imports:
     tidyr,
     vegan,
     ape,
-    phytools,
     mvtnorm,
     coda,
     MCMCpack,
@@ -34,6 +33,7 @@ Imports:
 Suggests:
     testthat (>= 0.2),
     foreach,
+    phytools,
     grid,
     gridExtra,
     doParallel

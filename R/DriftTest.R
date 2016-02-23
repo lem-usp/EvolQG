@@ -135,7 +135,20 @@ PlotTreeDriftTest <- function(test.list, tree, ...){
   nodelabels(node = tested.nodes, thermo = as.numeric(non.drift.nodes))  
 }
 
-#'@importFrom phytools getDescendants
 getMeans <- function(mean.list, tree, node){
   means <- mean.list[na.omit(tree$tip.label[getDescendants(tree, node)])]
+}
+
+# gets descendant node numbers
+# written by Liam Revell 2012, 2013, 2014
+getDescendants<-function(tree,node,curr=NULL){
+  if(!inherits(tree,"phylo")) stop("tree should be an object of class \"phylo\".")
+  if(is.null(curr)) curr<-vector()
+  daughters<-tree$edge[which(tree$edge[,1]==node),2]
+  curr<-c(curr,daughters)
+  if(length(curr)==0&&node<=length(tree$tip.label)) curr<-node
+  w<-which(daughters>length(tree$tip.label))
+  if(length(w)>0) for(i in 1:length(w)) 
+    curr<-getDescendants(tree,daughters[w[i]],curr)
+  return(curr)
 }
