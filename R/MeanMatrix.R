@@ -3,7 +3,7 @@
 #' Estimate geometric mean for a set of covariance matrices
 #'
 #' @param matrix.array m x m x k array of covariance matrices, with m traits and k matrices
-#' @param tol minimum value between iterations for evaluating convergence
+#' @param tol minimum riemannian distance between sequential iterated means for accepting an estimated matrix
 #' @return geometric mean covariance matrix
 #' 
 #' @importFrom expm sqrtm logm expm
@@ -12,7 +12,7 @@
 #' Positive Definite Matrices. Linear Algebra and Its Applications, 16th ILAS Conference
 #' Proceedings, Pisa 2010, 438 (4): 1700–1710. doi:10.1016/j.laa.2011.08.052. 
 #' @author Guilherme Garcia
-#' @seealso \code{\link{EigenTensorDecomposition}}
+#' @seealso \code{\link{EigenTensorDecomposition}}, \code{\link{RiemannDist}}
 #'
 MeanMatrix <- function (matrix.array, tol = 1e-10)
 {
