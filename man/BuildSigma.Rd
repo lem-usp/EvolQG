@@ -7,10 +7,10 @@
 BuildSigma(matrix.array)
 }
 \arguments{
-\item{matrix.array}{m x m x k array of k covariance matrices with m traits}
+\item{matrix.array}{k x k x m array of m covariance matrices with k traits}
 }
 \value{
-projected covariance tensor: a square symmetric matrix with m(m + 1)/2 rows
+projected covariance tensor: a square symmetric matrix with k(k + 1)/2 rows
 }
 \description{
 Computes the two-dimensional projection of the fourth-order 

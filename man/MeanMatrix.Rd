@@ -7,7 +7,7 @@
 MeanMatrix(matrix.array, tol = 1e-10)
 }
 \arguments{
-\item{matrix.array}{m x m x k array of covariance matrices, with m traits and k matrices}
+\item{matrix.array}{k x k x m array of covariance matrices, with k traits and m matrices}
 
 \item{tol}{minimum riemannian distance between sequential iterated means for accepting an estimated matrix}
 }

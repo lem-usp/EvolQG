@@ -3,8 +3,8 @@
 #' Computes the two-dimensional projection of the fourth-order 
 #' covariance tensor between covariance matrices.
 #' 
-#' @param matrix.array m x m x k array of k covariance matrices with m traits
-#' @return projected covariance tensor: a square symmetric matrix with m(m + 1)/2 rows
+#' @param matrix.array k x k x m array of m covariance matrices with k traits
+#' @return projected covariance tensor: a square symmetric matrix with k(k + 1)/2 rows
 #' @rdname BuildSigma
 #' @references Basser P. J., Pajevic S. 2007. Spectral decomposition of a 4th-order 
 #' covariance tensor: Applications to diffusion tensor MRI. Signal Processing. 87:220–236.

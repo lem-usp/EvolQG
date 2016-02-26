@@ -2,7 +2,7 @@
 #'
 #' Estimate geometric mean for a set of covariance matrices
 #'
-#' @param matrix.array m x m x k array of covariance matrices, with m traits and k matrices
+#' @param matrix.array k x k x m array of covariance matrices, with k traits and m matrices
 #' @param tol minimum riemannian distance between sequential iterated means for accepting an estimated matrix
 #' @return geometric mean covariance matrix
 #' 
@@ -17,9 +17,9 @@
 MeanMatrix <- function (matrix.array, tol = 1e-10)
 {
   A <- matrix.array
-  k <- dim(A) [3]
+  m <- dim(A) [3]
   
-  v <- 1/k
+  v <- 1/m
   
   ## from here, each matrix is the first dimension slice of the array
   A.inv <- aaply(A, 3, solve)
