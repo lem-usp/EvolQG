@@ -4,6 +4,7 @@
 #'
 #' @param matrix.array k x k x m array of covariance matrices, with k traits and m matrices
 #' @param tol minimum riemannian distance between sequential iterated means for accepting an estimated matrix
+#' @param verbose print values for each iteration?
 #' @return geometric mean covariance matrix
 #' 
 #' @importFrom expm sqrtm logm expm
@@ -14,7 +15,7 @@
 #' @author Guilherme Garcia
 #' @seealso \code{\link{EigenTensorDecomposition}}, \code{\link{RiemannDist}}
 #'
-MeanMatrix <- function (matrix.array, tol = 1e-10)
+MeanMatrix <- function (matrix.array, tol = 1e-10, verbose = FALSE)
 {
   A <- matrix.array
   m <- dim(A) [3]
@@ -38,8 +39,9 @@ MeanMatrix <- function (matrix.array, tol = 1e-10)
     X.next <- X.sq %*% expm(- v * A.sum) %*% X.sq
     
     dF <- RiemannDist(X, X.next)
-    if(dF < tol)
-      break
+    
+    if(verbose) print(dF)
+    if(dF < tol) break
     
     X <- X.next
   }

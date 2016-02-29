@@ -7,7 +7,7 @@
 #' @return List with the following components:
 #' @return values vector of ordered eigenvalues associated with eigentensors;
 #' @return matrices array of eigentensor in matrix form;
-#' @return projection matrix of projected covariance matrices over eigentensors.
+#' @return projection matrix of scaled projected covariance matrices over eigentensors.
 #' 
 #' @details The number of estimated eigentensors is the minimum between k(k+1)/2 and m, 
 #' in a similar manner to the usual principal component analysis.
@@ -69,10 +69,11 @@ EigenTensorDecomposition <-
    
     if (return.projection)
     {
-      project <- aaply (matrix.array, 3, 
-                        function (A, B) aaply (B, 3, frobenius.prob, y = A),
+      project <- aaply (lce.array, 3, 
+                        function (A, B) aaply (B, 3, frobenius.prod, y = A),
         B = eigen.matrices)
       out $ projection <- project
+      ### already centered because of matrix product with the mean
       out $ projection <- scale (out $ projection, center = FALSE, scale = TRUE)
     }
     return (out)

@@ -4,7 +4,7 @@
 \alias{EigenTensorDecomposition}
 \title{Eigentensor Decomposition}
 \usage{
-EigenTensorDecomposition(matrix.array, return.projection = FALSE)
+EigenTensorDecomposition(matrix.array, return.projection = TRUE)
 }
 \arguments{
 \item{matrix.array}{k x k x m array of m covariance matrices with k traits;}

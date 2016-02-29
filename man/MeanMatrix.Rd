@@ -4,7 +4,7 @@
 \alias{MeanMatrix}
 \title{Mean Covariance Matrix}
 \usage{
-MeanMatrix(matrix.array, tol = 1e-10)
+MeanMatrix(matrix.array, tol = 1e-10, verbose = FALSE)
 }
 \arguments{
 \item{matrix.array}{k x k x m array of covariance matrices, with k traits and m matrices}
