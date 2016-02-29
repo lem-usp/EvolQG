@@ -21,7 +21,7 @@ matrices array of eigentensor in matrix form;
 projection matrix of projected covariance matrices over eigentensors.
 }
 \description{
-This function performs eigentensor decomposition on a set of covariance matrices
+This function performs eigentensor decomposition on a set of covariance matrices.
 }
 \details{
 The number of estimated eigentensors is the minimum between k(k+1)/2 and m, 

@@ -1,6 +1,6 @@
 #' Eigentensor Decomposition 
 #' 
-#' This function performs eigentensor decomposition on a set of covariance matrices
+#' This function performs eigentensor decomposition on a set of covariance matrices.
 #'
 #' @param matrix.array k x k x m array of m covariance matrices with k traits;
 #' @param return.projection Should we project covariance matrices into estimated eigentensors? Defaults to TRUE.
@@ -18,15 +18,32 @@
 #' the evolution of genetic variance using genetic covariance tensors. Philosophical 
 #' transactions of the Royal Society of London. Series B, Biological sciences. 364:1567–78.
 #' 
-#' @importFrom matrixcalc frobenius.prod 
+#' @importFrom matrixcalc frobenius.prod
+#' @importFrom expm logm sqrtm
+#' 
 #' @export
-
+#'
 EigenTensorDecomposition <-
-  function (matrix.array, return.projection = FALSE)
+  function (matrix.array, return.projection = TRUE)
   {
-    n.traits <- dim (matrix.array) [1]
-    n.matrix <- dim (matrix.array) [3]
-    Sigma <- BuildSigma (matrix.array)
+    mean.matrix <- MeanMatrix(matrix.array)
+    mean.is <- sqrtm(solve(mean.matrix))
+    lce.array <- aaply(matrix.array, 3, 
+                       function (A) logm(mean.is %*% A %*% mean.is))  
+    lce.array <- aperm(lce.array, c(2, 3, 1))
+    n.traits <- dim(lce.array) [1]
+    n.matrix <- dim(lce.array) [3]
+    
+    ### Build Sigma
+    variances <- aaply (matrix.array, 3, diag)
+    covariances <- aaply (matrix.array, 3, function (x) x [lower.tri (x)])
+    block.var <- var (variances)
+    block.off <- cov (variances, covariances)
+    block.cov <- var (covariances)
+    upper.block <- cbind (block.var, sqrt (2) * block.off)
+    lower.block <- cbind (sqrt (2) * t (block.off), 2 * block.cov)
+    Sigma <- rbind (upper.block, lower.block)
+    
     n.tensor <- min (n.matrix - 1, dim (Sigma) [1])
     eigen.dec <- eigen (Sigma)
     eigen.matrices <-
@@ -45,8 +62,11 @@ EigenTensorDecomposition <-
       list (rownames (matrix.array),
             colnames (matrix.array),
             paste ('PM', 1:n.tensor, sep = ''))
-    out <- list ('values' = eigen.dec $ values [1:n.tensor],
+    
+    out <- list ('mean' = mean.matrix,
+                 'values' = eigen.dec $ values [1:n.tensor],
                  'matrices' = eigen.matrices)
+   
     if (return.projection)
     {
       project <- aaply (matrix.array, 3, 

@@ -41,7 +41,6 @@ MeanMatrix <- function (matrix.array, tol = 1e-10)
     if(dF < tol)
       break
     
-    print (dF)
     X <- X.next
   }
   X.next
