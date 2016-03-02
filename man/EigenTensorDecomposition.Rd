@@ -18,14 +18,35 @@ values vector of ordered eigenvalues associated with eigentensors;
 
 matrices array of eigentensor in matrix form;
 
-projection matrix of projected covariance matrices over eigentensors.
+projection matrix of scaled projected covariance matrices over eigentensors.
 }
 \description{
 This function performs eigentensor decomposition on a set of covariance matrices.
 }
 \details{
-The number of estimated eigentensors is the minimum between k(k+1)/2 and m, 
+The number of estimated eigentensors is the minimum between k(k+1)/2 - 1 and m - 1, 
 in a similar manner to the usual principal component analysis.
+}
+\examples{
+data(dentus)
+
+dentus.vcv <- daply (dentus, .(species), var) [, -5, -5]
+# There will be some warnings
+
+dentus.vcv <- aperm(dentus.vcv, c(2, 3, 1))
+
+dentus.etd <- EigenTensorDecomposition(dentus.vcv, TRUE)
+
+# Plot some results
+par(mfrow = c(1, 2))
+plot(dentus.etd $ values, pch = 20, type = 'b', ylab = 'Eigenvalue')
+plot(dentus.etd $ projection [, 1:2], pch = 20)
+text(dentus.etd $ projection [, 1:2],
+     labels = rownames (dentus.etd $ projection), pos = 2)
+
+}
+\author{
+Guilherme Garcia
 }
 \references{
 Basser P. J., Pajevic S. 2007. Spectral decomposition of a 4th-order 
@@ -34,5 +55,8 @@ covariance tensor: Applications to diffusion tensor MRI. Signal Processing. 87:2
 Hine E., Chenoweth S. F., Rundle H. D., Blows M. W. 2009. Characterizing 
 the evolution of genetic variance using genetic covariance tensors. Philosophical 
 transactions of the Royal Society of London. Series B, Biological sciences. 364:1567–78.
+}
+\seealso{
+\code{\link{ProjectMatrix}}, \code{\link{RevertMatrix}}
 }
 

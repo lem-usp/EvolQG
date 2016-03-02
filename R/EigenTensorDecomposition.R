@@ -9,7 +9,7 @@
 #' @return matrices array of eigentensor in matrix form;
 #' @return projection matrix of scaled projected covariance matrices over eigentensors.
 #' 
-#' @details The number of estimated eigentensors is the minimum between k(k+1)/2 and m, 
+#' @details The number of estimated eigentensors is the minimum between k(k+1)/2 - 1 and m - 1, 
 #' in a similar manner to the usual principal component analysis.
 #' 
 #' @references Basser P. J., Pajevic S. 2007. Spectral decomposition of a 4th-order 
@@ -17,6 +17,26 @@
 #' @references Hine E., Chenoweth S. F., Rundle H. D., Blows M. W. 2009. Characterizing 
 #' the evolution of genetic variance using genetic covariance tensors. Philosophical 
 #' transactions of the Royal Society of London. Series B, Biological sciences. 364:1567–78.
+#' 
+#' @author Guilherme Garcia
+#' @seealso \code{\link{ProjectMatrix}}, \code{\link{RevertMatrix}}
+#' 
+#' @examples 
+#' data(dentus)
+#'
+#' dentus.vcv <- daply (dentus, .(species), var) [, -5, -5]
+#' # There will be some warnings
+#'
+#' dentus.vcv <- aperm(dentus.vcv, c(2, 3, 1))
+#'
+#' dentus.etd <- EigenTensorDecomposition(dentus.vcv, TRUE)
+#'
+#' # Plot some results
+#' par(mfrow = c(1, 2))
+#' plot(dentus.etd $ values, pch = 20, type = 'b', ylab = 'Eigenvalue')
+#' plot(dentus.etd $ projection [, 1:2], pch = 20)
+#' text(dentus.etd $ projection [, 1:2],
+#'      labels = rownames (dentus.etd $ projection), pos = 2)
 #' 
 #' @importFrom matrixcalc frobenius.prod
 #' @importFrom expm logm sqrtm
@@ -61,7 +81,7 @@ EigenTensorDecomposition <-
     dimnames (eigen.matrices) <-
       list (rownames (matrix.array),
             colnames (matrix.array),
-            paste ('PM', 1:n.tensor, sep = ''))
+            paste ('Eigentensor', 1:n.tensor, sep = ' '))
     
     out <- list ('mean' = mean.matrix,
                  'values' = eigen.dec $ values [1:n.tensor],
@@ -72,9 +92,12 @@ EigenTensorDecomposition <-
       project <- aaply (lce.array, 3, 
                         function (A, B) aaply (B, 3, frobenius.prod, y = A),
         B = eigen.matrices)
-      out $ projection <- project
+      out $ projection
       ### already centered because of matrix product with the mean
       out $ projection <- scale (out $ projection, center = FALSE, scale = TRUE)
+      ## out $ projection <- data.frame(out $ projection)
+      ## if(!is.null(dimnames(matrix.array) [3]))
+      ##  out $ projection <- data.frame('otu' = dimnames(matrix.array) [3], out $ projection)
     }
     return (out)
   }
