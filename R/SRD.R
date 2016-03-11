@@ -15,7 +15,6 @@
 #' deviations, centered means e centered standard deviations
 #' @return pc1 scored along the pc1 of the mean/SD correlation matrix
 #' @return model List of linear model results from mean/SD correlation. Quantiles, interval and divergent traits
-#' @return cormat Mean/Sd model correlation matrix
 #' @note If input is a list, output is a symmetric list array with pairwise comparisons.
 #' @export
 #' @rdname SRD
@@ -106,10 +105,10 @@ SRD.default <- function (cov.x, cov.y, iterations = 1000, ...) {
   output <- cbind (mean.r2, low.r2, up.r2, sd.r2, cmean.r2, csd.r2)
   colnames (output) <- c("ARC","IC-","IC+","SD","CMEAN","CSD")
   rownames (output) <- rownames (cov.x)
-  srd.out <- list ("output"    = output,
-        "pc1"    = pc1,
-        "model"  = model,
-        "cormat" = cor (t(r2s)))
+  srd.out <- 
+    list ("output" = output,
+          "pc1"    = pc1,
+          "model"  = model)
   class(srd.out) <- 'SRD'
   return (srd.out)
 }
