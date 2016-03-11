@@ -2,7 +2,7 @@
 #' 
 #' This function performs eigentensor decomposition on a set of covariance matrices.
 #'
-#' @param matrix.array k x k x m array of m covariance matrices with k traits;
+#' @param matrices k x k x m array of m covariance matrices with k traits;
 #' @param return.projection Should we project covariance matrices into estimated eigentensors? Defaults to TRUE.
 #' @return List with the following components:
 #' @return mean mean covariance matrices used to center the sample (obtained from \code{\link{MeanMatrix}})
@@ -17,10 +17,10 @@
 #' principal component analysis.
 #' 
 #' @references Basser P. J., Pajevic S. 2007. Spectral decomposition of a 4th-order 
-#' covariance tensor: Applications to diffusion tensor MRI. Signal Processing. 87:220–236.
+#' covariance tensor: Applications to diffusion tensor MRI. Signal Processing. 87:220-236.
 #' @references Hine E., Chenoweth S. F., Rundle H. D., Blows M. W. 2009. Characterizing 
 #' the evolution of genetic variance using genetic covariance tensors. Philosophical 
-#' transactions of the Royal Society of London. Series B, Biological sciences. 364:1567–78.
+#' transactions of the Royal Society of London. Series B, Biological sciences. 364:1567-78.
 #' 
 #' @author Guilherme Garcia, Diogo Melo
 #' @seealso \code{\link{ProjectMatrix}}, \code{\link{RevertMatrix}}
@@ -38,13 +38,15 @@
 #' # Plot some results
 #' par(mfrow = c(1, 2))
 #' plot(dentus.etd $ values, pch = 20, type = 'b', ylab = 'Eigenvalue')
-#' plot(dentus.etd $ projection [, 1:2], pch = 20, xlab = 'Eigentensor 1', ylab = 'Eigentensor 2')
+#' plot(dentus.etd $ projection [, 1:2], pch = 20, 
+#'      xlab = 'Eigentensor 1', ylab = 'Eigentensor 2')
 #' text(dentus.etd $ projection [, 1:2],
 #'      labels = rownames (dentus.etd $ projection), pos = 2)
 #' 
 #' # we can also deal with posterior samples of covariance matrices using plyr
 #' 
-#' dentus.models <- dlply(dentus, .(species), lm, formula = cbind(humerus, ulna, femur, tibia) ~ 1)
+#' dentus.models <- dlply(dentus, .(species), 
+#'                        lm, formula = cbind(humerus, ulna, femur, tibia) ~ 1)
 #'
 #' dentus.matrices <- llply(dentus.models, BayesianCalculateMatrix, samples = 100)
 #'
@@ -55,10 +57,12 @@
 #' # this will perform one eigentensor decomposition for each set of posterior samples
 #' dentus.post.etd <- alply(dentus.post.vcv, 4, EigenTensorDecomposition)
 #' 
-#' # which would allow us to observe the posterior distribution of associated eigenvalues, for instance
+#' # which would allow us to observe the posterior 
+#' # distribution of associated eigenvalues, for instance
 #' dentus.post.eval <- laply (dentus.post.etd, function (L) L $ values)
 #' 
-#' boxplot(dentus.post.eval, xlab = 'Index', ylab = 'Value', main = 'Posterior Eigenvalue Distribution')
+#' boxplot(dentus.post.eval, xlab = 'Index', ylab = 'Value', 
+#'         main = 'Posterior Eigenvalue Distribution')
 #' 
 #' @importFrom matrixcalc frobenius.prod
 #' @importFrom expm logm sqrtm

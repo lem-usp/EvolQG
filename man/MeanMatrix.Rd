@@ -25,7 +25,7 @@ Guilherme Garcia, Diogo Melo
 \references{
 Bini, D. A., Iannazzo, B. 2013. Computing the Karcher Mean of Symmetric
 Positive Definite Matrices. Linear Algebra and Its Applications, 16th ILAS Conference
-Proceedings, Pisa 2010, 438 (4): 1700–1710. doi:10.1016/j.laa.2011.08.052.
+Proceedings, Pisa 2010, 438 (4): 1700-1710. doi:10.1016/j.laa.2011.08.052.
 }
 \seealso{
 \code{\link{EigenTensorDecomposition}}, \code{\link{RiemannDist}}

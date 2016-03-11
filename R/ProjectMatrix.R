@@ -9,21 +9,23 @@
 #' @return Vector of scores of given covariance matrix onto eigentensor basis.
 #' 
 #' @references Basser P. J., Pajevic S. 2007. Spectral decomposition of a 4th-order 
-#' covariance tensor: Applications to diffusion tensor MRI. Signal Processing. 87:220–236.
+#' covariance tensor: Applications to diffusion tensor MRI. Signal Processing. 87:220-236.
 #' @references Hine E., Chenoweth S. F., Rundle H. D., Blows M. W. 2009. Characterizing 
 #' the evolution of genetic variance using genetic covariance tensors. Philosophical 
-#' transactions of the Royal Society of London. Series B, Biological sciences. 364:1567–78.
+#' transactions of the Royal Society of London. Series B, Biological sciences. 364:1567-78.
 #' 
 #' @author Guilherme Garcia, Diogo Melo
 #' @seealso \code{\link{EigenTensorDecomposition}}, \code{\link{RevertMatrix}}
 #' 
 #' @examples
-#' # this function is useful for projecting posterior samples for a set of covariance matrices onto the 
-#' # eigentensor decomposition done on their estimated means
+#' # this function is useful for projecting posterior samples for a set of 
+#' # covariance matrices onto the eigentensor decomposition done 
+#' # on their estimated means
 #' 
 #' data(dentus)
 #' 
-#' dentus.models <- dlply(dentus, .(species), lm, formula = cbind(humerus, ulna, femur, tibia) ~ 1)
+#' dentus.models <- dlply(dentus, .(species), lm, 
+#'                        formula = cbind(humerus, ulna, femur, tibia) ~ 1)
 #'
 #' dentus.matrices <- llply(dentus.models, BayesianCalculateMatrix, samples = 100)
 #'
@@ -42,8 +44,10 @@
 #'
 #' require(ggplot2)
 #' ggplot() +
-#'   geom_point(aes(x = ET1, y = ET2, color = species), data = dentus.mean.proj, shape = '+', size = 8) +
-#'   geom_point(aes(x = ET1, y = ET2, color = species), data = dentus.post.proj, shape = '+', size = 3) +
+#'   geom_point(aes(x = ET1, y = ET2, color = species), 
+#'      data = dentus.mean.proj, shape = '+', size = 8) +
+#'   geom_point(aes(x = ET1, y = ET2, color = species), 
+#'      data = dentus.post.proj, shape = '+', size = 3) +
 #'   theme_bw()
 #' 
 #' @importFrom matrixcalc frobenius.prod

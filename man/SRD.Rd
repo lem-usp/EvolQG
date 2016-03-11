@@ -38,8 +38,6 @@ deviations, centered means e centered standard deviations
 pc1 scored along the pc1 of the mean/SD correlation matrix
 
 model List of linear model results from mean/SD correlation. Quantiles, interval and divergent traits
-
-cormat Mean/Sd model correlation matrix
 }
 \description{
 Based on Random Skewers tecnique, selection response vectors are

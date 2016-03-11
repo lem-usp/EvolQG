@@ -13,9 +13,9 @@ EigenTensorDecomposition(matrices, return.projection = TRUE)
 \method{EigenTensorDecomposition}{default}(matrices, return.projection = TRUE)
 }
 \arguments{
-\item{return.projection}{Should we project covariance matrices into estimated eigentensors? Defaults to TRUE.}
+\item{matrices}{k x k x m array of m covariance matrices with k traits;}
 
-\item{matrix.array}{k x k x m array of m covariance matrices with k traits;}
+\item{return.projection}{Should we project covariance matrices into estimated eigentensors? Defaults to TRUE.}
 }
 \value{
 List with the following components:
@@ -52,13 +52,15 @@ dentus.etd <- EigenTensorDecomposition(dentus.vcv, TRUE)
 # Plot some results
 par(mfrow = c(1, 2))
 plot(dentus.etd $ values, pch = 20, type = 'b', ylab = 'Eigenvalue')
-plot(dentus.etd $ projection [, 1:2], pch = 20, xlab = 'Eigentensor 1', ylab = 'Eigentensor 2')
+plot(dentus.etd $ projection [, 1:2], pch = 20, 
+     xlab = 'Eigentensor 1', ylab = 'Eigentensor 2')
 text(dentus.etd $ projection [, 1:2],
      labels = rownames (dentus.etd $ projection), pos = 2)
 
 # we can also deal with posterior samples of covariance matrices using plyr
 
-dentus.models <- dlply(dentus, .(species), lm, formula = cbind(humerus, ulna, femur, tibia) ~ 1)
+dentus.models <- dlply(dentus, .(species), 
+                       lm, formula = cbind(humerus, ulna, femur, tibia) ~ 1)
 
 dentus.matrices <- llply(dentus.models, BayesianCalculateMatrix, samples = 100)
 
@@ -69,10 +71,12 @@ dentus.post.vcv <- aperm(dentus.post.vcv, c(3, 4, 1, 2))
 # this will perform one eigentensor decomposition for each set of posterior samples
 dentus.post.etd <- alply(dentus.post.vcv, 4, EigenTensorDecomposition)
 
-# which would allow us to observe the posterior distribution of associated eigenvalues, for instance
+# which would allow us to observe the posterior 
+# distribution of associated eigenvalues, for instance
 dentus.post.eval <- laply (dentus.post.etd, function (L) L $ values)
 
-boxplot(dentus.post.eval, xlab = 'Index', ylab = 'Value', main = 'Posterior Eigenvalue Distribution')
+boxplot(dentus.post.eval, xlab = 'Index', ylab = 'Value', 
+        main = 'Posterior Eigenvalue Distribution')
 
 }
 \author{
@@ -80,11 +84,11 @@ Guilherme Garcia, Diogo Melo
 }
 \references{
 Basser P. J., Pajevic S. 2007. Spectral decomposition of a 4th-order 
-covariance tensor: Applications to diffusion tensor MRI. Signal Processing. 87:220–236.
+covariance tensor: Applications to diffusion tensor MRI. Signal Processing. 87:220-236.
 
 Hine E., Chenoweth S. F., Rundle H. D., Blows M. W. 2009. Characterizing 
 the evolution of genetic variance using genetic covariance tensors. Philosophical 
-transactions of the Royal Society of London. Series B, Biological sciences. 364:1567–78.
+transactions of the Royal Society of London. Series B, Biological sciences. 364:1567-78.
 }
 \seealso{
 \code{\link{ProjectMatrix}}, \code{\link{RevertMatrix}}
