@@ -21,6 +21,8 @@ Imports:
     tidyr,
     vegan,
     ape,
+    expm,
+    matrixcalc,
     mvtnorm,
     coda,
     MCMCpack,
