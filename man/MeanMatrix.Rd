@@ -20,7 +20,7 @@ geometric mean covariance matrix
 Estimate geometric mean for a set of covariance matrices
 }
 \author{
-Guilherme Garcia
+Guilherme Garcia, Diogo Melo
 }
 \references{
 Bini, D. A., Iannazzo, B. 2013. Computing the Karcher Mean of Symmetric

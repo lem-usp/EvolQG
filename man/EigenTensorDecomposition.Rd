@@ -2,30 +2,42 @@
 % Please edit documentation in R/EigenTensorDecomposition.R
 \name{EigenTensorDecomposition}
 \alias{EigenTensorDecomposition}
+\alias{EigenTensorDecomposition.default}
+\alias{EigenTensorDecomposition.list}
 \title{Eigentensor Decomposition}
 \usage{
-EigenTensorDecomposition(matrix.array, return.projection = TRUE)
+EigenTensorDecomposition(matrices, return.projection = TRUE)
+
+\method{EigenTensorDecomposition}{list}(matrices, return.projection = TRUE)
+
+\method{EigenTensorDecomposition}{default}(matrices, return.projection = TRUE)
 }
 \arguments{
-\item{matrix.array}{k x k x m array of m covariance matrices with k traits;}
-
 \item{return.projection}{Should we project covariance matrices into estimated eigentensors? Defaults to TRUE.}
+
+\item{matrix.array}{k x k x m array of m covariance matrices with k traits;}
 }
 \value{
 List with the following components:
+
+mean mean covariance matrices used to center the sample (obtained from \code{\link{MeanMatrix}})
+
+mean.sqrt square root of mean matrix (saved for use in other functions, 
+such as \code{\link{ProjectMatrix}} and \code{\link{RevertMatrix}})
 
 values vector of ordered eigenvalues associated with eigentensors;
 
 matrices array of eigentensor in matrix form;
 
-projection matrix of scaled projected covariance matrices over eigentensors.
+projection matrix of unstandardized projected covariance matrices over eigentensors.
 }
 \description{
 This function performs eigentensor decomposition on a set of covariance matrices.
 }
 \details{
-The number of estimated eigentensors is the minimum between k(k+1)/2 - 1 and m - 1, 
-in a similar manner to the usual principal component analysis.
+The number of estimated eigentensors is the minimum between the number of data points (m) and 
+the number of independent variables (k(k + 1)/2) minus one, in a similar manner to the usual 
+principal component analysis.
 }
 \examples{
 data(dentus)
@@ -40,13 +52,31 @@ dentus.etd <- EigenTensorDecomposition(dentus.vcv, TRUE)
 # Plot some results
 par(mfrow = c(1, 2))
 plot(dentus.etd $ values, pch = 20, type = 'b', ylab = 'Eigenvalue')
-plot(dentus.etd $ projection [, 1:2], pch = 20)
+plot(dentus.etd $ projection [, 1:2], pch = 20, xlab = 'Eigentensor 1', ylab = 'Eigentensor 2')
 text(dentus.etd $ projection [, 1:2],
      labels = rownames (dentus.etd $ projection), pos = 2)
 
+# we can also deal with posterior samples of covariance matrices using plyr
+
+dentus.models <- dlply(dentus, .(species), lm, formula = cbind(humerus, ulna, femur, tibia) ~ 1)
+
+dentus.matrices <- llply(dentus.models, BayesianCalculateMatrix, samples = 100)
+
+dentus.post.vcv <- laply(dentus.matrices, function (L) L $ Ps)
+
+dentus.post.vcv <- aperm(dentus.post.vcv, c(3, 4, 1, 2))
+
+# this will perform one eigentensor decomposition for each set of posterior samples
+dentus.post.etd <- alply(dentus.post.vcv, 4, EigenTensorDecomposition)
+
+# which would allow us to observe the posterior distribution of associated eigenvalues, for instance
+dentus.post.eval <- laply (dentus.post.etd, function (L) L $ values)
+
+boxplot(dentus.post.eval, xlab = 'Index', ylab = 'Value', main = 'Posterior Eigenvalue Distribution')
+
 }
 \author{
-Guilherme Garcia
+Guilherme Garcia, Diogo Melo
 }
 \references{
 Basser P. J., Pajevic S. 2007. Spectral decomposition of a 4th-order 
