@@ -17,8 +17,6 @@ Imports:
     Matrix,
     reshape2,
     ggplot2,
-    magrittr,
-    tidyr,
     vegan,
     ape,
     expm,
@@ -36,6 +34,7 @@ Suggests:
     testthat (>= 0.2),
     foreach,
     phytools,
+    magrittr,
     grid,
     gridExtra,
     doParallel
