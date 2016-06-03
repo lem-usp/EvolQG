@@ -128,7 +128,7 @@ doComparisonBS <- function (x, c.matrix, ComparisonFunc, StatFunc, ind.data, sam
                      "Error in BootStrap sample, trying again"
                      return(NA)
                    })
-    if(is.na(out))
+    if(any(is.na(out)))
       x = ind.data[sample (1:n_ind, sample.size, TRUE),]
     else
       break

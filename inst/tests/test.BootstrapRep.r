@@ -1,7 +1,7 @@
 test_that("BootstrapRep returns sensible results",
           {
               ind.data <- iris[,1:4]
-              expect_that(BootstrapRep(ind.data, RandomSkewers, iterations = 50) <= 1 , is_true())
+              expect_that(BootstrapRep(ind.data, RandomSkewers, iterations = 50) <= 1, is_true())
               expect_that(BootstrapRep(ind.data, MatrixCor, iterations = 50, correlation = T) <= 1 , is_true())
               expect_that(BootstrapRep(ind.data, KrzCor, iterations = 50) <= 1 , is_true())
               expect_that(BootstrapRep(ind.data, KrzCor, iterations = 50, correlation = T) <= 1 , is_true())
