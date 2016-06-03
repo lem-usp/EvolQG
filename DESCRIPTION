@@ -17,11 +17,10 @@ Imports:
     Matrix,
     reshape2,
     ggplot2,
-    magrittr,
-    tidyr,
     vegan,
     ape,
-    phytools,
+    expm,
+    matrixcalc,
     mvtnorm,
     coda,
     MCMCpack,
@@ -34,6 +33,8 @@ Imports:
 Suggests:
     testthat (>= 0.2),
     foreach,
+    phytools,
+    magrittr,
     grid,
     gridExtra,
     doParallel

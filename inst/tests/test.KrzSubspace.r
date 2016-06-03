@@ -67,7 +67,7 @@ test_that("KrzSubspace returns correct results",{
   }
   cov.matrices = aperm(aaply(1:10, 1, function(x) laply(RandomMatrix(6, 40, variance = runif(6,1, 10)), 
                                                         identity)), c(3, 4, 1, 2))
-  Hs = alply(cov.matrices, 4, function(x) alply(x, 3)) %>% llply(function(x) KrzSubspace(x, 3)$H)
+  Hs = llply(alply(cov.matrices, 4, function(x) alply(x, 3)), function(x) KrzSubspace(x, 3)$H)
   avgH = Reduce("+", Hs)/length(Hs)
   avgH.vec <- eigen(avgH)$vectors
   MCMC.H.val = laply(Hs, function(mat) diag(t(avgH.vec) %*% mat %*% avgH.vec))
