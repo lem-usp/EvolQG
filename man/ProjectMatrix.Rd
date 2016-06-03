@@ -22,7 +22,7 @@ This function projects a given covariance matrix into the basis provided by an e
 # this function is useful for projecting posterior samples for a set of 
 # covariance matrices onto the eigentensor decomposition done 
 # on their estimated means
-
+\dontrun{
 data(dentus)
 
 dentus.models <- dlply(dentus, .(species), lm, 
@@ -50,7 +50,7 @@ ggplot() +
   geom_point(aes(x = ET1, y = ET2, color = species), 
      data = dentus.post.proj, shape = '+', size = 3) +
   theme_bw()
-
+}
 }
 \author{
 Guilherme Garcia, Diogo Melo

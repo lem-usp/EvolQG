@@ -1,7 +1,6 @@
 #' Random Skewers projection
 #' 
-#' Not tested!
-#' Uses MCMC Bayeisian posterior samples of a set of covariance matrices to identify 
+#' Uses Bayesian posterior samples of a set of covariance matrices to identify 
 #' directions of the morphospace in which these matrices differ in their amount of genetic variance.
 #' 
 #' @param cov.matrix.array Array with dimentions traits x traits x populations x MCMCsamples
@@ -83,6 +82,7 @@ RSProjection <- function(cov.matrix.array, p = 0.95, num.vectors = 1000){
 #' @importFrom reshape2 dcast
 #' @importFrom ggplot2 aes_string theme ylab element_text facet_wrap geom_point geom_errorbar
 #' @importFrom coda HPDinterval as.mcmc
+#' @importFrom stats as.formula
 PlotRSprojection <- function (rs_proj, cov.matrix.array, p = 0.95, ncols = 5){
   
   n <- dim(cov.matrix.array)[[1]]

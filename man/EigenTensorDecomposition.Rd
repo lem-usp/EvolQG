@@ -40,6 +40,7 @@ the number of independent variables (k(k + 1)/2) minus one, in a similar manner 
 principal component analysis.
 }
 \examples{
+\dontrun{
 data(dentus)
 
 dentus.vcv <- daply (dentus, .(species), var) [, -5, -5]
@@ -77,7 +78,7 @@ dentus.post.eval <- laply (dentus.post.etd, function (L) L $ values)
 
 boxplot(dentus.post.eval, xlab = 'Index', ylab = 'Value', 
         main = 'Posterior Eigenvalue Distribution')
-
+}
 }
 \author{
 Guilherme Garcia, Diogo Melo

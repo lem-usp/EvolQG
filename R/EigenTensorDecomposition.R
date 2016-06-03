@@ -26,6 +26,7 @@
 #' @seealso \code{\link{ProjectMatrix}}, \code{\link{RevertMatrix}}
 #' 
 #' @examples 
+#' \dontrun{
 #' data(dentus)
 #'
 #' dentus.vcv <- daply (dentus, .(species), var) [, -5, -5]
@@ -63,7 +64,7 @@
 #' 
 #' boxplot(dentus.post.eval, xlab = 'Index', ylab = 'Value', 
 #'         main = 'Posterior Eigenvalue Distribution')
-#' 
+#' }
 #' @importFrom matrixcalc frobenius.prod
 #' @importFrom expm logm sqrtm
 #'

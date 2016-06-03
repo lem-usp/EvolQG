@@ -21,7 +21,7 @@
 #' # this function is useful for projecting posterior samples for a set of 
 #' # covariance matrices onto the eigentensor decomposition done 
 #' # on their estimated means
-#' 
+#' \dontrun{
 #' data(dentus)
 #' 
 #' dentus.models <- dlply(dentus, .(species), lm, 
@@ -49,7 +49,7 @@
 #'   geom_point(aes(x = ET1, y = ET2, color = species), 
 #'      data = dentus.post.proj, shape = '+', size = 3) +
 #'   theme_bw()
-#' 
+#' }
 #' @importFrom matrixcalc frobenius.prod
 #' @importFrom expm logm sqrtm
 #'

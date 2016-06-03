@@ -28,8 +28,7 @@ set of random vectors and confidence intervals for the projections
 eigen decomposition of the random vectors in directions with significant differences of variations
 }
 \description{
-Not tested!
-Uses MCMC Bayeisian posterior samples of a set of covariance matrices to identify 
+Uses Bayesian posterior samples of a set of covariance matrices to identify 
 directions of the morphospace in which these matrices differ in their amount of genetic variance.
 }
 \examples{
