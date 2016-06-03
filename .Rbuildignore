@@ -4,3 +4,4 @@
 ^\.Rproj\.user$
 commit.adder.sh
 README.md
+.travis.yml

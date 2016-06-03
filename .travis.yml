@@ -1,0 +1,9 @@
+language: r
+cache: packages
+r:
+  - release
+  - devel
+bioc_packages: 
+  - graph
+  - Rgraphviz
+  - Biostrings
