@@ -31,7 +31,7 @@ Imports:
     depth,
     utils
 Suggests:
-    testthat (>= 0.2),
+    testthat,
     foreach,
     phytools,
     magrittr,

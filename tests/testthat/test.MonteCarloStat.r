@@ -31,6 +31,6 @@ test_that("MonteCarloRep returns correct results for scalled crappy matrices",
            crappy_mat = var(mvtnorm::rmvnorm(10, sigma = mat))
            rep_c = MonteCarloRep(crappy_mat, 10, PCAsimilarity)
            rep_sc = MonteCarloRep(100000*crappy_mat, 10, PCAsimilarity)
-           expect_less_than(abs(rep_c - rep_sc), 0.05)
+           expect_lt(abs(rep_c - rep_sc), 0.05)
           }
 )

@@ -67,7 +67,7 @@ doComparisonMC <- function (x, ComparisonFunc, StatFunc, cov.matrix, sample.size
                      "Error in MonteCarlo sample, trying again"
                      return(NA)
                    })
-    if(is.na(out))
+    if(any(is.na(out)))
       x = rmvnorm (sample.size, sigma = cov.matrix, method = 'svd')
     else
       break
