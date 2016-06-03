@@ -28,11 +28,13 @@
 #' PhyloMantel(dentus.tree, comparisons, mh.dist, k = 10000)
 #' 
 #' #similar to MantelCor for large k:
+#' \dontrun{
 #' PhyloMantel(dentus.tree, comparisons, mh.dist, k = 10000)
 #' MantelCor(comparisons, mh.dist)
-PhyloMantel <- function(tree, matrix.1, matrix.2, ..., permutations=1000, ComparisonFunc = MatrixCor, k = 1){ 
+#' }
+PhyloMantel <- function(tree, matrix.1, matrix.2, ..., permutations=1000, ComparisonFunc = function(x, y) cor(x[lower.tri(x)], y[lower.tri(y)]), k = 1){ 
   corr <- ComparisonFunc(matrix.1, matrix.2) 
-  nullstats <- raply(permutations, MatrixCor(matrix.1, permPhylo(tree, matrix.2, k = k))) 
+  nullstats <- raply(permutations, cor(matrix.1[lower.tri(matrix.1)], permPhylo(tree, matrix.2, k = k)[lower.tri(matrix.1)])) 
   prob <- sum(nullstats >= corr)/(permutations)
   c("Rsquared" = corr, "Probability" = prob)
 }

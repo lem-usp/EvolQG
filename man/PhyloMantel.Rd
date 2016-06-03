@@ -5,7 +5,8 @@
 \title{Mantel test with phylogenetic permutations}
 \usage{
 PhyloMantel(tree, matrix.1, matrix.2, ..., permutations = 1000,
-  ComparisonFunc = MatrixCor, k = 1)
+  ComparisonFunc = function(x, y) cor(x[lower.tri(x)], y[lower.tri(y)]),
+  k = 1)
 }
 \arguments{
 \item{tree}{phylogenetic tree. Tip labels must match names in input matrices}
@@ -44,8 +45,10 @@ mh.dist = MultiMahalanobis(means = sp.means, cov.matrix = PhyloW(dentus.tree, co
 PhyloMantel(dentus.tree, comparisons, mh.dist, k = 10000)
 
 #similar to MantelCor for large k:
+\dontrun{
 PhyloMantel(dentus.tree, comparisons, mh.dist, k = 10000)
 MantelCor(comparisons, mh.dist)
+}
 }
 \author{
 Diogo Melo, adapted from Harmon & Glor 2010

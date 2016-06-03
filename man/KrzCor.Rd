@@ -50,9 +50,9 @@ diagonal and repeatabilities returned in diagonal.
 Calculates covariance matrix correlation via Krzanowski Correlation
 }
 \examples{
-c1 <- RandomMatrix(10)
-c2 <- RandomMatrix(10)
-c3 <- RandomMatrix(10)
+c1 <- RandomMatrix(10, 1, 1, 10)
+c2 <- RandomMatrix(10, 1, 1, 10)
+c3 <- RandomMatrix(10, 1, 1, 10)
 KrzCor(c1, c2)
 
 KrzCor(list(c1, c2, c3))
