@@ -41,6 +41,21 @@ test_that("TreeDriftTest returns resonable results",
                DriftTest(mean.list, w.cov, FALSE)[-6])
 })
 
+
+# gets descendant node numbers
+# written by Liam Revell 2012, 2013, 2014
+getDescendants<-function(tree,node,curr=NULL){
+  if(!inherits(tree,"phylo")) stop("tree should be an object of class \"phylo\".")
+  if(is.null(curr)) curr<-vector()
+  daughters<-tree$edge[which(tree$edge[,1]==node),2]
+  curr<-c(curr,daughters)
+  if(length(curr)==0&&node<=length(tree$tip.label)) curr<-node
+  w<-which(daughters>length(tree$tip.label))
+  if(length(w)>0) for(i in 1:length(w)) 
+    curr<-getDescendants(tree,daughters[w[i]],curr)
+  return(curr)
+}
+
 test_that("TreeDriftTest returns resonable results",
           {
             library(ape)
@@ -57,7 +72,7 @@ test_that("TreeDriftTest returns resonable results",
             expect_is(test.list, 'list')
             expect_equal(length(test.list), 13)
             expect_equal(test.list[["32"]][-6], 
-                         DriftTest(mean.list[na.omit(tree$tip.label[phytools::getDescendants(tree, "32")])], 
+                         DriftTest(mean.list[na.omit(tree$tip.label[getDescendants(tree, "32")])], 
                                    w.cov, FALSE)[-6])
           })
 

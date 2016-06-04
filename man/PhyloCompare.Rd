@@ -36,8 +36,10 @@ phylo.state <- PhyloW(tree, mat.list, sample.sizes)
 phylo.comparisons <- PhyloCompare(tree, phylo.state)
 
 # plotting results on a phylogeny:
+\dontrun{
 library(phytools)
 plotBranchbyTrait(tree, phylo.comparisons[[2]])
+}
 }
 \author{
 Diogo Melo

@@ -24,8 +24,10 @@
 #'phylo.comparisons <- PhyloCompare(tree, phylo.state)
 #'
 #'# plotting results on a phylogeny:
+#'\dontrun{
 #'library(phytools)
 #'plotBranchbyTrait(tree, phylo.comparisons[[2]])
+#'}
 PhyloCompare <- function(tree, node.data, ComparisonFunc = PCAsimilarity, ...){
   if(is.null(tree$node.label)){
     node.names <- tree$tip.label
