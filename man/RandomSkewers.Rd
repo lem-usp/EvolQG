@@ -51,9 +51,9 @@ diagonal and repeatabilities returned in diagonal.
 Calculates covariance matrix correlation via random skewers
 }
 \examples{
-c1 <- RandomMatrix(10)
-c2 <- RandomMatrix(10)
-c3 <- RandomMatrix(10)
+c1 <- RandomMatrix(10, 1, 1, 10)
+c2 <- RandomMatrix(10, 1, 1, 10)
+c3 <- RandomMatrix(10, 1, 1, 10)
 RandomSkewers(c1, c2)
 
 RandomSkewers(list(c1, c2, c3))

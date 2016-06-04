@@ -32,8 +32,7 @@ Constructs a covariance matrix based on scores over covariance matrix eigentenso
 
 data(dentus)
 
-dentus.vcv <- daply (dentus, .(species), var) [, -5, -5]
-# There will be some warnings
+dentus.vcv <- daply (dentus, .(species), function(x) var(x[,-5]))
 
 dentus.vcv <- aperm(dentus.vcv, c(2, 3, 1))
 
