@@ -28,7 +28,6 @@ Imports:
     grDevices,
     methods,
     stats,
-    depth,
     utils
 Suggests:
     testthat,

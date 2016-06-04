@@ -44,6 +44,7 @@ CalculateMatrix <- function(linear.m){
 #'
 #' @keywords covariancematrix
 #' @importFrom MCMCpack riwish
+#' @importFrom stats median
 BayesianCalculateMatrix <- function(linear.m, samples = NULL, ..., nu = NULL, S_0 = NULL){
   x <- linear.m$residuals
   S_x = t(x) %*% x
