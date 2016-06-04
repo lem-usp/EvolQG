@@ -37,9 +37,4 @@ Install [devtools](http://www.rstudio.com/projects/devtools/), then:
 Troubleshooting
 ---------------
 
-Occasionally some dependencies fail to install. This is usually related to missing packages not available from CRAN. As far as I can tell, installing graph, Biostrings and Rgraphviz from Bioconductor should solve this.
-
-```R
-> source("http://bioconductor.org/biocLite.R")
-> biocLite(c("graph", "Rgraphviz", "Biostrings"))
-```
+All dependencies should be available from CRAN. Please open an [issue](https://github.com/lem-usp/EvolQG/issues) if install fails for some reason.
