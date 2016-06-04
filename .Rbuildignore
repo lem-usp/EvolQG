@@ -5,3 +5,4 @@
 commit.adder.sh
 README.md
 .travis.yml
+^appveyor\.yml$
