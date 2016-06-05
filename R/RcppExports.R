@@ -5,7 +5,3 @@ RS <- function(x, y, num_vectors) {
     .Call('evolqg_RS', PACKAGE = 'evolqg', x, y, num_vectors)
 }
 
-annealing <- function(Corr, S) {
-    .Call('evolqg_annealing', PACKAGE = 'evolqg', Corr, S)
-}
-

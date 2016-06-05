@@ -23,6 +23,7 @@ Imports:
     matrixcalc,
     mvtnorm,
     coda,
+    igraph,
     MCMCpack,
     graphics,
     grDevices,

@@ -1,8 +1,11 @@
 test_that("RandomSkewers returns correct results on pairs of matrices",
           {
+            expect = structure(c(0.319773091554383, 0.163, 0.226356843718641), .Names = c("correlation","probability", "correlation_sd"))
+            set.seed(42)
             cor.matrix.1 <- RandomMatrix(10)
             cor.matrix.2 <- RandomMatrix(10)
             results <- RandomSkewers(cor.matrix.1, cor.matrix.2)
+            expect_equivalent(results, expect)
             expect_that(results, is_a("numeric"))
             expect_that(length(results), equals(3))
             expect_that(results[1] <=  1, is_true())
@@ -62,27 +65,39 @@ test_that("RandomSkewers returns correct results on lists + matrices",
             expect_that(named.results[,".id"], equals(names(mat.list)))
           }
 )
-test_that("MantelCor returns correct results",
+test_that("MantelCor returns correct results on non-landmark data",
           {
-            cor.matrix.1 <- RandomMatrix(10)
-            cor.matrix.2 <- RandomMatrix(10)
+            cor.matrix.1 <- RandomMatrix(15)
+            cor.matrix.2 <- RandomMatrix(15)
             results <- MantelCor(cor.matrix.1, cor.matrix.2)
-            expect_that(length(results), equals(2))
-            expect_that(results[1] <=  1, is_true())
-            expect_that(results[1] >= -1, is_true())
-            expect_that(results[2] <=  1, is_true())
-            expect_that(results[2] >=  0, is_true())
-            cov.1 <- RandomMatrix(10, 1, 1, 10)
-            cov.2 <- RandomMatrix(10, 1, 1, 10)
-            expect_that(MantelCor(cov.1, cov.2), gives_warning("Matrices do not appear to be correlation matrices. Use with caution."))
-          }
-)
-test_that("MantelCor returns corret results",
+            expect_equivalent(results[1], cor(cor.matrix.1[lower.tri(diag(15))], 
+                                              cor.matrix.2[lower.tri(diag(15))]))
+            
+          })
+
+test_that("MantelCor returns correct results on landmark data",
           {
-            mat.list <- lapply(as.list(1:10), function(x) RandomMatrix(10))
+            cor.matrix.1 <- RandomMatrix(12)
+            cor.matrix.2 <- RandomMatrix(12)
+            results <- MantelCor(cor.matrix.1, cor.matrix.2, landmark.dim = 2)
+            expect_equivalent(results[1], cor(cor.matrix.1[evolqg:::lower.tri.land(diag(12), 2)], 
+                                              cor.matrix.2[evolqg:::lower.tri.land(diag(12), 2)]))
+            results <- MantelCor(cor.matrix.1, cor.matrix.2, landmark.dim = 3)
+            expect_equivalent(results[1], cor(cor.matrix.1[evolqg:::lower.tri.land(diag(12), 3)], 
+                                              cor.matrix.2[evolqg:::lower.tri.land(diag(12), 3)]))
+            expect_error(MantelCor(cor.matrix.1, cor.matrix.2, landmark.dim = 4))
+          })
+
+test_that("MantelCor returns correct results on list",
+          {
+            mat.list <- RandomMatrix(10, 10)
             rep.vec <- runif(length(mat.list), 0.8, 0.9)
             results.list <- MantelCor(mat.list)
             results <- results.list[[1]]
+            expect_equivalent(results[2,1], MantelCor(mat.list[[1]], 
+                                                      mat.list[[2]])[1])
+            expect_equivalent(results[8,5], MantelCor(mat.list[[8]], 
+                                                      mat.list[[5]])[1])
             expect_that(sum(is.na(results)), equals(0))
             probabilities <- results.list[[2]]
             expect_that(sum(is.na(probabilities)), equals(0))
@@ -98,8 +113,47 @@ test_that("MantelCor returns corret results",
             upper  <- results[upper.tri(results, diag = T)]
             upper.bool = sapply(upper, function(x) isTRUE(x == 0))
             expect_that(sum(upper.bool), equals(length(upper.bool)))
-            lower.2  <- results.2[lower.tri(results.2)]
-            upper.2  <- t(results.2)[lower.tri(results.2)]
+            lower.2 <- results.2[lower.tri(results.2)]
+            upper.2 <- t(results.2)[lower.tri(results.2)]
+            expect_that(lower.2, equals(lower))
+            expect_that(diag(results.2), is_equivalent_to(rep.vec))
+            expect_that(sum(abs(upper.2) < abs(lower.2)), equals(0))
+          }
+)
+
+test_that("MantelCor returns correct results on list for landmark data",
+          {
+            mat.list <- RandomMatrix(12, 10)
+            rep.vec <- runif(length(mat.list), 0.8, 0.9)
+            results.list <- MantelCor(mat.list, landmark.dim = 2)
+            results <- results.list[[1]]
+            expect_equivalent(results[2,1], MantelCor(mat.list[[1]], 
+                                                      mat.list[[2]], landmark.dim = 2)[1])
+            expect_equivalent(results[8,5], MantelCor(mat.list[[8]], 
+                                                      mat.list[[5]], landmark.dim = 2)[1])
+            results.list <- MantelCor(mat.list, landmark.dim = 3)
+            results <- results.list[[1]]
+            expect_equivalent(results[2,1], MantelCor(mat.list[[1]], 
+                                                      mat.list[[2]], landmark.dim = 3)[1])
+            expect_equivalent(results[8,5], MantelCor(mat.list[[8]], 
+                                                      mat.list[[5]], landmark.dim = 3)[1])
+            expect_that(sum(is.na(results)), equals(0))
+            probabilities <- results.list[[2]]
+            expect_that(sum(is.na(probabilities)), equals(0))
+            expect_that(results.list, is_a("list"))
+            results.list.2 <- MantelCor(mat.list, repeat.vector = rep.vec, landmark.dim = 3)
+            results.2 <- results.list.2[[1]]
+            expect_that(sum(is.na(results.2)), equals(0))
+            probabilities.2 <- results.list.2[[2]]
+            expect_that(dim(results), equals(c(length(mat.list),length(mat.list))))
+            lower <- results[lower.tri(results)]
+            lower.bool = sapply(lower, function(x) isTRUE(x > -1 & x < 1))
+            expect_that(sum(lower.bool), equals(length(lower.bool)))
+            upper  <- results[upper.tri(results, diag = T)]
+            upper.bool = sapply(upper, function(x) isTRUE(x == 0))
+            expect_that(sum(upper.bool), equals(length(upper.bool)))
+            lower.2 <- results.2[lower.tri(results.2)]
+            upper.2 <- t(results.2)[lower.tri(results.2)]
             expect_that(lower.2, equals(lower))
             expect_that(diag(results.2), is_equivalent_to(rep.vec))
             expect_that(sum(abs(upper.2) < abs(lower.2)), equals(0))
@@ -108,10 +162,32 @@ test_that("MantelCor returns corret results",
 
 test_that("MantelCor returns correct results on lists + matrices",
           {
-            mat.list <- lapply(as.list(1:10), function(x) RandomMatrix(10))
-            y.matrix <- RandomMatrix(10)
+            mat.list <- lapply(as.list(1:10), function(x) RandomMatrix(11))
+            y.matrix <- RandomMatrix(11)
             set.seed(42)
             results <- MantelCor(mat.list, y.matrix)
+            set.seed(42)
+            expect_equivalent(results[1,], MantelCor(y.matrix, mat.list[[1]]))
+            expect_that(results, is_a("data.frame"))
+            expect_that(sum(is.na(results)), equals(0))
+            expect_that(dim(results), equals(c(length(mat.list), 2)))
+            names(mat.list) <- 1:length(mat.list)
+            named.results <- MantelCor(mat.list, y.matrix)
+            expect_that(named.results, is_a("data.frame"))
+            expect_that(sum(is.na(named.results)), equals(0))
+            expect_that(dim(named.results), equals(c(length(mat.list), 3)))
+            expect_that(named.results[,".id"], equals(names(mat.list)))
+          }
+)
+
+test_that("MantelCor returns correct results on lists + matrices for landmark data",
+          {
+            mat.list <- lapply(as.list(1:10), function(x) RandomMatrix(12))
+            y.matrix <- RandomMatrix(12)
+            set.seed(42)
+            results <- MantelCor(mat.list, y.matrix, landmark.dim = 2)
+            set.seed(42)
+            expect_equivalent(results[1,], MantelCor(y.matrix, mat.list[[1]], landmark.dim = 2))
             expect_that(results, is_a("data.frame"))
             expect_that(sum(is.na(results)), equals(0))
             expect_that(dim(results), equals(c(length(mat.list), 2)))
@@ -147,6 +223,7 @@ test_that("KrzCor returns correct results",
             mat.list <- lapply(as.list(1:10), function(x) RandomMatrix(10))
             rep.vec <- runif(length(mat.list), 0.8, 0.9)
             results <- KrzCor(mat.list)
+            expect_equivalent(results[2,1], KrzCor(mat.list[[1]], mat.list[[2]]))
             results.2 <- KrzCor(mat.list, repeat.vector = rep.vec)
             expect_that(sum(is.na(results)), equals(0))
             expect_that(sum(is.na(results.2)), equals(0))
@@ -167,9 +244,10 @@ test_that("KrzCor returns correct results",
 
 test_that("KrzCor returns correct results on lists + matrices",
           {
-            mat.list <- lapply(as.list(1:10), function(x) RandomMatrix(10))
-            y.matrix <- RandomMatrix(10)
+            mat.list <- lapply(as.list(1:10), function(x) RandomMatrix(13))
+            y.matrix <- RandomMatrix(13)
             results <- KrzCor(mat.list, y.matrix)
+            expect_equivalent(results[1], KrzCor(mat.list[[1]], y.matrix))
             expect_that(results, is_a("numeric"))
             expect_that(sum(is.na(results)), equals(0))
             expect_that(length(results), equals(length(mat.list)))
