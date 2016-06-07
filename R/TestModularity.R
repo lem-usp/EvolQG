@@ -56,14 +56,6 @@ CreateHypotMatrix <- function(modularity.hypot){
   return(m.hyp.list[1:(num.hyp+1)])
 }
 
-gamma <- function(S, S_0) sum(diag((x <- (S - S_0)) %*% t(x)))
-
-TestModularityGamma <- function(cor.matrix, hypot){
-  hypot = CreateHypotMatrix(hypot)
-  hypot = hypot[[length(hypot)]]
-  gamma(cor.matrix, cor.matrix * hypot)
-}
-
 #' Test single modularity hypothesis using Mantel correlation
 #'
 #' Calculates the correlation and Mantel significance test between a hypothetical binary modularity
@@ -173,3 +165,63 @@ CalcAVG <- function(cor.hypothesis, cor.matrix, MHI = FALSE, landmark.dim = NULL
   }
   return(output)
 }
+
+
+gamma <- function(S, S_0) sum(diag((x <- (S - S_0)) %*% t(x)))
+
+#' @examples
+#' # Create a single modularity hypothesis:
+#' hypot = rep(c(1, 0), each = 6)
+#' cor.hypot = CreateHypotMatrix(hypot)
+#' 
+#' # First with an unstructured matrix:
+#' un.cor = RandomMatrix(12)
+#' MantelModTest(cor.hypot, un.cor)
+#' 
+#' # Now with a modular matrix:
+#' hypot.mask = matrix(as.logical(cor.hypot), 12, 12)
+#' mod.cor = matrix(NA, 12, 12)
+#' mod.cor[ hypot.mask] = runif(length(mod.cor[ hypot.mask]), 0.8, 0.9) # within-modules
+#' mod.cor[!hypot.mask] = runif(length(mod.cor[!hypot.mask]), 0.3, 0.4) # between-modules
+#' diag(mod.cor) = 1
+#' mod.cor = (mod.cor + t(mod.cor))/2 # correlation matrices should be symmetric
+#' 
+#' ModularityGamma(mod.cor, hypot)
+ModularityGamma <- function(cor.matrix, hypot){
+  cor.hypot = CreateHypotMatrix(hypot)
+  if(class(cor.hypot) == "list") cor.hypot = cor.hypot[[length(cor.hypot)]]
+  diag(cor.hypot) <- 1
+  gamma(cor.matrix, cor.matrix * cor.hypot)
+}
+
+#'@examples
+#' rand.hypots <- matrix(sample(c(1, 0), 20, replace=TRUE), 10, 2)
+#' CombineHypot(rand.hypots)
+CombineHypot <- function(modularity.hypot){
+  n.hypots = dim(modularity.hypot)[2]  
+  counter = BinToDec(rep(1, n.hypots))
+  hypot_list = list()
+  k = 1
+  for(i in seq(counter)){
+    mask = DecToBin(i)
+    mask = as.logical(as.numeric((mask[(32-(n.hypots-1)):32])))
+    if(sum(mask) > 1) new_hypot = CreateHypotMatrix(modularity.hypot[,mask])[[sum(mask)+1]]
+    else new_hypot = CreateHypotMatrix(modularity.hypot[,mask])
+    diag(new_hypot) <- 1
+    if(length(hypot_list) == 0){
+      hypot_list[[k]] = new_hypot
+      k = k + 1
+    }
+    else if(!any(laply(hypot_list, function(x) all(x == new_hypot)))){ 
+      hypot_list[[k]] = new_hypot
+      k = k + 1
+    }
+  }
+  hypot_list
+}
+
+# http://stackoverflow.com/questions/12892348/convert-binary-string-to-binary-or-decimal-value
+BinToDec <- function(x) sum(2^(which(rev(unlist(strsplit(as.character(x), "")) == 1))-1))
+# http://stackoverflow.com/questions/6614283/converting-decimal-to-binary-in-r
+DecToBin <- function(x) sapply(strsplit(paste(rev(intToBits(x))),""),`[[`,2)
+
