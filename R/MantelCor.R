@@ -13,12 +13,12 @@
 #' @param cor.y First argument is compared to cor.y.
 #' Optional if cor.x is a list.
 #' @param permutations Number of permutations used in significance calculation.
-#' @param mod Set TRUE to use mantel in testing modularity hypothesis. Will return
-#' AVG+, AVG- and AVG Ratio based on binary hipotesis matrix.
-#' @param MHI Indicates if modularity hypothesis test should use Modularity Hypothesis Index instead of AVG Ratio. Ignored if mod is FALSE.
 #' @param repeat.vector Vector of repeatabilities for correlation correction.
 #' @param parallel if TRUE computations are done in parallel. Some foreach backend must be registered, like doParallel or doMC.
 #' @param ... aditional arguments passed to other methods
+#' @param landmark.dim Used if permutations should be performed mantaining landmark structure in geometric morphomotric data. Either 2 for 2d data or 3 for 3d data. Default is NULL for non-geometric morphomotric data.
+#' @param withinLandmark Logical. If TRUE within-landmark correlations are used in the calculation of matrix correlation. Only used if landmark.dim is passed, default is FALSE.
+#' @param mod Set TRUE to use mantel in testing modularity hypothesis. Should only be used in MantelModTest.
 #' @return If cor.x and cor.y are passed, returns matrix pearson
 #' correlation and significance via Mantel permutations.
 #'
@@ -35,7 +35,7 @@
 #' @rdname MantelCor
 #' @references http://en.wikipedia.org/wiki/Mantel_test
 #' @author Diogo Melo, Guilherme Garcia
-#' @seealso \code{\link{KrzCor}},\code{\link{RandomSkewers}},\code{\link{mantel}},\code{\link{RandomSkewers}},\code{\link{TestModularity}}
+#' @seealso \code{\link{KrzCor}},\code{\link{RandomSkewers}},\code{\link{mantel}},\code{\link{RandomSkewers}},\code{\link{TestModularity}}, \code{\link{MantelModTest}}
 #' @examples
 #' c1 <- RandomMatrix(10, 1, 1, 10)
 #' c2 <- RandomMatrix(10, 1, 1, 10)
@@ -70,30 +70,43 @@ MantelCor <- function (cor.x, cor.y, ...) UseMethod("MantelCor")
 #' @rdname MantelCor
 #' @method MantelCor default
 #' @export
-MantelCor.default <- function (cor.x, cor.y, permutations = 1000, mod = FALSE, MHI = FALSE, ...) {
-  mantel.output <- mantel(cor.x, cor.y, permutations = permutations)
-  correlation <- mantel.output$statistic
-  prob <- mantel.output$signif
-  if (mod){
-    index <- cor.y[lower.tri(cor.y)]
-    avg.plus <- mean (cor.x [lower.tri(cor.x)] [index != 0])
-    avg.minus <- mean (cor.x [lower.tri(cor.x)] [index == 0])
-    if(MHI){
-      avg.index <- (avg.plus - avg.minus)/CalcICV(cor.x)
-      output <- c(correlation, prob, avg.plus, avg.minus, avg.index)
-      names(output) <- c("Rsquared", "Probability", "AVG+", "AVG-", "MHI")
-    } else{
-      avg.ratio <- avg.plus / avg.minus
-      output <- c(correlation, prob, avg.plus, avg.minus, avg.ratio)
-      names(output) <- c("Rsquared", "Probability", "AVG+", "AVG-", "AVG Ratio")
+MantelCor.default <- function (cor.x, cor.y, permutations = 1000, ..., 
+                               landmark.dim = NULL, withinLandmark = FALSE, mod = FALSE) {
+  if(!mod & (sum(diag(cor.x)) != dim(cor.x)[1] | sum(diag(cor.y))!= dim(cor.y)[1]))
+    warning("Matrices do not appear to be correlation matrices. Use with caution.")
+  if(!is.null(landmark.dim)){
+    if(!any(landmark.dim == c(2, 3))) stop("landmark.dim should be either 2 or 3 dimensions")
+    if(withinLandmark) cor.mask = lower.tri(cor.x, landmark.dim)
+    else cor.mask = lower.tri.land(cor.x, landmark.dim)
+    correlation <- cor(cor.x [cor.mask],
+                       cor.y [cor.mask])
+    null_vector = vector("numeric", permutations)
+    num.traits = dim(cor.x)[1]
+    n.land = num.traits/landmark.dim
+    for(perm in 1:permutations){
+      current.perm = rep(sample(1:n.land) * landmark.dim, each = landmark.dim) - (landmark.dim-1):0
+      null_vector[perm] = cor(cor.x[cor.mask],
+                              cor.y[current.perm, current.perm][cor.mask])
     }
+    prob = sum(null_vector > correlation)/permutations
   } else{
-    if(sum(diag(cor.x)) != dim(cor.x)[1] | sum(diag(cor.y))!= dim(cor.y)[1])
-      warning("Matrices do not appear to be correlation matrices. Use with caution.")
-    output <- c(correlation, prob)
-    names(output) <- c("Rsquared", "Probability")
+    mantel.output <- mantel(cor.x, cor.y, permutations = permutations)
+    correlation <- mantel.output$statistic
+    prob <- mantel.output$signif
   }
+  output <- c(correlation, prob)
+  names(output) <- c("Rsquared", "Probability")
   return (output)
+}
+
+CreateWithinLandMat <- function(num.land, land.dim){
+  num.traits = num.land * land.dim
+  matrix(as.logical(bdiag(rlply(num.land, matrix(1, land.dim, land.dim)))), num.traits, num.traits)
+}
+
+lower.tri.land <- function(x, landmark.dim = NULL){
+  num.land = dim(x)[1] / landmark.dim
+  !CreateWithinLandMat(num.land, landmark.dim) & lower.tri(x)
 }
 
 #' @rdname MantelCor
@@ -101,18 +114,18 @@ MantelCor.default <- function (cor.x, cor.y, permutations = 1000, mod = FALSE, M
 #' @export
 MantelCor.list <- function (cor.x, cor.y = NULL,
                             permutations = 1000, repeat.vector = NULL,
-                            mod = FALSE, MHI = FALSE, parallel = FALSE, ...)
+                            parallel = FALSE, ...)
 {
   if (is.null (cor.y)) {
     output <- ComparisonMap(cor.x,
-                         function(x, cor.y) MantelCor(x, cor.y, permutations),
+                         function(x, cor.y) MantelCor(x, cor.y, permutations, ...),
                          repeat.vector = repeat.vector,
                          parallel = parallel)
   } else{
     output <- SingleComparisonMap(cor.x, cor.y,
                                function(x, y) MantelCor(y,
                                                         x,
-                                                        permutations, mod = mod, MHI = MHI),
+                                                        permutations, ...),
                                parallel = parallel)
   }
   return(output)
@@ -145,7 +158,7 @@ MatrixCor.default <- function (cor.x, cor.y, ...)
 #' @export
 MatrixCor.list <- function (cor.x, cor.y = NULL,
                             permutations = 1000, repeat.vector = NULL,
-                            mod = FALSE, parallel = FALSE, ...)
+                            parallel = FALSE, ...)
 {
   if (is.null (cor.y)) {
     output <- ComparisonMap(cor.x,
@@ -154,7 +167,7 @@ MatrixCor.list <- function (cor.x, cor.y = NULL,
                             parallel = parallel)[[1]]
   } else{
     output <- SingleComparisonMap(cor.x, cor.y,
-                                  function(x, y) MatrixCor(x, y),                                                    
+                                  function(x, y) MatrixCor(x, y),                                     
                                   parallel = parallel)
   }
   return(output)

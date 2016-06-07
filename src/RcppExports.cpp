@@ -19,15 +19,3 @@ BEGIN_RCPP
     return __result;
 END_RCPP
 }
-// annealing
-double annealing(NumericMatrix Corr, NumericVector S);
-RcppExport SEXP evolqg_annealing(SEXP CorrSEXP, SEXP SSEXP) {
-BEGIN_RCPP
-    Rcpp::RObject __result;
-    Rcpp::RNGScope __rngScope;
-    Rcpp::traits::input_parameter< NumericMatrix >::type Corr(CorrSEXP);
-    Rcpp::traits::input_parameter< NumericVector >::type S(SSEXP);
-    __result = Rcpp::wrap(annealing(Corr, S));
-    return __result;
-END_RCPP
-}

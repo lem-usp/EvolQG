@@ -13,11 +13,11 @@
 \usage{
 MantelCor(cor.x, cor.y, ...)
 
-\method{MantelCor}{default}(cor.x, cor.y, permutations = 1000, mod = FALSE,
-  MHI = FALSE, ...)
+\method{MantelCor}{default}(cor.x, cor.y, permutations = 1000, ...,
+  landmark.dim = NULL, withinLandmark = FALSE, mod = FALSE)
 
 \method{MantelCor}{list}(cor.x, cor.y = NULL, permutations = 1000,
-  repeat.vector = NULL, mod = FALSE, MHI = FALSE, parallel = FALSE, ...)
+  repeat.vector = NULL, parallel = FALSE, ...)
 
 \method{MantelCor}{mcmc_sample}(cor.x, cor.y, ..., parallel = FALSE)
 
@@ -26,7 +26,7 @@ MatrixCor(cor.x, cor.y, ...)
 \method{MatrixCor}{default}(cor.x, cor.y, ...)
 
 \method{MatrixCor}{list}(cor.x, cor.y = NULL, permutations = 1000,
-  repeat.vector = NULL, mod = FALSE, parallel = FALSE, ...)
+  repeat.vector = NULL, parallel = FALSE, ...)
 
 \method{MatrixCor}{mcmc_sample}(cor.x, cor.y, ..., parallel = FALSE)
 }
@@ -47,10 +47,11 @@ Optional if cor.x is a list.}
 
 \item{permutations}{Number of permutations used in significance calculation.}
 
-\item{mod}{Set TRUE to use mantel in testing modularity hypothesis. Will return
-AVG+, AVG- and AVG Ratio based on binary hipotesis matrix.}
+\item{landmark.dim}{Used if permutations should be performed mantaining landmark structure in geometric morphomotric data. Either 2 for 2d data or 3 for 3d data. Default is NULL for non-geometric morphomotric data.}
 
-\item{MHI}{Indicates if modularity hypothesis test should use Modularity Hypothesis Index instead of AVG Ratio. Ignored if mod is FALSE.}
+\item{withinLandmark}{Logical. If TRUE within-landmark correlations are used in the calculation of matrix correlation. Only used if landmark.dim is passed, default is FALSE.}
+
+\item{mod}{Set TRUE to use mantel in testing modularity hypothesis. Should only be used in MantelModTest.}
 
 \item{repeat.vector}{Vector of repeatabilities for correlation correction.}
 
@@ -108,7 +109,7 @@ Diogo Melo, Guilherme Garcia
 http://en.wikipedia.org/wiki/Mantel_test
 }
 \seealso{
-\code{\link{KrzCor}},\code{\link{RandomSkewers}},\code{\link{mantel}},\code{\link{RandomSkewers}},\code{\link{TestModularity}}
+\code{\link{KrzCor}},\code{\link{RandomSkewers}},\code{\link{mantel}},\code{\link{RandomSkewers}},\code{\link{TestModularity}}, \code{\link{MantelModTest}}
 }
 \keyword{matrixcomparison}
 \keyword{matrixcorrelation}
