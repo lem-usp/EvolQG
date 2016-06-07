@@ -13,11 +13,11 @@
 #' @references Modularity and community structure in networks (2006) M. E. J. Newman,  8577-8582, doi: 10.1073/pnas.0601602103
 #' @examples
 #' # A modular matrix:
-#'   modules = matrix(c(rep(c(1, 0, 0), each = 5),
-#'   rep(c(0, 1, 0), each = 5),
-#'   rep(c(0, 0, 1), each = 5)), 15)
-#'   cor.hypot = CreateHypotMatrix(modules)[[4]]
-#'   hypot.mask = matrix(as.logical(cor.hypot), 15, 15)
+#' modules = matrix(c(rep(c(1, 0, 0), each = 5),
+#' rep(c(0, 1, 0), each = 5),
+#' rep(c(0, 0, 1), each = 5)), 15)
+#' cor.hypot = CreateHypotMatrix(modules)[[4]]
+#' hypot.mask = matrix(as.logical(cor.hypot), 15, 15)
 #' mod.cor = matrix(NA, 15, 15)
 #' mod.cor[ hypot.mask] = runif(length(mod.cor[ hypot.mask]), 0.8, 0.9) # within-modules
 #' mod.cor[!hypot.mask] = runif(length(mod.cor[!hypot.mask]), 0.3, 0.4) # between-modules
