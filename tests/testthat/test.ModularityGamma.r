@@ -81,4 +81,12 @@ test_that("ModularityGamma returns correct results",{
     return(results[1,1])})
   close_enough = sum(grepl("1_2_3|2_3|1_2|1_3", out, perl = TRUE))/50
   expect_true(close_enough > 0.90)
+  
+  xdata = mvtnorm::rmvnorm(200, sigma = sqrt(outer(random_var, random_var)) * mod.cor)
+  out = JackKnifeModularityGamma(xdata, hypothetical.modules, 100)
+  close_enough = sum(grepl("a_b_c", out, perl = TRUE))/100
+  expect_true(close_enough > 0.95)
+  
+  expect_error(JackKnifeModularityGamma(xdata, hypothetical.modules[,1]))
+  expect_error(JackKnifeModularityGamma(cov(xdata), hypothetical.modules))
 })

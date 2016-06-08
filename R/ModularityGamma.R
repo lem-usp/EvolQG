@@ -1,29 +1,29 @@
-gamma <- function(S, S_0) sum(diag((x <- (S - S_0)) %*% t(x)))
-
 #' Calculates Gamma-distance between modular hypothesis and covariance matrix
 #' 
 #' Combines and compares many modularity hypothesis to a covariance matrix. Comparison values are
-#' ajusted to the number os zeros in the hypothesis using a linear regression. 
-#' @param cor.matrix Correlation matrix
+#' ajusted to the number os zeros in the hypothesis using a linear regression. Best hypothesis can
+#' be assed using a jackknife procedure.
+#' 
+#' @param c.matrix Correlation or covariance matrix
+#' @param ind.data Matrix of residuals or indiviual measurments
 #' @param modularity.hypot Matrix of hypothesis. Each line represents a trait and each column a module.
 #' if modularity.hypot[i,j] == 1, trait i is in module j.
+#' @param n number of jackknife resamplings
+#' @param leave.out number of individuals to be left out of each jackknife, default is 20\%
+#' @param ... aditional arguments to be passed to raply for the jackknife
 #' @note Hypothesis can be named as column names, and these will be used to make labels in the 
-#' output
+#' output. 
+#' 
+#' Jackknife will return the best hypothesis for each sample.
 #' @export
+#' @aliases JackKnifeModularityGamma
 #' @references Marquez, E.J. 2008. A statistical framework for testing modularity in multidimensional data. Evolution 62:2688-2708. 
 #' @examples
-#' # Create a single modularity hypothesis:
-#' hypot = rep(c(1, 0), each = 6)
-#' cor.hypot = CreateHypotMatrix(hypot)
-#' 
-#' # First with an unstructured matrix:
-#' un.cor = RandomMatrix(12)
-#' MantelModTest(cor.hypot, un.cor)
-#' 
-#' # Now with a modular matrix:
+#' # Creating a modular matrix:
 #' modules = matrix(c(rep(c(1, 0, 0), each = 5),
-#' rep(c(0, 1, 0), each = 5),
-#' rep(c(0, 0, 1), each = 5)), 15)
+#'                  rep(c(0, 1, 0), each = 5),
+#'                  rep(c(0, 0, 1), each = 5)), 15)
+#'                  
 #' cor.hypot = CreateHypotMatrix(modules)[[4]]
 #' hypot.mask = matrix(as.logical(cor.hypot), 15, 15)
 #' mod.cor = matrix(NA, 15, 15)
@@ -39,18 +39,49 @@ gamma <- function(S, S_0) sum(diag((x <- (S - S_0)) %*% t(x)))
 #' colnames(hypothetical.modules) <- letters[1:7]
 #'  
 #' ModularityGamma(mod.cor, hypothetical.modules)
-ModularityGamma <- function(cor.matrix, modularity.hypot){
+#' 
+#' random_var = runif(15, 1, 10)
+#' mod.data = mvtnorm::rmvnorm(100, sigma = sqrt(outer(random_var, random_var)) * mod.cor)
+#' out_jack = JackKnifeModularityGamma(mod.data, hypothetical.modules)
+#' table(out_jack)
+ModularityGamma <- function(c.matrix, modularity.hypot){
   cor.hypot.list = CombineHypot(modularity.hypot)
   if(is.list(cor.hypot.list)){
     if(is.null(colnames(modularity.hypot))) colnames(modularity.hypot) <- 1:dim(modularity.hypot)[2]
-    raw.gamma = laply(cor.hypot.list, function(x) gamma(cor.matrix, cor.matrix * x))
-    num.zeros = laply(cor.hypot.list, function(x) sum(x[lower.tri(x)] == 0))  
-    gamma_df = data.frame(.id = names(cor.hypot.list), 
-                          corrected.gamma = residuals(lm(raw.gamma ~ num.zeros)) + mean(raw.gamma),
-                          raw.gamma, stringsAsFactors = FALSE)
-    gamma_df = gamma_df[order(gamma_df$corrected.gamma),]
-    rownames(gamma_df) <- NULL
-    return(list(gamma_rank = gamma_df, "Modularity_hypothesis" = modularity.hypot[,strsplit(gamma_df[1,1], "_")[[1]]]))
+    gamma_df <- SingleModGamma(cor.hypot.list, c.matrix)
+    return(list(gamma_rank = gamma_df, 
+                "Modularity_hypothesis" = modularity.hypot[,strsplit(gamma_df[1,1], "_")[[1]]]))
   } 
-  else gamma(cor.matrix, cor.matrix * cor.hypot.list)
+  else gamma(c.matrix, c.matrix * cor.hypot.list)
+}
+
+gamma <- function(S, S_0) sum(diag((x <- (S - S_0)) %*% t(x)))
+
+SingleModGamma <- function(cor.hypot.list, c.matrix) {
+  raw.gamma = laply(cor.hypot.list, function(x) gamma(c.matrix, c.matrix * x))
+  num.zeros = laply(cor.hypot.list, function(x) sum(x[lower.tri(x)] == 0))  
+  gamma_df = data.frame(.id = names(cor.hypot.list), 
+                        corrected.gamma = residuals(lm(raw.gamma ~ num.zeros)) + mean(raw.gamma),
+                        raw.gamma, stringsAsFactors = FALSE)
+  gamma_df = gamma_df[order(gamma_df$corrected.gamma),]
+  rownames(gamma_df) <- NULL
+  return(gamma_df)
+}
+
+#' @export
+#' @rdname ModularityGamma
+JackKnifeModularityGamma <- function(ind.data, modularity.hypot, 
+                                     n = 20, leave.out = floor(dim(ind.data)[1]/20),
+                                     ...){
+  if(isSymmetric(as.matrix(ind.data))) stop("input appears to be a matrix, use residuals")
+  cor.hypot.list = CombineHypot(modularity.hypot)
+  if(is.list(cor.hypot.list)){
+    n.ind = dim(ind.data)[1]
+    if(is.null(colnames(modularity.hypot))) colnames(modularity.hypot) <- 1:dim(modularity.hypot)[2]
+    raply(n,function() {
+      current.sample = sample(1:n.ind, n.ind - leave.out)
+      SingleModGamma(cor.hypot.list, cov(ind.data[current.sample,]))[1,1]
+    }, ...)
+  }
+  else stop("use at least two hypothesis vectors, preferably more")
 }
