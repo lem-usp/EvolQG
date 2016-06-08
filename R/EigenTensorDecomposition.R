@@ -29,7 +29,7 @@
 #' \dontrun{
 #' data(dentus)
 #'
-#' dentus.vcv <- daply (dentus, .(species), function(x) var(x[,-5]))
+#' dentus.vcv <- daply (dentus, .(species), function(x) cov(x[,-5]))
 #'
 #' dentus.vcv <- aperm(dentus.vcv, c(2, 3, 1))
 #'
