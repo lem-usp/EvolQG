@@ -16,7 +16,7 @@
 #' @param repeat.vector Vector of repeatabilities for correlation correction.
 #' @param parallel if TRUE computations are done in parallel. Some foreach backend must be registered, like doParallel or doMC.
 #' @param ... aditional arguments passed to other methods
-#' @param landmark.dim Used if permutations should be performed mantaining landmark structure in geometric morphomotric data. Either 2 for 2d data or 3 for 3d data. Default is NULL for non-geometric morphomotric data.
+#' @param landmark.dim Used if permutations should be performed mantaining landmark structure in geometric morphomotric data. Either 2 for 2d data or 3 for 3d data. Default is NULL for non geometric morphomotric data.
 #' @param withinLandmark Logical. If TRUE within-landmark correlations are used in the calculation of matrix correlation. Only used if landmark.dim is passed, default is FALSE.
 #' @param mod Set TRUE to use mantel in testing modularity hypothesis. Should only be used in MantelModTest.
 #' @return If cor.x and cor.y are passed, returns matrix pearson

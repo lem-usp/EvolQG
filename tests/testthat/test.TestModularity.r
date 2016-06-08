@@ -44,7 +44,6 @@ test_that("MantelModTest returns correct results for Modularity Hypothesis Index
             un.cor = RandomMatrix(12)
             result = MantelModTest(cor.hypot, RemoveSize(un.cor), MHI = TRUE)
             expect_equal(result, expect)
-            expect_warning(MantelModTest(cor.hypot, un.cor, MHI = TRUE), "Matrix appears to be a correlation matrix! Only covariance matrices should be used for ICV.")
             
             # Now with a modular matrix:
             expect = structure(c(1, 0.001998001998002, 0.8, 0.3, 0.311286403182345), .Names = c("Rsquared", "Probability", "AVG+", "AVG-", "MHI"))
@@ -54,9 +53,9 @@ test_that("MantelModTest returns correct results for Modularity Hypothesis Index
             mod.cor[ hypot.mask] = 0.8 # within-modules
             mod.cor[!hypot.mask] = 0.3 # between-modules
             diag(mod.cor) = 1
-            expect_warning(result <- MantelModTest(cor.hypot, mod.cor, MHI = TRUE))
+            result = MantelModTest(cor.hypot, mod.cor, MHI = TRUE)
             expect_equal(result, expect)
-            expect_warning(avg <- CalcAVG(cor.hypot, mod.cor, MHI = TRUE))
+            avg = CalcAVG(cor.hypot, mod.cor, MHI = TRUE)
             expect_equal(avg, result[3:5])
           }
 )
