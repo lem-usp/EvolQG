@@ -47,7 +47,7 @@ Optional if cor.x is a list.}
 
 \item{permutations}{Number of permutations used in significance calculation.}
 
-\item{landmark.dim}{Used if permutations should be performed mantaining landmark structure in geometric morphomotric data. Either 2 for 2d data or 3 for 3d data. Default is NULL for non-geometric morphomotric data.}
+\item{landmark.dim}{Used if permutations should be performed mantaining landmark structure in geometric morphomotric data. Either 2 for 2d data or 3 for 3d data. Default is NULL for non geometric morphomotric data.}
 
 \item{withinLandmark}{Logical. If TRUE within-landmark correlations are used in the calculation of matrix correlation. Only used if landmark.dim is passed, default is FALSE.}
 
