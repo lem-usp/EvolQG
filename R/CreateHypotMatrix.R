@@ -29,20 +29,15 @@ CombineHypot <- function(modularity.hypot){
   }
   if(is.null(colnames(modularity.hypot))) colnames(modularity.hypot) <- 1:n.hypots
   counter = BinToDec(rep(1, n.hypots))
-  hypot_list = list()
-  k = 1
+  hypot_list = list(null = diag(dim(modularity.hypot)[1]))
+  k = 2
   for(i in seq(counter)){
     mask = DecToBin(i)
     mask = as.logical(as.numeric((mask[(32-(n.hypots-1)):32])))
     if(sum(mask) > 1) new_hypot = CreateHypotMatrix(modularity.hypot[,mask])[[sum(mask)+1]]
     else new_hypot = CreateHypotMatrix(modularity.hypot[,mask])
     diag(new_hypot) <- 1
-    if(length(hypot_list) == 0){
-      hypot_list[[k]] = new_hypot
-      names(hypot_list)[[k]] <- paste(colnames(modularity.hypot)[mask], collapse = "_")
-      k = k + 1
-    }
-    else if(!any(laply(hypot_list, function(x) all(x == new_hypot)))){ 
+    if(!any(laply(hypot_list, function(x) all(x == new_hypot)))){ 
       hypot_list[[k]] = new_hypot
       names(hypot_list)[[k]] <- paste(colnames(modularity.hypot)[mask], collapse = "_")
       k = k + 1
