@@ -17,7 +17,6 @@ test_that("MINT returns correct results",{
   #expect_equal(results[[1]], expected)
   expect_true(all(results[[2]] == modules))
   
-  set.seed(as.numeric(Sys.time()))
   random_var = runif(15, 1, 10)
   out = raply(50, function(x){
     mod.cov = cov(mvtnorm::rmvnorm(50, sigma = sqrt(outer(random_var, random_var)) * mod.cor))
