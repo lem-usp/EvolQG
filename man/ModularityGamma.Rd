@@ -20,7 +20,7 @@ if modularity.hypot[i,j] == 1, trait i is in module j.}
 
 \item{n}{number of jackknife resamplings}
 
-\item{leave.out}{number of individuals to be left out of each jackknife, default is 20\%}
+\item{leave.out}{number of individuals to be left out of each jackknife, default is 5\%}
 
 \item{...}{aditional arguments to be passed to raply for the jackknife}
 }

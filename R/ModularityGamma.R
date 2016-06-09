@@ -9,7 +9,7 @@
 #' @param modularity.hypot Matrix of hypothesis. Each line represents a trait and each column a module.
 #' if modularity.hypot[i,j] == 1, trait i is in module j.
 #' @param n number of jackknife resamplings
-#' @param leave.out number of individuals to be left out of each jackknife, default is 20\%
+#' @param leave.out number of individuals to be left out of each jackknife, default is 5\%
 #' @param ... aditional arguments to be passed to raply for the jackknife
 #' @note Hypothesis can be named as column names, and these will be used to make labels in the 
 #' output. 
