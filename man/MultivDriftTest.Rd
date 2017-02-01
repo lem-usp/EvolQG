@@ -43,13 +43,12 @@ G <- cov(A)
 MultivDriftTest(A, B, G, Ne = 1000, generations = 250)
 
 }
-\author{
-Ana Paula Assis
-}
 \references{
 Hohenlohe, P.A ; Arnold, S.J. (2008). MIPod: a hypothesis testing framework for 
 microevolutionary inference from patterns of divergence. 
 American Naturalist, 171(3),
 366-385. doi: 10.1086/527498
 }
-
+\author{
+Ana Paula Assis
+}

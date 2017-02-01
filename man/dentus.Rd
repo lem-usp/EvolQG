@@ -21,4 +21,3 @@ Simulated example of 4 continuous bone lengths from 5 species.
 }
 }
 \keyword{datasets}
-

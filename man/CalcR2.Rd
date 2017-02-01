@@ -22,9 +22,6 @@ cov.matrix <- RandomMatrix(10, 1, 1, 10)
 CalcR2(cov.matrix)
 CalcR2(cov2cor(cov.matrix))
 }
-\author{
-Diogo Melo, Guilherme Garcia
-}
 \references{
 Porto, Arthur, Felipe B. de Oliveira, Leila T. Shirai, Valderes de Conto, and Gabriel Marroig. 2009. "The Evolution of Modularity in the Mammalian Skull I: Morphological Integration Patterns and Magnitudes." Evolutionary Biology 36 (1): 118-35. doi:10.1007/s11692-008-9038-3.
 
@@ -33,6 +30,8 @@ Porto, Arthur, Leila Teruko Shirai, Felipe Bandoni de Oliveira, and Gabriel Marr
 \seealso{
 \code{\link{Flexibility}}
 }
+\author{
+Diogo Melo, Guilherme Garcia
+}
 \keyword{correlation}
 \keyword{integration}
-

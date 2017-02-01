@@ -22,4 +22,3 @@ Use RandomMatrix() instead.
 Diogo Melo Edgar Zanella
 }
 \keyword{randommatrices}
-

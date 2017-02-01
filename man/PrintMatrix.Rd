@@ -32,4 +32,3 @@ PrintMatrix(m.list)
 \author{
 Diogo Melo
 }
-

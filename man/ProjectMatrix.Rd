@@ -52,9 +52,6 @@ ggplot() +
   theme_bw()
 }
 }
-\author{
-Guilherme Garcia, Diogo Melo
-}
 \references{
 Basser P. J., Pajevic S. 2007. Spectral decomposition of a 4th-order 
 covariance tensor: Applications to diffusion tensor MRI. Signal Processing. 87:220-236.
@@ -66,4 +63,6 @@ transactions of the Royal Society of London. Series B, Biological sciences. 364:
 \seealso{
 \code{\link{EigenTensorDecomposition}}, \code{\link{RevertMatrix}}
 }
-
+\author{
+Guilherme Garcia, Diogo Melo
+}

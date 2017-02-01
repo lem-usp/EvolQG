@@ -12,4 +12,3 @@ data(dentus.tree)
 Hypothetical tree for the species in the dentus data set.
 }
 \keyword{datasets}
-

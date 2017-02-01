@@ -10,6 +10,7 @@ test_that("MeanMatrix works on dentus data",
 )
 
 test_that("MeanMatrix works on carray data",{
+  skip_on_cran()
   carray_data = array(NA, dim = c(5, 5, 3))
   carray_data[,,1] = c(0.8467  ,0.5195  ,0.8089  ,0.2300, -0.0228,
                        0.5195  ,0.4611  ,0.5595  ,0.4020, -0.2681,

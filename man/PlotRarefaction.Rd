@@ -41,13 +41,12 @@ print(c, vp = vplayout(2, 1))
 print(d, vp = vplayout(2, 2))
 
 }
-\author{
-Diogo Melo, Guilherme Garcia
-}
 \seealso{
 \code{\link{BootstrapRep}}
+}
+\author{
+Diogo Melo, Guilherme Garcia
 }
 \keyword{bootstap}
 \keyword{rarefaction}
 \keyword{repeatability}
-

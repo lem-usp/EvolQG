@@ -20,9 +20,6 @@ integration comparable to the R^2 in correlation matrices.
 cov.matrix <- RandomMatrix(10, 1, 1, 10)
 CalcICV(cov.matrix)
 }
-\author{
-Diogo Melo
-}
 \references{
 Shirai, Leila T, and Gabriel Marroig. 2010. "Skull Modularity in Neotropical Marsupials and Monkeys: Size Variation and Evolutionary Constraint and Flexibility." Journal of Experimental Zoology Part B: Molecular and Developmental Evolution 314 B (8): 663-83. doi:10.1002/jez.b.21367.
 
@@ -31,6 +28,8 @@ Porto, Arthur, Leila Teruko Shirai, Felipe Bandoni de Oliveira, and Gabriel Marr
 \seealso{
 \code{\link{CalcR2}}
 }
+\author{
+Diogo Melo
+}
 \keyword{covariance}
 \keyword{integration}
-

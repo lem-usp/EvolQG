@@ -57,13 +57,12 @@ laply(mat.list, MonteCarloRep, 30, KrzCor, correlation = TRUE)
 #registerDoParallel(cores = 2)
 #MonteCarloRep(cov.matrix, 30, RandomSkewers, iterations = 100, parallel = TRUE)
 }
-\author{
-Diogo Melo Guilherme Garcia
-}
 \seealso{
 \code{\link{BootstrapRep}}, \code{\link{AlphaRep}}
+}
+\author{
+Diogo Melo Guilherme Garcia
 }
 \keyword{montecarlo}
 \keyword{parametricsampling}
 \keyword{repeatability}
-

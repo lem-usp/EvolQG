@@ -26,10 +26,9 @@ Matrix of comparisons, matrix of probabilities.
 Generic Comparison Map functions for creating parallel list methods
 Internal functions for making eficient comparisons.
 }
-\author{
-Diogo Melo
-}
 \seealso{
 \code{\link{MantelCor}}, \code{\link{KrzCor}},\code{\link{RandomSkewers}}
 }
-
+\author{
+Diogo Melo
+}

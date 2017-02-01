@@ -73,9 +73,6 @@ KrzCor(list(c1, c2, c3), c4)
 #KrzCor(list(c1, c2, c3), parallel = TRUE)
 
 }
-\author{
-Diogo Melo, Guilherme Garcia
-}
 \references{
 Krzanowski, W. J. (1979). Between-Groups Comparison of Principal
 Components. Journal of the American Statistical Association, 74(367),
@@ -84,7 +81,9 @@ Components. Journal of the American Statistical Association, 74(367),
 \seealso{
 \code{\link{RandomSkewers}},\code{\link{KrzProjection}},\code{\link{MantelCor}}
 }
+\author{
+Diogo Melo, Guilherme Garcia
+}
 \keyword{Krzanowski}
 \keyword{matrixcomparison}
 \keyword{matrixcorrelation}
-

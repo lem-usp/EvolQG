@@ -42,4 +42,3 @@ mod.cor = (mod.cor + t(mod.cor))/2 # correlation matrices should be symmetric
 CalcAVG(cor.hypot, mod.cor)
 CalcAVG(cor.hypot, mod.cor, MHI = TRUE)
 }
-

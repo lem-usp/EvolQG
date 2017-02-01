@@ -42,4 +42,3 @@ LModularity(mod.cor)
 \references{
 Modularity and community structure in networks (2006) M. E. J. Newman,  8577-8582, doi: 10.1073/pnas.0601602103
 }
-

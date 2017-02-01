@@ -30,13 +30,12 @@ Since this function uses multivariate normal model to generate populations, only
 r2.dist <- MonteCarloR2(RandomMatrix(10, 1, 1, 10), 30)
 quantile(r2.dist)
 }
-\author{
-Diogo Melo Guilherme Garcia
-}
 \seealso{
 \code{\link{BootstrapRep}}, \code{\link{AlphaRep}}
+}
+\author{
+Diogo Melo Guilherme Garcia
 }
 \keyword{montecarlo}
 \keyword{parametricsampling}
 \keyword{repeatability}
-

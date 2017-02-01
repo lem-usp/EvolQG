@@ -58,13 +58,12 @@ melt(results.R2)
 #results.R2 <- RarefactionStat(ind.data, cor, function(x, y) CalcR2(y), parallel = TRUE)
 
 }
-\author{
-Diogo Melo, Guilherme Garcia
-}
 \seealso{
 \code{\link{BootstrapRep}}
+}
+\author{
+Diogo Melo, Guilherme Garcia
 }
 \keyword{bootstap}
 \keyword{rarefaction}
 \keyword{repeatability}
-

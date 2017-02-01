@@ -76,9 +76,6 @@ RandomSkewers(list(c1, c2, c3), c4)
 #RandomSkewers(list(c1, c2, c3), parallel = TRUE)
 
 }
-\author{
-Diogo Melo, Guilherme Garcia
-}
 \references{
 Cheverud, J. M., and Marroig, G. (2007). Comparing covariance matrices:
 Random skewers method compared to the common principal components model.
@@ -87,7 +84,9 @@ Genetics and Molecular Biology, 30, 461-469.
 \seealso{
 \code{\link{KrzCor}},\code{\link{MantelCor}}
 }
+\author{
+Diogo Melo, Guilherme Garcia
+}
 \keyword{matrixcomparison}
 \keyword{matrixcorrelation}
 \keyword{randomskewers}
-

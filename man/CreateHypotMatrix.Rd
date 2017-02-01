@@ -22,4 +22,3 @@ the partition in the vectors.
 rand.hypots <- matrix(sample(c(1, 0), 30, replace=TRUE), 10, 3)
 CreateHypotMatrix(rand.hypots) 
 }
-

@@ -37,10 +37,9 @@ test.list <- TreeDriftTest(tree, mean.list, cov.matrix.list, sample.sizes)
 #Ancestral node plot:
 test.list[[length(test.list)]]$plot
 }
-\author{
-Diogo Melo
-}
 \seealso{
 DriftTest PlotTreeDriftTest
 }
-
+\author{
+Diogo Melo
+}

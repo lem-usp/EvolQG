@@ -55,13 +55,12 @@ quantile(r2.dist)
 #               StatFunc = cov,
 #               parallel = TRUE)
 }
-\author{
-Diogo Melo, Guilherme Garcia
-}
 \seealso{
 \code{\link{BootstrapRep}}, \code{\link{AlphaRep}}
+}
+\author{
+Diogo Melo, Guilherme Garcia
 }
 \keyword{montecarlo}
 \keyword{parametricsampling}
 \keyword{repeatability}
-

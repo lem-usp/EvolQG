@@ -63,9 +63,6 @@ mod.cor = (mod.cor + t(mod.cor))/2 # correlation matrices should be symmetric
 
 MantelModTest(cor.hypot, mod.cor)
 }
-\author{
-Diogo Melo, Guilherme Garcia
-}
 \references{
 Porto, Arthur, Felipe B. Oliveira, Leila T. Shirai, Valderes Conto, and Gabriel Marroig. 2009. "The Evolution of Modularity in the Mammalian Skull I: Morphological Integration Patterns and Magnitudes." Evolutionary Biology 36 (1): 118-35. doi:10.1007/s11692-008-9038-3.
 
@@ -74,7 +71,9 @@ Modularity and Morphometrics: Error Rates in Hypothesis Testing Guilherme Garcia
 \seealso{
 \code{\link{mantel}},\code{\link{MantelCor}},\code{\link{CalcAVG}},\code{\link{TestModularity}}
 }
+\author{
+Diogo Melo, Guilherme Garcia
+}
 \keyword{manteltest}
 \keyword{matrixcomparison}
 \keyword{matrixcorrelation}
-

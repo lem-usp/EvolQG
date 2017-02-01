@@ -3,7 +3,8 @@
 #' This function performs eigentensor decomposition on a set of covariance matrices.
 #'
 #' @param matrices k x k x m array of m covariance matrices with k traits;
-#' @param return.projection Should we project covariance matrices into estimated eigentensors? Defaults to TRUE.
+#' @param return.projection Should we project covariance matrices into estimated eigentensors? Defaults to TRUE
+#' @param ... aditional arguments for methods
 #' @return List with the following components:
 #' @return mean mean covariance matrices used to center the sample (obtained from \code{\link{MeanMatrix}})
 #' @return mean.sqrt square root of mean matrix (saved for use in other functions, 

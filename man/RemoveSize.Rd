@@ -28,4 +28,3 @@ eigen(no.size.cov.matrix)
 Diogo Melo, Guilherme Garcia
 }
 \keyword{size}
-

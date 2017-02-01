@@ -15,8 +15,7 @@ ComparisonMap <- function (matrix.list, MatrixCompFunc, ..., repeat.vector = NUL
   if(is.null(names(matrix.list))) {names(matrix.list) <- 1:n.matrix}
   matrix.names <- names (matrix.list)
   CompareToN <- function(n) ldply(matrix.list[(n+1):n.matrix],
-                                  function(x) {MatrixCompFunc(x, matrix.list[[n]], ...)[1:2]},
-                                  .parallel = parallel)
+                                  function(x) {MatrixCompFunc(x, matrix.list[[n]], ...)[1:2]})
   comparisons <- adply(1:(n.matrix-1), 1,  CompareToN, .parallel = parallel)
   corrs <- suppressMessages(acast(comparisons[-4], X1~.id)[,matrix.names[-1]])
   probs <- suppressMessages(acast(comparisons[-3], X1~.id)[,matrix.names[-1]])

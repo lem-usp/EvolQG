@@ -52,4 +52,3 @@ HPDinterval(as.mcmc(MCMC.H.val))
 \references{
 Aguirre, J. D., E. Hine, K. McGuigan, and M. W. Blows. "Comparing G: multivariate analysis of genetic variation in multiple populations." Heredity 112, no. 1 (2014): 21-29.
 }
-

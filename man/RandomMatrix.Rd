@@ -44,4 +44,3 @@ RandomMatrix(10, 100, 1, 300)
 Diogo Melo Edgar Zanella
 }
 \keyword{randommatrices}
-

@@ -47,13 +47,12 @@ MultiMahalanobis(mean.array, mat)
 #registerDoParallel(cores = 2)
 #MultiMahalanobis(mean.list, RandomMatrix(10), parallel = TRUE)
 }
-\author{
-Diogo Melo
-}
 \references{
 http://en.wikipedia.org/wiki/Mahalanobis_distance
 }
 \seealso{
 \code{\link{mahalanobis}}
 }
-
+\author{
+Diogo Melo
+}

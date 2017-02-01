@@ -39,15 +39,14 @@ cov.matrix <- RandomMatrix(10, 1, 1, 10)
 cov.mod.test <- TestModularity(cov.matrix, rand.hypots, MHI = TRUE)
 nosize.cov.mod.test <- TestModularity(RemoveSize(cov.matrix), rand.hypots, MHI = TRUE)
 }
-\author{
-Diogo Melo, Guilherme Garcia
-}
 \references{
 Porto, Arthur, Felipe B. Oliveira, Leila T. Shirai, Valderes Conto, and Gabriel Marroig. 2009. "The Evolution of Modularity in the Mammalian Skull I: Morphological Integration Patterns and Magnitudes." Evolutionary Biology 36 (1): 118-35. doi:10.1007/s11692-008-9038-3.
 }
 \seealso{
 \code{\link{MantelModTest}}
 }
+\author{
+Diogo Melo, Guilherme Garcia
+}
 \keyword{mantel}
 \keyword{modularity}
-

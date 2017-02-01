@@ -44,4 +44,3 @@ plotBranchbyTrait(tree, phylo.comparisons[[2]])
 \author{
 Diogo Melo
 }
-

@@ -45,9 +45,6 @@ ggplot(integration.dist$dist, aes(r2, mean_cv)) + geom_point() +
 ggplot(integration.dist$dist, aes(eVals_cv, mean_cv)) + geom_point() + 
        geom_smooth(method = 'lm', color= 'black') + theme_bw()
 }
-\author{
-Diogo Melo, Guilherme Garcia
-}
 \references{
 Young, N. M., Wagner, G. P., and Hallgrimsson, B. (2010).
 Development and the evolvability of human limbs. Proceedings of the
@@ -57,6 +54,8 @@ National Academy of Sciences of the United States of America, 107(8),
 \seealso{
 \code{\link{MeanMatrixStatistics}}, \code{\link{CalcR2}}
 }
+\author{
+Diogo Melo, Guilherme Garcia
+}
 \keyword{correlation}
 \keyword{integration}
-

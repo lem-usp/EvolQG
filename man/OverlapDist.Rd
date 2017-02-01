@@ -24,4 +24,3 @@ comes from the other
 \references{
 Ovaskainen, O. (2008). A Bayesian framework for comparative quantitative genetics. Proceedings of the Royal Society B, 669-678. doi:10.1098/rspb.2007.0949
 }
-

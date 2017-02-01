@@ -26,12 +26,11 @@ ID = rep(1:num.ind, 2)
 ind.data = rbind(iris[,1:4], iris[,1:4]+array(rnorm(num.ind*4, 0, 0.1), dim(iris[,1:4])))
 CalcRepeatability(ID, ind.data)
 }
-\author{
-Guilherme Garcia
-}
 \references{
 Lessels, C. M., and Boag, P. T. (1987).
    Unrepeatable repeatabilities: a common mistake.
    The Auk, 2(January), 116-121.
 }
-
+\author{
+Guilherme Garcia
+}

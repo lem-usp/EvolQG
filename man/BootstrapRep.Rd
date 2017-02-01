@@ -51,12 +51,11 @@ BootstrapRep(iris[,1:4], PCAsimilarity, iterations = 50)
 #             iterations = 5,
 #             parallel = TRUE)
 }
-\author{
-Diogo Melo, Guilherme Garcia
-}
 \seealso{
 \code{\link{MonteCarloStat}}, \code{\link{AlphaRep}}
 }
+\author{
+Diogo Melo, Guilherme Garcia
+}
 \keyword{bootstrap}
 \keyword{repetabilities}
-

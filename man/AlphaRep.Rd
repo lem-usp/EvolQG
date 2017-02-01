@@ -29,9 +29,6 @@ mat.list <- RandomMatrix(10, 100)
 sample.sizes <- floor(runif(100, 20, 50))
 unlist(Map(AlphaRep, mat.list, sample.sizes))
 }
-\author{
-Diogo Melo, Guilherme Garcia
-}
 \references{
 Cheverud 1996 Quantitative genetic analysis of cranial morphology in the cotton-top
   (Saguinus oedipus) and saddle-back (S. fuscicollis) tamarins. Journal of Evolutionary Biology 9, 5-42.
@@ -39,5 +36,7 @@ Cheverud 1996 Quantitative genetic analysis of cranial morphology in the cotton-
 \seealso{
 \code{\link{MonteCarloStat}}, \code{\link{BootstrapRep}}
 }
+\author{
+Diogo Melo, Guilherme Garcia
+}
 \keyword{repeatatability}
-

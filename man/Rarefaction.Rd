@@ -60,13 +60,12 @@ library(reshape2)
 melt(results.RS)
 
 }
-\author{
-Diogo Melo, Guilherme Garcia
-}
 \seealso{
 \code{\link{BootstrapRep}}
+}
+\author{
+Diogo Melo, Guilherme Garcia
 }
 \keyword{bootstap}
 \keyword{rarefaction}
 \keyword{repeatability}
-

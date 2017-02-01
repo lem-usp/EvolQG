@@ -27,12 +27,11 @@ cov.matrix = RandomMatrix(11, 1, 1, 100)
 ext.matrix = ExtendMatrix(cov.matrix, var.cut.off = 1e-6)
 ext.matrix = ExtendMatrix(cov.matrix, ret.dim = 6)
 }
-\author{
-Diogo Melo
-}
 \references{
 Marroig, G., Melo, D. A. R., and Garcia, G. (2012). Modularity, noise, and natural selection. Evolution; international journal of organic evolution, 66(5), 1506-24. doi:10.1111/j.1558-5646.2011.01555.x
 }
+\author{
+Diogo Melo
+}
 \keyword{covariancematrix}
 \keyword{extension}
-

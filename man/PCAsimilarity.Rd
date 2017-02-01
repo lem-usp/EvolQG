@@ -49,17 +49,16 @@ PCAsimilarity(m.list)
 
 PCAsimilarity(m.list, c1)
 }
-\author{
-Edgar Zanella Alvarenga
-}
 \references{
 Singhal, A. and Seborg, D. E. (2005), Clustering multivariate time-series data. J. Chemometrics, 19: 427-438. doi: 10.1002/cem.945
 }
 \seealso{
 \code{\link{KrzProjection}},\code{\link{KrzCor}},\code{\link{RandomSkewers}},\code{\link{MantelCor}}
 }
+\author{
+Edgar Zanella Alvarenga
+}
 \keyword{Krzanowski}
 \keyword{PCA}
 \keyword{matrixcomparison}
 \keyword{matrixcorrelation}
-

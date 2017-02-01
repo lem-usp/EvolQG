@@ -50,12 +50,11 @@ PhyloMantel(dentus.tree, comparisons, mh.dist, k = 10000)
 MantelCor(comparisons, mh.dist)
 }
 }
-\author{
-Diogo Melo, adapted from Harmon & Glor 2010
-}
 \references{
 Harmon, L. J., & Glor, R. E. (2010). Poor statistical performance of the Mantel test in phylogenetic comparative analyses. Evolution, 64(7), 2173-2178.
 
 Lapointe, F. J., & Garland, Jr, T. (2001). A generalized permutation model for the analysis of cross-species data. Journal of Classification, 18(1), 109-127.
 }
-
+\author{
+Diogo Melo, adapted from Harmon & Glor 2010
+}

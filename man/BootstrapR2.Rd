@@ -25,13 +25,12 @@ random population's correlation matrices, provinding a distribution based on the
 r2.dist <- BootstrapR2(iris[,1:4], 30)
 quantile(r2.dist)
 }
-\author{
-Diogo Melo Guilherme Garcia
-}
 \seealso{
 \code{\link{BootstrapRep}}, \code{\link{AlphaRep}}
+}
+\author{
+Diogo Melo Guilherme Garcia
 }
 \keyword{bootstrap}
 \keyword{integration}
 \keyword{repeatability}
-

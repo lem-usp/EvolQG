@@ -30,10 +30,9 @@ sample.sizes <- runif(length(tree$tip.label), 15, 20)
 test.list <- TreeDriftTest(tree, mean.list, cov.matrix.list, sample.sizes)
 PlotTreeDriftTest(test.list, tree)
 }
-\author{
-Diogo Melo
-}
 \seealso{
 DriftTest TreeDriftTest
 }
-
+\author{
+Diogo Melo
+}

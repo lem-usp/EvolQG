@@ -24,11 +24,10 @@ cov.matrix <- CalculateMatrix(iris.lm)
 #To obtain a corrlation matrix, use:
 cor.matrix <- cov2cor(cov.matrix)
 }
-\author{
-Diogo Melo, Fabio Machado
-}
 \references{
 https://github.com/lem-usp/evolqg/wiki/
 }
+\author{
+Diogo Melo, Fabio Machado
+}
 \keyword{covariancematrix}
-

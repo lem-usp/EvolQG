@@ -42,11 +42,10 @@ PCScoreCorrelation(means, cov.matrix, taxons)
 ##Or we can print to file:
 #ggsave("multipage.pdf", do.call(marrangeGrob, c(pc.score.output$plots, list(nrow=2, ncol=2))))
 }
-\author{
-Ana Paula Assis, Diogo Melo
-}
 \references{
 Marroig, G., and Cheverud, J. M. (2004). Did natural selection or genetic drift 
 produce the cranial diversification of neotropical monkeys? The American Naturalist, 163(3), 417-428. doi:10.1086/381693
 }
-
+\author{
+Ana Paula Assis, Diogo Melo
+}

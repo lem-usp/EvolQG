@@ -53,12 +53,11 @@ MatrixDistance(list(c1, c2, c3), distance = "OverlapDist")
 c4 <- RandomMatrix(10)
 MatrixDistance(list(c1, c2, c3), c4)
 }
-\author{
-Diogo Melo
-}
 \seealso{
 \code{\link{RiemannDist}},\code{\link{OverlapDist}}
 }
+\author{
+Diogo Melo
+}
 \keyword{matrixDistance}
 \keyword{matrixcomparison}
-

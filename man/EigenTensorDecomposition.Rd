@@ -2,20 +2,24 @@
 % Please edit documentation in R/EigenTensorDecomposition.R
 \name{EigenTensorDecomposition}
 \alias{EigenTensorDecomposition}
-\alias{EigenTensorDecomposition.default}
 \alias{EigenTensorDecomposition.list}
+\alias{EigenTensorDecomposition.default}
 \title{Eigentensor Decomposition}
 \usage{
-EigenTensorDecomposition(matrices, return.projection = TRUE)
+EigenTensorDecomposition(matrices, return.projection = TRUE, ...)
 
-\method{EigenTensorDecomposition}{list}(matrices, return.projection = TRUE)
+\method{EigenTensorDecomposition}{list}(matrices, return.projection = TRUE,
+  ...)
 
-\method{EigenTensorDecomposition}{default}(matrices, return.projection = TRUE)
+\method{EigenTensorDecomposition}{default}(matrices, return.projection = TRUE,
+  ...)
 }
 \arguments{
 \item{matrices}{k x k x m array of m covariance matrices with k traits;}
 
-\item{return.projection}{Should we project covariance matrices into estimated eigentensors? Defaults to TRUE.}
+\item{return.projection}{Should we project covariance matrices into estimated eigentensors? Defaults to TRUE}
+
+\item{...}{aditional arguments for methods}
 }
 \value{
 List with the following components:
@@ -79,9 +83,6 @@ boxplot(dentus.post.eval, xlab = 'Index', ylab = 'Value',
         main = 'Posterior Eigenvalue Distribution')
 }
 }
-\author{
-Guilherme Garcia, Diogo Melo
-}
 \references{
 Basser P. J., Pajevic S. 2007. Spectral decomposition of a 4th-order 
 covariance tensor: Applications to diffusion tensor MRI. Signal Processing. 87:220-236.
@@ -93,4 +94,6 @@ transactions of the Royal Society of London. Series B, Biological sciences. 364:
 \seealso{
 \code{\link{ProjectMatrix}}, \code{\link{RevertMatrix}}
 }
-
+\author{
+Guilherme Garcia, Diogo Melo
+}

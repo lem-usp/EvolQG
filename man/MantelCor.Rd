@@ -102,16 +102,15 @@ MantelCor(cor.list, c4)
 #registerDoParallel(cores = 2)
 #MantelCor(cor.list, parallel = TRUE) 
 }
-\author{
-Diogo Melo, Guilherme Garcia
-}
 \references{
 http://en.wikipedia.org/wiki/Mantel_test
 }
 \seealso{
 \code{\link{KrzCor}},\code{\link{RandomSkewers}},\code{\link{mantel}},\code{\link{RandomSkewers}},\code{\link{TestModularity}}, \code{\link{MantelModTest}}
 }
+\author{
+Diogo Melo, Guilherme Garcia
+}
 \keyword{matrixcomparison}
 \keyword{matrixcorrelation}
 \keyword{randomskewers}
-

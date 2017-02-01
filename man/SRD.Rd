@@ -80,9 +80,6 @@ plot(srd.array.result[3,4][[1]])
 #registerDoParallel(cores = 2)
 #SRD(m.list, parallel = TRUE)
 }
-\author{
-Diogo Melo, Guilherme Garcia
-}
 \references{
 Marroig, G., Melo, D., Porto, A., Sebastiao, H., and Garcia, G.
 (2011). Selection Response Decomposition (SRD): A New Tool for
@@ -92,7 +89,9 @@ Biology, 38(2), 225-241. doi:10.1007/s11692-010-9107-2
 \seealso{
 \code{\link{RandomSkewers}}
 }
+\author{
+Diogo Melo, Guilherme Garcia
+}
 \keyword{RandomSkewers}
 \keyword{SRD}
 \keyword{selectionresponsedecomposition}
-
