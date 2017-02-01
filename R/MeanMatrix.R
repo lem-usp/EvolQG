@@ -4,10 +4,11 @@
 #'
 #' @param matrix.array k x k x m array of covariance matrices, with k traits and m matrices
 #' @param tol minimum riemannian distance between sequential iterated means for accepting an estimated matrix
-#' @param verbose print values for each iteration?
 #' @return geometric mean covariance matrix
 #' 
-#' @importFrom expm sqrtm logm expm
+#' @importFrom matrixcalc frobenius.norm
+#' @importFrom Matrix Schur
+#' 
 #' @rdname MeanMatrix
 #' @references Bini, D. A., Iannazzo, B. 2013. Computing the Karcher Mean of Symmetric
 #' Positive Definite Matrices. Linear Algebra and Its Applications, 16th ILAS Conference
@@ -18,35 +19,56 @@
 #'
 #' @export
 #' 
-MeanMatrix <- function (matrix.array, tol = 1e-10, verbose = FALSE)
+MeanMatrix <- function (matrix.array, tol = 1e-10)
 {
   A <- matrix.array
   m <- dim(A) [3]
+
+  niold <- Inf
   
-  v <- 1/m
-  
-  ## from here, each matrix is the first dimension slice of the array
-  A.inv <- aaply(A, 3, solve)
-  
+  A.chol <- aaply(A, 3, chol)
   X <- aaply (A, c(1, 2), mean)
   
   repeat
   {
+    X.chol <- chol(X)
+    X.chinv <- solve(X.chol)
+    UV <- alply(A.chol, 1, function(R) 
+    {
+      Z <- R %*% X.chinv
+      Schur(t(Z) %*% Z, vectors = TRUE)
+    })
+    V <- laply(UV, function(L) L $ EValues)
+    U <- laply(UV, function(L) L $ Q)
     
-    X.sq <- sqrtm (X)
+    ## dynamic choice of theta
+    ch = aaply(V, 1, max) / aaply(V, 1, min)
+    dh = log(ch) / (ch - 1)
+    beta = sum(ch)
+    gamma = sum(ch * dh)
+    theta = 2 / (gamma + beta)
     
-    A.prod <- aaply (A.inv, 1, function (Ai) logm(X.sq %*% Ai %*% X.sq))
+    Ti <- aaply(1:m, 1, function(i)
+      {
+        T = U[i, , ] %*% diag(log(V[i, ])) %*% t(U [i, , ])
+        T + t(T) / 2
+      })
+    S = aaply(Ti, c(2, 3), sum)
+    UV.S <- Schur(S)
+    Z <- diag(exp(UV.S $ EValues * theta / 2)) %*% t(UV.S $ Q) %*% X.chol
     
-    A.sum <- aaply (A.prod, c(2, 3), sum)
+    X.next <-t(Z) %*% Z
     
-    X.next <- X.sq %*% expm(- v * A.sum) %*% X.sq
+    ni <- max(abs(UV.S $ EValues))
     
-    dF <- RiemannDist(X, X.next)
-    
-    if(verbose) print(dF)
-    if(dF < tol) break
-    
-    X <- X.next
+    if(ni < frobenius.norm(X.next) * tol || ni > niold)
+      break
+    else
+    {
+      niold <- ni 
+      X <- X.next
+    }
+
   }
   X.next
 }
