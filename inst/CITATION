@@ -1,15 +1,15 @@
-citHeader("To cite EvolQG in publication use:")
+citHeader("To cite evolqg in publication use:")
 
 citEntry(
   entry="article",
-  title="EvolQG - An R package for evolutionary quantitative genetics [version 1; referees: 1 approved, 1 approved with reservations]",
+  title="EvolQG - An R package for evolutionary quantitative genetics [version 3; referees: 2 approved, 1 approved with reservations]",
   author="Diogo Melo and Guilherme Garcia and Alex Hubbe and Ana Paula Assis and Gabriel Marroig",
   journal="F1000Research",
   year=2015,
   volume=4,
   NUMBER = 925,
-  doi = "10.12688/f1000research.7082.1",
-  textVersion="Diogo Melo, Guilherme Garcia, Alex Hubbe, Ana Paula Assis, Gabriel Marroig (2015) EvolQG - An R package for evolutionary quantitative genetics.[version 1; referees: 1 approved, 1 approved with reservations] F1000Research 2015, 4:925 doi: 10.12688/f1000research.7082.1"
+  doi = "10.12688/f1000research.7082.3",
+  textVersion="Diogo Melo, Guilherme Garcia, Alex Hubbe, Ana Paula Assis, Gabriel Marroig (2015) EvolQG - An R package for evolutionary quantitative genetics.[version 3; referees: 2 approved, 1 approved with reservations] F1000Research 2015, 4:925 doi: 10.12688/f1000research.7082.3"
 )
 
 citFooter("Remember to cite EvolQG's version number. Find it with 'help(package=evolqg)'.")
