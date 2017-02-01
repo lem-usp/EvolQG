@@ -70,25 +70,24 @@
 #' @rdname EigenTensorDecomposition 
 #' @export
 #'
-EigenTensorDecomposition <- function (matrices, return.projection = TRUE) UseMethod('EigenTensorDecomposition')
+EigenTensorDecomposition <- function (matrices, return.projection = TRUE, ...) UseMethod('EigenTensorDecomposition')
 
 #' @rdname EigenTensorDecomposition
 #' @method EigenTensorDecomposition list
 #' @export
-EigenTensorDecomposition.list <- function (matrices, return.projection = TRUE)
+EigenTensorDecomposition.list <- function (matrices, return.projection = TRUE, ...)
   {
     list2array <- laply(matrices, function(L) L)
     list2array <- aperm (list2array, c (2, 3, 1))
-    EigenTensorDecomposition(list2array, return.projection)
+    EigenTensorDecomposition(list2array, return.projection, ...)
   }
 
 #' @rdname EigenTensorDecomposition
 #' @method EigenTensorDecomposition default
 #' @export
-EigenTensorDecomposition.default <-
-  function (matrices, return.projection = TRUE)
+EigenTensorDecomposition.default <- function (matrices, return.projection = TRUE, ...)
   {
-    mean.matrix <- MeanMatrix(matrices)
+    mean.matrix <- MeanMatrix(matrices, ...)
     mean.sqrt <- sqrtm(mean.matrix)
     mean.is <- solve(mean.sqrt)
     lce.array <- aaply(matrices, 3, 
