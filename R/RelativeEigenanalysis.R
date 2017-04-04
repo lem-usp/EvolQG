@@ -7,6 +7,7 @@
 #' @param symmetric compute symmetric eigenanalysis?
 #' @return list with two objects: eigenvalues and eigenvectors
 #'
+#' @export
 #' @importFrom expm sqrtm
 #'
 #' 
