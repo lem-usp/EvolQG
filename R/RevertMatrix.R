@@ -75,7 +75,7 @@ RevertMatrix <-
     }
     
     if(scaled)
-      values <- values * etd $ values
+      values <- values * sqrt(etd $ values)
     
     rebuilt <- aaply (1:n.dim, 1, function (i)
       etd $ matrices [, , i] * values [i])
