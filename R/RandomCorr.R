@@ -6,6 +6,7 @@
 #' @param ke Parameter for correlation matrix generation. Involves check for positive defitness
 #' @return Random Matrix
 #' @author Diogo Melo Edgar Zanella
+#' @importFrom stats rbeta
 #' @keywords randommatrices
 RandCorr <- function(num.traits, ke = 10^-3){
   random.corr = array(0., dim = c(num.traits, num.traits))
@@ -44,4 +45,29 @@ RandCorr <- function(num.traits, ke = 10^-3){
   perm = sample(1:num.traits)
   random.corr = (random.corr[perm,])[,perm]
   return (random.corr)
+}
+
+# https://stats.stackexchange.com/questions/2746/how-to-efficiently-generate-random-positive-semidefinite-correlation-matrices/125017
+LKJ = function(num.traits, shape){
+  P = matrix(0, num.traits, num.traits)       
+  random.corr = diag(num.traits)
+
+  for (k in 1:(num.traits-1)){
+    for (i in (k+1):num.traits){
+      P[k,i] = rbeta(1, shape, shape) # sampling from beta
+      P[k,i] = (P[k,i]-0.5)*2         # linearly shifting to [-1, 1]
+      p = P[k,i]
+      for (l in seq((k-1), 1)){       # converting partial correlation to raw correlation
+        if(l != 0)
+          p = p * sqrt((1-P[l,i]^2) * (1-P[l,k]^2)) + P[l,i]*P[l,k]
+      }
+      random.corr[k,i] = p
+      random.corr[i,k] = p
+    }
+  }
+  
+  perm = sample(1:num.traits)
+  random.corr = (random.corr[perm,])[,perm]
+  
+  return(random.corr)
 }
