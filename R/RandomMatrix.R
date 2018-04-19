@@ -9,7 +9,7 @@
 #' @param variance Variance vector. If present will be used in all matrices
 #' @param ke Parameter for correlation matrix generation. Involves check for positive definiteness
 #' @param LKJ logical. Use LKJ distribution for generating correlation matrices. 
-#' @param shape Shape parameter for the LKJ distribution. Values closer to zero lead to higher correlations.
+#' @param shape Shape parameter for the LKJ distribution. Values closer to zero leads to a more uniform distribution correlations. Higher values lead to correlations closer to zero.
 #' @export
 #' @return Returns either a single matrix, or a list of matrices of equal dimension
 #' @author Diogo Melo Edgar Zanella
