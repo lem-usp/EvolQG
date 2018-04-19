@@ -28,7 +28,7 @@
 #' @keywords randommatrices
 RandomMatrix <- function(num.traits, num.matrices = 1, min.var = 1, max.var = 1, variance = NULL, ke = 10^-3, LKJ = FALSE, shape = 2){
     if(LKJ){
-      rcorr = LKJ
+      rcorr = RandLKJ
       param = shape
     } else{
       rcorr = RandCorr

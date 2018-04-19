@@ -48,7 +48,7 @@ RandCorr <- function(num.traits, ke = 10^-3){
 }
 
 # https://stats.stackexchange.com/questions/2746/how-to-efficiently-generate-random-positive-semidefinite-correlation-matrices/125017
-LKJ = function(num.traits, shape){
+RandLKJ = function(num.traits, shape){
   P = matrix(0, num.traits, num.traits)       
   random.corr = diag(num.traits)
 
