@@ -8,6 +8,8 @@
 #' @param max.var Upper value for random variance in covariance matrices
 #' @param variance Variance vector. If present will be used in all matrices
 #' @param ke Parameter for correlation matrix generation. Involves check for positive definiteness
+#' @param LKJ logical. Use LKJ distribution for generating correlation matrices. 
+#' @param shape Shape parameter for the LKJ distribution. Values closer to zero leads to a more uniform distribution correlations. Higher values lead to correlations closer to zero.
 #' @export
 #' @return Returns either a single matrix, or a list of matrices of equal dimension
 #' @author Diogo Melo Edgar Zanella
@@ -24,14 +26,21 @@
 #' #large 10x10 matrix list, with wide range of variances
 #' RandomMatrix(10, 100, 1, 300)
 #' @keywords randommatrices
-RandomMatrix <- function(num.traits, num.matrices = 1, min.var = 1, max.var = 1, variance = NULL, ke = 10^-3){
+RandomMatrix <- function(num.traits, num.matrices = 1, min.var = 1, max.var = 1, variance = NULL, ke = 10^-3, LKJ = TRUE, shape = 2){
+    if(LKJ){
+      rcorr = RandLKJ
+      param = shape
+    } else{
+      rcorr = RandCorr
+      param = ke
+    }
     if(num.matrices==1){
         if(is.null(variance)) variance <- runif(num.traits, min.var, max.var)
-        rand.mat <- RandCorr(num.traits, ke) * sqrt(outer(variance, variance))
+        rand.mat <- rcorr(num.traits, param) * sqrt(outer(variance, variance))
     } else{
         if(is.null(variance)) variance <- matrix(runif(num.matrices*num.traits, min.var, max.var), num.matrices, num.traits)
         else variance <-  matrix(rep(variance, each = num.matrices), num.matrices, num.traits)
-        rand.mat <- lapply(as.list(1:num.matrices), function(x) RandCorr(num.traits, ke) * sqrt(outer(variance[x,], variance[x,])))
+        rand.mat <- lapply(as.list(1:num.matrices), function(x) rcorr(num.traits, param) * sqrt(outer(variance[x,], variance[x,])))
     }
     return(rand.mat)
 }
