@@ -264,8 +264,8 @@ test_that("KrzCor returns correct results on lists + matrices",
 test_that("KrzProjection returns correct results on matrices",
           {
             set.seed(17)
-            cov.matrix.1 <- RandomMatrix(10)
-            cov.matrix.2 <- RandomMatrix(10)
+            cov.matrix.1 <- RandomMatrix(10, LKJ = FALSE)
+            cov.matrix.2 <- RandomMatrix(10, LKJ = FALSE)
             expect_that(KrzProjection(cov.matrix.1, cov.matrix.2), is_a("list"))
             expect_that(length(KrzProjection(cov.matrix.1, cov.matrix.2)), equals(2))
             expect_that(length(KrzProjection(cov.matrix.1,
@@ -293,7 +293,7 @@ test_that("KrzProjection returns correct results on matrices",
 test_that("KrzProjection returns correct results on lists",
           {
             set.seed(170)
-            mat.list <- RandomMatrix(10, 10)
+            mat.list <- RandomMatrix(10, 10, LKJ = FALSE)
             expect_that(dim(KrzProjection(mat.list)), equals(c(length(mat.list), length(mat.list))))
             expect_that(KrzProjection(mat.list)[1,2], equals(KrzProjection(mat.list[[1]], mat.list[[2]])[[1]]))
             expect_that(KrzProjection(mat.list)[2,1], equals(KrzProjection(mat.list[[2]], mat.list[[1]])[[1]]))

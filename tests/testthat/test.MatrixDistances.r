@@ -1,5 +1,6 @@
 test_that("Matrix Reimann Distance",
 {
+  set.seed(10)
   cor.matrix.1 <- RandomMatrix(10, LKJ = FALSE)
   cor.matrix.2 <- RandomMatrix(10, LKJ = FALSE)
   results <- RiemannDist(cor.matrix.1, cor.matrix.2)
@@ -25,3 +26,4 @@ test_that("Matrix Distribution Overlap Distance",
   expect_that(results_ident, equals(0))
 }
 )
+

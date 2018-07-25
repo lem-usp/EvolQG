@@ -49,5 +49,5 @@ DeltaZCorr.default <- function (cov.x, cov.y, skewers, ...) {
 DeltaZCorr.list <- function (cov.x, cov.y = NULL, skewers, parallel = FALSE, ...)
 {
   stop("not implemented")
-  return(output)
+  return(0)
 }

@@ -1,5 +1,6 @@
 test_that("TestModularity returns correct results",
           {
+            set.seed(43)
             cor.matrix <- RandomMatrix(10)
             rand.hipots <- matrix(sample(c(1, 0), 30, replace=T), 10, 3)
             hip.array <- CreateHypotMatrix(rand.hipots)
@@ -18,6 +19,7 @@ test_that("TestModularity returns correct results",
 
 test_that("TestModularity returns correct results for Modularity Hypothesis Index",
           {
+            set.seed(43)
             cov.matrix <- RemoveSize(RandomMatrix(11))
             rand.hipots <- matrix(sample(c(1, 0), 33, replace=T), 11, 3)
             hip.array <- CreateHypotMatrix(rand.hipots)
@@ -39,9 +41,10 @@ test_that("MantelModTest returns correct results for Modularity Hypothesis Index
             cor.hypot = CreateHypotMatrix(hypot)
             
             # First with an unstructured matrix:
-            expect = structure(c(-0.0393920752173474, 0.556443556443556, -0.0596580385711818,-0.0271784073214975, -0.0152190742701558), .Names = c("Rsquared", "Probability", "AVG+", "AVG-", "MHI")) 
+            expect = c(Rsquared = -0.039392075217348, Probability = 0.556443556443556, 
+                       `AVG+` = -0.0596580385711823, `AVG-` = -0.0271784073214975, MHI = -0.015219074270156)
             set.seed(42)
-            un.cor = RandomMatrix(12)
+            un.cor = RandomMatrix(12, LKJ = FALSE)
             result = MantelModTest(cor.hypot, RemoveSize(un.cor), MHI = TRUE)
             expect_equal(result, expect)
             
@@ -69,7 +72,7 @@ test_that("MantelModTest returns correct results for non-landmark data",
             # First with an unstructured matrix:
             expect = structure(c(0.0810901974853795, 0.275724275724276, 0.158055575956429, 0.061087664745461, 2.587356655636), .Names = c("Rsquared", "Probability", "AVG+", "AVG-", "AVG Ratio")) 
             set.seed(42)
-            un.cor = RandomMatrix(12)
+            un.cor = RandomMatrix(12, LKJ = FALSE)
             result = MantelModTest(cor.hypot, un.cor)
             expect_equal(result, expect)
             
@@ -95,7 +98,7 @@ test_that("MantelModTest returns correct results for landmark data",
             # First with an unstructured matrix:
             expect = structure(c(0.112390456689369, 0.259, 0.209791381269483, 0.0703378394237725, 2.98262475771438, -0.0679013877016532), .Names = c("Rsquared", "Probability", "AVG+", "AVG-", "AVG Ratio", "AVG within landmark"))
             set.seed(42)
-            un.cor = RandomMatrix(12)
+            un.cor = RandomMatrix(12, LKJ = FALSE)
             result = MantelModTest(cor.hypot, un.cor, landmark.dim = 2)
             expect_equal(result, expect)
             
