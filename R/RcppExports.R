@@ -5,3 +5,7 @@ RS <- function(x, y, num_vectors) {
     .Call('_evolqg_RS', PACKAGE = 'evolqg', x, y, num_vectors)
 }
 
+delta_z_corr <- function(x, y, num_vectors, random_vectors) {
+    .Call('_evolqg_delta_z_corr', PACKAGE = 'evolqg', x, y, num_vectors, random_vectors)
+}
+
