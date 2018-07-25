@@ -2,7 +2,7 @@ Package: evolqg
 Type: Package
 Title: Tools for Evolutionary Quantitative Genetics
 Version: 0.2-6
-Date: 2017-02-02
+Date: 2018-06-06
 Author: Ana Paula Assis, Diogo Melo, Edgar Zanella, Fabio Machado, Guilherme
     Garcia
 Maintainer: Diogo Melo <diogro@usp.br>
