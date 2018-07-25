@@ -39,6 +39,18 @@ arma::mat RS(arma::mat x, arma::mat y, int num_vectors) {
   return out;
 }
 
+// [[Rcpp::export]]
+arma::vec delta_z_corr(arma::mat x, arma::mat y, int num_vectors, arma::mat random_vectors) {
+  int traits = x.n_cols, k;
+  arma::vec comparisons(num_vectors);
+  arma::mat dz_x = x * random_vectors;
+  arma::mat dz_y = y * random_vectors;
+  for(k = 0; k < num_vectors; ++k){
+    comparisons(k) = arma::norm_dot(dz_x.col(k), dz_y.col(k));
+  }
+  return comparisons;
+}
+
 // You can include R code blocks in C++ files processed with sourceCpp
 // (useful for testing and development). The R code will be automatically 
 // run after the compilation.

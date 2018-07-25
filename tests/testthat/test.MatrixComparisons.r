@@ -1,6 +1,7 @@
 test_that("RandomSkewers returns correct results on pairs of matrices",
           {
-            expect = structure(c(0.319773091554383, 0.163, 0.226356843718641), .Names = c("correlation","probability", "correlation_sd"))
+            expect = c(correlation = 0.459348127986196, probability = 0.071, correlation_sd = 0.200220805057194
+            )
             set.seed(42)
             cor.matrix.1 <- RandomMatrix(10)
             cor.matrix.2 <- RandomMatrix(10)
@@ -262,8 +263,9 @@ test_that("KrzCor returns correct results on lists + matrices",
 
 test_that("KrzProjection returns correct results on matrices",
           {
-            cov.matrix.1 <- RandomMatrix(10)
-            cov.matrix.2 <- RandomMatrix(10)
+            set.seed(17)
+            cov.matrix.1 <- RandomMatrix(10, LKJ = FALSE)
+            cov.matrix.2 <- RandomMatrix(10, LKJ = FALSE)
             expect_that(KrzProjection(cov.matrix.1, cov.matrix.2), is_a("list"))
             expect_that(length(KrzProjection(cov.matrix.1, cov.matrix.2)), equals(2))
             expect_that(length(KrzProjection(cov.matrix.1,
@@ -290,7 +292,8 @@ test_that("KrzProjection returns correct results on matrices",
 
 test_that("KrzProjection returns correct results on lists",
           {
-            mat.list <- RandomMatrix(10, 10)
+            set.seed(170)
+            mat.list <- RandomMatrix(10, 10, LKJ = FALSE)
             expect_that(dim(KrzProjection(mat.list)), equals(c(length(mat.list), length(mat.list))))
             expect_that(KrzProjection(mat.list)[1,2], equals(KrzProjection(mat.list[[1]], mat.list[[2]])[[1]]))
             expect_that(KrzProjection(mat.list)[2,1], equals(KrzProjection(mat.list[[2]], mat.list[[1]])[[1]]))

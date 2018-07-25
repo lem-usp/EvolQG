@@ -1,5 +1,6 @@
 test_that("ExtendMatrix returns correct results",
           {
+              set.seed(43)
               cov.matrix = RandomMatrix(11)
               ret.dim = sample(2:11, 1)
               ext.matrix = ExtendMatrix(cov.matrix, ret.dim = ret.dim)

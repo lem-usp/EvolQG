@@ -5,7 +5,7 @@
 \title{Random matrices for tests}
 \usage{
 RandomMatrix(num.traits, num.matrices = 1, min.var = 1, max.var = 1,
-  variance = NULL, ke = 10^-3)
+  variance = NULL, ke = 10^-3, LKJ = TRUE, shape = 2)
 }
 \arguments{
 \item{num.traits}{Number of traits in random matrix}
@@ -19,6 +19,10 @@ RandomMatrix(num.traits, num.matrices = 1, min.var = 1, max.var = 1,
 \item{variance}{Variance vector. If present will be used in all matrices}
 
 \item{ke}{Parameter for correlation matrix generation. Involves check for positive definiteness}
+
+\item{LKJ}{logical. Use LKJ distribution for generating correlation matrices.}
+
+\item{shape}{Shape parameter for the LKJ distribution. Values closer to zero leads to a more uniform distribution correlations. Higher values lead to correlations closer to zero.}
 }
 \value{
 Returns either a single matrix, or a list of matrices of equal dimension
