@@ -8,11 +8,11 @@
 \usage{
 EigenTensorDecomposition(matrices, return.projection = TRUE, ...)
 
-\method{EigenTensorDecomposition}{list}(matrices, return.projection = TRUE,
-  ...)
+\method{EigenTensorDecomposition}{list}(matrices,
+  return.projection = TRUE, ...)
 
-\method{EigenTensorDecomposition}{default}(matrices, return.projection = TRUE,
-  ...)
+\method{EigenTensorDecomposition}{default}(matrices,
+  return.projection = TRUE, ...)
 }
 \arguments{
 \item{matrices}{k x k x m array of m covariance matrices with k traits;}
