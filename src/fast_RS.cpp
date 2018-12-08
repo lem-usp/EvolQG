@@ -4,17 +4,6 @@
 using namespace Rcpp;
 using namespace arma;
 
-
-// This is a simple example of exporting a C++ function to R. You can
-// source this function into an R session using the Rcpp::sourceCpp 
-// function (or via the Source button on the editor toolbar). Learn
-// more about Rcpp at:
-//
-//   http://www.rcpp.org/
-//   http://adv-r.had.co.nz/Rcpp.html
-//   http://gallery.rcpp.org/
-//
-
 // [[Rcpp::export]]
 arma::mat RS(arma::mat x, arma::mat y, int num_vectors) {
   int traits = x.n_cols, k;
@@ -50,21 +39,3 @@ arma::vec delta_z_corr(arma::mat x, arma::mat y, int num_vectors, arma::mat rand
   }
   return comparisons;
 }
-
-// You can include R code blocks in C++ files processed with sourceCpp
-// (useful for testing and development). The R code will be automatically 
-// run after the compilation.
-//
-
-/*** R
-library(evolqg)
-library(microbenchmark)
-x = RandomMatrix(100)
-y = RandomMatrix(100)
-RS(x, y, 1000)
-RandomSkewers(x, y)
-microbenchmark(
-  rsarma = RS(x, y, 1000),
-  rsR = RandomSkewers(x, y)
-)
-*/

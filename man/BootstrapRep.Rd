@@ -5,7 +5,8 @@
 \title{Bootstrap analysis via resampling}
 \usage{
 BootstrapRep(ind.data, ComparisonFunc, iterations = 1000,
-  sample.size = dim(ind.data)[1], correlation = FALSE, parallel = FALSE)
+  sample.size = dim(ind.data)[1], correlation = FALSE,
+  parallel = FALSE)
 }
 \arguments{
 \item{ind.data}{Matrix of residuals or indiviual measurments}
