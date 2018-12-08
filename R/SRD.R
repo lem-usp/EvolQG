@@ -64,6 +64,7 @@ SRD <- function (cov.x, cov.y, ...) UseMethod("SRD")
 #' @export
 SRD.default <- function (cov.x, cov.y, iterations = 1000, ...) {
   size <- dim (cov.x)[1]
+  if(iterations < size) stop("Iterations must be larger than number of traits")
   r2s <- array (0, c(size,iterations))
   beta <- apply (array (rnorm (size*iterations, mean = 0, sd = 1),c(size,iterations)),2, Normalize)
   for (I in 1:iterations){
