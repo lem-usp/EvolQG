@@ -121,7 +121,7 @@ SRD.list <- function (cov.x, cov.y = NULL, iterations = 1000, parallel = FALSE, 
   if(is.null(names(cov.x))) {names(cov.x) <- 1:n.matrix}
   matrix.names <- names (cov.x)
   CompareToN <- function(n) llply(cov.x[(n+1):n.matrix],
-                                  function(x) {SRD(x, cov.x[[n]])},
+                                  function(x) {SRD(x, cov.x[[n]], iterations = iterations)},
                                   .parallel = parallel)
   comparisons <- alply(1:(n.matrix-1), 1,  CompareToN, .parallel = parallel)
   corrs <- array(list(), c(n.matrix, n.matrix))
