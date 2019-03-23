@@ -35,7 +35,7 @@ RandCorr <- function(num.traits, ke = 10^-3){
         } else {
           b[i, j] = b[i, j]*cosinv
           sinTheta = sqrt(1 - cosinv^2)
-          b[i, (j+1):num.traits] = b[i, (j+1):num.traits]*sinTheta
+          b[i, (j+1):num.traits] = b[i, (j+1):num.traits]* c(sinTheta)
         }
       }
     }
