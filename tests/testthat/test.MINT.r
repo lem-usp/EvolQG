@@ -6,6 +6,7 @@ test_that("MINT returns correct results",{
   cor.hypot = CreateHypotMatrix(modules)[[4]]
   hypot.mask = matrix(as.logical(cor.hypot), 15, 15)
   mod.cor = matrix(NA, 15, 15)
+  suppressWarnings(RNGversion("3.5.0"))
   set.seed(42)
   mod.cor[ hypot.mask] = runif(length(mod.cor[ hypot.mask]), 0.8, 0.9) # within-modules
   mod.cor[!hypot.mask] = runif(length(mod.cor[!hypot.mask]), 0.3, 0.4) # between-modules

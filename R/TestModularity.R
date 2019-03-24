@@ -26,7 +26,8 @@
 #' nosize.cov.mod.test <- TestModularity(RemoveSize(cov.matrix), rand.hypots, MHI = TRUE)
 #' @keywords mantel
 #' @keywords modularity
-TestModularity <- function (cor.matrix, modularity.hypot, permutations = 1000, MHI = FALSE, ...,
+TestModularity <- function (cor.matrix, modularity.hypot, 
+                            permutations = 1000, MHI = FALSE, ...,
                             landmark.dim = NULL, withinLandmark = FALSE) {
   if(is.null(dim(modularity.hypot))){
     return(MantelModTest(CreateHypotMatrix(modularity.hypot), cor.matrix, 
@@ -38,7 +39,8 @@ TestModularity <- function (cor.matrix, modularity.hypot, permutations = 1000, M
     if(is.null(colnames(modularity.hypot))) colnames(modularity.hypot) <- 1:dim (modularity.hypot) [2]
     names(m.hyp.list) <- c(colnames(modularity.hypot),"Full Integration")
   }
-  output <- MantelModTest(m.hyp.list, cor.matrix, permutations = permutations, MHI = MHI, 
+  output <- MantelModTest(m.hyp.list, cor.matrix, 
+                          permutations = permutations, MHI = MHI, 
                           landmark.dim = landmark.dim, withinLandmark = withinLandmark, ...)
   names(output)[1] <- 'hypothesis'
   return (output)

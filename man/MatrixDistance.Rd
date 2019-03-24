@@ -8,8 +8,8 @@
 \usage{
 MatrixDistance(cov.x, cov.y, distance, ...)
 
-\method{MatrixDistance}{default}(cov.x, cov.y, distance = c("OverlapDist",
-  "RiemannDist"), ...)
+\method{MatrixDistance}{default}(cov.x, cov.y,
+  distance = c("OverlapDist", "RiemannDist"), ...)
 
 \method{MatrixDistance}{list}(cov.x, cov.y = NULL,
   distance = c("OverlapDist", "RiemannDist"), ..., parallel = FALSE)

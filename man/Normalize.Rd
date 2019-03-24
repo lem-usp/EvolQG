@@ -3,7 +3,6 @@
 \name{Normalize}
 \alias{Normalize}
 \alias{Norm}
-\alias{Norm}
 \title{Normalize and Norm}
 \usage{
 Normalize(x)

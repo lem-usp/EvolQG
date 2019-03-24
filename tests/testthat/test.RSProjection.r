@@ -49,8 +49,10 @@ test_that("RSProjection returns correct results",
                                  variance = runif(6, 1, 10)), 
                     identity)), 
               c(3, 4, 1, 2))
+            suppressWarnings(RNGversion("3.5.0"))
             set.seed(42)
             rs_proj = RSProjection(cov.matrices, p = 0.8)  
+            suppressWarnings(RNGversion("3.5.0"))
             set.seed(42)
             rs_proj_bench = rs_benchmark_aguirre(cov.matrices, p = 0.8) 
             expect_that(rs_proj, is_equivalent_to(rs_proj_bench))

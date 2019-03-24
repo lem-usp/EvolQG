@@ -25,6 +25,7 @@ Community detection is done by transforming the correlation matrix into a weight
 If negative correlations are present, the square of the correlation matrix is used as weights.
 }
 \examples{
+\dontrun{
 # A modular matrix:
 modules = matrix(c(rep(c(1, 0, 0), each = 5),
 rep(c(0, 1, 0), each = 5),
@@ -37,7 +38,8 @@ mod.cor[!hypot.mask] = runif(length(mod.cor[!hypot.mask]), 0.3, 0.4) # between-m
 diag(mod.cor) = 1
 mod.cor = (mod.cor + t(mod.cor))/2 # correlation matrices should be symmetric
 
-LModularity(mod.cor)
+# requires a custom igraph installation with GLPK installed in the system
+LModularity(mod.cor)}
 }
 \references{
 Modularity and community structure in networks (2006) M. E. J. Newman,  8577-8582, doi: 10.1073/pnas.0601602103

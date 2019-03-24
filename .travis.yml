@@ -6,6 +6,7 @@ r:
 
 r_github_packages:
   - jimhester/covr
+  - igraph/rigraph
 
 after_success:
   - Rscript -e 'covr::coveralls()'

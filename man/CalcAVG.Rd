@@ -4,7 +4,7 @@
 \alias{CalcAVG}
 \title{Calculates mean correlations within- and between-modules}
 \usage{
-CalcAVG(cor.hypothesis, cor.matrix, MHI = FALSE, landmark.dim = NULL)
+CalcAVG(cor.hypothesis, cor.matrix, MHI = TRUE, landmark.dim = NULL)
 }
 \arguments{
 \item{cor.hypothesis}{Hypothetical correlation matrix, with 1s within-modules and 0s between modules}
@@ -19,15 +19,15 @@ CalcAVG(cor.hypothesis, cor.matrix, MHI = FALSE, landmark.dim = NULL)
 a named vector with the mean correlations and derived statistics
 }
 \description{
-Uses a binary correlation matrix as a mask to calculate average whitin- and between-module 
-correlations. Also calculates the ratio between them and the Modularity Hypothesis Index
+Uses a binary correlation matrix as a mask to calculate average whitin- and between-module
+correlations. Also calculates the ratio between them and the Modularity Hypothesis Index.
 }
 \examples{
 # Module vectors
 modules = matrix(c(rep(c(1, 0, 0), each = 5),
                    rep(c(0, 1, 0), each = 5),
                    rep(c(0, 0, 1), each = 5)), 15)
-                   
+
 # Binary modular matrix
 cor.hypot = CreateHypotMatrix(modules)[[4]]
 

@@ -64,6 +64,7 @@ SRD <- function (cov.x, cov.y, ...) UseMethod("SRD")
 #' @export
 SRD.default <- function (cov.x, cov.y, iterations = 1000, ...) {
   size <- dim (cov.x)[1]
+  if(iterations < size) stop("Iterations must be larger than number of traits")
   r2s <- array (0, c(size,iterations))
   beta <- apply (array (rnorm (size*iterations, mean = 0, sd = 1),c(size,iterations)),2, Normalize)
   for (I in 1:iterations){
@@ -121,7 +122,7 @@ SRD.list <- function (cov.x, cov.y = NULL, iterations = 1000, parallel = FALSE, 
   if(is.null(names(cov.x))) {names(cov.x) <- 1:n.matrix}
   matrix.names <- names (cov.x)
   CompareToN <- function(n) llply(cov.x[(n+1):n.matrix],
-                                  function(x) {SRD(x, cov.x[[n]])},
+                                  function(x) {SRD(x, cov.x[[n]], iterations = iterations)},
                                   .parallel = parallel)
   comparisons <- alply(1:(n.matrix-1), 1,  CompareToN, .parallel = parallel)
   corrs <- array(list(), c(n.matrix, n.matrix))
