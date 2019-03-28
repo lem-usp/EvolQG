@@ -47,7 +47,15 @@ DeltaZCorr.default <- function (cov.x, cov.y, skewers, ...) {
 #' @method DeltaZCorr list
 #' @export
 DeltaZCorr.list <- function (cov.x, cov.y = NULL, skewers, parallel = FALSE, ...)
-{
-  stop("not implemented")
-  return(0)
-}
+  {
+    if (is.null (cov.y)) {
+      output <- ComparisonMap(cov.x,
+                              function(x, y) c(DeltaZCorr(x, y, skewers), NA),
+                              parallel = parallel)
+    } else{
+      output <- SingleComparisonMap(cov.x, cov.y,
+                                    function(x, y) c(DeltaZCorr(x, y, skewers), NA),
+                                    parallel = parallel)
+    }
+    return(output)
+  }
