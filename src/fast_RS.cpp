@@ -9,7 +9,7 @@ arma::mat RS(arma::mat x, arma::mat y, int num_vectors) {
   int traits = x.n_cols, k;
   arma::vec comparisons(num_vectors);
   arma::vec null_dist(num_vectors);
-  arma::vec base_vector = rnorm(traits);
+  arma::vec base_vector = arma::randn(traits, 1);
   arma::vec out(3);
   arma::mat random_vectors = arma::randn(traits, num_vectors);
   arma::mat dz_x = x * random_vectors;
@@ -30,7 +30,7 @@ arma::mat RS(arma::mat x, arma::mat y, int num_vectors) {
 
 // [[Rcpp::export]]
 arma::vec delta_z_corr(arma::mat x, arma::mat y, int num_vectors, arma::mat random_vectors) {
-  int traits = x.n_cols, k;
+  int k;
   arma::vec comparisons(num_vectors);
   arma::mat dz_x = x * random_vectors;
   arma::mat dz_y = y * random_vectors;
