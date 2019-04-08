@@ -1,4 +1,5 @@
 test_that("LModularity resturn resonable results",{
+  skip_on_cran()
   modules = matrix(c(rep(c(1, 0, 0), each = 5),
                      rep(c(0, 1, 0), each = 5),
                      rep(c(0, 0, 1), each = 5)), 15)

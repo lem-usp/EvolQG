@@ -1,5 +1,6 @@
 test_that("Matrix Reimann Distance",
 {
+  suppressWarnings(RNGversion("3.5.0"))
   set.seed(10)
   cor.matrix.1 <- RandomMatrix(10, LKJ = FALSE)
   cor.matrix.2 <- RandomMatrix(10, LKJ = FALSE)

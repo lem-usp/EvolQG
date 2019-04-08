@@ -1,7 +1,7 @@
 test_that("RandomSkewers returns correct results on pairs of matrices",
           {
-            expect = c(correlation = 0.459348127986196, probability = 0.071, correlation_sd = 0.200220805057194
-            )
+            expect = c(correlation = 0.467176602043229, probability = 0.068, correlation_sd = 0.185469594605008)
+            suppressWarnings(RNGversion("3.5.0"))
             set.seed(42)
             cor.matrix.1 <- RandomMatrix(10)
             cor.matrix.2 <- RandomMatrix(10)
@@ -21,6 +21,7 @@ test_that("RandomSkewers returns correct results on lists",
           {
             mat.list <- lapply(as.list(1:10), function(x) RandomMatrix(10))
             rep.vec <- runif(length(mat.list), 0.8, 0.9)
+            suppressWarnings(RNGversion("3.5.0"))
             set.seed(42)
             results.list <- RandomSkewers(mat.list)
             expect_that(results.list, is_a("list"))
@@ -29,6 +30,7 @@ test_that("RandomSkewers returns correct results on lists",
             probabilities <- results.list[[2]]
             expect_that(sum(is.na(probabilities)), equals(0))
             expect_that(results.list, is_a("list"))
+            suppressWarnings(RNGversion("3.5.0"))
             set.seed(42)
             results.list.2 <- RandomSkewers(mat.list, repeat.vector = rep.vec)
             results.2 <- results.list.2[[1]]
@@ -53,6 +55,7 @@ test_that("RandomSkewers returns correct results on lists + matrices",
           {
             mat.list <- lapply(as.list(1:10), function(x) RandomMatrix(10))
             y.matrix <- RandomMatrix(10)
+            suppressWarnings(RNGversion("3.5.0"))
             set.seed(42)
             results <- RandomSkewers(mat.list, y.matrix)
             expect_that(results, is_a("data.frame"))
@@ -165,8 +168,10 @@ test_that("MantelCor returns correct results on lists + matrices",
           {
             mat.list <- lapply(as.list(1:10), function(x) RandomMatrix(11))
             y.matrix <- RandomMatrix(11)
+            suppressWarnings(RNGversion("3.5.0"))
             set.seed(42)
             results <- MantelCor(mat.list, y.matrix)
+            suppressWarnings(RNGversion("3.5.0"))
             set.seed(42)
             expect_equivalent(results[1,], MantelCor(y.matrix, mat.list[[1]]))
             expect_that(results, is_a("data.frame"))
@@ -185,8 +190,10 @@ test_that("MantelCor returns correct results on lists + matrices for landmark da
           {
             mat.list <- lapply(as.list(1:10), function(x) RandomMatrix(12))
             y.matrix <- RandomMatrix(12)
+            suppressWarnings(RNGversion("3.5.0"))
             set.seed(42)
             results <- MantelCor(mat.list, y.matrix, landmark.dim = 2)
+            suppressWarnings(RNGversion("3.5.0"))
             set.seed(42)
             expect_equivalent(results[1,], MantelCor(y.matrix, mat.list[[1]], landmark.dim = 2))
             expect_that(results, is_a("data.frame"))
@@ -263,6 +270,7 @@ test_that("KrzCor returns correct results on lists + matrices",
 
 test_that("KrzProjection returns correct results on matrices",
           {
+            suppressWarnings(RNGversion("3.5.0"))
             set.seed(17)
             cov.matrix.1 <- RandomMatrix(10, LKJ = FALSE)
             cov.matrix.2 <- RandomMatrix(10, LKJ = FALSE)
@@ -292,6 +300,7 @@ test_that("KrzProjection returns correct results on matrices",
 
 test_that("KrzProjection returns correct results on lists",
           {
+            suppressWarnings(RNGversion("3.5.0"))
             set.seed(170)
             mat.list <- RandomMatrix(10, 10, LKJ = FALSE)
             expect_that(dim(KrzProjection(mat.list)), equals(c(length(mat.list), length(mat.list))))

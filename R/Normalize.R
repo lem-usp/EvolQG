@@ -1,6 +1,6 @@
 #' Normalize and Norm
 #'
-#' Norm returns the euclidian norm of a vector, normalze returns a vector with unit norm.
+#' Norm returns the euclidian norm of a vector, Normalize returns a vector with unit norm.
 #' @aliases Norm
 #' @param  x Numeric vector
 #' @return Normalized vector or inpout vector norm.

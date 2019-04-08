@@ -79,6 +79,7 @@ test_that("Respondability returns correct result",
 
 test_that("MeanMatrixStatistics returns correct results",
           {
+            suppressWarnings(RNGversion("3.5.0"))
             set.seed(42)
             iris.stats <- MeanMatrixStatistics(cov(iris[,1:4]))
             test.values <- read.table("iris.stats")

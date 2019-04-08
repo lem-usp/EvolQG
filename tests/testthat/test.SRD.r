@@ -29,8 +29,10 @@ test_that("SRD returns correct results",
 test_that("SRD returns correct results on lists",
           {
             m.list <- RandomMatrix(10, 4)
+            suppressWarnings(RNGversion("3.5.0"))
             set.seed(42)
             srd.all <- SRD(m.list)
+            suppressWarnings(RNGversion("3.5.0"))
             set.seed(42)
             one.and.two  <- srd.all[1, 2][[1]]
             one.and.two.default <- SRD(m.list[[1]], m.list[[2]])
