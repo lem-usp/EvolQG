@@ -43,8 +43,8 @@ test_that("MantelModTest returns correct results for Modularity Hypothesis Index
             cor.hypot = CreateHypotMatrix(hypot)
             
             # First with an unstructured matrix:
-            expect = c(Rsquared = -0.039392075217348, Probability = 0.556443556443556, 
-                       `AVG+` = -0.0596580385711823, `AVG-` = -0.0271784073214975, MHI = -0.015219074270156)
+            expect = c(Rsquared = -0.0393920752173473, Probability = 0.556443556443556, 
+                       `AVG+` = -0.0596580385711816, `AVG-` = -0.0271784073214974, MHI = -0.059875638444472)
             suppressWarnings(RNGversion("3.5.0"))
             set.seed(42)
             un.cor = RandomMatrix(12, LKJ = FALSE)
@@ -52,7 +52,8 @@ test_that("MantelModTest returns correct results for Modularity Hypothesis Index
             expect_equal(result, expect)
             
             # Now with a modular matrix:
-            expect = structure(c(1, 0.001998001998002, 0.8, 0.3, 0.311286403182345), .Names = c("Rsquared", "Probability", "AVG+", "AVG-", "MHI"))
+            expect = c(Rsquared = 1, Probability = 0.001998001998002, `AVG+` = 0.8, 
+                       `AVG-` = 0.3, MHI = 1.07832773203438)
             suppressWarnings(RNGversion("3.5.0"))
             set.seed(42)
             hypot.mask = matrix(as.logical(cor.hypot), 12, 12)
@@ -92,6 +93,7 @@ test_that("MantelModTest returns correct results for non-landmark data",
             diag(mod.cor) = 1
             result = MantelModTest(cor.hypot, mod.cor)
             expect_equal(result, expect)
+            result = MantelModTest(cor.hypot, mod.cor, MHI = TRUE)
             expect_equal(CalcAVG(cor.hypot, mod.cor), result[3:5])
           })
 
@@ -119,7 +121,7 @@ test_that("MantelModTest returns correct results for landmark data",
             diag(mod.cor) = 1
             result = MantelModTest(cor.hypot, mod.cor, landmark.dim = 2)
             expect_equal(result, expect)
-            expect_equal(CalcAVG(cor.hypot, mod.cor, landmark.dim = 2), result[3:6])
+            expect_equal(CalcAVG(cor.hypot, mod.cor, landmark.dim = 2, MHI = FALSE), result[3:6])
             
             mod.cor = matrix(NA, 12, 12)
             mod.cor[ hypot.mask] = 0.8 # within-modules
@@ -128,7 +130,7 @@ test_that("MantelModTest returns correct results for landmark data",
             diag(mod.cor) = 1
             result = MantelModTest(cor.hypot, mod.cor, landmark.dim = 3)
             expect_equal(result, expect)
-            expect_equal(CalcAVG(cor.hypot, mod.cor, landmark.dim = 3), result[3:6])
+            expect_equal(CalcAVG(cor.hypot, mod.cor, landmark.dim = 3, MHI = FALSE), result[3:6])
             })
 
 test_that("MantelModTest trows errors",
