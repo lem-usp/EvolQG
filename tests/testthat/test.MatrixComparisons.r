@@ -1,7 +1,6 @@
 test_that("RandomSkewers returns correct results on pairs of matrices",
           {
-            expect = c(correlation = 0.459348127986196, probability = 0.071, correlation_sd = 0.200220805057194
-            )
+            expect = c(correlation = 0.467176602043229, probability = 0.068, correlation_sd = 0.185469594605008)
             suppressWarnings(RNGversion("3.5.0"))
             set.seed(42)
             cor.matrix.1 <- RandomMatrix(10)
