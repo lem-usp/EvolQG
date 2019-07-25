@@ -17,6 +17,6 @@ if modularity.hypot[i,j] == 1, trait i is in module j.
 Takes a vetor describing a trait partition and returns a binary matrix of the partitions where each line represents a trait and each column a module. In the output matrix, if modularity.hypot[i,j] == 1, trait i is in module j.
 }
 \examples{
-x = sample(c(1, 2, 3), 10, replace = T)
+x = sample(c(1, 2, 3), 10, replace = TRUE)
 Partition2HypotMatrix(x) 
 }

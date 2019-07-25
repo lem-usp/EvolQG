@@ -54,7 +54,7 @@ CombineHypot <- function(modularity.hypot){
 #' if modularity.hypot[i,j] == 1, trait i is in module j.
 #' @export
 #' @examples
-#' x = sample(c(1, 2, 3), 10, replace = T)
+#' x = sample(c(1, 2, 3), 10, replace = TRUE)
 #' Partition2HypotMatrix(x) 
 Partition2HypotMatrix <- function(x){
   sapply(unique(x), function(i) as.numeric(x == i))  
