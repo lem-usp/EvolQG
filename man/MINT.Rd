@@ -34,7 +34,7 @@ if modularity.hypot[i,j] == 1, trait i is in module j.}
 \description{
 Combines and compares many modularity hypothesis to a covariance matrix. Comparison values are
 ajusted to the number os zeros in the hypothesis using a linear regression. Best hypothesis can
-be assed using a jackknife procedure.
+be assessed using a jack-knife procedure.
 }
 \note{
 Hypothesis can be named as column names, and these will be used to make labels in the 
