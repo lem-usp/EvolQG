@@ -32,7 +32,7 @@ test_that("TestModularity returns correct results for Modularity Hypothesis Inde
                                                      "Probability", "AVG+", "AVG-", "MHI")))
             expect_true(all(mod.test[1:4, 2:5] >= -1))
             expect_true(all(mod.test[1:4, 2:5] <= 1))
-            expect_that((mod.test[,4] - mod.test[,5])/CalcEigenSd(cov.matrix), equals(mod.test[,6]))
+            expect_that((mod.test[,4] - mod.test[,5])/CalcEigenVar(cov.matrix,sd = TRUE, rel = FALSE), equals(mod.test[,6]))
           }
 )
 
@@ -44,7 +44,7 @@ test_that("MantelModTest returns correct results for Modularity Hypothesis Index
             
             # First with an unstructured matrix:
             expect = c(Rsquared = -0.0393920752173473, Probability = 0.556443556443556, 
-                       `AVG+` = -0.0596580385711816, `AVG-` = -0.0271784073214974, MHI = -0.059875638444472)
+                       `AVG+` = -0.0596580385711816, `AVG-` = -0.0271784073214974, MHI = -0.02718047)
             suppressWarnings(RNGversion("3.5.0"))
             set.seed(42)
             un.cor = RandomMatrix(12, LKJ = FALSE)
@@ -53,7 +53,7 @@ test_that("MantelModTest returns correct results for Modularity Hypothesis Index
             
             # Now with a modular matrix:
             expect = c(Rsquared = 1, Probability = 0.001998001998002, `AVG+` = 0.8, 
-                       `AVG-` = 0.3, MHI = 1.07832773203438)
+                       `AVG-` = 0.3, MHI = 0.325128044)
             suppressWarnings(RNGversion("3.5.0"))
             set.seed(42)
             hypot.mask = matrix(as.logical(cor.hypot), 12, 12)
@@ -91,8 +91,10 @@ test_that("MantelModTest returns correct results for non-landmark data",
             mod.cor[ hypot.mask] = runif(length(mod.cor[ hypot.mask]), 0.8, 0.9) # within-modules
             mod.cor[!hypot.mask] = runif(length(mod.cor[!hypot.mask]), 0.3, 0.4) # between-modules
             diag(mod.cor) = 1
+            
             result = MantelModTest(cor.hypot, mod.cor)
             expect_equal(result, expect)
+            mod.cor<-(mod.cor+t(mod.cor))/2
             result = MantelModTest(cor.hypot, mod.cor, MHI = TRUE)
             expect_equal(CalcAVG(cor.hypot, mod.cor), result[3:5])
           })

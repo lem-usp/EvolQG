@@ -3,7 +3,7 @@ Type: Package
 Title: Tools for Evolutionary Quantitative Genetics
 Version: 0.2-6
 Date: 2019-04-08
-Author: Ana Paula Assis, Diogo Melo, Edgar Zanella, Fabio Machado, Guilherme
+Author: Ana Paula Assis, Diogo Melo, Edgar Zanella, Fabio Andrade Machado, Guilherme
     Garcia
 Maintainer: Diogo Melo <diogro@usp.br>
 Description: Provides functions for covariance matrix comparisons, estimation
@@ -36,7 +36,8 @@ Suggests:
     magrittr,
     grid,
     gridExtra,
-    doParallel
+    doParallel,
+    PHENIX
 LinkingTo: Rcpp, RcppArmadillo
 License: MIT + file LICENSE
 BugReports: https://github.com/lem-usp/evolqg/issues
