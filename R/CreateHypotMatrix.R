@@ -46,6 +46,20 @@ CombineHypot <- function(modularity.hypot){
   hypot_list
 }
 
+#' Create binary hypothesis
+#' 
+#' Takes a vetor describing a trait partition and returns a binary matrix of the partitions where each line represents a trait and each column a module. In the output matrix, if modularity.hypot[i,j] == 1, trait i is in module j.
+#' @param x vector of trait partition. Each partition receive the same symbol.
+#' @return Matrix of hypothesis. Each line represents a trait and each column a module.
+#' if modularity.hypot[i,j] == 1, trait i is in module j.
+#' @export
+#' @examples
+#' x = sample(c(1, 2, 3), 10, replace = TRUE)
+#' Partition2HypotMatrix(x) 
+Partition2HypotMatrix <- function(x){
+  sapply(unique(x), function(i) as.numeric(x == i))  
+}
+
 # http://stackoverflow.com/questions/12892348/convert-binary-string-to-binary-or-decimal-value
 BinToDec <- function(x) sum(2^(which(rev(unlist(strsplit(as.character(x), "")) == 1))-1))
 # http://stackoverflow.com/questions/6614283/converting-decimal-to-binary-in-r
