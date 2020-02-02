@@ -88,6 +88,7 @@ CalcEigenVar<-function(matrix, sd=FALSE, rel=TRUE, sample=NULL) {
   
   if (!is.null(sample)) {
     obs <- obs-(max/sample)
+    max <- max-(max/sample)
   }
   
   if (sd) {
