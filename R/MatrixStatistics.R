@@ -62,8 +62,8 @@ MeanMatrixStatistics <- function (cov.matrix, iterations = 1000, full.results = 
   integration <- c (CalcR2 (cov.matrix), 
                     Pc1Percent (cov.matrix), 
                     CalcICV(cov.matrix), 
-                    CalcEigenSd(cov.matrix))
-  names (integration) <- c ('MeanSquaredCorrelation', 'pc1.percent', 'ICV', 'EigenSD')
+                    CalcEigenVar(cov.matrix, sd=TRUE, rel=FALSE))
+  names (integration) <- c ('MeanSquaredCorrelation', 'pc1.percent', 'ICV', 'EigenSd')
   stat.mean <- c (integration, stat.mean)
   if(full.results)
     return (list ('dist' = stat.dist, 'mean' = stat.mean))

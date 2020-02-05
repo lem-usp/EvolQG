@@ -40,7 +40,7 @@ CalcAVG <- function(cor.hypothesis, cor.matrix, MHI = TRUE, landmark.dim = NULL)
   avg.plus  <- mean (cor.matrix [lower.tri(cor.matrix)] [index == 1])
   avg.minus <- mean (cor.matrix [lower.tri(cor.matrix)] [index == 0])
   if(MHI){
-    avg.index <- (avg.plus - avg.minus)/CalcEigenSd(cor.matrix)
+    avg.index <- (avg.plus - avg.minus)/CalcEigenVar(cor.matrix,sd = TRUE,rel=FALSE)
     output <- c(avg.plus, avg.minus, avg.index)
     names(output) <- c("AVG+", "AVG-", "MHI")
   } else{

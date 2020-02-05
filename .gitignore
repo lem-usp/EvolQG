@@ -10,3 +10,4 @@ src/*.o
 src/*.so
 *.Rdata
 *.dll
+.DS_Store
