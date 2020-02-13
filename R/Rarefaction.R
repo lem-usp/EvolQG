@@ -25,6 +25,7 @@
 #' @importFrom ggplot2 ggplot aes_string geom_boxplot scale_x_continuous scale_y_continuous theme_bw
 #' @importFrom reshape2 melt
 #' @examples
+#' \dontrun{
 #' ind.data <- iris[1:50,1:4]
 #' 
 #' results.RS <- Rarefaction(ind.data, PCAsimilarity, num.reps = 5)
@@ -44,7 +45,7 @@
 #' #Easy access
 #' library(reshape2)
 #' melt(results.RS)
-#'
+#'}
 #' @keywords rarefaction
 #' @keywords bootstap
 #' @keywords repeatability
@@ -158,6 +159,7 @@ RarefactionStat <- function(ind.data,
 #' @importFrom ggplot2 ggplot aes_string layer scale_x_continuous scale_y_continuous theme_bw
 #' @importFrom reshape2 melt
 #' @examples
+#'\dontrun{ 
 #' ind.data <- iris[1:50,1:4]
 #' 
 #' results.RS <- Rarefaction(ind.data, PCAsimilarity, num.reps = 5)
@@ -171,15 +173,13 @@ RarefactionStat <- function(ind.data,
 #' c <- PlotRarefaction(results.KrzCov, "KrzCor")
 #' d <- PlotRarefaction(results.PCA, "PCAsimilarity")
 #'
-#' library(grid)
-#' grid.newpage()
-#' pushViewport(viewport(layout = grid.layout(2, 2)))
-#' vplayout <- function(x, y) viewport(layout.pos.row = x, layout.pos.col = y)
-#' print(a, vp = vplayout(1, 1))
-#' print(b, vp = vplayout(1, 2))
-#' print(c, vp = vplayout(2, 1))
-#' print(d, vp = vplayout(2, 2))
-#'
+#' library(cowplot)
+#' plot_grid(a, b, c, d, labels = c("RS", 
+#'                                  "Mantel Correlation", 
+#'                                  "Krzanowski Correlation", 
+#'                                  "PCA Similarity"), 
+#'                       scale = 0.9)
+#'}
 #' @keywords rarefaction
 #' @keywords bootstap
 #' @keywords repeatability

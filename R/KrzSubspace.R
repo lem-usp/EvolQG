@@ -16,6 +16,7 @@
 #' dentus.matrices = dlply(dentus, .(species), function(x) cov(x[-5]))
 #' KrzSubspace(dentus.matrices, k = 2)
 #' 
+#' \dontrun{
 #' # The method in Aguirre et al. 2014 can de implemented usign this function as follows:
 #' 
 #' #Random input data with dimensions traits x traits x populations x MCMCsamples:
@@ -33,6 +34,7 @@
 #' # confidence intervals for variation in shared subspace directions
 #' library(coda)
 #' HPDinterval(as.mcmc(MCMC.H.val))    
+#' }
 KrzSubspace <- function(cov.matrices, k = NULL){
   if (is.null(k))
     k = round(dim(cov.matrices[[1]])[1]/2 - 1)

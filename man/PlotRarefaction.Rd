@@ -18,6 +18,7 @@ PlotRarefaction(comparison.list, y.axis = "Statistic",
 A specialized ploting function displays the results from Rarefaction functions in publication quality.
 }
 \examples{
+\dontrun{ 
 ind.data <- iris[1:50,1:4]
 
 results.RS <- Rarefaction(ind.data, PCAsimilarity, num.reps = 5)
@@ -31,15 +32,13 @@ b <- PlotRarefaction(results.Mantel, "Mantel")
 c <- PlotRarefaction(results.KrzCov, "KrzCor")
 d <- PlotRarefaction(results.PCA, "PCAsimilarity")
 
-library(grid)
-grid.newpage()
-pushViewport(viewport(layout = grid.layout(2, 2)))
-vplayout <- function(x, y) viewport(layout.pos.row = x, layout.pos.col = y)
-print(a, vp = vplayout(1, 1))
-print(b, vp = vplayout(1, 2))
-print(c, vp = vplayout(2, 1))
-print(d, vp = vplayout(2, 2))
-
+library(cowplot)
+plot_grid(a, b, c, d, labels = c("RS", 
+                                 "Mantel Correlation", 
+                                 "Krzanowski Correlation", 
+                                 "PCA Similarity"), 
+                      scale = 0.9)
+}
 }
 \seealso{
 \code{\link{BootstrapRep}}

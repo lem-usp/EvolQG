@@ -21,8 +21,10 @@
 #' cov.matrices = dlply(dentus, .(species), function(x) lm(as.matrix(x[,1:4])~1)) %>% 
 #'                laply(function(x) BayesianCalculateMatrix(x, samples = 50)$Ps)
 #' cov.matrices = aperm(cov.matrices, c(3, 4, 1, 2))
+#' \dontrun{
 #' rs_proj = RSProjection(cov.matrices, p = 0.8)  
 #' PlotRSprojection(rs_proj, cov.matrices, ncol = 5)
+#' }
 #' 
 RSProjection <- function(cov.matrix.array, p = 0.95, num.vectors = 1000){
   if (dim(cov.matrix.array)[[1]] != dim(cov.matrix.array)[[2]]){

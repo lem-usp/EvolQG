@@ -18,13 +18,13 @@
 #'@export
 #'@importFrom mvtnorm rmvnorm
 #'@examples
-#'
+#'\dontrun{
 #'data(dentus)
 #'A <- dentus[dentus$species== "A",-5]
 #'B <- dentus[dentus$species== "B",-5]
 #'G <- cov(A)
 #'MultivDriftTest(A, B, G, Ne = 1000, generations = 250)
-#'
+#'}
 #'@references Hohenlohe, P.A ; Arnold, S.J. (2008). MIPod: a hypothesis testing framework for 
 #'microevolutionary inference from patterns of divergence. 
 #'American Naturalist, 171(3),

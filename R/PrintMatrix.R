@@ -9,8 +9,9 @@
 #' @rdname PrintMatrix
 #' @author Diogo Melo
 #' @examples
+#' \dontrun{
 #' m.list <- RandomMatrix(10, 4)
-#' PrintMatrix(m.list)
+#' PrintMatrix(m.list)}
 PrintMatrix <- function(x, ...) UseMethod('PrintMatrix')
 
 #' @rdname PrintMatrix

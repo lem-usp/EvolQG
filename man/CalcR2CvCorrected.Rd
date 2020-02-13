@@ -32,6 +32,7 @@ List with adjusted integration indexes, fitted models and simulated distribution
 Calculates the Young correction for integration, using bootstrap resampling
 }
 \examples{
+\dontrun{
 integration.dist = CalcR2CvCorrected(iris[,1:4])
 
 #adjusted values
@@ -44,6 +45,7 @@ ggplot(integration.dist$dist, aes(r2, mean_cv)) + geom_point() +
        
 ggplot(integration.dist$dist, aes(eVals_cv, mean_cv)) + geom_point() + 
        geom_smooth(method = 'lm', color= 'black') + theme_bw()
+}
 }
 \references{
 Young, N. M., Wagner, G. P., and Hallgrimsson, B. (2010).

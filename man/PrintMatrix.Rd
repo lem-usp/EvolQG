@@ -26,8 +26,9 @@ Prints coma separated matrices, with labels
 Print a matrix or a list of matrices to file
 }
 \examples{
+\dontrun{
 m.list <- RandomMatrix(10, 4)
-PrintMatrix(m.list)
+PrintMatrix(m.list)}
 }
 \author{
 Diogo Melo

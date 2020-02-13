@@ -16,7 +16,7 @@ BayesianCalculateMatrix(linear.m, samples = NULL, ..., nu = NULL,
 
 \item{nu}{degrees of freedom in prior distribution, defaults to the number of traits (this can be a too strong prior)}
 
-\item{S_0}{cross product matrix of the prior. Default is to use the observed voriances and zero covariances}
+\item{S_0}{cross product matrix of the prior. Default is to use the observed variances and zero covariance}
 }
 \value{
 Estimated covariance matrices and posterior samples

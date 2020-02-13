@@ -17,6 +17,7 @@
 #' @rdname CalcR2CvCorrected
 #' @export
 #' @examples
+#' \dontrun{
 #' integration.dist = CalcR2CvCorrected(iris[,1:4])
 #'
 #' #adjusted values
@@ -29,6 +30,7 @@
 #'        
 #' ggplot(integration.dist$dist, aes(eVals_cv, mean_cv)) + geom_point() + 
 #'        geom_smooth(method = 'lm', color= 'black') + theme_bw()
+#'}
 #' @keywords correlation
 #' @keywords integration
 

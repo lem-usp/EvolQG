@@ -30,17 +30,22 @@
 #' r2.dist <- MonteCarloR2(RandomMatrix(10, 1, 1, 10), 30)
 #' quantile(r2.dist)
 #' 
+#' \dontrun{
 #' #Multiple threads can be used with some foreach backend library, like doMC or doParallel
-#' #library(doParallel)
+
 #' ##Windows:
 #' #cl <- makeCluster(2)
 #' #registerDoParallel(cl)
+#' 
 #' ##Mac and Linux:
-#' #registerDoParallel(cores = 2)
-#' #MonteCarloStat(cov.matrix, sample.size = 30, iterations = 100,
-#' #               ComparisonFunc = function(x, y) KrzCor(x, y)[1],
-#' #               StatFunc = cov,
-#' #               parallel = TRUE)
+#' library(doParallel)
+#' registerDoParallel(cores = 2)
+#' 
+#' MonteCarloStat(cov.matrix, sample.size = 30, iterations = 100,
+#'                ComparisonFunc = function(x, y) KrzCor(x, y)[1],
+#'                StatFunc = cov,
+#'                parallel = TRUE)
+#' }
 #' @keywords parametricsampling
 #' @keywords montecarlo
 #' @keywords repeatability
@@ -100,24 +105,31 @@ doComparisonMC <- function (x, ComparisonFunc, StatFunc, cov.matrix, sample.size
 #' cov.matrix <- RandomMatrix(5, 1, 1, 10)
 #'
 #' MonteCarloRep(cov.matrix, sample.size = 30, RandomSkewers, iterations = 20)
+#' 
+#'\dontrun{
 #' MonteCarloRep(cov.matrix, sample.size = 30, RandomSkewers, num.vectors = 100, 
 #'               iterations = 20, correlation = TRUE)
 #' MonteCarloRep(cov.matrix, sample.size = 30, MatrixCor, correlation = TRUE)
 #' MonteCarloRep(cov.matrix, sample.size = 30, KrzCor, iterations = 20)
 #' MonteCarloRep(cov.matrix, sample.size = 30, KrzCor, correlation = TRUE)
 #'
+#'
 #' #Creating repeatability vector for a list of matrices
 #' mat.list <- RandomMatrix(5, 3, 1, 10)
 #' laply(mat.list, MonteCarloRep, 30, KrzCor, correlation = TRUE)
 #'
+#'
 #' ##Multiple threads can be used with doMC library
-#' #library(doParallel)
+#' 
 #' ##Windows:
 #' #cl <- makeCluster(2)
 #' #registerDoParallel(cl)
 #' ##Mac and Linux:
-#' #registerDoParallel(cores = 2)
-#' #MonteCarloRep(cov.matrix, 30, RandomSkewers, iterations = 100, parallel = TRUE)
+#' library(doParallel)
+#' registerDoParallel(cores = 2)
+#' 
+#' MonteCarloRep(cov.matrix, 30, RandomSkewers, iterations = 100, parallel = TRUE)
+#' }
 #' @keywords parametricsampling
 #' @keywords montecarlo
 #' @keywords repeatability

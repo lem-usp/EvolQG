@@ -31,6 +31,7 @@ data(dentus)
 dentus.matrices = dlply(dentus, .(species), function(x) cov(x[-5]))
 KrzSubspace(dentus.matrices, k = 2)
 
+\dontrun{
 # The method in Aguirre et al. 2014 can de implemented usign this function as follows:
 
 #Random input data with dimensions traits x traits x populations x MCMCsamples:
@@ -48,6 +49,7 @@ MCMC.H.val = laply(Hs, function(mat) diag(t(avgH.vec) \%*\% mat \%*\% avgH.vec))
 # confidence intervals for variation in shared subspace directions
 library(coda)
 HPDinterval(as.mcmc(MCMC.H.val))    
+}
 }
 \references{
 Aguirre, J. D., E. Hine, K. McGuigan, and M. W. Blows. "Comparing G: multivariate analysis of genetic variation in multiple populations." Heredity 112, no. 1 (2014): 21-29.

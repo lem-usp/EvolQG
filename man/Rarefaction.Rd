@@ -39,6 +39,7 @@ A specialized ploting function displays the results in publication quality.
 Bootstraping may be misleading with very small sample sizes. Use with caution if original sample sizes are small.
 }
 \examples{
+\dontrun{
 ind.data <- iris[1:50,1:4]
 
 results.RS <- Rarefaction(ind.data, PCAsimilarity, num.reps = 5)
@@ -58,7 +59,7 @@ results.PCA <- Rarefaction(ind.data, PCAsimilarity, num.reps = 5)
 #Easy access
 library(reshape2)
 melt(results.RS)
-
+}
 }
 \seealso{
 \code{\link{BootstrapRep}}
