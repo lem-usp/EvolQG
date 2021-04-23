@@ -31,11 +31,11 @@ This function quantifies morphological integration as the dispersion
 of eigenvalues in a matrix. It takes either a
 covariance or a correlation matrix as input, and there is no need to discern 
 between them.The output will depend on the combination of parameters 
-specified during imput. 
+specified during input. 
 
 As default, the function calculates the relative eigenvalue variance of the 
 matrix, which expresses the eigenvalue variance as a ratio between the 
-actuall variance and the theoretical maximum for a matrix of the same size 
+actual variance and the theoretical maximum for a matrix of the same size 
 and same amount of variance (same trace), following Machado et al. (2019). If 
 sd=TRUE, the dispersion is measured with the standard deviation of 
 eigenvalues instead of the variance (Pavlicev, 2009). If the sample size is 

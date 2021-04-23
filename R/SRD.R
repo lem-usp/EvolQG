@@ -1,16 +1,16 @@
 #' Compare matrices via Selection Response Decomposition
 #'
-#' Based on Random Skewers tecnique, selection response vectors are
-#' expanded in direct and indirect componenet by trait and compared via
+#' Based on Random Skewers technique, selection response vectors are
+#' expanded in direct and indirect components by trait and compared via
 #' vector correlations.
 #' @param cov.x Covariance matrix being compared. cov.x can be a matrix or a list.
 #' @param cov.y Covariance matrix being compared. Ignored if cov.x is a list.
 #' @param iterations Number of random vectors used in comparison
-#' @param parallel if TRUE computations are done in parallel. Some foreach backend must be registered, like doParallel or doMC.
-#' @param ... aditional parameters passed to other methods
-#' @param x Output from SRD function, used in ploting
+#' @param parallel if TRUE computations are done in parallel. Some foreach back-end must be registered, like doParallel or doMC.
+#' @param ... additional parameters passed to other methods
+#' @param x Output from SRD function, used in plotting
 #' @param matrix.label Plot label
-#' @details Output can be ploted using PlotSRD function
+#' @details Output can be plotted using PlotSRD function
 #' @return List of SRD scores means, confidence intervals, standard
 #' deviations, centered means e centered standard deviations
 #' @return pc1 scored along the pc1 of the mean/SD correlation matrix

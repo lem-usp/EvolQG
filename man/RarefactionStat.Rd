@@ -4,8 +4,15 @@
 \alias{RarefactionStat}
 \title{Non-Parametric rarefacted population samples and statistic comparison}
 \usage{
-RarefactionStat(ind.data, StatFunc, ComparisonFunc, ..., num.reps = 10,
-  replace = FALSE, parallel = FALSE)
+RarefactionStat(
+  ind.data,
+  StatFunc,
+  ComparisonFunc,
+  ...,
+  num.reps = 10,
+  replace = FALSE,
+  parallel = FALSE
+)
 }
 \arguments{
 \item{ind.data}{Matrix of residuals or indiviual measurments}
@@ -31,7 +38,7 @@ correlation or covariance matrix, via resampling with
 varying sample sizes, from 2 to the size of the original data.
 }
 \details{
-Samples of various sizes, without replacement, are taken from the full population, a statistic calculated and compared to the full population statistic.
+Samples of various sizes, without replacement, are taken from the full population, a statistic calculated and compared to the full population statistic. 
 
 A specialized ploting function displays the results in publication quality.
 

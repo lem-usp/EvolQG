@@ -5,7 +5,7 @@
 #'@param tree phylogenetic tree
 #'@param node.data list of node data
 #'@param ComparisonFunc comparison function, default is PCAsimilarity
-#'@param ... Aditional arguments passed to ComparisonFunc
+#'@param ... Additional arguments passed to ComparisonFunc
 #'@return list with a data.frame of calculated comparisons for each node, using labels or numbers from tree; and a list of comparisons for plotting using phytools (see examples)
 #'@note Phylogeny must be fully resolved
 #'@author Diogo Melo

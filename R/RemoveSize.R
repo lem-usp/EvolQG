@@ -3,7 +3,7 @@
 #' Removes first principal component effect in a covariance matrix.
 #'
 #' @param cov.matrix Covariance matrix
-#' @details Function sets the first eigen value to zero.
+#' @details Function sets the first eigenvalue to zero.
 #' @return Altered covariance matrix with no variation on former first principal component
 #' @author Diogo Melo, Guilherme Garcia
 #' @export

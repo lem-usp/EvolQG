@@ -8,29 +8,35 @@
 \usage{
 KrzProjection(cov.x, cov.y, ...)
 
-\method{KrzProjection}{default}(cov.x, cov.y, ret.dim.1 = NULL,
-  ret.dim.2 = NULL, ...)
+\method{KrzProjection}{default}(cov.x, cov.y, ret.dim.1 = NULL, ret.dim.2 = NULL, ...)
 
-\method{KrzProjection}{list}(cov.x, cov.y = NULL, ret.dim.1 = NULL,
-  ret.dim.2 = NULL, parallel = FALSE, full.results = FALSE, ...)
+\method{KrzProjection}{list}(
+  cov.x,
+  cov.y = NULL,
+  ret.dim.1 = NULL,
+  ret.dim.2 = NULL,
+  parallel = FALSE,
+  full.results = FALSE,
+  ...
+)
 }
 \arguments{
 \item{cov.x}{Single covariance matrix ou list of covariance matrices.
-If cov.x is a single matrix is suplied, it is compared to cov.y.
-If cov.x is a list of matrices is suplied and no cov.y is suplied, all matrices
+If cov.x is a single matrix is supplied, it is compared to cov.y.
+If cov.x is a list of matrices is supplied and no cov.y is supplied, all matrices
 are compared between each other.
-If cov.x is a list of matrices and a single cov.y matrix is suplied, all matrices in list are compared to it.}
+If cov.x is a list of matrices and a single cov.y matrix is supplied, all matrices in list are compared to it.}
 
 \item{cov.y}{First argument is compared to cov.y.
 If cov.x is a list, every element in cov.x is projected in cov.y.}
 
-\item{...}{aditional arguments passed to other methods}
+\item{...}{additional arguments passed to other methods}
 
 \item{ret.dim.1}{number of retained dimensions for first matrix in comparison, default for nxn matrix is n/2-1}
 
 \item{ret.dim.2}{number of retained dimensions for second matrix in comparison, default for nxn matrix is n/2-1}
 
-\item{parallel}{if TRUE computations are done in parallel. Some foreach backend must be registered, like doParallel or doMC.}
+\item{parallel}{if TRUE computations are done in parallel. Some foreach back-end must be registered, like doParallel or doMC.}
 
 \item{full.results}{if FALSE returns only total variance, if TRUE also per PC variance.}
 }
@@ -47,6 +53,7 @@ c1 <- RandomMatrix(10)
 c2 <- RandomMatrix(10)
 KrzProjection(c1, c2)
 
+\dontrun{
 m.list <- RandomMatrix(10, 3)
 KrzProjection(m.list)
 KrzProjection(m.list, full.results = TRUE)
@@ -55,7 +62,7 @@ KrzProjection(m.list, ret.dim.1 = 4, ret.dim.2 = 5)
 
 KrzProjection(m.list, c1)
 KrzProjection(m.list, c1, full.results = TRUE)
-
+}
 #Multiple threads can be used with some foreach backend library, like doMC or doParallel
 #library(doParallel)
 ##Windows:

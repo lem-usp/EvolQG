@@ -3,10 +3,9 @@
 \name{SingleComparisonMap}
 \alias{SingleComparisonMap}
 \title{Generic Single Comparison Map functions for creating parallel list methods
-Internal functions for making eficient comparisons.}
+Internal functions for making efficient comparisons.}
 \usage{
-SingleComparisonMap(matrix.list, y.mat, MatrixCompFunc, ...,
-  parallel = FALSE)
+SingleComparisonMap(matrix.list, y.mat, MatrixCompFunc, ..., parallel = FALSE)
 }
 \arguments{
 \item{matrix.list}{list of matrices being compared}
@@ -15,16 +14,16 @@ SingleComparisonMap(matrix.list, y.mat, MatrixCompFunc, ...,
 
 \item{MatrixCompFunc}{Function used to compare pair of matrices, must output a vector: comparisons and probabilities}
 
-\item{...}{Aditional arguments to MatrixCompFunc}
+\item{...}{Additional arguments to MatrixCompFunc}
 
-\item{parallel}{if TRUE computations are done in parallel. Some foreach backend must be registered, like doParallel or doMC.}
+\item{parallel}{if TRUE computations are done in parallel. Some foreach back-end must be registered, like doParallel or doMC.}
 }
 \value{
 Matrix of comparisons, matrix of probabilities.
 }
 \description{
 Generic Single Comparison Map functions for creating parallel list methods
-Internal functions for making eficient comparisons.
+Internal functions for making efficient comparisons.
 }
 \seealso{
 \code{\link{MantelCor}}, \code{\link{KrzCor}},\code{\link{RandomSkewers}}

@@ -6,10 +6,10 @@
 #'divergence expected and compare it to the observed magnitude of morphological 
 #'change. 
 #'
-#'@param population1 dataframe with original measurements for the ancestral population
-#'@param population2 dataframe with original measurements for the derived population
+#'@param population1 data.frame with original measurements for the ancestral population
+#'@param population2 data.frame with original measurements for the derived population
 #'@param G ancestral G matrix 
-#'@param Ne effective population size esitmated for the populations
+#'@param Ne effective population size estimated for the populations
 #'@param generations time in generations separating both populations
 #'@param iterations number of simulations to perform
 #'@note Each trait is estimated independently. 

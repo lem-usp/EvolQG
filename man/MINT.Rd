@@ -5,11 +5,21 @@
 \alias{JackKnifeMINT}
 \title{Modularity and integration analysis tool}
 \usage{
-MINT(c.matrix, modularity.hypot, significance = FALSE,
-  sample.size = NULL, iterations = 1000)
+MINT(
+  c.matrix,
+  modularity.hypot,
+  significance = FALSE,
+  sample.size = NULL,
+  iterations = 1000
+)
 
-JackKnifeMINT(ind.data, modularity.hypot, n = 1000,
-  leave.out = floor(dim(ind.data)[1]/10), ...)
+JackKnifeMINT(
+  ind.data,
+  modularity.hypot,
+  n = 1000,
+  leave.out = floor(dim(ind.data)[1]/10),
+  ...
+)
 }
 \arguments{
 \item{c.matrix}{Correlation or covariance matrix}
@@ -23,17 +33,17 @@ if modularity.hypot[i,j] == 1, trait i is in module j.}
 
 \item{iterations}{number os goodness of fit simulations}
 
-\item{ind.data}{Matrix of residuals or indiviual measurments}
+\item{ind.data}{Matrix of residuals or individual measurements}
 
-\item{n}{number of jackknife resamplings}
+\item{n}{number of jackknife samples}
 
 \item{leave.out}{number of individuals to be left out of each jackknife, default is 10\%}
 
-\item{...}{aditional arguments to be passed to raply for the jackknife}
+\item{...}{additional arguments to be passed to raply for the jackknife}
 }
 \description{
 Combines and compares many modularity hypothesis to a covariance matrix. Comparison values are
-ajusted to the number os zeros in the hypothesis using a linear regression. Best hypothesis can
+adjusted to the number of zeros in the hypothesis using a linear regression. Best hypothesis can
 be assessed using a jack-knife procedure.
 }
 \note{

@@ -26,7 +26,7 @@
 #' #large 10x10 matrix list, with wide range of variances
 #' RandomMatrix(10, 100, 1, 300)
 #' @keywords randommatrices
-RandomMatrix <- function(num.traits, num.matrices = 1, min.var = 1, max.var = 1, variance = NULL, ke = 10^-3, LKJ = TRUE, shape = 2){
+RandomMatrix <- function(num.traits, num.matrices = 1, min.var = 1, max.var = 1, variance = NULL, ke = 10^-3, LKJ = FALSE, shape = 2){
     if(LKJ){
       rcorr = RandLKJ
       param = shape

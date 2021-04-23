@@ -4,8 +4,11 @@
 \alias{PlotRarefaction}
 \title{Plot Rarefaction analysis}
 \usage{
-PlotRarefaction(comparison.list, y.axis = "Statistic",
-  x.axis = "Number of sampled specimens")
+PlotRarefaction(
+  comparison.list,
+  y.axis = "Statistic",
+  x.axis = "Number of sampled specimens"
+)
 }
 \arguments{
 \item{comparison.list}{output from rarefaction functions can be used in ploting}

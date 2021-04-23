@@ -13,7 +13,7 @@ PhyloCompare(tree, node.data, ComparisonFunc = PCAsimilarity, ...)
 
 \item{ComparisonFunc}{comparison function, default is PCAsimilarity}
 
-\item{...}{Aditional arguments passed to ComparisonFunc}
+\item{...}{Additional arguments passed to ComparisonFunc}
 }
 \value{
 list with a data.frame of calculated comparisons for each node, using labels or numbers from tree; and a list of comparisons for plotting using phytools (see examples)

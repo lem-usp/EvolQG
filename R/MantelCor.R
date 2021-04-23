@@ -4,23 +4,23 @@
 #'
 #' @param cor.x Single correlation matrix or list of correlation matrices.
 #'
-#' If single matrix is suplied, it is compared to cor.y.
+#' If single matrix is supplied, it is compared to cor.y.
 #'
-#' If list is suplied and no cor.y is suplied, all matrices
+#' If list is supplied and no cor.y is supplied, all matrices
 #' are compared.
 #'
-#' If cor.y is suplied, all matrices in list are compared to it.
+#' If cor.y is supplied, all matrices in list are compared to it.
 #' @param cor.y First argument is compared to cor.y.
 #' Optional if cor.x is a list.
 #' @param permutations Number of permutations used in significance calculation.
 #' @param repeat.vector Vector of repeatabilities for correlation correction.
-#' @param parallel if TRUE computations are done in parallel. Some foreach backend must be registered, like doParallel or doMC.
-#' @param ... aditional arguments passed to other methods
-#' @param landmark.dim Used if permutations should be performed mantaining landmark structure in geometric morphomotric data. Either 2 for 2d data or 3 for 3d data. Default is NULL for non geometric morphomotric data.
+#' @param parallel if TRUE computations are done in parallel. Some foreach back-end must be registered, like doParallel or doMC.
+#' @param ... additional arguments passed to other methods
+#' @param landmark.dim Used if permutations should be performed maintaining landmark structure in geometric morphometric data. Either 2 for 2d data or 3 for 3d data. Default is NULL for non geometric morphomotric data.
 #' @param withinLandmark Logical. If TRUE within-landmark correlations are used in the calculation of matrix correlation. Only used if landmark.dim is passed, default is FALSE.
 #' @param mod Set TRUE to use mantel in testing modularity hypothesis. Should only be used in MantelModTest.
-#' @return If cor.x and cor.y are passed, returns matrix pearson
-#' correlation and significance via Mantel permutations.
+#' @return If cor.x and cor.y are passed, returns matrix Pearson
+#' correlation coefficient and significance via Mantel permutations.
 #'
 #' If cor.x is a list of matrices and cor.y is passed, same as above, but for all matrices in cor.x.
 #'
@@ -95,7 +95,7 @@ MantelCor.default <- function (cor.x, cor.y, permutations = 1000, ...,
     prob <- mantel.output$signif
   }
   output <- c(correlation, prob)
-  names(output) <- c("Rsquared", "Probability")
+  names(output) <- c("rho", "Probability")
   return (output)
 }
 

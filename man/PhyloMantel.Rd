@@ -4,9 +4,15 @@
 \alias{PhyloMantel}
 \title{Mantel test with phylogenetic permutations}
 \usage{
-PhyloMantel(tree, matrix.1, matrix.2, ..., permutations = 1000,
+PhyloMantel(
+  tree,
+  matrix.1,
+  matrix.2,
+  ...,
+  permutations = 1000,
   ComparisonFunc = function(x, y) cor(x[lower.tri(x)], y[lower.tri(y)]),
-  k = 1)
+  k = 1
+)
 }
 \arguments{
 \item{tree}{phylogenetic tree. Tip labels must match names in input matrices}
@@ -15,7 +21,7 @@ PhyloMantel(tree, matrix.1, matrix.2, ..., permutations = 1000,
 
 \item{matrix.2}{pair-wise comparison/distance matrix}
 
-\item{...}{aditional parameters, currently ignored}
+\item{...}{additional parameters, currently ignored}
 
 \item{permutations}{Number of permutations used in significance calculation}
 
@@ -28,7 +34,7 @@ returns a vector with the comparison value and the proportion of times the obser
 }
 \description{
 Performs a matrix correlation with significance given by a phylogenetic Mantel Test. 
-Pairs of rowns and columns are permuted with probability proportional to their phylogenetic distance.
+Pairs of rows and columns are permuted with probability proportional to their phylogenetic distance.
 }
 \note{
 This method should only be used when there is no option other than representing data as pair-wise. It suffers from low power, and alternatives should be used when available.

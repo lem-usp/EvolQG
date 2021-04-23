@@ -4,7 +4,9 @@
 \name{dentus.tree}
 \alias{dentus.tree}
 \title{Tree for dentus example species}
-\format{ape tree object}
+\format{
+ape tree object
+}
 \usage{
 data(dentus.tree)
 }

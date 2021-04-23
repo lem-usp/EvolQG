@@ -1,16 +1,16 @@
 #' Bootstrap analysis via resampling
 #'
 #'
-#'   Calculates the repeatability of the covariance matrix of the suplied data
+#'   Calculates the repeatability of the covariance matrix of the supplied data
 #'   via bootstrap resampling
 #'
 #'   Samples with replacement are taken from the full population, a statistic calculated
 #'   and compared to the full population statistic. 
 #'
-#' @param ind.data Matrix of residuals or indiviual measurments
+#' @param ind.data Matrix of residuals or individual measurements
 #' @param ComparisonFunc comparison function
 #' @param iterations Number of resamples to take
-#' @param sample.size Size of ressamples, default is the same size as ind.data 
+#' @param sample.size Size of resamples, default is the same size as ind.data 
 #' @param correlation If TRUE, correlation matrix is used, else covariance matrix. 
 #' @param parallel if TRUE computations are done in parallel. Some foreach backend must be registered, like doParallel or doMC.
 #' @return returns the mean repeatability, that is, the mean value of comparisons from samples to original statistic.

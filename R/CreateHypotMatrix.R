@@ -5,7 +5,7 @@
 #' @param modularity.hypot Matrix of hypothesis. Each line represents a trait and each column a module.
 #' if modularity.hypot[i,j] == 1, trait i is in module j.
 #' @return binary matrix or list of binary matrices. If a matrix is passed, all the vectors are combined in the 
-#' last binary matrix (total hypothesis of full integration hypotesis).
+#' last binary matrix (total hypothesis of full integration hypothesis).
 #' @export
 #' @examples
 #' rand.hypots <- matrix(sample(c(1, 0), 30, replace=TRUE), 10, 3)

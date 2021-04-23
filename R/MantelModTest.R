@@ -9,10 +9,10 @@
 #' @param cor.hypothesis Hypothetical correlation matrix, with 1s within-modules and 0s between modules.
 #' @param cor.matrix Observed empirical correlation matrix.
 #' @param permutations Number of permutations used in significance calculation.
-#' @param MHI Indicates if Modularity Hypothesis Indexshould be calculated instead of AVG Ratio.
-#' @param parallel if TRUE computations are done in parallel. Some foreach backend must be registered, like doParallel or doMC.
-#' @param ... aditional arguments passed to MantelCor
-#' @param landmark.dim Used if permutations should be performed mantaining landmark structure in geometric morphomotric data. Either 2 for 2d data or 3 for 3d data. Default is NULL for non geometric morphomotric data.
+#' @param MHI Indicates if Modularity Hypothesis Index should be calculated instead of AVG Ratio.
+#' @param parallel if TRUE computations are done in parallel. Some foreach back-end must be registered, like doParallel or doMC.
+#' @param ... additional arguments passed to MantelCor
+#' @param landmark.dim Used if permutations should be performed maintaining landmark structure in geometric morphometric data. Either 2 for 2d data or 3 for 3d data. Default is NULL for non geometric morphometric data.
 #' @param withinLandmark Logical. If TRUE within-landmark correlation are used in calculation of correlation. Only used if landmark.dim is passed, default is FALSE.
 #' @return Returns a vector with the matrix correlation, significance via Mantel, within- and between module correlation.
 #' @export

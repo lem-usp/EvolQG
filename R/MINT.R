@@ -1,19 +1,19 @@
 #' Modularity and integration analysis tool
 #' 
 #' Combines and compares many modularity hypothesis to a covariance matrix. Comparison values are
-#' ajusted to the number os zeros in the hypothesis using a linear regression. Best hypothesis can
+#' adjusted to the number of zeros in the hypothesis using a linear regression. Best hypothesis can
 #' be assessed using a jack-knife procedure.
 #' 
 #' @param c.matrix Correlation or covariance matrix
-#' @param ind.data Matrix of residuals or indiviual measurments
+#' @param ind.data Matrix of residuals or individual measurements
 #' @param modularity.hypot Matrix of hypothesis. Each line represents a trait and each column a module.
 #' if modularity.hypot[i,j] == 1, trait i is in module j.
 #' @param significance Logical. Indicates if goodness of fit test should be performed.
 #' @param sample.size sample size in goodness of fit simulations via MonteCarlo 
 #' @param iterations number os goodness of fit simulations
-#' @param n number of jackknife resamplings
+#' @param n number of jackknife samples
 #' @param leave.out number of individuals to be left out of each jackknife, default is 10\%
-#' @param ... aditional arguments to be passed to raply for the jackknife
+#' @param ... additional arguments to be passed to raply for the jackknife
 #' @note Hypothesis can be named as column names, and these will be used to make labels in the 
 #' output. 
 #' 

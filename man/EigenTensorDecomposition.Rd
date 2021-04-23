@@ -8,18 +8,16 @@
 \usage{
 EigenTensorDecomposition(matrices, return.projection = TRUE, ...)
 
-\method{EigenTensorDecomposition}{list}(matrices,
-  return.projection = TRUE, ...)
+\method{EigenTensorDecomposition}{list}(matrices, return.projection = TRUE, ...)
 
-\method{EigenTensorDecomposition}{default}(matrices,
-  return.projection = TRUE, ...)
+\method{EigenTensorDecomposition}{default}(matrices, return.projection = TRUE, ...)
 }
 \arguments{
 \item{matrices}{k x k x m array of m covariance matrices with k traits;}
 
 \item{return.projection}{Should we project covariance matrices into estimated eigentensors? Defaults to TRUE}
 
-\item{...}{aditional arguments for methods}
+\item{...}{additional arguments for methods}
 }
 \value{
 List with the following components:

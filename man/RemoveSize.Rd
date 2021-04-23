@@ -16,7 +16,7 @@ Altered covariance matrix with no variation on former first principal component
 Removes first principal component effect in a covariance matrix.
 }
 \details{
-Function sets the first eigen value to zero.
+Function sets the first eigenvalue to zero.
 }
 \examples{
 cov.matrix <- RandomMatrix(10, 1, 1, 10)

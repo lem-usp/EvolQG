@@ -1,4 +1,4 @@
-#' Alpha Repetability
+#' Alpha repeatability
 #'
 #' Calculates the matrix repeatability using the equation in Cheverud 1996
 #' Quantitative genetic analysis of cranial morphology in the cotton-top
@@ -8,7 +8,7 @@
 #' @param cor.matrix Correlation matrix
 #' @param sample.size Sample size used in matrix estimation
 #' @return Alpha repeatability for correlation matrix
-#' @keywords repeatatability
+#' @keywords repeatability
 #' @seealso \code{\link{MonteCarloStat}}, \code{\link{BootstrapRep}}
 #' @author Diogo Melo, Guilherme Garcia
 #' @references Cheverud 1996 Quantitative genetic analysis of cranial morphology in the cotton-top
