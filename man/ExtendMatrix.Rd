@@ -11,13 +11,13 @@ ExtendMatrix(cov.matrix, var.cut.off = 1e-04, ret.dim = NULL)
 
 \item{var.cut.off}{Cut off for second derivative variance. Ignored if ret.dim is passed.}
 
-\item{ret.dim}{Number of retained eigen values}
+\item{ret.dim}{Number of retained eigenvalues}
 }
 \value{
 Extended covariance matrix and second derivative variance
 }
 \description{
-Calculates the extented covariance matrix estimation as described in Marroig et al. 2012
+Calculates the extended covariance matrix estimation as described in Marroig et al. 2012
 }
 \note{
 Covariance matrix being extended should be larger then 10x10

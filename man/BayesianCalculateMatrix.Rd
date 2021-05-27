@@ -11,7 +11,7 @@ BayesianCalculateMatrix(linear.m, samples = NULL, ..., nu = NULL, S_0 = NULL)
 
 \item{samples}{number os samples to be generated from the posterior. Requires sample size to be at least as large as the number of dimensions}
 
-\item{...}{aditional arguments, currently ignored}
+\item{...}{additional arguments, currently ignored}
 
 \item{nu}{degrees of freedom in prior distribution, defaults to the number of traits (this can be a too strong prior)}
 

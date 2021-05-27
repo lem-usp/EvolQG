@@ -1,14 +1,14 @@
 #'Test drift hypothesis
 #'
 #'Given a set of covariance matrices and means for terminals, test the hypothesis
-#'that obseved divergency is larger/smaller than expected by drift alone using a regression of
-#' the between-group varicances on the within-group eigenvalues.
+#'that observed divergence is larger/smaller than expected by drift alone using a regression of
+#' the between-group variances on the within-group eigenvalues.
 #'
 #'@param means list or array of species means being compared. array must have means in the rows.
 #'@param cov.matrix ancestral covariance matrix for all populations
-#'@param show.plot boolean. If TRUE, plot of eigenvalues of ancetral matrix by between group variance is showed.
+#'@param show.plot Logical. If TRUE, plot of eigenvalues of ancestral matrix by between group variance is showed.
 #'@return list of results containing:
-#'@return regresion: the linear regression between the log of the eigenvalues of the ancestral matrix and the log of the between group variance (projected on the eigenvectors of the ancenstral matrix)
+#'@return regression: the linear regression between the log of the eigenvalues of the ancestral matrix and the log of the between group variance (projected on the eigenvectors of the ancestral matrix)
 #'@return coefficient_CI_95: confidence intervals for the regression coefficients
 #'@return log.between_group_variance: log of the between group variance (projected on the ancestral matrix eigenvectors)
 #'@return log.W_eVals: log of the ancestral matrix eigenvalues

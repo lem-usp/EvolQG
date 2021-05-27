@@ -1,10 +1,10 @@
 #' Generic Single Comparison Map functions for creating parallel list methods
-#' Internal functions for making eficient comparisons.
+#' Internal functions for making efficient comparisons.
 #' @param matrix.list list of matrices being compared
 #' @param y.mat single matrix being compared to list
 #' @param MatrixCompFunc Function used to compare pair of matrices, must output a vector: comparisons and probabilities
-#' @param ... Aditional arguments to MatrixCompFunc
-#' @param parallel if TRUE computations are done in parallel. Some foreach backend must be registered, like doParallel or doMC.
+#' @param ... Additional arguments to MatrixCompFunc
+#' @param parallel if TRUE computations are done in parallel. Some foreach back-end must be registered, like doParallel or doMC.
 #' @return Matrix of comparisons, matrix of probabilities.
 #' @author Diogo Melo
 #' @seealso \code{\link{MantelCor}}, \code{\link{KrzCor}},\code{\link{RandomSkewers}}

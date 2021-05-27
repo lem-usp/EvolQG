@@ -34,17 +34,17 @@ MantelModTest(cor.hypothesis, cor.matrix, ...)
 
 \item{cor.matrix}{Observed empirical correlation matrix.}
 
-\item{...}{aditional arguments passed to MantelCor}
+\item{...}{additional arguments passed to MantelCor}
 
 \item{permutations}{Number of permutations used in significance calculation.}
 
-\item{MHI}{Indicates if Modularity Hypothesis Indexshould be calculated instead of AVG Ratio.}
+\item{MHI}{Indicates if Modularity Hypothesis Index should be calculated instead of AVG Ratio.}
 
-\item{landmark.dim}{Used if permutations should be performed mantaining landmark structure in geometric morphomotric data. Either 2 for 2d data or 3 for 3d data. Default is NULL for non geometric morphomotric data.}
+\item{landmark.dim}{Used if permutations should be performed maintaining landmark structure in geometric morphometric data. Either 2 for 2d data or 3 for 3d data. Default is NULL for non geometric morphometric data.}
 
 \item{withinLandmark}{Logical. If TRUE within-landmark correlation are used in calculation of correlation. Only used if landmark.dim is passed, default is FALSE.}
 
-\item{parallel}{if TRUE computations are done in parallel. Some foreach backend must be registered, like doParallel or doMC.}
+\item{parallel}{if TRUE computations are done in parallel. Some foreach back-end must be registered, like doParallel or doMC.}
 }
 \value{
 Returns a vector with the matrix correlation, significance via Mantel, within- and between module correlation.

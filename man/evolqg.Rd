@@ -4,3 +4,6 @@
 \name{evolqg}
 \alias{evolqg}
 \title{EvolQG}
+\description{
+The package for evolutionary quantitative genetics.
+}

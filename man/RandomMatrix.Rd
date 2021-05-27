@@ -11,7 +11,7 @@ RandomMatrix(
   max.var = 1,
   variance = NULL,
   ke = 10^-3,
-  LKJ = TRUE,
+  LKJ = FALSE,
   shape = 2
 )
 }

@@ -7,7 +7,7 @@ test_that("PCScoreScorrelation returns resonable results",
   names(means.list) <- taxons
   test.array <- PCScoreCorrelation(means, cov.matrix, taxons, FALSE)
   test.list <- PCScoreCorrelation(means.list, cov.matrix, taxons, FALSE)
-  expect_equal(test.array, test.list)
+  expect_equal(abs(test.array), abs(test.list))
   test.array.plots <- PCScoreCorrelation(means, cov.matrix, taxons, TRUE)
   test.list.plots <- PCScoreCorrelation(means.list, cov.matrix, taxons, TRUE)
   #expect_equal(test.array.plots, test.list.plots)

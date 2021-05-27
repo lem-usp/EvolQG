@@ -1,11 +1,11 @@
 #' Calculates mean correlations within- and between-modules
 #'
-#' Uses a binary correlation matrix as a mask to calculate average whitin- and between-module
+#' Uses a binary correlation matrix as a mask to calculate average within- and between-module
 #' correlations. Also calculates the ratio between them and the Modularity Hypothesis Index.
 #' @param cor.hypothesis Hypothetical correlation matrix, with 1s within-modules and 0s between modules
 #' @param cor.matrix Observed empirical correlation matrix.
 #' @param MHI Indicates if Modularity Hypothesis Index should be calculated instead of AVG Ratio.
-#' @param landmark.dim Used if within-landmark correlations are to be excluded in geometric morphomotric data. Either 2 for 2d data or 3 for 3d data. Default is NULL for non geometric morphomotric data.
+#' @param landmark.dim Used if within-landmark correlations are to be excluded in geometric morphometric data. Either 2 for 2d data or 3 for 3d data. Default is NULL for non geometric morphomotric data.
 #' @return a named vector with the mean correlations and derived statistics
 #' @export
 #' @examples

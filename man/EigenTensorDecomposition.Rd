@@ -17,7 +17,7 @@ EigenTensorDecomposition(matrices, return.projection = TRUE, ...)
 
 \item{return.projection}{Should we project covariance matrices into estimated eigentensors? Defaults to TRUE}
 
-\item{...}{aditional arguments for methods}
+\item{...}{additional arguments for methods}
 }
 \value{
 List with the following components:

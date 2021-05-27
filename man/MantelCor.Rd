@@ -52,21 +52,21 @@ MatrixCor(cor.x, cor.y, ...)
 \arguments{
 \item{cor.x}{Single correlation matrix or list of correlation matrices.
 
-If single matrix is suplied, it is compared to cor.y.
+If single matrix is supplied, it is compared to cor.y.
 
-If list is suplied and no cor.y is suplied, all matrices
+If list is supplied and no cor.y is supplied, all matrices
 are compared.
 
-If cor.y is suplied, all matrices in list are compared to it.}
+If cor.y is supplied, all matrices in list are compared to it.}
 
 \item{cor.y}{First argument is compared to cor.y.
 Optional if cor.x is a list.}
 
-\item{...}{aditional arguments passed to other methods}
+\item{...}{additional arguments passed to other methods}
 
 \item{permutations}{Number of permutations used in significance calculation.}
 
-\item{landmark.dim}{Used if permutations should be performed mantaining landmark structure in geometric morphomotric data. Either 2 for 2d data or 3 for 3d data. Default is NULL for non geometric morphomotric data.}
+\item{landmark.dim}{Used if permutations should be performed maintaining landmark structure in geometric morphometric data. Either 2 for 2d data or 3 for 3d data. Default is NULL for non geometric morphomotric data.}
 
 \item{withinLandmark}{Logical. If TRUE within-landmark correlations are used in the calculation of matrix correlation. Only used if landmark.dim is passed, default is FALSE.}
 
@@ -74,11 +74,11 @@ Optional if cor.x is a list.}
 
 \item{repeat.vector}{Vector of repeatabilities for correlation correction.}
 
-\item{parallel}{if TRUE computations are done in parallel. Some foreach backend must be registered, like doParallel or doMC.}
+\item{parallel}{if TRUE computations are done in parallel. Some foreach back-end must be registered, like doParallel or doMC.}
 }
 \value{
-If cor.x and cor.y are passed, returns matrix pearson
-correlation and significance via Mantel permutations.
+If cor.x and cor.y are passed, returns matrix Pearson
+correlation coefficient and significance via Mantel permutations.
 
 If cor.x is a list of matrices and cor.y is passed, same as above, but for all matrices in cor.x.
 

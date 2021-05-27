@@ -3,8 +3,8 @@
 #' Uses Bayesian posterior samples of a set of covariance matrices to identify 
 #' directions of the morphospace in which these matrices differ in their amount of genetic variance.
 #' 
-#' @param cov.matrix.array Array with dimentions traits x traits x populations x MCMCsamples
-#' @param p significance treashhold for comparison of variation in each random direction
+#' @param cov.matrix.array Array with dimensions traits x traits x populations x MCMCsamples
+#' @param p significance threshold for comparison of variation in each random direction
 #' @param num.vectors number of random vectors
 #' @param rs_proj output from RSProjection
 #' @param ncols number of columns in plot

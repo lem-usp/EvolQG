@@ -19,18 +19,18 @@ CalcR2CvCorrected(ind.data, ...)
 \method{CalcR2CvCorrected}{lm}(ind.data, cv.level = 0.06, iterations = 1000, ...)
 }
 \arguments{
-\item{ind.data}{Matrix of indiviual measurments, or ajusted linear model}
+\item{ind.data}{Matrix of individual measurments, or adjusted linear model}
 
-\item{...}{aditional arguments passed to other methods}
+\item{...}{additional arguments passed to other methods}
 
-\item{cv.level}{Coeficient of variation level choosen for integration index ajustment in linear model. Defaults to 0.06.}
+\item{cv.level}{Coefficient of variation level chosen for integration index adjustment in linear model. Defaults to 0.06.}
 
 \item{iterations}{Number of resamples to take}
 
 \item{parallel}{if TRUE computations are done in parallel. Some foreach backend must be registered, like doParallel or doMC.}
 }
 \value{
-List with adjusted integration indexes, fitted models and simulated distributions of integration indexes and mean coeficient of variation.
+List with adjusted integration indexes, fitted models and simulated distributions of integration indexes and mean coefficient of variation.
 }
 \description{
 Calculates the Young correction for integration, using bootstrap resampling

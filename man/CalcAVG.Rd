@@ -13,13 +13,13 @@ CalcAVG(cor.hypothesis, cor.matrix, MHI = TRUE, landmark.dim = NULL)
 
 \item{MHI}{Indicates if Modularity Hypothesis Index should be calculated instead of AVG Ratio.}
 
-\item{landmark.dim}{Used if within-landmark correlations are to be excluded in geometric morphomotric data. Either 2 for 2d data or 3 for 3d data. Default is NULL for non geometric morphomotric data.}
+\item{landmark.dim}{Used if within-landmark correlations are to be excluded in geometric morphometric data. Either 2 for 2d data or 3 for 3d data. Default is NULL for non geometric morphomotric data.}
 }
 \value{
 a named vector with the mean correlations and derived statistics
 }
 \description{
-Uses a binary correlation matrix as a mask to calculate average whitin- and between-module
+Uses a binary correlation matrix as a mask to calculate average within- and between-module
 correlations. Also calculates the ratio between them and the Modularity Hypothesis Index.
 }
 \examples{

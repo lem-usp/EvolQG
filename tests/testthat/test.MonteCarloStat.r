@@ -14,10 +14,10 @@ test_that("MonteCarloRep returns sensible results",
             expect_that(MonteCarloRep(RandomMatrix(10), 30, RandomSkewers, iterations = 1), gives_warning("Matrix appears to be a correlation matrix! Only covariance matrices should be used in parametric resampling."))
             
             cov.matrix <- RandomMatrix(10, 1, 1, 10)
-            expect_that(MonteCarloRep(cov.matrix, sample.size = 30, RandomSkewers, iterations = 50) <= 1, is_true())
-            expect_that(MonteCarloRep(cov.matrix, 30, MatrixCor, correlation = TRUE) <= 1, is_true())
-            expect_that(MonteCarloRep(cov.matrix, 30, KrzCor) <= 1, is_true())
-            expect_that(MonteCarloRep(cov.matrix, 30, KrzCor, correlation = TRUE) <= 1, is_true())
+            expect_true(MonteCarloRep(cov.matrix, sample.size = 30, RandomSkewers, iterations = 50) <= 1)
+            expect_true(MonteCarloRep(cov.matrix, 30, MatrixCor, correlation = TRUE) <= 1)
+            expect_true(MonteCarloRep(cov.matrix, 30, KrzCor) <= 1)
+            expect_true(MonteCarloRep(cov.matrix, 30, KrzCor, correlation = TRUE) <= 1)
           }
 )
 test_that("MonteCarloStat throws error",

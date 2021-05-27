@@ -10,9 +10,9 @@ RSProjection(cov.matrix.array, p = 0.95, num.vectors = 1000)
 PlotRSprojection(rs_proj, cov.matrix.array, p = 0.95, ncols = 5)
 }
 \arguments{
-\item{cov.matrix.array}{Array with dimentions traits x traits x populations x MCMCsamples}
+\item{cov.matrix.array}{Array with dimensions traits x traits x populations x MCMCsamples}
 
-\item{p}{significance treashhold for comparison of variation in each random direction}
+\item{p}{significance threshold for comparison of variation in each random direction}
 
 \item{num.vectors}{number of random vectors}
 

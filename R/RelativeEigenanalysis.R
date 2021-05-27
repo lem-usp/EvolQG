@@ -4,7 +4,7 @@
 #'
 #' @param cov.x covariance matrix
 #' @param cov.y covariance matrix
-#' @param symmetric compute symmetric eigenanalysis?
+#' @param symmetric Logical. If TRUE, computes symmetric eigenanalysis.
 #' @return list with two objects: eigenvalues and eigenvectors
 #'
 #' @export

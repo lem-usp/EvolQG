@@ -20,13 +20,13 @@ SRD(cov.x, cov.y, ...)
 
 \item{cov.y}{Covariance matrix being compared. Ignored if cov.x is a list.}
 
-\item{...}{aditional parameters passed to other methods}
+\item{...}{additional parameters passed to other methods}
 
 \item{iterations}{Number of random vectors used in comparison}
 
-\item{parallel}{if TRUE computations are done in parallel. Some foreach backend must be registered, like doParallel or doMC.}
+\item{parallel}{if TRUE computations are done in parallel. Some foreach back-end must be registered, like doParallel or doMC.}
 
-\item{x}{Output from SRD function, used in ploting}
+\item{x}{Output from SRD function, used in plotting}
 
 \item{matrix.label}{Plot label}
 }
@@ -39,12 +39,12 @@ pc1 scored along the pc1 of the mean/SD correlation matrix
 model List of linear model results from mean/SD correlation. Quantiles, interval and divergent traits
 }
 \description{
-Based on Random Skewers tecnique, selection response vectors are
-expanded in direct and indirect componenet by trait and compared via
+Based on Random Skewers technique, selection response vectors are
+expanded in direct and indirect components by trait and compared via
 vector correlations.
 }
 \details{
-Output can be ploted using PlotSRD function
+Output can be plotted using PlotSRD function
 }
 \note{
 If input is a list, output is a symmetric list array with pairwise comparisons.

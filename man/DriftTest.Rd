@@ -11,12 +11,12 @@ DriftTest(means, cov.matrix, show.plot = TRUE)
 
 \item{cov.matrix}{ancestral covariance matrix for all populations}
 
-\item{show.plot}{boolean. If TRUE, plot of eigenvalues of ancetral matrix by between group variance is showed.}
+\item{show.plot}{Logical. If TRUE, plot of eigenvalues of ancestral matrix by between group variance is showed.}
 }
 \value{
 list of results containing:
 
-regresion: the linear regression between the log of the eigenvalues of the ancestral matrix and the log of the between group variance (projected on the eigenvectors of the ancenstral matrix)
+regression: the linear regression between the log of the eigenvalues of the ancestral matrix and the log of the between group variance (projected on the eigenvectors of the ancestral matrix)
 
 coefficient_CI_95: confidence intervals for the regression coefficients
 
@@ -28,8 +28,8 @@ plot: plot of the regression using ggplot2
 }
 \description{
 Given a set of covariance matrices and means for terminals, test the hypothesis
-that obseved divergency is larger/smaller than expected by drift alone using a regression of
-the between-group varicances on the within-group eigenvalues.
+that observed divergence is larger/smaller than expected by drift alone using a regression of
+the between-group variances on the within-group eigenvalues.
 }
 \note{
 If the regression coefficient is significantly different to one, the null hypothesis of drift is rejected.

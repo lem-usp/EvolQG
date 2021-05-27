@@ -21,7 +21,7 @@ PhyloMantel(
 
 \item{matrix.2}{pair-wise comparison/distance matrix}
 
-\item{...}{aditional parameters, currently ignored}
+\item{...}{additional parameters, currently ignored}
 
 \item{permutations}{Number of permutations used in significance calculation}
 
@@ -34,7 +34,7 @@ returns a vector with the comparison value and the proportion of times the obser
 }
 \description{
 Performs a matrix correlation with significance given by a phylogenetic Mantel Test. 
-Pairs of rowns and columns are permuted with probability proportional to their phylogenetic distance.
+Pairs of rows and columns are permuted with probability proportional to their phylogenetic distance.
 }
 \note{
 This method should only be used when there is no option other than representing data as pair-wise. It suffers from low power, and alternatives should be used when available.

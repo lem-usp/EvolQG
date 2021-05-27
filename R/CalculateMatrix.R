@@ -1,6 +1,7 @@
 #' Calculate Covariance Matrix from a linear model fitted with lm()
 #'
 #' Calculates covariance matrix using the maximum likelihood estimator and the model residuals.
+#' 
 #' @param linear.m Linear model adjusted for original data.
 #'
 #' @return Estimated covariance matrix.
@@ -28,7 +29,7 @@ CalculateMatrix <- function(linear.m){
 #' posterior and the median posterior estimator.
 #' @param linear.m Linear model adjusted for original data
 #' @param samples number os samples to be generated from the posterior. Requires sample size to be at least as large as the number of dimensions
-#' @param ... aditional arguments, currently ignored
+#' @param ... additional arguments, currently ignored
 #' @param nu degrees of freedom in prior distribution, defaults to the number of traits (this can be a too strong prior)
 #' @param S_0 cross product matrix of the prior. Default is to use the observed variances and zero covariance
 #'

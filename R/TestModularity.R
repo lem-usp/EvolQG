@@ -6,11 +6,11 @@
 #' if modularity.hypot[i,j] == 1, trait i is in module j.
 #' @param permutations Number of permutations, to be passed to MantelModTest
 #' @param MHI Indicates if test should use Modularity Hypothesis Index instead of AVG Ratio
-#' @param ... aditional arguments passed to MantelModTest
-#' @param landmark.dim Used if permutations should be performed mantaining landmark structure in geometric morphomotric data. Either 2 for 2d data or 3 for 3d data. Default is NULL for non geometric morphomotric data.
+#' @param ... additional arguments passed to MantelModTest
+#' @param landmark.dim Used if permutations should be performed maintaining landmark structure in geometric morphometric data. Either 2 for 2d data or 3 for 3d data. Default is NULL for non geometric morphometric data.
 #' @param withinLandmark Logical. If TRUE within-landmark correlations are used in the calculation of matrix correlation. Only used if landmark.dim is passed, default is FALSE.
 #' @return Returns mantel correlation and associated probability for each modularity hypothesis, along with AVG+, AVG-, AVG Ratio for each module.
-#' A total hypothesis combining all hypotesis is also tested.
+#' A total hypothesis combining all hypothesis is also tested.
 #' @author Diogo Melo, Guilherme Garcia
 #' @seealso \code{\link{MantelModTest}}
 #' @export

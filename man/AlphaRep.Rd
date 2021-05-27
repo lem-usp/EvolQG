@@ -2,7 +2,7 @@
 % Please edit documentation in R/AlphaRep.R
 \name{AlphaRep}
 \alias{AlphaRep}
-\title{Alpha Repetability}
+\title{Alpha repeatability}
 \usage{
 AlphaRep(cor.matrix, sample.size)
 }
@@ -39,4 +39,4 @@ Cheverud 1996 Quantitative genetic analysis of cranial morphology in the cotton-
 \author{
 Diogo Melo, Guilherme Garcia
 }
-\keyword{repeatatability}
+\keyword{repeatability}

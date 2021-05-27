@@ -2,7 +2,7 @@
 % Please edit documentation in R/Rarefaction.R
 \name{Rarefaction}
 \alias{Rarefaction}
-\title{Rarefaction analysis via ressampling}
+\title{Rarefaction analysis via resampling}
 \usage{
 Rarefaction(
   ind.data,
@@ -15,11 +15,11 @@ Rarefaction(
 )
 }
 \arguments{
-\item{ind.data}{Matrix of residuals or indiviual measurments}
+\item{ind.data}{Matrix of residuals or individual measurments}
 
 \item{ComparisonFunc}{comparison function}
 
-\item{...}{Aditional arguments passed to ComparisonFunc}
+\item{...}{Additional arguments passed to ComparisonFunc}
 
 \item{num.reps}{number of populations sampled per sample size}
 
@@ -27,7 +27,7 @@ Rarefaction(
 
 \item{replace}{If true, samples are taken with replacement}
 
-\item{parallel}{if TRUE computations are done in parallel. Some foreach backend must be registered, like doParallel or doMC.}
+\item{parallel}{if TRUE computations are done in parallel. Some foreach back-end must be registered, like doParallel or doMC.}
 }
 \value{
 returns the mean value of comparisons from samples to original statistic, for all sample sizes.
@@ -41,7 +41,7 @@ varying sample sizes, from 2 to the size of the original data.
 Samples of various sizes, with replacement, are taken from the full population, a statistic calculated
 and compared to the full population statistic. 
 
-A specialized ploting function displays the results in publication quality.
+A specialized plotting function displays the results in publication quality.
 
 Bootstraping may be misleading with very small sample sizes. Use with caution if original sample sizes are small.
 }

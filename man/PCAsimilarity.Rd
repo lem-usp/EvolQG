@@ -16,21 +16,21 @@ PCAsimilarity(cov.x, cov.y, ...)
 \method{PCAsimilarity}{mcmc_sample}(cov.x, cov.y, ..., parallel = FALSE)
 }
 \arguments{
-\item{cov.x}{Single covariance matrix ou list of covariance matrices.
+\item{cov.x}{Single covariance matrix or list of covariance matrices.
 If cov.x is a single matrix, it is compared to cov.y.
-If cov.x is a list and no cov.y is suplied, all matrices
+If cov.x is a list and no cov.y is supplied, all matrices
 are compared to each other.
-If cov.x is a list and cov.y is suplied, all matrices in cov.x are compared to cov.y.}
+If cov.x is a list and cov.y is supplied, all matrices in cov.x are compared to cov.y.}
 
 \item{cov.y}{First argument is compared to cov.y.}
 
-\item{...}{aditional arguments passed to other methods}
+\item{...}{additional arguments passed to other methods}
 
 \item{ret.dim}{number of retained dimensions in the comparison. Defaults to all.}
 
 \item{repeat.vector}{Vector of repeatabilities for correlation correction.}
 
-\item{parallel}{if TRUE computations are done in parallel. Some foreach backend must be registered, like doParallel or doMC.}
+\item{parallel}{if TRUE computations are done in parallel. Some foreach back-end must be registered, like doParallel or doMC.}
 }
 \value{
 Ratio of projected variance to total variance
