@@ -2,7 +2,7 @@ Package: evolqg
 Type: Package
 Title: Tools for Evolutionary Quantitative Genetics
 Version: 0.2-9
-Date: 2021-04-23
+Date: 2021-05-27
 Author: Ana Paula Assis, Diogo Melo, Edgar Zanella, Fabio Andrade Machado, Guilherme
     Garcia
 Maintainer: Diogo Melo <diogro@gmail.com>
@@ -36,7 +36,6 @@ Suggests:
     grid,
     gridExtra,
     doParallel,
-    PHENIX,
     cowplot
 LinkingTo: Rcpp, RcppArmadillo
 License: MIT + file LICENSE
