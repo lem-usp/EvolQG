@@ -8,13 +8,26 @@
 \usage{
 MantelModTest(cor.hypothesis, cor.matrix, ...)
 
-\method{MantelModTest}{default}(cor.hypothesis, cor.matrix,
-  permutations = 1000, MHI = FALSE, ..., landmark.dim = NULL,
-  withinLandmark = FALSE)
+\method{MantelModTest}{default}(
+  cor.hypothesis,
+  cor.matrix,
+  permutations = 1000,
+  MHI = FALSE,
+  ...,
+  landmark.dim = NULL,
+  withinLandmark = FALSE
+)
 
-\method{MantelModTest}{list}(cor.hypothesis, cor.matrix,
-  permutations = 1000, MHI = FALSE, landmark.dim = NULL,
-  withinLandmark = FALSE, ..., parallel = FALSE)
+\method{MantelModTest}{list}(
+  cor.hypothesis,
+  cor.matrix,
+  permutations = 1000,
+  MHI = FALSE,
+  landmark.dim = NULL,
+  withinLandmark = FALSE,
+  ...,
+  parallel = FALSE
+)
 }
 \arguments{
 \item{cor.hypothesis}{Hypothetical correlation matrix, with 1s within-modules and 0s between modules.}

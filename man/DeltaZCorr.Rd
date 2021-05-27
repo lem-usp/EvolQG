@@ -10,8 +10,7 @@ DeltaZCorr(cov.x, cov.y, skewers, ...)
 
 \method{DeltaZCorr}{default}(cov.x, cov.y, skewers, ...)
 
-\method{DeltaZCorr}{list}(cov.x, cov.y = NULL, skewers,
-  parallel = FALSE, ...)
+\method{DeltaZCorr}{list}(cov.x, cov.y = NULL, skewers, parallel = FALSE, ...)
 }
 \arguments{
 \item{cov.x}{Single covariance matrix or list of covariance matrices.

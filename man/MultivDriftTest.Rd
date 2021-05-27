@@ -4,8 +4,14 @@
 \alias{MultivDriftTest}
 \title{Multivariate genetic drift test for 2 populations}
 \usage{
-MultivDriftTest(population1, population2, G, Ne, generations,
-  iterations = 1000)
+MultivDriftTest(
+  population1,
+  population2,
+  G,
+  Ne,
+  generations,
+  iterations = 1000
+)
 }
 \arguments{
 \item{population1}{dataframe with original measurements for the ancestral population}

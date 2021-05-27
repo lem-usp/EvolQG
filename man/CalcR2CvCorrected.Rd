@@ -8,11 +8,15 @@
 \usage{
 CalcR2CvCorrected(ind.data, ...)
 
-\method{CalcR2CvCorrected}{default}(ind.data, cv.level = 0.06,
-  iterations = 1000, parallel = FALSE, ...)
+\method{CalcR2CvCorrected}{default}(
+  ind.data,
+  cv.level = 0.06,
+  iterations = 1000,
+  parallel = FALSE,
+  ...
+)
 
-\method{CalcR2CvCorrected}{lm}(ind.data, cv.level = 0.06,
-  iterations = 1000, ...)
+\method{CalcR2CvCorrected}{lm}(ind.data, cv.level = 0.06, iterations = 1000, ...)
 }
 \arguments{
 \item{ind.data}{Matrix of indiviual measurments, or ajusted linear model}

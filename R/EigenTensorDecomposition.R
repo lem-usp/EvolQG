@@ -65,7 +65,6 @@
 #' boxplot(dentus.post.eval, xlab = 'Index', ylab = 'Value', 
 #'         main = 'Posterior Eigenvalue Distribution')
 #' }
-#' @importFrom matrixcalc frobenius.prod
 #' @importFrom expm logm sqrtm
 #'
 #' @rdname EigenTensorDecomposition 

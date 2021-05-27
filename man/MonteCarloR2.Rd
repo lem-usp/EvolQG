@@ -4,8 +4,7 @@
 \alias{MonteCarloR2}
 \title{R2 confidence intervals by parametric sampling}
 \usage{
-MonteCarloR2(cov.matrix, sample.size, iterations = 1000,
-  parallel = FALSE)
+MonteCarloR2(cov.matrix, sample.size, iterations = 1000, parallel = FALSE)
 }
 \arguments{
 \item{cov.matrix}{Covariance matrix.}

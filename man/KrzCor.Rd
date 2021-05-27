@@ -11,11 +11,16 @@ KrzCor(cov.x, cov.y, ...)
 
 \method{KrzCor}{default}(cov.x, cov.y, ret.dim = NULL, ...)
 
-\method{KrzCor}{list}(cov.x, cov.y = NULL, ret.dim = NULL,
-  repeat.vector = NULL, parallel = FALSE, ...)
+\method{KrzCor}{list}(
+  cov.x,
+  cov.y = NULL,
+  ret.dim = NULL,
+  repeat.vector = NULL,
+  parallel = FALSE,
+  ...
+)
 
-\method{KrzCor}{mcmc_sample}(cov.x, cov.y, ret.dim = NULL,
-  parallel = FALSE, ...)
+\method{KrzCor}{mcmc_sample}(cov.x, cov.y, ret.dim = NULL, parallel = FALSE, ...)
 }
 \arguments{
 \item{cov.x}{Single covariance matrix or list of covariance matrices.

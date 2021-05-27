@@ -5,11 +5,21 @@
 \alias{JackKnifeMINT}
 \title{Modularity and integration analysis tool}
 \usage{
-MINT(c.matrix, modularity.hypot, significance = FALSE,
-  sample.size = NULL, iterations = 1000)
+MINT(
+  c.matrix,
+  modularity.hypot,
+  significance = FALSE,
+  sample.size = NULL,
+  iterations = 1000
+)
 
-JackKnifeMINT(ind.data, modularity.hypot, n = 1000,
-  leave.out = floor(dim(ind.data)[1]/10), ...)
+JackKnifeMINT(
+  ind.data,
+  modularity.hypot,
+  n = 1000,
+  leave.out = floor(dim(ind.data)[1]/10),
+  ...
+)
 }
 \arguments{
 \item{c.matrix}{Correlation or covariance matrix}

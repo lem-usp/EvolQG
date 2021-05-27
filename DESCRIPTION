@@ -20,7 +20,6 @@ Imports:
     vegan,
     ape,
     expm,
-    matrixcalc,
     mvtnorm,
     coda,
     igraph,
@@ -43,4 +42,4 @@ LinkingTo: Rcpp, RcppArmadillo
 License: MIT + file LICENSE
 BugReports: https://github.com/lem-usp/evolqg/issues
 Encoding: UTF-8
-RoxygenNote: 6.1.1
+RoxygenNote: 7.1.1

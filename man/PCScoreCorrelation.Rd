@@ -4,8 +4,12 @@
 \alias{PCScoreCorrelation}
 \title{PC Score Correlation Test}
 \usage{
-PCScoreCorrelation(means, cov.matrix, taxons = names(means),
-  show.plots = FALSE)
+PCScoreCorrelation(
+  means,
+  cov.matrix,
+  taxons = names(means),
+  show.plots = FALSE
+)
 }
 \arguments{
 \item{means}{list or array of species means being compared. array must have means in the rows.}

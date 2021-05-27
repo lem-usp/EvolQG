@@ -11,8 +11,12 @@
 \alias{Respondability}
 \title{Calculate mean values for various matrix statistics}
 \usage{
-MeanMatrixStatistics(cov.matrix, iterations = 1000, full.results = F,
-  parallel = FALSE)
+MeanMatrixStatistics(
+  cov.matrix,
+  iterations = 1000,
+  full.results = F,
+  parallel = FALSE
+)
 }
 \arguments{
 \item{cov.matrix}{A covariance matrix}

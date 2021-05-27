@@ -11,8 +11,7 @@ PCAsimilarity(cov.x, cov.y, ...)
 
 \method{PCAsimilarity}{default}(cov.x, cov.y, ret.dim = NULL, ...)
 
-\method{PCAsimilarity}{list}(cov.x, cov.y = NULL, ...,
-  repeat.vector = NULL, parallel = FALSE)
+\method{PCAsimilarity}{list}(cov.x, cov.y = NULL, ..., repeat.vector = NULL, parallel = FALSE)
 
 \method{PCAsimilarity}{mcmc_sample}(cov.x, cov.y, ..., parallel = FALSE)
 }

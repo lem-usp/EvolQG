@@ -4,9 +4,15 @@
 \alias{PhyloMantel}
 \title{Mantel test with phylogenetic permutations}
 \usage{
-PhyloMantel(tree, matrix.1, matrix.2, ..., permutations = 1000,
+PhyloMantel(
+  tree,
+  matrix.1,
+  matrix.2,
+  ...,
+  permutations = 1000,
   ComparisonFunc = function(x, y) cor(x[lower.tri(x)], y[lower.tri(y)]),
-  k = 1)
+  k = 1
+)
 }
 \arguments{
 \item{tree}{phylogenetic tree. Tip labels must match names in input matrices}

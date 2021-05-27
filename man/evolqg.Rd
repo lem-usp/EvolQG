@@ -3,8 +3,4 @@
 \docType{package}
 \name{evolqg}
 \alias{evolqg}
-\alias{evolqg-package}
 \title{EvolQG}
-\description{
-EvolQG
-}

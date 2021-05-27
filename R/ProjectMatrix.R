@@ -50,7 +50,6 @@
 #'      data = dentus.post.proj, shape = '+', size = 3) +
 #'   theme_bw()
 #' }
-#' @importFrom matrixcalc frobenius.prod
 #' @importFrom expm logm sqrtm
 #'
 #' @export

@@ -4,8 +4,14 @@
 \alias{MonteCarloStat}
 \title{Parametric population samples with covariance or correlation matrices}
 \usage{
-MonteCarloStat(cov.matrix, sample.size, iterations, ComparisonFunc,
-  StatFunc, parallel = FALSE)
+MonteCarloStat(
+  cov.matrix,
+  sample.size,
+  iterations,
+  ComparisonFunc,
+  StatFunc,
+  parallel = FALSE
+)
 }
 \arguments{
 \item{cov.matrix}{Covariance matrix.}

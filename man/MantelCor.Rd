@@ -13,11 +13,24 @@
 \usage{
 MantelCor(cor.x, cor.y, ...)
 
-\method{MantelCor}{default}(cor.x, cor.y, permutations = 1000, ...,
-  landmark.dim = NULL, withinLandmark = FALSE, mod = FALSE)
+\method{MantelCor}{default}(
+  cor.x,
+  cor.y,
+  permutations = 1000,
+  ...,
+  landmark.dim = NULL,
+  withinLandmark = FALSE,
+  mod = FALSE
+)
 
-\method{MantelCor}{list}(cor.x, cor.y = NULL, permutations = 1000,
-  repeat.vector = NULL, parallel = FALSE, ...)
+\method{MantelCor}{list}(
+  cor.x,
+  cor.y = NULL,
+  permutations = 1000,
+  repeat.vector = NULL,
+  parallel = FALSE,
+  ...
+)
 
 \method{MantelCor}{mcmc_sample}(cor.x, cor.y, ..., parallel = FALSE)
 
@@ -25,8 +38,14 @@ MatrixCor(cor.x, cor.y, ...)
 
 \method{MatrixCor}{default}(cor.x, cor.y, ...)
 
-\method{MatrixCor}{list}(cor.x, cor.y = NULL, permutations = 1000,
-  repeat.vector = NULL, parallel = FALSE, ...)
+\method{MatrixCor}{list}(
+  cor.x,
+  cor.y = NULL,
+  permutations = 1000,
+  repeat.vector = NULL,
+  parallel = FALSE,
+  ...
+)
 
 \method{MatrixCor}{mcmc_sample}(cor.x, cor.y, ..., parallel = FALSE)
 }

@@ -11,8 +11,7 @@ SRD(cov.x, cov.y, ...)
 
 \method{SRD}{default}(cov.x, cov.y, iterations = 1000, ...)
 
-\method{SRD}{list}(cov.x, cov.y = NULL, iterations = 1000,
-  parallel = FALSE, ...)
+\method{SRD}{list}(cov.x, cov.y = NULL, iterations = 1000, parallel = FALSE, ...)
 
 \method{plot}{SRD}(x, matrix.label = "", ...)
 }

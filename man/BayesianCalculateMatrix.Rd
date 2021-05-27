@@ -4,8 +4,7 @@
 \alias{BayesianCalculateMatrix}
 \title{Calculate Covariance Matrix from a linear model fitted with lm() using different estimators}
 \usage{
-BayesianCalculateMatrix(linear.m, samples = NULL, ..., nu = NULL,
-  S_0 = NULL)
+BayesianCalculateMatrix(linear.m, samples = NULL, ..., nu = NULL, S_0 = NULL)
 }
 \arguments{
 \item{linear.m}{Linear model adjusted for original data}

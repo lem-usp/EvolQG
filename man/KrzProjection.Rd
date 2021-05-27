@@ -8,11 +8,17 @@
 \usage{
 KrzProjection(cov.x, cov.y, ...)
 
-\method{KrzProjection}{default}(cov.x, cov.y, ret.dim.1 = NULL,
-  ret.dim.2 = NULL, ...)
+\method{KrzProjection}{default}(cov.x, cov.y, ret.dim.1 = NULL, ret.dim.2 = NULL, ...)
 
-\method{KrzProjection}{list}(cov.x, cov.y = NULL, ret.dim.1 = NULL,
-  ret.dim.2 = NULL, parallel = FALSE, full.results = FALSE, ...)
+\method{KrzProjection}{list}(
+  cov.x,
+  cov.y = NULL,
+  ret.dim.1 = NULL,
+  ret.dim.2 = NULL,
+  parallel = FALSE,
+  full.results = FALSE,
+  ...
+)
 }
 \arguments{
 \item{cov.x}{Single covariance matrix ou list of covariance matrices.

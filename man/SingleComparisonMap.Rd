@@ -5,8 +5,7 @@
 \title{Generic Single Comparison Map functions for creating parallel list methods
 Internal functions for making eficient comparisons.}
 \usage{
-SingleComparisonMap(matrix.list, y.mat, MatrixCompFunc, ...,
-  parallel = FALSE)
+SingleComparisonMap(matrix.list, y.mat, MatrixCompFunc, ..., parallel = FALSE)
 }
 \arguments{
 \item{matrix.list}{list of matrices being compared}

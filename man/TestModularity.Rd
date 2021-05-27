@@ -4,8 +4,15 @@
 \alias{TestModularity}
 \title{Test modularity hypothesis}
 \usage{
-TestModularity(cor.matrix, modularity.hypot, permutations = 1000,
-  MHI = FALSE, ..., landmark.dim = NULL, withinLandmark = FALSE)
+TestModularity(
+  cor.matrix,
+  modularity.hypot,
+  permutations = 1000,
+  MHI = FALSE,
+  ...,
+  landmark.dim = NULL,
+  withinLandmark = FALSE
+)
 }
 \arguments{
 \item{cor.matrix}{Correlation matrix}

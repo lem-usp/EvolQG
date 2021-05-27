@@ -4,7 +4,9 @@
 \name{dentus}
 \alias{dentus}
 \title{Example multivariate data set}
-\format{A data frame with 300 rows and 5 variables}
+\format{
+A data frame with 300 rows and 5 variables
+}
 \usage{
 data(dentus)
 }

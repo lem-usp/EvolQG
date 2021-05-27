@@ -4,8 +4,15 @@
 \alias{Rarefaction}
 \title{Rarefaction analysis via ressampling}
 \usage{
-Rarefaction(ind.data, ComparisonFunc, ..., num.reps = 10,
-  correlation = FALSE, replace = FALSE, parallel = FALSE)
+Rarefaction(
+  ind.data,
+  ComparisonFunc,
+  ...,
+  num.reps = 10,
+  correlation = FALSE,
+  replace = FALSE,
+  parallel = FALSE
+)
 }
 \arguments{
 \item{ind.data}{Matrix of residuals or indiviual measurments}
@@ -32,7 +39,7 @@ varying sample sizes, from 2 to the size of the original data.
 }
 \details{
 Samples of various sizes, with replacement, are taken from the full population, a statistic calculated
-and compared to the full population statistic.
+and compared to the full population statistic. 
 
 A specialized ploting function displays the results in publication quality.
 
