@@ -64,7 +64,7 @@ TPS <- function (target.shape, reference.shape)
 #' Returns the rotation matrix that aligns a specimen sagital line
 #' to plane y = 0 (2D) or z = 0 (3D)
 #' 
-#' @param x shape array
+#' @param X shape array
 #' @param midline rows for the midline landmarks
 #' 
 #' @returns Rotation matrix
@@ -75,7 +75,7 @@ Rotate2MidlineMatrix <- function (X, midline)
 {
   ncl <- ncol (X)
   Xm <- na.omit (X [midline, ])
-  Mm <- matrix (apply (Xm, 2, mean), byrow = TRUE, nr = nrow (X), nc = ncl)
+  Mm <- matrix (apply (Xm, 2, mean), byrow = TRUE, nrow = nrow (X), ncol = ncl)
   Xc <- X - Mm
   W <- na.omit (Xc [midline, ])
   RM <-svd (var (W))$v
@@ -89,6 +89,7 @@ Rotate2MidlineMatrix <- function (X, midline)
 #' 
 #' @param spline Thin plate spline calculated by the TPS function
 #' @param tesselation matrix of landmarks. 
+#' @param ... Aditional arguments to some function
 #' @note Jacobians are calculated on the row centroids of the tesselation matrix.
 #' 
 #' @returns array of jacobians calculated at the centroids
@@ -98,8 +99,6 @@ Rotate2MidlineMatrix <- function (X, midline)
 #' @importFrom numDeriv jacobian
 JacobianArray <- function (spline, tesselation, ...)
 {
-  ## calculates jacobians for a given interpolation in a set of points
-  ## determined from tesselation (as centroids of each tetrahedron defined, for now...)
   with (spline,
         {
           Q.tetra <- Q [tesselation, ]
@@ -158,8 +157,9 @@ Center2MeanJacobianFast <- function (jacobArray)
 #' @param run_parallel Logical. If computation should be paralleled. Use with 
 #' caution, can make things worse. Requires that at parallel back-end like doMC
 #' be registered
-#' 
-#' 
+#' @returns List with TPS functions, jacobian matrices, local shape variables, mean shape, centroid sizes and individual IDs
+#' @author Guilherme Garcia
+#' @author Diogo Melo
 #' @export
 #' @importFrom Morpho ProcGPA cSize arrMean3
 #' @importFrom plyr alply laply aaply

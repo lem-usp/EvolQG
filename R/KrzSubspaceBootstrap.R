@@ -32,7 +32,8 @@ KrzSubspaceBootstrap = function(x, rep = 1, MCMCsamples = 1000, parallel = FALSE
 #' @importFrom coda HPDinterval
 #' @export
 KrzSubspaceDataFrame <- function(observed, random, n = ncol(observed)){
-  library(coda)
+  lower = NULL
+  upper = NULL
   HPD.H.val <- cbind(HPDinterval(as.mcmc(observed)),
                      HPDinterval(as.mcmc(random)))
 
@@ -53,6 +54,9 @@ KrzSubspaceDataFrame <- function(observed, random, n = ncol(observed)){
 #' @importFrom ggplot2 ggplot geom_point geom_pointrange position_dodge aes xlab ylab
 #' @export
 PlotKrzSubspace = function(x){
+  lower = NULL
+  upper = NULL
+  PC = NULL
   plot = ggplot(x, aes(PC, mean, color = class, group = interaction(PC, class))) +
     geom_point(position = position_dodge(width = 0.3)) +
     geom_pointrange(position = position_dodge(width = 0.3), aes(ymin=lower, ymax=upper)) +
