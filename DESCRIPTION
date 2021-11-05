@@ -1,7 +1,7 @@
 Package: evolqg
 Type: Package
 Title: Tools for Evolutionary Quantitative Genetics
-Version: 0.2-9
+Version: 0.3-0
 Date: 2021-05-27
 Author: Ana Paula Assis, Diogo Melo, Edgar Zanella, Fabio Andrade Machado, Guilherme
     Garcia
@@ -19,6 +19,8 @@ Imports:
     vegan,
     ape,
     expm,
+    numDeriv,
+    Morpho,
     mvtnorm,
     coda,
     igraph,
