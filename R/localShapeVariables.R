@@ -141,7 +141,7 @@ Center2MeanJacobianFast <- function (jacobArray)
   return (log.det)
 }
 
-#' Local Shape variables
+#' Local Shape Variables
 #' 
 #' Calculates the local shape variables of a set of landmarks using the sequence:
 #' - TPS transform between all shapes and the mean shape
@@ -163,7 +163,7 @@ Center2MeanJacobianFast <- function (jacobArray)
 #' @export
 #' @importFrom Morpho ProcGPA cSize arrMean3
 #' @importFrom plyr alply laply aaply
-wrapMarquez <- function (gpa = NULL, cs = NULL, landmarks = NULL, tesselation,
+LocalShapeVariables <- function (gpa = NULL, cs = NULL, landmarks = NULL, tesselation,
                          run_parallel = FALSE)
 {
   if(is.null(gpa) & is.null(cs)){
@@ -174,7 +174,7 @@ wrapMarquez <- function (gpa = NULL, cs = NULL, landmarks = NULL, tesselation,
     dimnames(gpa)[[3]] = dimnames(landmarks)[[3]]
   }
   mshape <- arrMean3(gpa)
-  #dimnames (mshape) <- dimnames (sym.mean)
+  dimnames(mshape) <- dimnames(gpa)[1:2]
   tps <- alply (gpa, 3, TPS,
                 reference.shape = mshape,
                 .parallel = run_parallel, .progress = "text")
