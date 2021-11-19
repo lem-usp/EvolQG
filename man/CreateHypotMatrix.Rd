@@ -12,7 +12,7 @@ if modularity.hypot[i,j] == 1, trait i is in module j.}
 }
 \value{
 binary matrix or list of binary matrices. If a matrix is passed, all the vectors are combined in the 
-last binary matrix (total hypothesis of full integration hypotesis).
+last binary matrix (total hypothesis of full integration hypothesis).
 }
 \description{
 Takes a binary vector or column matrix and generates list of binary correlation matrices representing

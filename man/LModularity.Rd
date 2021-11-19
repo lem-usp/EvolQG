@@ -11,16 +11,16 @@ LModularity(cor.matrix, method = optimal.community, ...)
 
 \item{method}{community detection function}
 
-\item{...}{Aditional arguments to igraph community detection function}
+\item{...}{Additional arguments to igraph community detection function}
 }
 \value{
 List with L-Modularity value and trait partition
 }
 \description{
-Calculates the L-Modularity (Newman-type modularity) and the partition of traits that minimizes L-Modularity. Wrapper for using correlations matrices in community detections algorithms from igraph.
+Calculates the L-Modularity (Newman-type modularity) and the partition of traits that minimizes L-Modularity. Wrapper for using correlations matrices in community detection algorithms from igraph.
 }
 \note{
-Community detection is done by transforming the correlation matrix into a weighted graph and using community detections algorithms on this graph. Default method is optimal but slow. See igraph documentation for other options.
+Community detection is done by transforming the correlation matrix into a weighted graph and using community detection algorithms on this graph. Default method is optimal but slow. See igraph documentation for other options.
 
 If negative correlations are present, the square of the correlation matrix is used as weights.
 }

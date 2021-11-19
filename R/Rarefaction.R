@@ -1,4 +1,4 @@
-#' Rarefaction analysis via ressampling
+#' Rarefaction analysis via resampling
 #' 
 #' Calculates the repeatability of a statistic of the data, such as
 #' correlation or covariance matrix, via bootstrap resampling with
@@ -7,14 +7,14 @@
 #' Samples of various sizes, with replacement, are taken from the full population, a statistic calculated
 #' and compared to the full population statistic. 
 #'
-#' A specialized ploting function displays the results in publication quality.
-#' @param ind.data Matrix of residuals or indiviual measurments
+#' A specialized plotting function displays the results in publication quality.
+#' @param ind.data Matrix of residuals or individual measurments
 #' @param ComparisonFunc comparison function
-#' @param ... Aditional arguments passed to ComparisonFunc
+#' @param ... Additional arguments passed to ComparisonFunc
 #' @param num.reps number of populations sampled per sample size
 #' @param correlation If TRUE, correlation matrix is used, else covariance matrix. MantelCor always uses correlation matrix.
 #' @param replace If true, samples are taken with replacement
-#' @param parallel if TRUE computations are done in parallel. Some foreach backend must be registered, like doParallel or doMC.
+#' @param parallel if TRUE computations are done in parallel. Some foreach back-end must be registered, like doParallel or doMC.
 #' @details Bootstraping may be misleading with very small sample sizes. Use with caution if original sample sizes are small.
 #' @return returns the mean value of comparisons from samples to original statistic, for all sample sizes.
 #' @author Diogo Melo, Guilherme Garcia

@@ -1,7 +1,7 @@
 #' Parametric population samples with covariance or correlation matrices
 #'
 #' Using a multivariate normal model, random populations are generated
-#' using the suplied covariance matrix. A statistic is calculated on the
+#' using the supplied covariance matrix. A statistic is calculated on the
 #' random population and compared to the statistic calculated on the
 #' original matrix. 
 #'
@@ -10,7 +10,7 @@
 #' @param iterations Number of random populations
 #' @param ComparisonFunc Comparison functions for the calculated statistic
 #' @param StatFunc Function for calculating the statistic
-#' @param parallel if TRUE computations are done in parallel. Some foreach backend must be registered, like doParallel or doMC.
+#' @param parallel if TRUE computations are done in parallel. Some foreach back-end must be registered, like doParallel or doMC.
 #' @details Since this function uses multivariate normal model to generate populations, only covariance matrices should be used.
 #' @return returns the mean repeatability, or mean value of comparisons from samples to original statistic.
 #' @author Diogo Melo, Guilherme Garcia

@@ -1,10 +1,10 @@
 #' Control Inverse matrix noise with Extension
 #'
-#' Calculates the extented covariance matrix estimation as described in Marroig et al. 2012
+#' Calculates the extended covariance matrix estimation as described in Marroig et al. 2012
 #'
 #' @param cov.matrix Covariance matrix
 #' @param var.cut.off Cut off for second derivative variance. Ignored if ret.dim is passed.
-#' @param ret.dim Number of retained eigen values
+#' @param ret.dim Number of retained eigenvalues
 #' @return Extended covariance matrix and second derivative variance
 #' @references Marroig, G., Melo, D. A. R., and Garcia, G. (2012). Modularity, noise, and natural selection. Evolution; international journal of organic evolution, 66(5), 1506-24. doi:10.1111/j.1558-5646.2011.01555.x
 #' @author Diogo Melo

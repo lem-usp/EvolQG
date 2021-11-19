@@ -4,8 +4,14 @@
 \alias{MonteCarloStat}
 \title{Parametric population samples with covariance or correlation matrices}
 \usage{
-MonteCarloStat(cov.matrix, sample.size, iterations, ComparisonFunc,
-  StatFunc, parallel = FALSE)
+MonteCarloStat(
+  cov.matrix,
+  sample.size,
+  iterations,
+  ComparisonFunc,
+  StatFunc,
+  parallel = FALSE
+)
 }
 \arguments{
 \item{cov.matrix}{Covariance matrix.}
@@ -18,14 +24,14 @@ MonteCarloStat(cov.matrix, sample.size, iterations, ComparisonFunc,
 
 \item{StatFunc}{Function for calculating the statistic}
 
-\item{parallel}{if TRUE computations are done in parallel. Some foreach backend must be registered, like doParallel or doMC.}
+\item{parallel}{if TRUE computations are done in parallel. Some foreach back-end must be registered, like doParallel or doMC.}
 }
 \value{
 returns the mean repeatability, or mean value of comparisons from samples to original statistic.
 }
 \description{
 Using a multivariate normal model, random populations are generated
-using the suplied covariance matrix. A statistic is calculated on the
+using the supplied covariance matrix. A statistic is calculated on the
 random population and compared to the statistic calculated on the
 original matrix.
 }

@@ -9,7 +9,7 @@ KrzSubspace(cov.matrices, k = NULL)
 \arguments{
 \item{cov.matrices}{list of covariance matrices}
 
-\item{k}{number of dimentions to be retained in calculating the subspace}
+\item{k}{number of dimensions to be retained in calculating the subspace}
 }
 \value{
 H shared space matrix
@@ -24,7 +24,7 @@ angles between each population subspace and each eigen vector of shared space ma
 Calculates the subspace most similar across a set of covariance matrices.
 }
 \note{
-can be used to inplement the Baysean comparsion from Aguirre et al. 2014
+can be used to implement the Bayesian comparison from Aguirre et al. 2014
 }
 \examples{
 data(dentus)
@@ -32,7 +32,7 @@ dentus.matrices = dlply(dentus, .(species), function(x) cov(x[-5]))
 KrzSubspace(dentus.matrices, k = 2)
 
 \dontrun{
-# The method in Aguirre et al. 2014 can de implemented usign this function as follows:
+# The method in Aguirre et al. 2014 can de implemented using this function as follows:
 
 #Random input data with dimensions traits x traits x populations x MCMCsamples:
 cov.matrices = aperm(aaply(1:10, 1, function(x) laply(RandomMatrix(6, 40,                    

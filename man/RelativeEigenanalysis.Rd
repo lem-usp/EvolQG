@@ -11,7 +11,7 @@ RelativeEigenanalysis(cov.x, cov.y, symmetric = FALSE)
 
 \item{cov.y}{covariance matrix}
 
-\item{symmetric}{compute symmetric eigenanalysis?}
+\item{symmetric}{Logical. If TRUE, computes symmetric eigenanalysis.}
 }
 \value{
 list with two objects: eigenvalues and eigenvectors

@@ -6,6 +6,11 @@
 
 using namespace Rcpp;
 
+#ifdef RCPP_USE_GLOBAL_ROSTREAM
+Rcpp::Rostream<true>&  Rcpp::Rcout = Rcpp::Rcpp_cout_get();
+Rcpp::Rostream<false>& Rcpp::Rcerr = Rcpp::Rcpp_cerr_get();
+#endif
+
 // RS
 arma::mat RS(arma::mat x, arma::mat y, int num_vectors);
 RcppExport SEXP _evolqg_RS(SEXP xSEXP, SEXP ySEXP, SEXP num_vectorsSEXP) {

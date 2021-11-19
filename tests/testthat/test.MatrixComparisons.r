@@ -1,19 +1,18 @@
 test_that("RandomSkewers returns correct results on pairs of matrices",
           {
-            expect = c(correlation = 0.467176602043229, probability = 0.068, correlation_sd = 0.185469594605008)
-            suppressWarnings(RNGversion("3.5.0"))
-            set.seed(42)
-            cor.matrix.1 <- RandomMatrix(10)
-            cor.matrix.2 <- RandomMatrix(10)
-            results <- RandomSkewers(cor.matrix.1, cor.matrix.2)
-            expect_equivalent(results, expect)
+            expect = c(correlation = 0.954184140494324, probability = 0.00561, correlation_sd = 0.0553934050116506)
+            data(dentus)
+            cor.matrix.1 <- cov(dentus[dentus$species=="A", 1:4])
+            cor.matrix.2 <- cov(dentus[dentus$species=="B", 1:4])
+            results <- RandomSkewers(cor.matrix.1, cor.matrix.2, num.vectors = 100000)
+            expect_equal(results, expect, tolerance = 1e-2)
             expect_that(results, is_a("numeric"))
             expect_that(length(results), equals(3))
-            expect_that(results[1] <=  1, is_true())
-            expect_that(results[1] >= -1, is_true())
-            expect_that(results[2] <=  1, is_true())
-            expect_that(results[2] >=  0, is_true())
-            expect_that(results[3] >=  0, is_true())
+            expect_true(results[1] <=  1)
+            expect_true(results[1] >= -1)
+            expect_true(results[2] <=  1)
+            expect_true(results[2] >=  0)
+            expect_true(results[3] >=  0)
           }
 )
 
@@ -221,8 +220,8 @@ test_that("KrzCor returns correct results",
               expect_that(KrzCor(cov.matrix.1, cov.matrix.2), is_equivalent_to(SL))
               expect_that(KrzCor(cov.matrix.1, cov.matrix.2, 10), is_equivalent_to(1))
               expect_that(KrzCor(x  <- RandomMatrix(11), x), is_equivalent_to(1))
-              expect_that(KrzCor(cov.matrix.1, cov.matrix.2) <= 1, is_true())
-              expect_that(KrzCor(cov.matrix.1, cov.matrix.2) > 0, is_true())
+              expect_true(KrzCor(cov.matrix.1, cov.matrix.2) <= 1)
+              expect_true(KrzCor(cov.matrix.1, cov.matrix.2) > 0)
           }
 )
 

@@ -15,7 +15,7 @@ PrintMatrix(x, ...)
 \arguments{
 \item{x}{Matrix or list of matrices}
 
-\item{...}{Aditional parameters}
+\item{...}{Additional parameters}
 
 \item{output.file}{Output file}
 }

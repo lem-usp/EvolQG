@@ -6,7 +6,6 @@
 #' @param tol minimum riemannian distance between sequential iterated means for accepting an estimated matrix
 #' @return geometric mean covariance matrix
 #' 
-#' @importFrom matrixcalc frobenius.norm
 #' @importFrom Matrix Schur
 #' 
 #' @rdname MeanMatrix

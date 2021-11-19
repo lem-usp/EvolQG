@@ -3,7 +3,7 @@
 #' Print a matrix or a list of matrices to file
 #' @param  x Matrix or list of matrices
 #' @param  output.file Output file
-#' @param  ... Aditional parameters
+#' @param  ... Additional parameters
 #' @return Prints coma separated matrices, with labels
 #' @export
 #' @rdname PrintMatrix

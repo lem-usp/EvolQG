@@ -4,8 +4,14 @@
 \alias{BootstrapStat}
 \title{Non-Parametric population samples and statistic comparison}
 \usage{
-BootstrapStat(ind.data, iterations, ComparisonFunc, StatFunc,
-  sample.size = dim(ind.data)[1], parallel = FALSE)
+BootstrapStat(
+  ind.data,
+  iterations,
+  ComparisonFunc,
+  StatFunc,
+  sample.size = dim(ind.data)[1],
+  parallel = FALSE
+)
 }
 \arguments{
 \item{ind.data}{Matrix of residuals or indiviual measurments}

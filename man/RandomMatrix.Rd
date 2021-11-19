@@ -4,8 +4,16 @@
 \alias{RandomMatrix}
 \title{Random matrices for tests}
 \usage{
-RandomMatrix(num.traits, num.matrices = 1, min.var = 1, max.var = 1,
-  variance = NULL, ke = 10^-3, LKJ = TRUE, shape = 2)
+RandomMatrix(
+  num.traits,
+  num.matrices = 1,
+  min.var = 1,
+  max.var = 1,
+  variance = NULL,
+  ke = 10^-3,
+  LKJ = FALSE,
+  shape = 2
+)
 }
 \arguments{
 \item{num.traits}{Number of traits in random matrix}

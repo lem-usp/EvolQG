@@ -2,20 +2,20 @@
 % Please edit documentation in R/CalcRepeatability.R
 \name{CalcRepeatability}
 \alias{CalcRepeatability}
-\title{Parametric per trait Repeatabilities}
+\title{Parametric per trait repeatabilities}
 \usage{
 CalcRepeatability(ID, ind.data)
 }
 \arguments{
-\item{ID}{indentity of individuals}
+\item{ID}{identity of individuals}
 
-\item{ind.data}{individual measurments}
+\item{ind.data}{individual measurements}
 }
 \value{
 vector of repeatabilities
 }
 \description{
-Estimates the variance in the sample not due to measurment error
+Estimates the variance in the sample not due to measurement error
 }
 \note{
 Requires at least two observations per individual

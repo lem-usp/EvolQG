@@ -4,17 +4,23 @@
 \alias{MultivDriftTest}
 \title{Multivariate genetic drift test for 2 populations}
 \usage{
-MultivDriftTest(population1, population2, G, Ne, generations,
-  iterations = 1000)
+MultivDriftTest(
+  population1,
+  population2,
+  G,
+  Ne,
+  generations,
+  iterations = 1000
+)
 }
 \arguments{
-\item{population1}{dataframe with original measurements for the ancestral population}
+\item{population1}{data.frame with original measurements for the ancestral population}
 
-\item{population2}{dataframe with original measurements for the derived population}
+\item{population2}{data.frame with original measurements for the derived population}
 
 \item{G}{ancestral G matrix}
 
-\item{Ne}{effective population size esitmated for the populations}
+\item{Ne}{effective population size estimated for the populations}
 
 \item{generations}{time in generations separating both populations}
 

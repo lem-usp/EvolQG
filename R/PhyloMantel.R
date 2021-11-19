@@ -1,12 +1,12 @@
 #' Mantel test with phylogenetic permutations
 #' 
 #' Performs a matrix correlation with significance given by a phylogenetic Mantel Test. 
-#' Pairs of rowns and columns are permuted with probability proportional to their phylogenetic distance.
+#' Pairs of rows and columns are permuted with probability proportional to their phylogenetic distance.
 #' 
 #' @param tree phylogenetic tree. Tip labels must match names in input matrices
 #' @param matrix.1 pair-wise comparison/distance matrix
 #' @param matrix.2 pair-wise comparison/distance matrix
-#' @param ... aditional parameters, currently ignored
+#' @param ... additional parameters, currently ignored
 #' @param permutations Number of permutations used in significance calculation
 #' @param ComparisonFunc comparison function, default is MatrixCor
 #' @param k determines the influence of the phylogeny. 1 is strong influence, and larger values converge to a traditional mantel test.
@@ -41,7 +41,7 @@ PhyloMantel <- function(tree, matrix.1, matrix.2, ...,
                      cor(matrix.1[lower.tri(matrix.1)], 
                          permPhylo(tree, matrix.2, k = k)[lower.tri(matrix.1)])) 
   prob <- sum(nullstats >= corr)/(permutations)
-  c("Rsquared" = corr, "Probability" = prob)
+  c("rho" = corr, "Probability" = prob)
 }
 
 # Calculates probabilities for phylogenetic permutations; from Lapointe and Garland 2001

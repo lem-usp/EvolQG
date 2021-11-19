@@ -4,8 +4,15 @@
 \alias{MonteCarloRep}
 \title{Parametric repeatabilities with covariance or correlation matrices}
 \usage{
-MonteCarloRep(cov.matrix, sample.size, ComparisonFunc, ...,
-  iterations = 1000, correlation = FALSE, parallel = FALSE)
+MonteCarloRep(
+  cov.matrix,
+  sample.size,
+  ComparisonFunc,
+  ...,
+  iterations = 1000,
+  correlation = FALSE,
+  parallel = FALSE
+)
 }
 \arguments{
 \item{cov.matrix}{Covariance matrix.}

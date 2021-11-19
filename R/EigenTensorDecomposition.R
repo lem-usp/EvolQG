@@ -4,7 +4,7 @@
 #'
 #' @param matrices k x k x m array of m covariance matrices with k traits;
 #' @param return.projection Should we project covariance matrices into estimated eigentensors? Defaults to TRUE
-#' @param ... aditional arguments for methods
+#' @param ... additional arguments for methods
 #' @return List with the following components:
 #' @return mean mean covariance matrices used to center the sample (obtained from \code{\link{MeanMatrix}})
 #' @return mean.sqrt square root of mean matrix (saved for use in other functions, 
@@ -65,7 +65,6 @@
 #' boxplot(dentus.post.eval, xlab = 'Index', ylab = 'Value', 
 #'         main = 'Posterior Eigenvalue Distribution')
 #' }
-#' @importFrom matrixcalc frobenius.prod
 #' @importFrom expm logm sqrtm
 #'
 #' @rdname EigenTensorDecomposition 

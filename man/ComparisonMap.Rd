@@ -5,8 +5,13 @@
 \title{Generic Comparison Map functions for creating parallel list methods
 Internal functions for making eficient comparisons.}
 \usage{
-ComparisonMap(matrix.list, MatrixCompFunc, ..., repeat.vector = NULL,
-  parallel = FALSE)
+ComparisonMap(
+  matrix.list,
+  MatrixCompFunc,
+  ...,
+  repeat.vector = NULL,
+  parallel = FALSE
+)
 }
 \arguments{
 \item{matrix.list}{list of matrices being compared}

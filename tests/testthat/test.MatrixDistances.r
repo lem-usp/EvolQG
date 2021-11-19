@@ -8,7 +8,7 @@ test_that("Matrix Reimann Distance",
   results_rec <- RiemannDist(cor.matrix.2, cor.matrix.1)
   results_ident <- RiemannDist(cor.matrix.1, cor.matrix.1)
   expect_that(results, is_a("numeric"))
-  expect_that(results >=  0, is_true())
+  expect_true(results >=  0)
   expect_that(results, equals(results_rec, tolerance = 10e-4))
   expect_that(results_ident, equals(0))
 }
@@ -22,7 +22,7 @@ test_that("Matrix Distribution Overlap Distance",
   results_rec <- OverlapDist(cor.matrix.2, cor.matrix.1)
   results_ident <- OverlapDist(cor.matrix.1, cor.matrix.1)
   expect_that(results, is_a("numeric"))
-  expect_that(results >=  0, is_true())
+  expect_true(results >=  0)
   expect_that(results, equals(results_rec, tolerance = 10e-4))
   expect_that(results_ident, equals(0))
 }

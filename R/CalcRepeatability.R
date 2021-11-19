@@ -1,10 +1,10 @@
-#' Parametric per trait Repeatabilities
+#' Parametric per trait repeatabilities
 #'
-#' Estimates the variance in the sample not due to measurment error
+#' Estimates the variance in the sample not due to measurement error
 #'
 #' @note Requires at least two observations per individual
-#' @param ID indentity of individuals
-#' @param ind.data individual measurments
+#' @param ID identity of individuals
+#' @param ind.data individual measurements
 #' @return vector of repeatabilities
 #' @export
 #' @references Lessels, C. M., and Boag, P. T. (1987).

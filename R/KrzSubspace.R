@@ -3,12 +3,12 @@
 #' Calculates the subspace most similar across a set of covariance matrices.
 #' 
 #' @param cov.matrices list of covariance matrices
-#' @param k number of dimentions to be retained in calculating the subspace
+#' @param k number of dimensions to be retained in calculating the subspace
 #' @return H shared space matrix
 #' @return k_eVals_H eigen values for shared space matrix, maximum value for each is the number of matrices, representing a fully shared direction
 #' @return k_eVecs_H eigen vectors of shared space matrix
 #' @return angles between each population subspace and each eigen vector of shared space matrix
-#' @note can be used to inplement the Baysean comparsion from Aguirre et al. 2014
+#' @note can be used to implement the Bayesian comparison from Aguirre et al. 2014
 #' @references Aguirre, J. D., E. Hine, K. McGuigan, and M. W. Blows. "Comparing G: multivariate analysis of genetic variation in multiple populations." Heredity 112, no. 1 (2014): 21-29.
 #' @export
 #' @examples 
@@ -17,7 +17,7 @@
 #' KrzSubspace(dentus.matrices, k = 2)
 #' 
 #' \dontrun{
-#' # The method in Aguirre et al. 2014 can de implemented usign this function as follows:
+#' # The method in Aguirre et al. 2014 can de implemented using this function as follows:
 #' 
 #' #Random input data with dimensions traits x traits x populations x MCMCsamples:
 #' cov.matrices = aperm(aaply(1:10, 1, function(x) laply(RandomMatrix(6, 40,                    

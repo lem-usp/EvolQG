@@ -2,12 +2,12 @@
 #'
 #' Calculates the Young correction for integration, using bootstrap resampling
 #'
-#' @param ind.data Matrix of indiviual measurments, or ajusted linear model
-#' @param cv.level Coeficient of variation level choosen for integration index ajustment in linear model. Defaults to 0.06.
+#' @param ind.data Matrix of individual measurments, or adjusted linear model
+#' @param cv.level Coefficient of variation level chosen for integration index adjustment in linear model. Defaults to 0.06.
 #' @param iterations Number of resamples to take
 #' @param parallel if TRUE computations are done in parallel. Some foreach backend must be registered, like doParallel or doMC.
-#' @param ... aditional arguments passed to other methods
-#' @return List with adjusted integration indexes, fitted models and simulated distributions of integration indexes and mean coeficient of variation.
+#' @param ... additional arguments passed to other methods
+#' @return List with adjusted integration indexes, fitted models and simulated distributions of integration indexes and mean coefficient of variation.
 #' @references Young, N. M., Wagner, G. P., and Hallgrimsson, B. (2010).
 #' Development and the evolvability of human limbs. Proceedings of the
 #' National Academy of Sciences of the United States of America, 107(8),

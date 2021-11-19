@@ -1,10 +1,10 @@
 #' L Modularity
 #' 
-#' Calculates the L-Modularity (Newman-type modularity) and the partition of traits that minimizes L-Modularity. Wrapper for using correlations matrices in community detections algorithms from igraph.
+#' Calculates the L-Modularity (Newman-type modularity) and the partition of traits that minimizes L-Modularity. Wrapper for using correlations matrices in community detection algorithms from igraph.
 #' @param cor.matrix correlation matrix
 #' @param method community detection function
-#' @param ... Aditional arguments to igraph community detection function
-#' @note Community detection is done by transforming the correlation matrix into a weighted graph and using community detections algorithms on this graph. Default method is optimal but slow. See igraph documentation for other options.
+#' @param ... Additional arguments to igraph community detection function
+#' @note Community detection is done by transforming the correlation matrix into a weighted graph and using community detection algorithms on this graph. Default method is optimal but slow. See igraph documentation for other options.
 #' 
 #' If negative correlations are present, the square of the correlation matrix is used as weights.
 #' @return List with L-Modularity value and trait partition
