@@ -4,7 +4,13 @@
 \alias{CalcEigenVar}
 \title{Integration measure based on eigenvalue dispersion}
 \usage{
-CalcEigenVar(matrix, sd = FALSE, rel = TRUE, sample = NULL)
+CalcEigenVar(
+  matrix,
+  sd = FALSE,
+  rel = TRUE,
+  sample = NULL,
+  keep.positive = TRUE
+)
 }
 \arguments{
 \item{matrix}{Covariance/correlation matrix}
@@ -18,6 +24,8 @@ theoretical maximum.}
 \item{sample}{Default is NULL. If a integer is provided, function calculates 
 the expected integration value for that particular sample size and returns 
 value as a deviation from the expected.}
+
+\item{keep.positive}{Logical. If TRUE, non-positive eigenvalues are removed from calculation}
 }
 \value{
 Integration index based on eigenvalue dispersion.
@@ -88,10 +96,12 @@ organization of quantitative character variation." Journal of Mathematical
 Biology 21(1):77–95.
 }
 \seealso{
-\code{\link{CalcR2}}, \code{\link{CalcICV}}, \code{\link[PHENIX]{pint}}
+\code{\link{CalcR2}}, \code{\link{CalcICV}}
 }
 \author{
 Fabio Andrade Machado
+
+Diogo Melo
 }
 \keyword{correlation}
 \keyword{eigenvalues}

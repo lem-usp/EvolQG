@@ -11,6 +11,7 @@
 #' @param sample Default is NULL. If a integer is provided, function calculates 
 #' the expected integration value for that particular sample size and returns 
 #' value as a deviation from the expected.
+#' @param keep.positive Logical. If TRUE, non-positive eigenvalues are removed from calculation
 #' @details This function quantifies morphological integration as the dispersion 
 #' of eigenvalues in a matrix. It takes either a
 #' covariance or a correlation matrix as input, and there is no need to discern 
@@ -31,7 +32,8 @@
 #' @return Integration index based on eigenvalue dispersion.
 #' @export
 #' @author Fabio Andrade Machado
-#' @seealso \code{\link{CalcR2}}, \code{\link{CalcICV}}, \code{\link[PHENIX]{pint}}
+#' @author Diogo Melo
+#' @seealso \code{\link{CalcR2}}, \code{\link{CalcICV}}
 #' @references Machado, Fabio A., Alex Hubbe, Diogo Melo, Arthur Porto, and 
 #' Gabriel Marroig. 2019. "Measuring the magnitude of morphological 
 #' integration: The effect of differences in morphometric representations and 
@@ -74,17 +76,17 @@
 #' @keywords integration
 #' @keywords eigenvalues
 
-
-
-CalcEigenVar<-function(matrix, sd=FALSE, rel=TRUE, sample=NULL) {
+CalcEigenVar<-function(matrix, sd=FALSE, rel=TRUE, sample=NULL, 
+                       keep.positive=TRUE) {
   if(!isSymmetric(matrix)) stop("covariance matrix must be symmetric.")
   
-  eigenv<-eigen(matrix)$values
-  m<-mean(eigenv)
-  n<-dim(matrix)[1]
-  sqrd<-(eigenv-m)^2
-  obs<-sum(sqrd)/n
-  max<-(n-1)*sum(eigenv)^2/n^2
+  eigenv <- eigen(matrix)$values
+  if(keep.positive) eigenv <- eigenv[which(zapsmall(eigenv)>0)]
+  m <- mean(eigenv)
+  n <- length(eigenv)
+  sqrd <- (eigenv-m)^2
+  obs <- sum(sqrd)/n
+  max <- (n-1)*sum(eigenv)^2/n^2
   
   if (!is.null(sample)) {
     obs <- obs-(max/sample)
@@ -92,13 +94,13 @@ CalcEigenVar<-function(matrix, sd=FALSE, rel=TRUE, sample=NULL) {
   }
   
   if (sd) {
-    obs<-sqrt(obs)
-    max<-sqrt(max)
+    obs <- sqrt(obs)
+    max <- sqrt(max)
   }
   
   if (rel){
-    Evar<-obs/max
-  } else Evar<-obs
+    Evar <- obs/max
+  } else Evar <- obs
   
   return(Evar)
 }
