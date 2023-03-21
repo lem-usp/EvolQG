@@ -15,6 +15,9 @@ KrzSubspaceBootstrap(x, rep = 1, MCMCsamples = 1000, parallel = FALSE)
 
 \item{parallel}{if TRUE computations are done in parallel. Some foreach backend must be registered, like doParallel or doMC.}
 }
+\value{
+A list with the observed and randomized eigenvalue distributions for the posterior Krz Subspace comparisons.
+}
 \description{
 Calculates the usual Krzanowski subspace comparison using a posterior samples
 for a set of phenotypic covariance matrices. Then, this observed comparison 
@@ -23,5 +26,26 @@ data. Residuals, which are used to calculate the observed P-matrices, are
 shuffled across groups. This process is repeated, creating a null distribution
 of  subspace comparisons under the hypothesis that all P-matrices come from the
 same population. This method is a modification on the fully Bayesian method 
-proposed in Aguirre et. al 2014 and improved in Morrisey et al 2020.
+proposed in Aguirre et. al 2013 and improved in Morrisey et al 2019.
+}
+\examples{
+
+\dontrun{
+library(plyr)
+data(ratones)
+
+model_formula = paste("cbind(", paste(names(ratones)[13:20], collapse = ", "), ") ~ SEX")
+lm_models = dlply(ratones, .(LIN), function(df) lm(as.formula(model_formula), data = df))
+krz_comparsion = KrzSubspaceBootstrap(lm_models, rep = 100, MCMCsamples = 1000)
+krz_df = KrzSubspaceDataFrame(krz_comparsion)
+PlotKrzSubspace(krz_df)
+}
+}
+\references{
+Aguirre, J. D., E. Hine, K. McGuigan, and M. W. Blows. 2013. “Comparing G: multivariate analysis of genetic variation in multiple populations.” Heredity 112 (February): 21–29.
+
+Morrissey, Michael B., Sandra Hangartner, and Keyne Monro. 2019. “A Note on Simulating Null Distributions for G Matrix Comparisons.” Evolution; International Journal of Organic Evolution 73 (12): 2512–17.
+}
+\seealso{
+KrzSubspaceDataFrame, PlotKrzSubspace
 }
