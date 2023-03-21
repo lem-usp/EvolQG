@@ -64,8 +64,8 @@ PCScoreCorrelation <- function(means, cov.matrix, taxons = names(means), show.pl
           plots[[current.plot]] <- ggplot(data.frame(x = proj.med[,i], 
                                                      y = proj.med[,j], 
                                                      taxons = taxons),
-                                          aes_string('x', 'y')) +
-                                   geom_text(aes_string(label = 'taxons')) + 
+                                          aes(x, y)) +
+                                   geom_text(aes(label = taxons)) + 
                                    geom_smooth(method = "lm", color = 'black') + 
                                    labs(x = paste0("PC", i), y = paste0("PC", j)) + 
                                    theme_bw()

@@ -1,8 +1,8 @@
 Package: evolqg
 Type: Package
 Title: Tools for Evolutionary Quantitative Genetics
-Version: 0.3-0
-Date: 2021-11-05
+Version: 0.3-1
+Date: 2021-11-16
 Author: Ana Paula Assis, Diogo Melo, Edgar Zanella, Fabio Andrade Machado, Guilherme
     Garcia
 Maintainer: Diogo Melo <diogro@gmail.com>
@@ -43,4 +43,5 @@ LinkingTo: Rcpp, RcppArmadillo
 License: MIT + file LICENSE
 BugReports: https://github.com/lem-usp/evolqg/issues
 Encoding: UTF-8
-RoxygenNote: 7.1.2
+RoxygenNote: 7.2.2
+

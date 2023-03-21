@@ -13,6 +13,7 @@
 ComparisonMap <- function (matrix.list, MatrixCompFunc, ..., repeat.vector = NULL, parallel = FALSE){
   n.matrix <- length(matrix.list)
   if(is.null(names(matrix.list))) {names(matrix.list) <- 1:n.matrix}
+  if(any(table(names(matrix.list))!=1)) {names(matrix.list) <- make.unique(names(matrix.list), sep = ".")}
   matrix.names <- names (matrix.list)
   CompareToN <- function(n) ldply(matrix.list[(n+1):n.matrix],
                                   function(x) {MatrixCompFunc(x, matrix.list[[n]], ...)[1:2]})
