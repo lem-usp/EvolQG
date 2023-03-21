@@ -1,6 +1,7 @@
 #' L Modularity
 #' 
 #' Calculates the L-Modularity (Newman-type modularity) and the partition of traits that minimizes L-Modularity. Wrapper for using correlations matrices in community detection algorithms from igraph.
+#' Warning: Using modularity maximization is almost always a terrible idea. See: https://skewed.de/tiago/blog/modularity-harmful
 #' @param cor.matrix correlation matrix
 #' @param method community detection function
 #' @param ... Additional arguments to igraph community detection function

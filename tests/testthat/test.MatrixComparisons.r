@@ -73,9 +73,9 @@ test_that("MantelCor returns correct results on non-landmark data",
             cor.matrix.1 <- RandomMatrix(15)
             cor.matrix.2 <- RandomMatrix(15)
             results <- MantelCor(cor.matrix.1, cor.matrix.2)
-            expect_equivalent(results[1], cor(cor.matrix.1[lower.tri(diag(15))], 
+            expect_equivalent(results[1], cor(cor.matrix.1[lower.tri(diag(15))],
                                               cor.matrix.2[lower.tri(diag(15))]))
-            
+
           })
 
 test_that("MantelCor returns correct results on landmark data",
@@ -83,10 +83,10 @@ test_that("MantelCor returns correct results on landmark data",
             cor.matrix.1 <- RandomMatrix(12)
             cor.matrix.2 <- RandomMatrix(12)
             results <- MantelCor(cor.matrix.1, cor.matrix.2, landmark.dim = 2)
-            expect_equivalent(results[1], cor(cor.matrix.1[evolqg:::lower.tri.land(diag(12), 2)], 
+            expect_equivalent(results[1], cor(cor.matrix.1[evolqg:::lower.tri.land(diag(12), 2)],
                                               cor.matrix.2[evolqg:::lower.tri.land(diag(12), 2)]))
             results <- MantelCor(cor.matrix.1, cor.matrix.2, landmark.dim = 3)
-            expect_equivalent(results[1], cor(cor.matrix.1[evolqg:::lower.tri.land(diag(12), 3)], 
+            expect_equivalent(results[1], cor(cor.matrix.1[evolqg:::lower.tri.land(diag(12), 3)],
                                               cor.matrix.2[evolqg:::lower.tri.land(diag(12), 3)]))
             expect_error(MantelCor(cor.matrix.1, cor.matrix.2, landmark.dim = 4))
           })
@@ -97,9 +97,9 @@ test_that("MantelCor returns correct results on list",
             rep.vec <- runif(length(mat.list), 0.8, 0.9)
             results.list <- MantelCor(mat.list)
             results <- results.list[[1]]
-            expect_equivalent(results[2,1], MantelCor(mat.list[[1]], 
+            expect_equivalent(results[2,1], MantelCor(mat.list[[1]],
                                                       mat.list[[2]])[1])
-            expect_equivalent(results[8,5], MantelCor(mat.list[[8]], 
+            expect_equivalent(results[8,5], MantelCor(mat.list[[8]],
                                                       mat.list[[5]])[1])
             expect_that(sum(is.na(results)), equals(0))
             probabilities <- results.list[[2]]
@@ -130,15 +130,15 @@ test_that("MantelCor returns correct results on list for landmark data",
             rep.vec <- runif(length(mat.list), 0.8, 0.9)
             results.list <- MantelCor(mat.list, landmark.dim = 2)
             results <- results.list[[1]]
-            expect_equivalent(results[2,1], MantelCor(mat.list[[1]], 
+            expect_equivalent(results[2,1], MantelCor(mat.list[[1]],
                                                       mat.list[[2]], landmark.dim = 2)[1])
-            expect_equivalent(results[8,5], MantelCor(mat.list[[8]], 
+            expect_equivalent(results[8,5], MantelCor(mat.list[[8]],
                                                       mat.list[[5]], landmark.dim = 2)[1])
             results.list <- MantelCor(mat.list, landmark.dim = 3)
             results <- results.list[[1]]
-            expect_equivalent(results[2,1], MantelCor(mat.list[[1]], 
+            expect_equivalent(results[2,1], MantelCor(mat.list[[1]],
                                                       mat.list[[2]], landmark.dim = 3)[1])
-            expect_equivalent(results[8,5], MantelCor(mat.list[[8]], 
+            expect_equivalent(results[8,5], MantelCor(mat.list[[8]],
                                                       mat.list[[5]], landmark.dim = 3)[1])
             expect_that(sum(is.na(results)), equals(0))
             probabilities <- results.list[[2]]
@@ -320,4 +320,65 @@ test_that("KrzProjection returns correct results on lists and matrices",
           }
 )
 
+test_that("PCAsimilarity returns correct results",
+          {
+            cov.matrix.1 <- RandomMatrix(10)
+            cov.matrix.2 <- RandomMatrix(10)
+            eg.x <- eigen(cov.matrix.1)
+            eg.y <- eigen(cov.matrix.2)
+            eg.x.values <- eg.x$values
+            eg.y.values <- eg.y$values
+            eg.x.vectors <- eg.x$vectors
+            eg.y.vectors <- eg.y$vectors
 
+            total_var <- eg.x.values %*% eg.y.values
+
+            SL = sum((eg.x.values %o% eg.y.values) * ((t(eg.x.vectors) %*% (eg.y.vectors))**2))/total_var
+            expect_that(PCAsimilarity(cov.matrix.1, cov.matrix.2), is_equivalent_to(SL))
+            expect_that(PCAsimilarity(x  <- RandomMatrix(11), x), is_equivalent_to(1))
+            expect_true(PCAsimilarity(cov.matrix.1, cov.matrix.2) <= 1)
+            expect_true(PCAsimilarity(cov.matrix.1, cov.matrix.2) > 0)
+          }
+)
+
+test_that("PCAsimilarity returns correct results",
+          {
+            mat.list <- lapply(as.list(1:10), function(x) RandomMatrix(10))
+            rep.vec <- runif(length(mat.list), 0.8, 0.9)
+            results <- PCAsimilarity(mat.list)
+            expect_equivalent(results[2,1], PCAsimilarity(mat.list[[1]], mat.list[[2]]))
+            results.2 <- PCAsimilarity(mat.list, repeat.vector = rep.vec)
+            expect_that(sum(is.na(results)), equals(0))
+            expect_that(sum(is.na(results.2)), equals(0))
+            expect_that(dim(results), equals(c(length(mat.list),length(mat.list))))
+            lower  <- results[lower.tri(results)]
+            lower.bool = sapply(lower, function(x) isTRUE(x > 0 & x < 1))
+            expect_that(sum(lower.bool), equals(length(lower.bool)))
+            upper  <- results[upper.tri(results, diag = T)]
+            upper.bool = sapply(upper, function(x) isTRUE(x == 0))
+            expect_that(sum(upper.bool), equals(length(upper.bool)))
+            lower.2  <- results.2[lower.tri(results.2)]
+            upper.2  <- t(results.2)[lower.tri(results.2)]
+            expect_that(lower.2, equals(lower))
+            expect_that(diag(results.2), is_equivalent_to(rep.vec))
+            expect_that(sum(upper.2 < lower.2), equals(0))
+          }
+)
+
+test_that("PCAsimilarity returns correct results on lists + matrices",
+          {
+            mat.list <- lapply(as.list(1:10), function(x) RandomMatrix(13))
+            y.matrix <- RandomMatrix(13)
+            results <- PCAsimilarity(mat.list, y.matrix)
+            expect_equivalent(results[1], PCAsimilarity(mat.list[[1]], y.matrix))
+            expect_that(results, is_a("numeric"))
+            expect_that(sum(is.na(results)), equals(0))
+            expect_that(length(results), equals(length(mat.list)))
+            names(mat.list) <- 1:length(mat.list)
+            named.results <- PCAsimilarity(mat.list, y.matrix)
+            expect_that(named.results, is_a("data.frame"))
+            expect_that(sum(is.na(named.results)), equals(0))
+            expect_that(dim(named.results), equals(c(length(mat.list), 2)))
+            expect_that(named.results[,".id"], equals(names(mat.list)))
+          }
+)

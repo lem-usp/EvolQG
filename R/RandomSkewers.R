@@ -93,7 +93,7 @@ RandomSkewers.list <- function (cov.x, cov.y = NULL, num.vectors = 10000, repeat
 #' @export
 RandomSkewers.mcmc_sample <- function (cov.x, cov.y, num.vectors = 10000, parallel = FALSE, ...)
 {
-  if (class (cov.y) == "mcmc_sample") {
+  if (is(cov.y, "mcmc_sample")) {
     n = dim(cov.x)[1]
     if(dim(cov.y)[1] != n) stop("samples must be of same size")
     cov.x <- alply(cov.x, 1)

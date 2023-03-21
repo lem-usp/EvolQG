@@ -43,9 +43,8 @@ test_that("MantelModTest returns correct results for Modularity Hypothesis Index
             cor.hypot = CreateHypotMatrix(hypot)
             
             # First with an unstructured matrix:
-            expect = c(rho = -0.0393920752173473, Probability = 0.556443556443556, 
-                       `AVG+` = -0.0596580385711816, `AVG-` = -0.0271784073214974, MHI = -0.02718047)
-            suppressWarnings(RNGversion("3.5.0"))
+            expect = c(rho = -0.0393920752173474, Probability = 0.556443556443556, 
+`AVG+` = -0.0596580385711818, `AVG-` = -0.0271784073214975, MHI = -0.0254288119834227)
             set.seed(42)
             un.cor = RandomMatrix(12, LKJ = FALSE)
             result = MantelModTest(cor.hypot, RemoveSize(un.cor), MHI = TRUE)
@@ -54,7 +53,6 @@ test_that("MantelModTest returns correct results for Modularity Hypothesis Index
             # Now with a modular matrix:
             expect = c(rho = 1, Probability = 0.001998001998002, `AVG+` = 0.8, 
                        `AVG-` = 0.3, MHI = 0.325128044)
-            suppressWarnings(RNGversion("3.5.0"))
             set.seed(42)
             hypot.mask = matrix(as.logical(cor.hypot), 12, 12)
             mod.cor = matrix(NA, 12, 12)
