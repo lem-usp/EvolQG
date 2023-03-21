@@ -54,6 +54,8 @@ PCScoreCorrelation <- function(means, cov.matrix, taxons = names(means), show.pl
     plots <- vector("list", (n.taxon^2 - n.taxon)/2)
     current.plot <- 1
   }
+  x = NULL
+  y = NULL
   for(i in 1:n.taxon){
     for (j in 1:i){
       if(j != i){

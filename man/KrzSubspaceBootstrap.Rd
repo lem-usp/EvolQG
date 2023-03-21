@@ -47,5 +47,5 @@ Aguirre, J. D., E. Hine, K. McGuigan, and M. W. Blows. 2013. “Comparing G: mul
 Morrissey, Michael B., Sandra Hangartner, and Keyne Monro. 2019. “A Note on Simulating Null Distributions for G Matrix Comparisons.” Evolution; International Journal of Organic Evolution 73 (12): 2512–17.
 }
 \seealso{
-KrzSubspaceDataFrame, PlotKrzSubspace
+\code{\link{KrzSubspaceDataFrame}}, \code{\link{PlotKrzSubspace}}
 }

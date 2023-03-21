@@ -178,7 +178,7 @@ MatrixCor.list <- function (cor.x, cor.y = NULL,
 #' @export
 MatrixCor.mcmc_sample <- function (cor.x, cor.y, ..., parallel = FALSE)
 {
-  if (class (cor.y) == "mcmc_sample") {
+  if (is(cor.y, "mcmc_sample")) {
     n = dim(cor.x)[1]
     if(dim(cor.y)[1] != n) stop("samples must be of same size")
     cor.x <- alply(cor.x, 1, cov2cor)

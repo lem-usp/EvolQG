@@ -18,7 +18,7 @@
 #' Aguirre, J. D., E. Hine, K. McGuigan, and M. W. Blows. 2013. “Comparing G: multivariate analysis of genetic variation in multiple populations.” Heredity 112 (February): 21–29.
 #'
 #' Morrissey, Michael B., Sandra Hangartner, and Keyne Monro. 2019. “A Note on Simulating Null Distributions for G Matrix Comparisons.” Evolution; International Journal of Organic Evolution 73 (12): 2512–17.
-#' @seealso KrzSubspaceDataFrame, PlotKrzSubspace
+#' @seealso \code{\link{KrzSubspaceDataFrame}}, \code{\link{PlotKrzSubspace}}
 #' @export
 #' @examples 
 #' 
@@ -73,12 +73,15 @@ KrzSubspaceBootstrap = function(x, rep = 1, MCMCsamples = 1000, parallel = FALSE
 #' 
 #' Returns posterior means and confidence intervals from the object produced by the KrzSubspaceBootstrap() function. Mainly used for ploting using PlotKrzSubspace. 
 #' See example in the KrzSubspaceBootstrap function.
+#' 
 #' @param x output from KrzSubspaceBootstrap function.
 #' @param n number of eigenvalues to use
-#' @param prob Posterior probability interval. Default is 95%.
+#' @param prob Posterior probability interval. Default is 95\%.
+#' 
 #' @return Posterior intervals for the eigenvalues of the H matrix in the KrzSubspace comparison.
+#' 
 #' @importFrom coda HPDinterval
-#' @seealso KrzSubspaceBootstrap, PlotKrzSubspace
+#' @seealso \code{\link{KrzSubspaceBootstrap}}, \code{\link{PlotKrzSubspace}}
 #' @export
 KrzSubspaceDataFrame <- function(x, n = ncol(observed), prob = 0.95){
   observed <- x$observed

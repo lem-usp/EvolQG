@@ -11,7 +11,7 @@ KrzSubspaceDataFrame(x, n = ncol(observed), prob = 0.95)
 
 \item{n}{number of eigenvalues to use}
 
-\item{prob}{Posterior probability interval. Default is 95%.}
+\item{prob}{Posterior probability interval. Default is 95\%.}
 }
 \value{
 Posterior intervals for the eigenvalues of the H matrix in the KrzSubspace comparison.
@@ -21,5 +21,5 @@ Returns posterior means and confidence intervals from the object produced by the
 See example in the KrzSubspaceBootstrap function.
 }
 \seealso{
-KrzSubspaceBootstrap, PlotKrzSubspace
+\code{\link{KrzSubspaceBootstrap}}, \code{\link{PlotKrzSubspace}}
 }
