@@ -152,12 +152,14 @@ RarefactionStat <- function(ind.data,
 #' @param comparison.list output from rarefaction functions can be used in ploting
 #' @param y.axis Y axis lable in plot
 #' @param x.axis Y axis lable in plot
+#' @return ggplot2 object with rarefaction plot
 #' @author Diogo Melo, Guilherme Garcia
 #' @seealso \code{\link{BootstrapRep}}
 #' @export
 #' @import plyr
 #' @importFrom ggplot2 ggplot aes_string layer scale_x_continuous scale_y_continuous theme_bw
 #' @importFrom reshape2 melt
+#' 
 #' @examples
 #'\dontrun{ 
 #' ind.data <- iris[1:50,1:4]

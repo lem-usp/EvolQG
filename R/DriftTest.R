@@ -111,6 +111,7 @@ TreeDriftTest <- function(tree, mean.list, cov.matrix.list, sample.sizes = NULL)
 #'@param test.list Output from TreeDriftTest
 #'@param tree phylogenetic tree
 #'@param ... adition arguments to plot
+#'@return No return value, called for plot side effects
 #'@seealso DriftTest TreeDriftTest
 #'@importFrom ape nodelabels
 #'@author Diogo Melo

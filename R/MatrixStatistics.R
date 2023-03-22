@@ -33,7 +33,7 @@
 #' @keywords Flexibility
 #' @keywords Pc1Percent
 #' @keywords Respondability
-MeanMatrixStatistics <- function (cov.matrix, iterations = 1000, full.results = F, parallel = FALSE) {
+MeanMatrixStatistics <- function (cov.matrix, iterations = 1000, full.results = FALSE, parallel = FALSE) {
   matrix.stat.functions = list ('respondability' = Respondability,
                                 'evolvability' = Evolvability,
                                 'conditional.evolvability' = ConditionalEvolvability,
