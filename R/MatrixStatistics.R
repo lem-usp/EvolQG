@@ -80,6 +80,8 @@ Autonomy <- function (cov.matrix, beta.mat = NULL, iterations = 1000){
   }
   tryCatch({cv = chol(cov.matrix)}, error = function(cond){
     warning("matrix is singular, can't compute autonomy directly. Using nearPD, results could be wrong")
+    cov.matrix <- nearPD(cov.matrix)[[1]]
+    chol(cov.matrix)
   })
    (1/diag(t (beta.mat) %*% solve (cov.matrix, beta.mat))) / diag(t (beta.mat) %*% cov.matrix %*% beta.mat)
 }
