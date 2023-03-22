@@ -28,7 +28,7 @@
 #' values and probabilities of all comparisons.
 #' If repeat.vector is passed, comparison matrix is corrected above
 #' diagonal and repeatabilities returned in diagonal.
-#' @note If the significance is not needed, MatrixCor provides the 
+#' @note If the significance is not needed, MatrixCor provides the
 #' correlation and skips the permutations, so it is much faster.
 #' @export
 #' @importFrom vegan mantel
@@ -41,7 +41,7 @@
 #' c2 <- RandomMatrix(10, 1, 1, 10)
 #' c3 <- RandomMatrix(10, 1, 1, 10)
 #' MantelCor(cov2cor(c1), cov2cor(c2))
-#' 
+#'
 #' cov.list <- list(c1, c2, c3)
 #' cor.list <- llply(list(c1, c2, c3), cov2cor)
 #'
@@ -53,15 +53,13 @@
 #'
 #' c4 <- RandomMatrix(10)
 #' MantelCor(cor.list, c4)
-#' 
+#'
+#' \dontrun{
 #' #Multiple threads can be used with some foreach backend library, like doMC or doParallel
-#' #library(doParallel)
-#' ##Windows:
-#' #cl <- makeCluster(2)
-#' #registerDoParallel(cl)
-#' ##Mac and Linux:
-#' #registerDoParallel(cores = 2)
-#' #MantelCor(cor.list, parallel = TRUE) 
+#' library(doMC)
+#' registerDoMC(cores = 2)
+#' MantelCor(cor.list, parallel = TRUE)
+#' }
 #' @keywords matrixcomparison
 #' @keywords matrixcorrelation
 #' @keywords randomskewers
@@ -70,7 +68,7 @@ MantelCor <- function (cor.x, cor.y, ...) UseMethod("MantelCor")
 #' @rdname MantelCor
 #' @method MantelCor default
 #' @export
-MantelCor.default <- function (cor.x, cor.y, permutations = 1000, ..., 
+MantelCor.default <- function (cor.x, cor.y, permutations = 1000, ...,
                                landmark.dim = NULL, withinLandmark = FALSE, mod = FALSE) {
   if(!mod & (sum(diag(cor.x)) != dim(cor.x)[1] | sum(diag(cor.y))!= dim(cor.y)[1]))
     warning("Matrices do not appear to be correlation matrices. Use with caution.")
@@ -146,7 +144,7 @@ MatrixCor <- function (cor.x, cor.y, ...) UseMethod("MatrixCor")
 #' @rdname MantelCor
 #' @method MatrixCor default
 #' @export
-MatrixCor.default <- function (cor.x, cor.y, ...)                           
+MatrixCor.default <- function (cor.x, cor.y, ...)
 {
   if(sum(diag(cor.x)) != dim(cor.x)[1] | sum(diag(cor.y))!= dim(cor.y)[1])
     warning("Matrices do not appear to be correlation matrices. Use with caution.")
@@ -167,7 +165,7 @@ MatrixCor.list <- function (cor.x, cor.y = NULL,
                             parallel = parallel)[[1]]
   } else{
     output <- SingleComparisonMap(cor.x, cor.y,
-                                  function(x, y) MatrixCor(x, y),                                     
+                                  function(x, y) MatrixCor(x, y),
                                   parallel = parallel)
   }
   return(output)
@@ -182,7 +180,7 @@ MatrixCor.mcmc_sample <- function (cor.x, cor.y, ..., parallel = FALSE)
     n = dim(cor.x)[1]
     if(dim(cor.y)[1] != n) stop("samples must be of same size")
     cor.x <- alply(cor.x, 1, cov2cor)
-    output <- aaply(1:n, 1, function(i) MatrixCor(cor.x, 
+    output <- aaply(1:n, 1, function(i) MatrixCor(cor.x,
                                                   cov2cor(cor.y[i,,]))$correlation,
                     .parallel = parallel)
     output <- as.numeric(output)

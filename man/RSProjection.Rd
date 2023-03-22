@@ -28,18 +28,17 @@ set of random vectors and confidence intervals for the projections
 eigen decomposition of the random vectors in directions with significant differences of variations
 }
 \description{
-Uses Bayesian posterior samples of a set of covariance matrices to identify 
+Uses Bayesian posterior samples of a set of covariance matrices to identify
 directions of the morphospace in which these matrices differ in their amount of genetic variance.
 }
 \examples{
-library(magrittr)
-# small MCMCsample to reduce run time, acctual sample should be larger 
+# small MCMCsample to reduce run time, acctual sample should be larger
 data(dentus)
-cov.matrices = dlply(dentus, .(species), function(x) lm(as.matrix(x[,1:4])~1)) \%>\% 
+cov.matrices = dlply(dentus, .(species), function(x) lm(as.matrix(x[,1:4])~1)) |>
                laply(function(x) BayesianCalculateMatrix(x, samples = 50)$Ps)
 cov.matrices = aperm(cov.matrices, c(3, 4, 1, 2))
-\dontrun{
-rs_proj = RSProjection(cov.matrices, p = 0.8)  
+\donttest{
+rs_proj = RSProjection(cov.matrices, p = 0.8)
 PlotRSprojection(rs_proj, cov.matrices, ncol = 5)
 }
 

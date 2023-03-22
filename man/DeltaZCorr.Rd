@@ -50,7 +50,7 @@ Random skewers method compared to the common principal components model.
 Genetics and Molecular Biology, 30, 461-469.
 }
 \seealso{
-\code{\link{KrzCor}},\code{\link{MantelCor}}
+\code{\link{KrzCor}},\code{\link{MantelCor}},,\code{\link{RandomSkewers}}
 }
 \author{
 Diogo Melo, Guilherme Garcia

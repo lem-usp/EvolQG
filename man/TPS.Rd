@@ -12,7 +12,7 @@ TPS(target.shape, reference.shape)
 \item{reference.shape}{Reference shape}
 }
 \value{
-A list with the transformation parameters and a function that gives 
+A list with the transformation parameters and a function that gives
 the value of the TPS function at each point for numerical differentiation
 }
 \description{

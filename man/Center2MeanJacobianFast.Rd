@@ -18,7 +18,7 @@ describing a local aspect of shape deformation for a given set of volumes,
 returning log determinants of deviations from mean jacobian (Woods, 2003).
 }
 \references{
-Woods, Roger P. 2003. “Characterizing Volume and Surface 
+Woods, Roger P. 2003. “Characterizing Volume and Surface
 Deformations in an Atlas Framework: Theory, Applications, and Implementation.” NeuroImage 18 (3):769-88.
 }
 \author{

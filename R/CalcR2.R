@@ -2,6 +2,8 @@
 #'
 #' Calculates the mean squared correlation of a covariance or correlation matrix. Measures integration.
 #'
+#' Warning: CalcEigenVar is strongly preferred and should probably be used in place of this function.
+#'
 #' @param c.matrix Covariance or correlation matrix.
 #' @return Mean squared value of off diagonal elements of correlation matrix
 #' @export
@@ -11,14 +13,17 @@
 #' @references Porto, Arthur, Leila Teruko Shirai, Felipe Bandoni de Oliveira, and Gabriel Marroig. 2013. "Size Variation, Growth Strategies, and the Evolution of Modularity in the Mammalian Skull." Evolution 67 (July): 3305-22. doi:10.1111/evo.12177.
 #' @examples
 #' cov.matrix <- RandomMatrix(10, 1, 1, 10)
-#' # both of the following calls are equivalent, 
-#' # CalcR2() converts covariance matrices to correlation matrices internally
+#'
+#' # both of the following calls are equivalent,
+#' # CalcR2 converts covariance matrices to correlation matrices internally
 #' CalcR2(cov.matrix)
 #' CalcR2(cov2cor(cov.matrix))
 #' @keywords correlation
 #' @keywords integration
 
 CalcR2 <- function (c.matrix){
+    .Deprecated("CalcEigenVar", package=NULL, "CalcR2 is deprecated. CalcEigenVar is strongly preferred and should be used instead.")
     cor.matrix = cov2cor(c.matrix)
     return (mean (cor.matrix [lower.tri (cor.matrix)]^2))
 }
+

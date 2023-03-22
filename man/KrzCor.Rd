@@ -46,7 +46,7 @@ If cov.x and cov.y are passed, returns Krzanowski correlation
 
 If cov.x is a list and cov.y is passed, same as above, but for all matrices in cov.x.
 
-If only a list is passed to cov.x, a matrix of Krzanowski correlation 
+If only a list is passed to cov.x, a matrix of Krzanowski correlation
 values.
 If repeat.vector is passed, comparison matrix is corrected above
 diagonal and repeatabilities returned in diagonal.
@@ -61,22 +61,20 @@ c3 <- RandomMatrix(10, 1, 1, 10)
 KrzCor(c1, c2)
 
 KrzCor(list(c1, c2, c3))
-\dontrun{
+\donttest{
 reps <- unlist(lapply(list(c1, c2, c3), MonteCarloRep, 10, KrzCor, iterations = 10))
 KrzCor(list(c1, c2, c3), repeat.vector = reps)
 
 c4 <- RandomMatrix(10)
 KrzCor(list(c1, c2, c3), c4)
 }
-#Multiple threads can be used with some foreach backend library, like doMC or doParallel
-#library(doParallel)
-##Windows:
-#cl <- makeCluster(2)
-#registerDoParallel(cl)
-##Mac and Linux:
-#registerDoParallel(cores = 2)
-#KrzCor(list(c1, c2, c3), parallel = TRUE)
 
+\dontrun{
+#Multiple threads can be used with some foreach backend library, like doMC or doParallel
+library(doMC)
+registerDoMC(cores = 2)
+KrzCor(list(c1, c2, c3), parallel = TRUE)
+}
 }
 \references{
 Krzanowski, W. J. (1979). Between-Groups Comparison of Principal

@@ -70,14 +70,12 @@ plot(srd.output)
 plot(srd.array.result[1,2][[1]])
 plot(srd.array.result[3,4][[1]])
 
+\dontrun{
 #Multiple threads can be used with some foreach backend library, like doMC or doParallel
-#library(doParallel)
-##Windows:
-#cl <- makeCluster(2)
-#registerDoParallel(cl)
-##Mac and Linux:
-#registerDoParallel(cores = 2)
-#SRD(m.list, parallel = TRUE)
+library(doMC)
+registerDoMC(cores = 2)
+SRD(m.list, parallel = TRUE)
+}
 }
 \references{
 Marroig, G., Melo, D., Porto, A., Sebastiao, H., and Garcia, G.

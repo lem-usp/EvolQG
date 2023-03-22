@@ -18,6 +18,8 @@ List with L-Modularity value and trait partition
 }
 \description{
 Calculates the L-Modularity (Newman-type modularity) and the partition of traits that minimizes L-Modularity. Wrapper for using correlations matrices in community detection algorithms from igraph.
+}
+\details{
 Warning: Using modularity maximization is almost always a terrible idea. See: https://skewed.de/tiago/blog/modularity-harmful
 }
 \note{

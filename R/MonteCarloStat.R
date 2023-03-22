@@ -106,7 +106,7 @@ doComparisonMC <- function (x, ComparisonFunc, StatFunc, cov.matrix, sample.size
 #'
 #' MonteCarloRep(cov.matrix, sample.size = 30, RandomSkewers, iterations = 20)
 #' 
-#'\dontrun{
+#'\donttest{
 #' MonteCarloRep(cov.matrix, sample.size = 30, RandomSkewers, num.vectors = 100, 
 #'               iterations = 20, correlation = TRUE)
 #' MonteCarloRep(cov.matrix, sample.size = 30, MatrixCor, correlation = TRUE)
@@ -117,17 +117,12 @@ doComparisonMC <- function (x, ComparisonFunc, StatFunc, cov.matrix, sample.size
 #' #Creating repeatability vector for a list of matrices
 #' mat.list <- RandomMatrix(5, 3, 1, 10)
 #' laply(mat.list, MonteCarloRep, 30, KrzCor, correlation = TRUE)
+#'}
 #'
-#'
-#' ##Multiple threads can be used with doMC library
-#' 
-#' ##Windows:
-#' #cl <- makeCluster(2)
-#' #registerDoParallel(cl)
-#' ##Mac and Linux:
-#' library(doParallel)
-#' registerDoParallel(cores = 2)
-#' 
+#' \dontrun{
+#' #Multiple threads can be used with some foreach backend library, like doMC or doParallel
+#' library(doMC)
+#' registerDoMC(cores = 2)
 #' MonteCarloRep(cov.matrix, 30, RandomSkewers, iterations = 100, parallel = TRUE)
 #' }
 #' @keywords parametricsampling

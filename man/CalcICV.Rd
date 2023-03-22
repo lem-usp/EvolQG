@@ -13,8 +13,11 @@ CalcICV(cov.matrix)
 coefficient of variation of the eigenvalues of a covariance matrix
 }
 \description{
-Calculates the coefficient of variation of the eigenvalues of a covariance matrix, a measure of 
+Calculates the coefficient of variation of the eigenvalues of a covariance matrix, a measure of
 integration comparable to the R^2 in correlation matrices.
+}
+\details{
+Warning: CalcEigenVar is strongly preferred and should probably be used in place of this function.
 }
 \examples{
 cov.matrix <- RandomMatrix(10, 1, 1, 10)

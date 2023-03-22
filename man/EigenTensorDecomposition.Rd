@@ -42,7 +42,6 @@ the number of independent variables (k(k + 1)/2) minus one, in a similar manner 
 principal component analysis.
 }
 \examples{
-\dontrun{
 data(dentus)
 
 dentus.vcv <- daply (dentus, .(species), function(x) cov(x[,-5]))
@@ -52,13 +51,15 @@ dentus.vcv <- aperm(dentus.vcv, c(2, 3, 1))
 dentus.etd <- EigenTensorDecomposition(dentus.vcv, TRUE)
 
 # Plot some results
-par(mfrow = c(1, 2))
+oldpar <- par(mfrow = c(1,2))  
 plot(dentus.etd $ values, pch = 20, type = 'b', ylab = 'Eigenvalue')
 plot(dentus.etd $ projection [, 1:2], pch = 20, 
      xlab = 'Eigentensor 1', ylab = 'Eigentensor 2')
 text(dentus.etd $ projection [, 1:2],
      labels = rownames (dentus.etd $ projection), pos = 2)
+par(oldpar)  
 
+\donttest{
 # we can also deal with posterior samples of covariance matrices using plyr
 
 dentus.models <- dlply(dentus, .(species), 
@@ -74,7 +75,7 @@ dentus.post.vcv <- aperm(dentus.post.vcv, c(3, 4, 1, 2))
 dentus.post.etd <- alply(dentus.post.vcv, 4, EigenTensorDecomposition)
 
 # which would allow us to observe the posterior 
-# distribution of associated eigenvalues, for instance
+# distribution of associated eigenvalues, for example
 dentus.post.eval <- laply (dentus.post.etd, function (L) L $ values)
 
 boxplot(dentus.post.eval, xlab = 'Index', ylab = 'Value', 

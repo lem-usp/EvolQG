@@ -17,15 +17,13 @@
 #' @examples
 #' cov.matrix <- cov(iris[,1:4])
 #' MeanMatrixStatistics(cov.matrix)
-#' 
+#'
+#' \dontrun{
 #' #Multiple threads can be used with some foreach backend library, like doMC or doParallel
-#' #library(doParallel)
-#' ##Windows:
-#' #cl <- makeCluster(2)
-#' #registerDoParallel(cl)
-#' ##Mac and Linux:
-#' #registerDoParallel(cores = 2)
-#' #MeanMatrixStatistics(cov.matrix, parallel = TRUE)
+#' library(doMC)
+#' registerDoMC(cores = 2)
+#' MeanMatrixStatistics(cov.matrix, parallel = TRUE)
+#' }
 #' @keywords Autonomy
 #' @keywords ConditionalEvolvability
 #' @keywords Constraints
@@ -33,7 +31,7 @@
 #' @keywords Flexibility
 #' @keywords Pc1Percent
 #' @keywords Respondability
-MeanMatrixStatistics <- function (cov.matrix, iterations = 1000, full.results = F, parallel = FALSE) {
+MeanMatrixStatistics <- function (cov.matrix, iterations = 1000, full.results = FALSE, parallel = FALSE) {
   matrix.stat.functions = list ('respondability' = Respondability,
                                 'evolvability' = Evolvability,
                                 'conditional.evolvability' = ConditionalEvolvability,
@@ -59,9 +57,9 @@ MeanMatrixStatistics <- function (cov.matrix, iterations = 1000, full.results = 
                             'constraints',
                             'null.dist')
   stat.mean <- colMeans (stat.dist[,-7])
-  integration <- c (CalcR2 (cov.matrix), 
-                    Pc1Percent (cov.matrix), 
-                    CalcICV(cov.matrix), 
+  integration <- c (CalcR2 (cov.matrix),
+                    Pc1Percent (cov.matrix),
+                    CalcICV(cov.matrix),
                     CalcEigenVar(cov.matrix, sd=TRUE, rel=FALSE))
   names (integration) <- c ('MeanSquaredCorrelation', 'pc1.percent', 'ICV', 'EigenSd')
   stat.mean <- c (integration, stat.mean)
@@ -84,7 +82,7 @@ Autonomy <- function (cov.matrix, beta.mat = NULL, iterations = 1000){
     warning("matrix is singular, can't compute autonomy directly. Using nearPD, results could be wrong")
   })
    (1/diag(t (beta.mat) %*% solve (cov.matrix, beta.mat))) / diag(t (beta.mat) %*% cov.matrix %*% beta.mat)
-} 
+}
 #' @export
 #' @importFrom Matrix Matrix solve chol nearPD diag
 ConditionalEvolvability <- function (cov.matrix, beta.mat = NULL, iterations = 1000){
@@ -118,7 +116,7 @@ Evolvability <- function (cov.matrix, beta.mat = NULL, iterations = 1000){
   if(is.null(beta.mat)){
     beta.mat <- array (rnorm (num.traits * iterations), c(num.traits, iterations))
     beta.mat <- apply (beta.mat, 2, Normalize)
-  } 
+  }
   diag(t(beta.mat) %*% cov.matrix %*% beta.mat)
 }
 #' @export

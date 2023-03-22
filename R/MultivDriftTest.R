@@ -18,7 +18,7 @@
 #'@export
 #'@importFrom mvtnorm rmvnorm
 #'@examples
-#'\dontrun{
+#'\donttest{
 #'data(dentus)
 #'A <- dentus[dentus$species== "A",-5]
 #'B <- dentus[dentus$species== "B",-5]

@@ -19,10 +19,10 @@ LocalShapeVariables(
 
 \item{landmarks}{unaligned landmarks. Ignored if both gpa and cs are passed.}
 
-\item{tesselation}{matrix of rows of the landmarks. The centroid of each row 
+\item{tesselation}{matrix of rows of the landmarks. The centroid of each row
 is used to mark the position of the jacobians}
 
-\item{run_parallel}{Logical. If computation should be paralleled. Use with 
+\item{run_parallel}{Logical. If computation should be paralleled. Use with
 caution, can make things worse. Requires that at parallel back-end like doMC
 be registered}
 }

@@ -10,10 +10,11 @@
 #' @export
 #' @examples
 #' data(iris)
-#' options(contrasts=c("contr.sum","contr.poly"))
+#' old <- options(contrasts=c("contr.sum","contr.poly"))
 #' iris.lm = lm(as.matrix(iris[,1:4])~iris[,5])
 #' cov.matrix <- CalculateMatrix(iris.lm)
-#'
+#' options(old)  
+#' 
 #' #To obtain a corrlation matrix, use:
 #' cor.matrix <- cov2cor(cov.matrix)
 #' @keywords covariancematrix

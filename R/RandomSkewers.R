@@ -31,7 +31,7 @@
 #' Random skewers method compared to the common principal components model.
 #' Genetics and Molecular Biology, 30, 461-469.
 #' @author Diogo Melo, Guilherme Garcia
-#' @seealso \code{\link{KrzCor}},\code{\link{MantelCor}}
+#' @seealso \code{\link{KrzCor}},\code{\link{MantelCor}},\code{\link{DeltaZCorr}}
 #' @examples
 #' c1 <- RandomMatrix(10, 1, 1, 10)
 #' c2 <- RandomMatrix(10, 1, 1, 10)
@@ -39,24 +39,22 @@
 #' RandomSkewers(c1, c2)
 #'
 #' RandomSkewers(list(c1, c2, c3))
-#'\dontrun{
+#'\donttest{
 #' reps <- unlist(lapply(list(c1, c2, c3), MonteCarloRep, sample.size = 10,
-#'                                         RandomSkewers, num.vectors = 100, 
+#'                                         RandomSkewers, num.vectors = 100,
 #'                                         iterations = 10))
 #' RandomSkewers(list(c1, c2, c3), repeat.vector = reps)
 #'
 #' c4 <- RandomMatrix(10)
 #' RandomSkewers(list(c1, c2, c3), c4)
 #' }
+#' \dontrun{
 #' #Multiple threads can be used with some foreach backend library, like doMC or doParallel
-#' #library(doParallel)
-#' ##Windows:
-#' #cl <- makeCluster(2)
-#' #registerDoParallel(cl)
-#' ##Mac and Linux:
-#' #registerDoParallel(cores = 2)
-#' #RandomSkewers(list(c1, c2, c3), parallel = TRUE)
-#' 
+#' library(doMC)
+#' registerDoMC(cores = 2)
+#' RandomSkewers(list(c1, c2, c3), parallel = TRUE)
+#' }
+#'
 #' @keywords matrixcomparison
 #' @keywords matrixcorrelation
 #' @keywords randomskewers
@@ -97,8 +95,8 @@ RandomSkewers.mcmc_sample <- function (cov.x, cov.y, num.vectors = 10000, parall
     n = dim(cov.x)[1]
     if(dim(cov.y)[1] != n) stop("samples must be of same size")
     cov.x <- alply(cov.x, 1)
-    output <- aaply(1:n, 1, function(i) RandomSkewers(cov.x, 
-                                                      cov.y[i,,], 
+    output <- aaply(1:n, 1, function(i) RandomSkewers(cov.x,
+                                                      cov.y[i,,],
                                                       num.vectors = num.vectors)$correlation,
                     .parallel = parallel)
     output <- as.numeric(output)

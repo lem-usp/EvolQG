@@ -31,7 +31,7 @@
 #' c2 <- RandomMatrix(10)
 #' KrzProjection(c1, c2)
 #'
-#'\dontrun{
+#'\donttest{
 #' m.list <- RandomMatrix(10, 3)
 #' KrzProjection(m.list)
 #' KrzProjection(m.list, full.results = TRUE)
@@ -41,14 +41,12 @@
 #' KrzProjection(m.list, c1)
 #' KrzProjection(m.list, c1, full.results = TRUE)
 #' }
+#' \dontrun{
 #' #Multiple threads can be used with some foreach backend library, like doMC or doParallel
-#' #library(doParallel)
-#' ##Windows:
-#' #cl <- makeCluster(2)
-#' #registerDoParallel(cl)
-#' ##Mac and Linux:
-#' #registerDoParallel(cores = 2)
-#' #KrzProjection(m.list, parallel = TRUE)
+#' library(doMC)
+#' registerDoMC(cores = 2)
+#' KrzProjection(m.list, parallel = TRUE)
+#' }
 #' @keywords matrixcomparison
 #' @keywords matrixcorrelation
 #' @keywords Krzanowski

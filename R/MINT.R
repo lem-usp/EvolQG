@@ -16,7 +16,7 @@
 #' @param ... additional arguments to be passed to raply for the jackknife
 #' @note Hypothesis can be named as column names, and these will be used to make labels in the 
 #' output. 
-#' 
+#' @return Dataframe with ranked hypothesis, ordered by the corrected gamma value
 #' Jackknife will return the best hypothesis for each sample.
 #' @export
 #' @aliases JackKnifeMINT

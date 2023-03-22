@@ -13,6 +13,9 @@ PlotTreeDriftTest(test.list, tree, ...)
 
 \item{...}{adition arguments to plot}
 }
+\value{
+No return value, called for plot side effects
+}
 \description{
 Plot which labels reject drift hypothesis.
 }

@@ -34,6 +34,7 @@ List with adjusted integration indexes, fitted models and simulated distribution
 }
 \description{
 Calculates the Young correction for integration, using bootstrap resampling
+Warning: CalcEigenVar is strongly preferred and should probably be used in place of this function..
 }
 \examples{
 \dontrun{
@@ -44,10 +45,10 @@ integration.dist[[1]]
 
 #ploting models
 library(ggplot2)
-ggplot(integration.dist$dist, aes(r2, mean_cv)) + geom_point() + 
+ggplot(integration.dist$dist, aes(r2, mean_cv)) + geom_point() +
        geom_smooth(method = 'lm', color= 'black') + theme_bw()
-       
-ggplot(integration.dist$dist, aes(eVals_cv, mean_cv)) + geom_point() + 
+
+ggplot(integration.dist$dist, aes(eVals_cv, mean_cv)) + geom_point() +
        geom_smooth(method = 'lm', color= 'black') + theme_bw()
 }
 }

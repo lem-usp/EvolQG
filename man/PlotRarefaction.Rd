@@ -17,11 +17,14 @@ PlotRarefaction(
 
 \item{x.axis}{Y axis lable in plot}
 }
+\value{
+ggplot2 object with rarefaction plot
+}
 \description{
 A specialized ploting function displays the results from Rarefaction functions in publication quality.
 }
 \examples{
-\dontrun{ 
+\donttest{
 ind.data <- iris[1:50,1:4]
 
 results.RS <- Rarefaction(ind.data, PCAsimilarity, num.reps = 5)
@@ -36,10 +39,10 @@ c <- PlotRarefaction(results.KrzCov, "KrzCor")
 d <- PlotRarefaction(results.PCA, "PCAsimilarity")
 
 library(cowplot)
-plot_grid(a, b, c, d, labels = c("RS", 
-                                 "Mantel Correlation", 
-                                 "Krzanowski Correlation", 
-                                 "PCA Similarity"), 
+plot_grid(a, b, c, d, labels = c("RS",
+                                 "Mantel Correlation",
+                                 "Krzanowski Correlation",
+                                 "PCA Similarity"),
                       scale = 0.9)
 }
 }

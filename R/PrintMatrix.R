@@ -9,22 +9,22 @@
 #' @rdname PrintMatrix
 #' @author Diogo Melo
 #' @examples
-#' \dontrun{
 #' m.list <- RandomMatrix(10, 4)
-#' PrintMatrix(m.list)}
+#' tmp = file.path(tempdir(), "matrix.csv")
+#' PrintMatrix(m.list, output.file = tmp )
 PrintMatrix <- function(x, ...) UseMethod('PrintMatrix')
 
 #' @rdname PrintMatrix
 #' @method PrintMatrix default
 #' @export
-PrintMatrix.default <- function(x, output.file = './matrix.csv', ...){
+PrintMatrix.default <- function(x, output.file, ...){
     write.csv(x, output.file)
 }
 
 #' @rdname PrintMatrix
 #' @method PrintMatrix list
 #' @export
-PrintMatrix.list <- function(x, output.file = './matrix.csv', ...){
+PrintMatrix.list <- function(x, output.file, ...){
     if(is.null(names(x))) names(x) <- 1:length(x)
     sink(output.file, type="output")
     invisible(

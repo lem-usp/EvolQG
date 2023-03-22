@@ -62,23 +62,21 @@ c3 <- RandomMatrix(10, 1, 1, 10)
 RandomSkewers(c1, c2)
 
 RandomSkewers(list(c1, c2, c3))
-\dontrun{
+\donttest{
 reps <- unlist(lapply(list(c1, c2, c3), MonteCarloRep, sample.size = 10,
-                                        RandomSkewers, num.vectors = 100, 
+                                        RandomSkewers, num.vectors = 100,
                                         iterations = 10))
 RandomSkewers(list(c1, c2, c3), repeat.vector = reps)
 
 c4 <- RandomMatrix(10)
 RandomSkewers(list(c1, c2, c3), c4)
 }
+\dontrun{
 #Multiple threads can be used with some foreach backend library, like doMC or doParallel
-#library(doParallel)
-##Windows:
-#cl <- makeCluster(2)
-#registerDoParallel(cl)
-##Mac and Linux:
-#registerDoParallel(cores = 2)
-#RandomSkewers(list(c1, c2, c3), parallel = TRUE)
+library(doMC)
+registerDoMC(cores = 2)
+RandomSkewers(list(c1, c2, c3), parallel = TRUE)
+}
 
 }
 \references{
@@ -87,7 +85,7 @@ Random skewers method compared to the common principal components model.
 Genetics and Molecular Biology, 30, 461-469.
 }
 \seealso{
-\code{\link{KrzCor}},\code{\link{MantelCor}}
+\code{\link{KrzCor}},\code{\link{MantelCor}},\code{\link{DeltaZCorr}}
 }
 \author{
 Diogo Melo, Guilherme Garcia

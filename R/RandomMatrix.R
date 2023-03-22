@@ -8,22 +8,22 @@
 #' @param max.var Upper value for random variance in covariance matrices
 #' @param variance Variance vector. If present will be used in all matrices
 #' @param ke Parameter for correlation matrix generation. Involves check for positive definiteness
-#' @param LKJ logical. Use LKJ distribution for generating correlation matrices. 
+#' @param LKJ logical. Use LKJ distribution for generating correlation matrices.
 #' @param shape Shape parameter for the LKJ distribution. Values closer to zero leads to a more uniform distribution correlations. Higher values lead to correlations closer to zero.
 #' @export
 #' @return Returns either a single matrix, or a list of matrices of equal dimension
 #' @author Diogo Melo Edgar Zanella
 #' @examples
-#' #single 10x10 correlation matrix
+#' # single 10x10 correlation matrix
 #' RandomMatrix(10)
 #'
-#' #single 5x5 covariance matrix, variances between 3 and 4
+#' # single 5x5 covariance matrix, variances between 3 and 4
 #' RandomMatrix(5, 1, 3, 4)
 #'
-#' #two 3x3 covariance matrices, with shared variances
+#' # two 3x3 covariance matrices, with shared variances
 #' RandomMatrix(3, 2, variance= c(3, 4, 5))
 #'
-#' #large 10x10 matrix list, with wide range of variances
+#' # large 10x10 matrix list, with wide range of variances
 #' RandomMatrix(10, 100, 1, 300)
 #' @keywords randommatrices
 RandomMatrix <- function(num.traits, num.matrices = 1, min.var = 1, max.var = 1, variance = NULL, ke = 10^-3, LKJ = FALSE, shape = 2){

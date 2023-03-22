@@ -22,7 +22,7 @@
 #' @export
 #' @examples 
 #' 
-#' \dontrun{
+#' \donttest{
 #' library(plyr)
 #' data(ratones)
 #' 
@@ -107,6 +107,7 @@ KrzSubspaceDataFrame <- function(x, n = ncol(observed), prob = 0.95){
 #' 
 #' Shows the null and observed distribution of eigenvalues from the Krzanowski subspace comparison 
 #' @param x output from KrzSubspaceDataFrame() function.
+#' @return ggplot2 object with the observed vs. random eigenvalues mean and posterior confidence intervals 
 #' @importFrom ggplot2 ggplot geom_point geom_pointrange position_dodge aes xlab ylab
 #' @export
 PlotKrzSubspace <- function(x){

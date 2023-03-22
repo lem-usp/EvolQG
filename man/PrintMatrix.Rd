@@ -8,9 +8,9 @@
 \usage{
 PrintMatrix(x, ...)
 
-\method{PrintMatrix}{default}(x, output.file = "./matrix.csv", ...)
+\method{PrintMatrix}{default}(x, output.file, ...)
 
-\method{PrintMatrix}{list}(x, output.file = "./matrix.csv", ...)
+\method{PrintMatrix}{list}(x, output.file, ...)
 }
 \arguments{
 \item{x}{Matrix or list of matrices}
@@ -26,9 +26,9 @@ Prints coma separated matrices, with labels
 Print a matrix or a list of matrices to file
 }
 \examples{
-\dontrun{
 m.list <- RandomMatrix(10, 4)
-PrintMatrix(m.list)}
+tmp = file.path(tempdir(), "matrix.csv")
+PrintMatrix(m.list, output.file = tmp )
 }
 \author{
 Diogo Melo
