@@ -9,6 +9,9 @@ PlotKrzSubspace(x)
 \arguments{
 \item{x}{output from KrzSubspaceDataFrame() function.}
 }
+\value{
+ggplot2 object with the observed vs. random eigenvalues mean and posterior confidence intervals
+}
 \description{
 Shows the null and observed distribution of eigenvalues from the Krzanowski subspace comparison
 }

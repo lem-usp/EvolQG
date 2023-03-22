@@ -22,7 +22,7 @@
 #' @export
 #' @examples 
 #' 
-#' \dontrun{
+#' \donttest{
 #' library(plyr)
 #' data(ratones)
 #' 

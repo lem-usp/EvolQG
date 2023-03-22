@@ -91,7 +91,7 @@ diagonal and repeatabilities returned in diagonal.
 Calculates correlation matrix correlation and significance via Mantel test.
 }
 \note{
-If the significance is not needed, MatrixCor provides the 
+If the significance is not needed, MatrixCor provides the
 correlation and skips the permutations, so it is much faster.
 }
 \examples{
@@ -112,14 +112,12 @@ MantelCor(cor.list, repeat.vector = reps)
 c4 <- RandomMatrix(10)
 MantelCor(cor.list, c4)
 
+\dontrun{
 #Multiple threads can be used with some foreach backend library, like doMC or doParallel
-#library(doParallel)
-##Windows:
-#cl <- makeCluster(2)
-#registerDoParallel(cl)
-##Mac and Linux:
-#registerDoParallel(cores = 2)
-#MantelCor(cor.list, parallel = TRUE) 
+library(doMC)
+registerDoMC(cores = 2)
+MantelCor(cor.list, parallel = TRUE)
+}
 }
 \references{
 http://en.wikipedia.org/wiki/Mantel_test

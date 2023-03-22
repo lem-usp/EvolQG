@@ -21,15 +21,15 @@
 #' Random skewers method compared to the common principal components model.
 #' Genetics and Molecular Biology, 30, 461-469.
 #' @author Diogo Melo, Guilherme Garcia
-#' @seealso \code{\link{KrzCor}},\code{\link{MantelCor}}
+#' @seealso \code{\link{KrzCor}},\code{\link{MantelCor}},,\code{\link{RandomSkewers}}
 #' @examples
 #' x <- RandomMatrix(10, 1, 1, 10)
 #' y <- RandomMatrix(10, 1, 1, 10)
-#' 
+#'
 #' n_skewers = 10
 #' skewers = matrix(rnorm(10*n_skewers), 10, n_skewers)
 #' DeltaZCorr(x, y, skewers)
-#' 
+#'
 #' @keywords matrixcomparison
 #' @keywords matrixcorrelation
 #' @keywords randomskewers

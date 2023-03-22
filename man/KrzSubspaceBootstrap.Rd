@@ -30,7 +30,7 @@ proposed in Aguirre et. al 2013 and improved in Morrisey et al 2019.
 }
 \examples{
 
-\dontrun{
+\donttest{
 library(plyr)
 data(ratones)
 

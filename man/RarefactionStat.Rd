@@ -38,7 +38,7 @@ correlation or covariance matrix, via resampling with
 varying sample sizes, from 2 to the size of the original data.
 }
 \details{
-Samples of various sizes, without replacement, are taken from the full population, a statistic calculated and compared to the full population statistic. 
+Samples of various sizes, without replacement, are taken from the full population, a statistic calculated and compared to the full population statistic.
 
 A specialized ploting function displays the results in publication quality.
 
@@ -48,22 +48,19 @@ Bootstraping may be misleading with very small sample sizes. Use with caution.
 ind.data <- iris[1:50,1:4]
 
 #Can be used to calculate any statistic via Rarefaction, not just comparisons
-#Integration, for instanse:
+#Integration, for example:
 results.R2 <- RarefactionStat(ind.data, cor, function(x, y) CalcR2(y), num.reps = 5)
 
 #Easy access
 library(reshape2)
 melt(results.R2)
 
+\dontrun{
 #Multiple threads can be used with some foreach backend library, like doMC or doParallel
-#library(doParallel)
-##Windows:
-#cl <- makeCluster(2)
-#registerDoParallel(cl)
-##Mac and Linux:
-#registerDoParallel(cores = 2)
-#results.R2 <- RarefactionStat(ind.data, cor, function(x, y) CalcR2(y), parallel = TRUE)
-
+library(doMC)
+registerDoMC(cores = 2)
+results.R2 <- RarefactionStat(ind.data, cor, function(x, y) CalcR2(y), parallel = TRUE)
+}
 }
 \seealso{
 \code{\link{BootstrapRep}}

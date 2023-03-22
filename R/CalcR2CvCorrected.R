@@ -1,6 +1,7 @@
 #' Corrected integration value
 #'
 #' Calculates the Young correction for integration, using bootstrap resampling
+#' Warning: CalcEigenVar is strongly preferred and should probably be used in place of this function..
 #'
 #' @param ind.data Matrix of individual measurments, or adjusted linear model
 #' @param cv.level Coefficient of variation level chosen for integration index adjustment in linear model. Defaults to 0.06.
@@ -25,10 +26,10 @@
 #'
 #' #ploting models
 #' library(ggplot2)
-#' ggplot(integration.dist$dist, aes(r2, mean_cv)) + geom_point() + 
+#' ggplot(integration.dist$dist, aes(r2, mean_cv)) + geom_point() +
 #'        geom_smooth(method = 'lm', color= 'black') + theme_bw()
-#'        
-#' ggplot(integration.dist$dist, aes(eVals_cv, mean_cv)) + geom_point() + 
+#'
+#' ggplot(integration.dist$dist, aes(eVals_cv, mean_cv)) + geom_point() +
 #'        geom_smooth(method = 'lm', color= 'black') + theme_bw()
 #'}
 #' @keywords correlation

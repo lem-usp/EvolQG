@@ -14,7 +14,7 @@
 MeanMatrixStatistics(
   cov.matrix,
   iterations = 1000,
-  full.results = F,
+  full.results = FALSE,
   parallel = FALSE
 )
 }
@@ -39,14 +39,12 @@ Calculates: Mean Squared Correlation, ICV, Autonomy, ConditionalEvolvability, Co
 cov.matrix <- cov(iris[,1:4])
 MeanMatrixStatistics(cov.matrix)
 
+\dontrun{
 #Multiple threads can be used with some foreach backend library, like doMC or doParallel
-#library(doParallel)
-##Windows:
-#cl <- makeCluster(2)
-#registerDoParallel(cl)
-##Mac and Linux:
-#registerDoParallel(cores = 2)
-#MeanMatrixStatistics(cov.matrix, parallel = TRUE)
+library(doMC)
+registerDoMC(cores = 2)
+MeanMatrixStatistics(cov.matrix, parallel = TRUE)
+}
 }
 \references{
 Hansen, T. F., and Houle, D. (2008). Measuring and comparing evolvability

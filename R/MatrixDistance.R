@@ -28,13 +28,14 @@
 #' c3 <- RandomMatrix(10)
 #' MatrixDistance(c1, c2, "OverlapDist")
 #' MatrixDistance(c1, c2, "RiemannDist")
-#'\dontrun{
+#'
+#' # Compare multiple matrices
 #' MatrixDistance(list(c1, c2, c3), distance = "OverlapDist")
-#'
-#'
+#' 
+#' # Compare multiple matrices to a target matrix
 #' c4 <- RandomMatrix(10)
 #' MatrixDistance(list(c1, c2, c3), c4)
-#' }
+#' 
 #' @keywords matrixcomparison
 #' @keywords matrixDistance
 MatrixDistance <- function(cov.x, cov.y, distance, ...) 

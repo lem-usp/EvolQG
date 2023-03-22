@@ -11,7 +11,7 @@ JacobianArray(spline, tesselation, ...)
 
 \item{tesselation}{matrix of landmarks.}
 
-\item{...}{Aditional arguments to some function}
+\item{...}{Additional arguments to some function}
 }
 \value{
 array of jacobians calculated at the centroids

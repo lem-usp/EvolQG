@@ -19,15 +19,15 @@ interpol.L2.TPS <- function (X, Y)
   return (aaply (Y, 1, interpol.L1.TPS, X = X))
 
 #' TPS transform
-#' 
+#'
 #' Calculates the Thin Plate Spline transform between a reference shape and a target shape
-#' 
+#'
 #' @param target.shape Target shape
 #' @param reference.shape Reference shape
-#' 
-#' @returns A list with the transformation parameters and a function that gives 
+#'
+#' @returns A list with the transformation parameters and a function that gives
 #' the value of the TPS function at each point for numerical differentiation
-#' 
+#'
 #' @author Guilherme Garcia
 #' @export
 #' @importFrom stats spline
@@ -60,15 +60,15 @@ TPS <- function (target.shape, reference.shape)
 
 
 #' Midline rotate
-#' 
+#'
 #' Returns the rotation matrix that aligns a specimen sagital line
 #' to plane y = 0 (2D) or z = 0 (3D)
-#' 
+#'
 #' @param X shape array
 #' @param midline rows for the midline landmarks
-#' 
+#'
 #' @returns Rotation matrix
-#' 
+#'
 #' @author Guilherme Garcia
 #' @export
 Rotate2MidlineMatrix <- function (X, midline)
@@ -83,17 +83,17 @@ Rotate2MidlineMatrix <- function (X, midline)
 }
 
 #' Local Jacobian calculation
-#' 
+#'
 #' Calculates jacobians for a given interpolation in a set of points
 #' determined from tesselation (as centroids of each tetrahedron defined, for now...)
-#' 
+#'
 #' @param spline Thin plate spline calculated by the TPS function
-#' @param tesselation matrix of landmarks. 
-#' @param ... Aditional arguments to some function
+#' @param tesselation matrix of landmarks.
+#' @param ... Additional arguments to some function
 #' @note Jacobians are calculated on the row centroids of the tesselation matrix.
-#' 
+#'
 #' @returns array of jacobians calculated at the centroids
-#' 
+#'
 #' @author Guilherme Garcia
 #' @export
 #' @importFrom numDeriv jacobian
@@ -111,18 +111,18 @@ JacobianArray <- function (spline, tesselation, ...)
 }
 
 #' Centered jacobian residuals
-#' 
+#'
 #' Calculates mean jacobian matrix for a set of jacobian matrices
 #' describing a local aspect of shape deformation for a given set of volumes,
 #' returning log determinants of deviations from mean jacobian (Woods, 2003).
-#' 
+#'
 #' @param jacobArray Arrays of Jacobian calculated in the JacobianArray function
-#' 
+#'
 #' @returns array of centered residual jacobians
-#' 
+#'
 #' @author Guilherme Garcia
 #' @author Diogo Melo
-#' @references Woods, Roger P. 2003. “Characterizing Volume and Surface 
+#' @references Woods, Roger P. 2003. “Characterizing Volume and Surface
 #' Deformations in an Atlas Framework: Theory, Applications, and Implementation.” NeuroImage 18 (3):769-88.
 #' @export
 #' @importFrom expm logm
@@ -142,19 +142,19 @@ Center2MeanJacobianFast <- function (jacobArray)
 }
 
 #' Local Shape Variables
-#' 
+#'
 #' Calculates the local shape variables of a set of landmarks using the sequence:
 #' - TPS transform between all shapes and the mean shape
 #' - Jacobian of the TPS transforms at the centroid of rows of the landmarks in the tesselation argument
 #' - Mean center the Jacobians using the Karcher Mean
 #' - Take the determinant of the centered jacobians
-#' 
+#'
 #' @param gpa Procustes aligned landmarks.
 #' @param cs Centoid sizes
 #' @param landmarks unaligned landmarks. Ignored if both gpa and cs are passed.
-#' @param tesselation matrix of rows of the landmarks. The centroid of each row 
+#' @param tesselation matrix of rows of the landmarks. The centroid of each row
 #' is used to mark the position of the jacobians
-#' @param run_parallel Logical. If computation should be paralleled. Use with 
+#' @param run_parallel Logical. If computation should be paralleled. Use with
 #' caution, can make things worse. Requires that at parallel back-end like doMC
 #' be registered
 #' @returns List with TPS functions, jacobian matrices, local shape variables, mean shape, centroid sizes and individual IDs

@@ -15,11 +15,11 @@ Authors@R:
     person(given = "Edgar",
            family = "Zanella",
            role = "ctb"),
-    person(given = "Fabio ",
+    person(given = "Fabio",
            family = "Andrade Machado",
            role = "aut",
            comment = c(ORCID = "0000-0002-0215-9926")),
-    person(given = "Guilherme ",
+    person(given = "Guilherme",
            family = "Garcia",
            role = "aut"),
     person(given = "Alex",
@@ -29,9 +29,9 @@ Authors@R:
     person(given = "Gabriel",
            family = "Marroig",
            role = "ths",
-           comment = c(ORCID = "0000-0003-2542-2034")),
+           comment = c(ORCID = "0000-0003-2542-2034"))
            )
-Description: Provides functions for covariance matrix comparisons, estimation of repeatabilities in measurements and matrices, and general evolutionary quantitative genetics tools. Melo D, Garcia G, Hubbe A, Assis A P, Marroig G. (2016) <doi:10.12688/f1000research.7082.3>
+Description: Provides functions for covariance matrix comparisons, estimation of repeatabilities in measurements and matrices, and general evolutionary quantitative genetics tools. Melo D, Garcia G, Hubbe A, Assis A P, Marroig G. (2016) <doi:10.12688/f1000research.7082.3>.
 Depends:
     R (>= 4.1.0),
     plyr (>= 1.7.1)
@@ -57,7 +57,6 @@ Suggests:
     dplyr,
     testthat,
     foreach,
-    magrittr,
     grid,
     gridExtra,
     doParallel,

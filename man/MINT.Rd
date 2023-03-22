@@ -41,6 +41,10 @@ if modularity.hypot[i,j] == 1, trait i is in module j.}
 
 \item{...}{additional arguments to be passed to raply for the jackknife}
 }
+\value{
+Dataframe with ranked hypothesis, ordered by the corrected gamma value
+Jackknife will return the best hypothesis for each sample.
+}
 \description{
 Combines and compares many modularity hypothesis to a covariance matrix. Comparison values are
 adjusted to the number of zeros in the hypothesis using a linear regression. Best hypothesis can
@@ -48,9 +52,7 @@ be assessed using a jack-knife procedure.
 }
 \note{
 Hypothesis can be named as column names, and these will be used to make labels in the 
-output. 
-
-Jackknife will return the best hypothesis for each sample.
+output.
 }
 \examples{
 # Creating a modular matrix:

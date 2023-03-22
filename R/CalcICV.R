@@ -1,7 +1,9 @@
 #' Calculates the ICV of a covariance matrix.
 #'
-#' Calculates the coefficient of variation of the eigenvalues of a covariance matrix, a measure of 
+#' Calculates the coefficient of variation of the eigenvalues of a covariance matrix, a measure of
 #' integration comparable to the R^2 in correlation matrices.
+#'
+#' Warning: CalcEigenVar is strongly preferred and should probably be used in place of this function.
 #'
 #' @param cov.matrix Covariance matrix.
 #' @return coefficient of variation of the eigenvalues of a covariance matrix
@@ -17,6 +19,7 @@
 #' @keywords integration
 
 CalcICV <- function (cov.matrix){
+  .Deprecated("CalcEigenVar", package=NULL, "CalcICV is deprecated. CalcEigenVar is strongly preferred and should be used instead.")
   if(!isSymmetric(cov.matrix)) stop("covariance matrix must be symmetric.")
   if(sum(diag(cov.matrix)) == dim(cov.matrix)[1]) warning("Matrix appears to be a correlation matrix! Only covariance matrices should be used for ICV.")
   eVals <- eigen(cov.matrix, only.values = TRUE)$values
