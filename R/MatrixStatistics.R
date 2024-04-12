@@ -78,8 +78,10 @@ Autonomy <- function (cov.matrix, beta.mat = NULL, iterations = 1000){
     beta.mat <- array (rnorm (num.traits * iterations), c(num.traits, iterations))
     beta.mat <- apply (beta.mat, 2, Normalize)
   }
-  tryCatch({cv = chol(cov.matrix)}, error = function(cond){
+  cov.matrix = tryCatch({cv = chol(cov.matrix); cov.matrix}, error = function(cond){
     warning("matrix is singular, can't compute autonomy directly. Using nearPD, results could be wrong")
+    cov.matrix <- nearPD(cov.matrix)[[1]]
+    chol(cov.matrix)
   })
    (1/diag(t (beta.mat) %*% solve (cov.matrix, beta.mat))) / diag(t (beta.mat) %*% cov.matrix %*% beta.mat)
 }
@@ -92,7 +94,7 @@ ConditionalEvolvability <- function (cov.matrix, beta.mat = NULL, iterations = 1
     beta.mat <- array (rnorm (num.traits * iterations), c(num.traits, iterations))
     beta.mat <- apply (beta.mat, 2, Normalize)
   }
-  tryCatch({chol(cov.matrix)}, error = function(cond){
+  cov.matrix = tryCatch({chol(cov.matrix); cov.matrix}, error = function(cond){
     warning("matrix is singular, can't compute conditional evolvability directly. Using nearPD, results could be wrong")
     cov.matrix <- nearPD(cov.matrix)[[1]]
     chol(cov.matrix)

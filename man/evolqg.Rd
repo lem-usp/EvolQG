@@ -3,6 +3,7 @@
 \docType{package}
 \name{evolqg}
 \alias{evolqg}
+\alias{evolqg-package}
 \title{EvolQG}
 \description{
 The package for evolutionary quantitative genetics.

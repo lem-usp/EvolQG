@@ -3,6 +3,7 @@
 #' The package for evolutionary quantitative genetics.
 #'
 #' @name evolqg
+#' @aliases evolqg-package
 #' @docType package
 #' @import plyr
 #' @importFrom graphics abline arrows axis layout mtext par plot text

@@ -1,8 +1,8 @@
 Package: evolqg
 Type: Package
 Title: Evolutionary Quantitative Genetics
-Version: 0.3-2
-Date: 2023-03-21
+Version: 0.3-4
+Date: 2023-11-29
 Authors@R: 
   c(person(given = "Diogo",
            family = "Melo",
