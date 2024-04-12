@@ -114,7 +114,7 @@ EigenTensorDecomposition.default <- function (matrices, return.projection = TRUE
              function (x)
              {
                eigen.mat <- diag (x [1:n.traits])
-               eigen.mat [upper.tri (eigen.mat)] <-
+               eigen.mat [lower.tri (eigen.mat)] <-
                  x [(n.traits+1):length (x)] / sqrt (2)
                eigen.mat <- eigen.mat + t(eigen.mat)
                diag (eigen.mat) <- diag (eigen.mat) / 2
