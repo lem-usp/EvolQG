@@ -8,7 +8,7 @@
 data.frame
 }
 \source{
-\href{https://datadryad.org/stash/dataset/doi:10.5061/dryad.5gr8r}{Dryad Archive}
+\href{https://datadryad.org/dataset/doi:10.5061/dryad.5gr8r}{Dryad Archive}
 }
 \usage{
 data(ratones)
