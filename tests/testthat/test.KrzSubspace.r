@@ -74,3 +74,19 @@ test_that("KrzSubspace returns correct results",{
   x = kr.subspace_aguirre_bench(cov.matrices, vec = rep(3, 10))
   expect_that(HPDinterval(as.mcmc(x$MCMC.H.val)), is_equivalent_to(HPDinterval(as.mcmc(MCMC.H.val))))
 })
+
+test_that("KrzSubspaceBootstrap uses the requested number of dimensions", {
+  lm_models <- lapply(split(iris, iris$Species), function(data) {
+    lm(as.matrix(data[1:4]) ~ 1)
+  })
+
+  set.seed(1)
+  result_k2 <- KrzSubspaceBootstrap(lm_models, rep = 1, MCMCsamples = 2, k = 2)
+  set.seed(1)
+  result_k3 <- KrzSubspaceBootstrap(lm_models, rep = 1, MCMCsamples = 2, k = 3)
+
+  expect_equal(dim(result_k2$observed), c(2, 4))
+  expect_equal(dim(result_k2$random), c(2, 4))
+  expect_false(isTRUE(all.equal(result_k2$observed, result_k3$observed)))
+  expect_false(isTRUE(all.equal(result_k2$random, result_k3$random)))
+})

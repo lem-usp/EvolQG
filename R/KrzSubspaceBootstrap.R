@@ -13,6 +13,7 @@
 #' @param rep number of bootstrap samples to be made
 #' @param MCMCsamples number of MCMCsamples for each P-matrix posterior distribution.
 #' @param parallel if TRUE computations are done in parallel. Some foreach backend must be registered, like doParallel or doMC.
+#' @param k number of dimensions to be retained in calculating the subspace.
 #' @return A list with the observed and randomized eigenvalue distributions for the posterior Krz Subspace comparisons.
 #' @references 
 #' Aguirre, J. D., E. Hine, K. McGuigan, and M. W. Blows. 2013. “Comparing G: multivariate analysis of genetic variation in multiple populations.” Heredity 112 (February): 21–29.
@@ -32,7 +33,7 @@
 #' krz_df = KrzSubspaceDataFrame(krz_comparsion)
 #' PlotKrzSubspace(krz_df)
 #' }
-KrzSubspaceBootstrap = function(x, rep = 1, MCMCsamples = 1000, parallel = FALSE){
+KrzSubspaceBootstrap = function(x, rep = 1, MCMCsamples = 1000, parallel = FALSE, k = NULL){
   P_list = laply(x, function(x) BayesianCalculateMatrix(x, samples = MCMCsamples)$Ps)
   P_list = aperm(P_list, c(3, 4, 1, 2))
   res_list = lapply(x, residuals)
@@ -40,7 +41,7 @@ KrzSubspaceBootstrap = function(x, rep = 1, MCMCsamples = 1000, parallel = FALSE
 
   residuals = do.call(rbind, res_list)
 
-  Hs = llply(alply(P_list, 4, function(x) alply(x, 3)), function(x) KrzSubspace(x, 3)$H)
+  Hs = llply(alply(P_list, 4, function(x) alply(x, 3)), function(x) KrzSubspace(x, k)$H)
   avgH = Reduce("+", Hs)/length(Hs)
   avgH.vec <- eigen(avgH)$vectors
   MCMC.H.val = laply(Hs, function(mat) diag(t(avgH.vec) %*% mat %*% avgH.vec))
@@ -56,7 +57,7 @@ KrzSubspaceBootstrap = function(x, rep = 1, MCMCsamples = 1000, parallel = FALSE
     Hs = llply(
       alply(random_P_list, 4, function(x) alply(x, 3)), 
       function(x) 
-        KrzSubspace(x, 3)$H)
+        KrzSubspace(x, k)$H)
         avgH = Reduce("+", Hs)/length(Hs)
         avgH.vec <- eigen(avgH)$vectors
         MCMC.H.val.random = laply(Hs, function(mat) diag(t(avgH.vec) %*% mat %*% avgH.vec))

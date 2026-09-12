@@ -4,7 +4,7 @@
 \alias{KrzSubspaceBootstrap}
 \title{Quasi-Bayesian Krzanowski subspace comparison}
 \usage{
-KrzSubspaceBootstrap(x, rep = 1, MCMCsamples = 1000, parallel = FALSE)
+KrzSubspaceBootstrap(x, rep = 1, MCMCsamples = 1000, parallel = FALSE, k = NULL)
 }
 \arguments{
 \item{x}{list of linear models from which P-matrices should be calculated}
@@ -14,6 +14,8 @@ KrzSubspaceBootstrap(x, rep = 1, MCMCsamples = 1000, parallel = FALSE)
 \item{MCMCsamples}{number of MCMCsamples for each P-matrix posterior distribution.}
 
 \item{parallel}{if TRUE computations are done in parallel. Some foreach backend must be registered, like doParallel or doMC.}
+
+\item{k}{number of dimensions to be retained in calculating the subspace.}
 }
 \value{
 A list with the observed and randomized eigenvalue distributions for the posterior Krz Subspace comparisons.
