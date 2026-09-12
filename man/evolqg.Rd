@@ -20,7 +20,7 @@ Useful links:
 
 Authors:
 \itemize{
-  \item Ana Paula Assis
+  \item Ana Paula Assis (\href{https://orcid.org/0000-0001-8170-6352}{ORCID})
   \item Fabio Andrade Machado (\href{https://orcid.org/0000-0002-0215-9926}{ORCID})
   \item Guilherme Garcia
 }
