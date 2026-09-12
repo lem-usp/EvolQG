@@ -3,6 +3,7 @@ Type: Package
 Title: Evolutionary Quantitative Genetics
 Version: 0.3-7
 Date: 2026-09-12
+
 Authors@R: 
   c(person(given = "Diogo",
            family = "Melo",
@@ -11,7 +12,8 @@ Authors@R:
            comment = c(ORCID = "0000-0002-7603-0092")),
     person(given = "Ana Paula",
            family = "Assis",
-           role = "aut"),
+           role = "aut",
+           comment = c(ORCID = "0000-0001-8170-6352")),
     person(given = "Edgar",
            family = "Zanella",
            role = "ctb"),
