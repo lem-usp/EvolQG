@@ -4,7 +4,13 @@
 \alias{KrzSubspaceBootstrap}
 \title{Quasi-Bayesian Krzanowski subspace comparison}
 \usage{
-KrzSubspaceBootstrap(x, rep = 1, MCMCsamples = 1000, parallel = FALSE, k = NULL)
+KrzSubspaceBootstrap(
+  x,
+  rep = 1,
+  MCMCsamples = 1000,
+  parallel = FALSE,
+  k = NULL
+)
 }
 \arguments{
 \item{x}{list of linear models from which P-matrices should be calculated}

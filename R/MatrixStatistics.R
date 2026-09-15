@@ -3,9 +3,12 @@
 #' Calculates: Mean Squared Correlation, ICV, Autonomy, ConditionalEvolvability, Constraints, Evolvability, Flexibility, Pc1Percent, Respondability.
 #' @aliases Autonomy ConditionalEvolvability Constraints Evolvability Flexibility Pc1Percent Respondability
 #' @param cov.matrix A covariance matrix
-#' @param iterations Number of random vectors to be used in calculating the stochastic statistics
+#' @param beta.mat Matrix of direction vectors used to calculate the stochastic statistics. If NULL, a random matrix of normalized vectors is generated.
+#' @param iterations Number of random vectors to be used in calculating the stochastic statistics when beta.mat is NULL.
 #' @param full.results If TRUE, full distribution of statistics will be returned.
 #' @param parallel if TRUE computations are done in parallel. Some foreach backend must be registered, like doParallel or doMC.
+#' @param include.R2 Logical. If TRUE, include the legacy mean squared correlation metric in the returned output.
+#' @param include.ICV Logical. If TRUE, include the legacy ICV metric in the returned output.
 #' @return dist Full distribution of stochastic statistics, only if full.resuts == TRUE
 #' @return mean Mean value for all statistics
 #' @export
@@ -31,7 +34,8 @@
 #' @keywords Flexibility
 #' @keywords Pc1Percent
 #' @keywords Respondability
-MeanMatrixStatistics <- function (cov.matrix, iterations = 1000, full.results = FALSE, parallel = FALSE) {
+MeanMatrixStatistics <- function (cov.matrix, iterations = 1000, full.results = FALSE, parallel = FALSE,
+                                beta.mat = NULL, include.R2 = FALSE, include.ICV = FALSE) {
   matrix.stat.functions = list ('respondability' = Respondability,
                                 'evolvability' = Evolvability,
                                 'conditional.evolvability' = ConditionalEvolvability,
@@ -39,8 +43,10 @@ MeanMatrixStatistics <- function (cov.matrix, iterations = 1000, full.results = 
                                 'flexibility' = Flexibility,
                                 'constraints' = Constraints)
   num.traits <- dim (cov.matrix) [1]
-  beta.mat <- array (rnorm (num.traits * iterations), c(num.traits, iterations))
-  beta.mat <- apply (beta.mat, 2, Normalize)
+  if (is.null(beta.mat)) {
+    beta.mat <- array (rnorm (num.traits * iterations), c(num.traits, iterations))
+    beta.mat <- apply (beta.mat, 2, Normalize)
+  }
   iso.vec <- Normalize (rep(1, num.traits))
   null.dist <- abs (t (iso.vec) %*% beta.mat)
   null.dist <- sort (null.dist)
@@ -57,11 +63,15 @@ MeanMatrixStatistics <- function (cov.matrix, iterations = 1000, full.results = 
                             'constraints',
                             'null.dist')
   stat.mean <- colMeans (stat.dist[,-7])
-  integration <- c (CalcR2 (cov.matrix),
-                    Pc1Percent (cov.matrix),
-                    CalcICV(cov.matrix),
-                    CalcEigenVar(cov.matrix, sd=TRUE, rel=FALSE))
-  names (integration) <- c ('MeanSquaredCorrelation', 'pc1.percent', 'ICV', 'EigenSd')
+  integration <- c (Pc1Percent (cov.matrix),
+                   CalcEigenVar(cov.matrix, sd=TRUE, rel=FALSE))
+  names (integration) <- c ('pc1.percent', 'EigenSd')
+  if (include.R2) {
+    integration <- c (integration, "MeanSquaredCorrelation" = suppressWarnings(CalcR2(cov.matrix)))
+  }
+  if (include.ICV) {
+    integration <- c (integration, "ICV" = suppressWarnings(CalcICV(cov.matrix)))
+  }
   stat.mean <- c (integration, stat.mean)
   if(full.results)
     return (list ('dist' = stat.dist, 'mean' = stat.mean))
@@ -70,6 +80,7 @@ MeanMatrixStatistics <- function (cov.matrix, iterations = 1000, full.results = 
 }
 
 #' @export
+#' @rdname MeanMatrixStatistics
 #' @importFrom Matrix Matrix solve chol nearPD diag
 Autonomy <- function (cov.matrix, beta.mat = NULL, iterations = 1000){
   cov.matrix <- Matrix(cov.matrix)
@@ -86,6 +97,7 @@ Autonomy <- function (cov.matrix, beta.mat = NULL, iterations = 1000){
    (1/diag(t (beta.mat) %*% solve (cov.matrix, beta.mat))) / diag(t (beta.mat) %*% cov.matrix %*% beta.mat)
 }
 #' @export
+#' @rdname MeanMatrixStatistics
 #' @importFrom Matrix Matrix solve chol nearPD diag
 ConditionalEvolvability <- function (cov.matrix, beta.mat = NULL, iterations = 1000){
   cov.matrix <- Matrix(cov.matrix)
@@ -102,6 +114,7 @@ ConditionalEvolvability <- function (cov.matrix, beta.mat = NULL, iterations = 1
   return (1/diag(t (beta.mat) %*% solve (cov.matrix, beta.mat)))
 }
 #' @export
+#' @rdname MeanMatrixStatistics
 Constraints <- function  (cov.matrix, beta.mat = NULL, iterations = 1000){
   num.traits <- dim (cov.matrix) [1]
   if(is.null(beta.mat)){
@@ -113,6 +126,7 @@ Constraints <- function  (cov.matrix, beta.mat = NULL, iterations = 1000){
   abs(apply(Cb, 2, `%*%`, PC1))
 }
 #' @export
+#' @rdname MeanMatrixStatistics
 Evolvability <- function (cov.matrix, beta.mat = NULL, iterations = 1000){
   num.traits <- dim (cov.matrix) [1]
   if(is.null(beta.mat)){
@@ -122,6 +136,7 @@ Evolvability <- function (cov.matrix, beta.mat = NULL, iterations = 1000){
   diag(t(beta.mat) %*% cov.matrix %*% beta.mat)
 }
 #' @export
+#' @rdname MeanMatrixStatistics
 Flexibility <- function (cov.matrix, beta.mat = NULL, iterations = 1000){
   num.traits <- dim (cov.matrix) [1]
   if(is.null(beta.mat)){
@@ -132,8 +147,10 @@ Flexibility <- function (cov.matrix, beta.mat = NULL, iterations = 1000){
   diag(t (beta.mat) %*% Cb)
   }
 #' @export
+#' @rdname MeanMatrixStatistics
 Pc1Percent <- function (cov.matrix) return (eigen (cov.matrix)$values [1] / sum (eigen (cov.matrix)$values))
 #' @export
+#' @rdname MeanMatrixStatistics
 Respondability <- function (cov.matrix, beta.mat = NULL, iterations = 1000) {
   num.traits <- dim (cov.matrix) [1]
   if(is.null(beta.mat)){

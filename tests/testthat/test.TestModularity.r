@@ -73,7 +73,7 @@ test_that("MantelModTest returns correct results for non-landmark data",
             cor.hypot = CreateHypotMatrix(hypot)
              
             # First with an unstructured matrix:
-            expect = structure(c(0.0810901974853795, 0.275724275724276, 0.158055575956429, 0.061087664745461, 2.587356655636), .Names = c("rho", "Probability", "AVG+", "AVG-", "AVG Ratio")) 
+            expect = structure(c(0.0810901974853795, 0.275724275724276, 0.158055575956429, 0.061087664745461, 2.587356655636), names = c("rho", "Probability", "AVG+", "AVG-", "AVG Ratio")) 
             suppressWarnings(RNGversion("3.5.0"))
             set.seed(42)
             un.cor = RandomMatrix(12, LKJ = FALSE)
@@ -81,7 +81,7 @@ test_that("MantelModTest returns correct results for non-landmark data",
             expect_equal(result, expect)
             
             # Now with a modular matrix:
-            expect = structure(c(0.99102012957595, 0.001998001998002, 0.87040471785857, 0.354135870234584, 2.45782704045767), .Names = c("rho", "Probability", "AVG+", "AVG-", "AVG Ratio"))
+            expect = structure(c(0.99102012957595, 0.001998001998002, 0.87040471785857, 0.354135870234584, 2.45782704045767), names = c("rho", "Probability", "AVG+", "AVG-", "AVG Ratio"))
             suppressWarnings(RNGversion("3.5.0"))
             set.seed(42)
             hypot.mask = matrix(as.logical(cor.hypot), 12, 12)
@@ -105,7 +105,7 @@ test_that("MantelModTest returns correct results for landmark data",
             cor.hypot = CreateHypotMatrix(hypot)
             
             # First with an unstructured matrix:
-            expect = structure(c(0.112390456689369, 0.259, 0.209791381269483, 0.0703378394237725, 2.98262475771438, -0.0679013877016532), .Names = c("rho", "Probability", "AVG+", "AVG-", "AVG Ratio", "AVG within landmark"))
+            expect = structure(c(0.112390456689369, 0.259, 0.209791381269483, 0.0703378394237725, 2.98262475771438, -0.0679013877016532), names = c("rho", "Probability", "AVG+", "AVG-", "AVG Ratio", "AVG within landmark"))
             suppressWarnings(RNGversion("3.5.0"))
             set.seed(42)
             un.cor = RandomMatrix(12, LKJ = FALSE)
@@ -113,7 +113,7 @@ test_that("MantelModTest returns correct results for landmark data",
             expect_equal(result, expect)
             
             # Now with a modular matrix:
-            expect = structure(c(1, 0, 0.8, 0.3, 2.66666666666667, 0.1), .Names = c("rho","Probability", "AVG+", "AVG-", "AVG Ratio", "AVG within landmark"))
+            expect = structure(c(1, 0, 0.8, 0.3, 2.66666666666667, 0.1), names = c("rho","Probability", "AVG+", "AVG-", "AVG Ratio", "AVG within landmark"))
             hypot.mask = matrix(as.logical(cor.hypot), 12, 12)
             mod.cor = matrix(NA, 12, 12)
             mod.cor[ hypot.mask] = 0.8 # within-modules
