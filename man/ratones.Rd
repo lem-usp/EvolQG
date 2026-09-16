@@ -41,7 +41,6 @@ Beta_non_noise \%*\% delta_Z /(Norm(Beta_non_noise) * Norm(delta_Z))
           
 }
 \references{
-Penna, A., Melo, D., Bernardi, S., Oyarzabal, M.I. and Marroig, G. (2017), The evolution of phenotypic integration: How directional selection reshapes covariation in mice. Evolution, 71: 2370-2380. https://doi.org/10.1111/evo.13304
-(\href{https://pubmed.ncbi.nlm.nih.gov/28685813/}{PubMed})
+Penna, A., Melo, D., Bernardi, S., Oyarzabal, M.I. and Marroig, G. (2017), The evolution of phenotypic integration: How directional selection reshapes covariation in mice. Evolution, 71: 2370-2380. \href{https://doi.org/10.1111/evo.13304}{https://doi.org/10.1111/evo.13304}
 }
 \keyword{datasets}
