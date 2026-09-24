@@ -8,7 +8,7 @@
 data.frame
 }
 \source{
-\href{https://datadryad.org/dataset/doi:10.5061/dryad.5gr8r}{Dryad Archive}
+Dryad Archive \doi{10.5061/dryad.5gr8r}
 }
 \usage{
 data(ratones)
@@ -41,6 +41,6 @@ Beta_non_noise \%*\% delta_Z /(Norm(Beta_non_noise) * Norm(delta_Z))
           
 }
 \references{
-Penna, A., Melo, D., Bernardi, S., Oyarzabal, M.I. and Marroig, G. (2017), The evolution of phenotypic integration: How directional selection reshapes covariation in mice. Evolution, 71: 2370-2380. \href{https://doi.org/10.1111/evo.13304}{https://doi.org/10.1111/evo.13304}
+Penna, A., Melo, D., Bernardi, S., Oyarzabal, M.I. and Marroig, G. (2017), The evolution of phenotypic integration: How directional selection reshapes covariation in mice. Evolution, 71: 2370-2380. \doi{10.1111/evo.13304}
 }
 \keyword{datasets}
