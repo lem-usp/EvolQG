@@ -15,17 +15,40 @@ MeanMatrixStatistics(
   cov.matrix,
   iterations = 1000,
   full.results = FALSE,
-  parallel = FALSE
+  parallel = FALSE,
+  beta.mat = NULL,
+  include.R2 = FALSE,
+  include.ICV = FALSE
 )
+
+Autonomy(cov.matrix, beta.mat = NULL, iterations = 1000)
+
+ConditionalEvolvability(cov.matrix, beta.mat = NULL, iterations = 1000)
+
+Constraints(cov.matrix, beta.mat = NULL, iterations = 1000)
+
+Evolvability(cov.matrix, beta.mat = NULL, iterations = 1000)
+
+Flexibility(cov.matrix, beta.mat = NULL, iterations = 1000)
+
+Pc1Percent(cov.matrix)
+
+Respondability(cov.matrix, beta.mat = NULL, iterations = 1000)
 }
 \arguments{
 \item{cov.matrix}{A covariance matrix}
 
-\item{iterations}{Number of random vectors to be used in calculating the stochastic statistics}
+\item{iterations}{Number of random vectors to be used in calculating the stochastic statistics when beta.mat is NULL.}
 
 \item{full.results}{If TRUE, full distribution of statistics will be returned.}
 
 \item{parallel}{if TRUE computations are done in parallel. Some foreach backend must be registered, like doParallel or doMC.}
+
+\item{beta.mat}{Matrix of direction vectors used to calculate the stochastic statistics. If NULL, a random matrix of normalized vectors is generated.}
+
+\item{include.R2}{Logical. If TRUE, include the legacy mean squared correlation metric in the returned output.}
+
+\item{include.ICV}{Logical. If TRUE, include the legacy ICV metric in the returned output.}
 }
 \value{
 dist Full distribution of stochastic statistics, only if full.resuts == TRUE

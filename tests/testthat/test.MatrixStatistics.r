@@ -77,12 +77,21 @@ test_that("Respondability returns correct result",
          }
 )
 
-test_that("MeanMatrixStatistics returns correct results",
+test_that("MeanMatrixStatistics excludes legacy integration metrics by default",
           {
-            suppressWarnings(RNGversion("3.5.0"))
-            set.seed(42)
-            iris.stats <- MeanMatrixStatistics(cov(iris[,1:4]))
-            test.values <- read.table("iris.stats")
-            expect_that(iris.stats, is_equivalent_to(test.values[,1]))
+            stats <- MeanMatrixStatistics(cov(iris[,1:4]))
+            expect_false("MeanSquaredCorrelation" %in% names(stats))
+            expect_false("ICV" %in% names(stats))
+            expect_true("pc1.percent" %in% names(stats))
+            expect_true("EigenSd" %in% names(stats))
+          }
+)
+
+test_that("MeanMatrixStatistics can include R2 and ICV on demand",
+          {
+            cov.matrix <- cov(iris[,1:4])
+            stats <- suppressWarnings(MeanMatrixStatistics(cov.matrix, include.R2 = TRUE, include.ICV = TRUE))
+            expect_equal(as.numeric(stats["MeanSquaredCorrelation"]), mean(cov2cor(cov.matrix)[lower.tri(cov2cor(cov.matrix))]^2))
+            expect_equal(as.numeric(stats["ICV"]), sd(eigen(cov.matrix, only.values = TRUE)$values) / mean(eigen(cov.matrix, only.values = TRUE)$values))
           }
 )

@@ -1,8 +1,8 @@
 Package: evolqg
 Type: Package
 Title: Evolutionary Quantitative Genetics
-Version: 0.3-7
-Date: 2026-09-12
+Version: 0.4-3
+Date: 2026-09-24
 Authors@R: 
   c(person(given = "Diogo",
            family = "Melo",
@@ -66,4 +66,4 @@ LinkingTo: Rcpp, RcppArmadillo
 License: MIT + file LICENSE
 BugReports: https://github.com/lem-usp/evolqg/issues
 Encoding: UTF-8
-Config/roxygen2/version: 8.0.0
+Config/roxygen2/version: 8.1.0

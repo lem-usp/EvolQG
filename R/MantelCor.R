@@ -63,6 +63,7 @@
 #' @keywords matrixcomparison
 #' @keywords matrixcorrelation
 #' @keywords randomskewers
+#' @importFrom Matrix bdiag
 MantelCor <- function (cor.x, cor.y, ...) UseMethod("MantelCor")
 
 #' @rdname MantelCor
@@ -88,7 +89,7 @@ MantelCor.default <- function (cor.x, cor.y, permutations = 1000, ...,
     }
     prob = sum(null_vector > correlation)/permutations
   } else{
-    mantel.output <- mantel(cor.x, cor.y, permutations = permutations)
+    mantel.output <- vegan::mantel(cor.x, cor.y, permutations = permutations)
     correlation <- mantel.output$statistic
     prob <- mantel.output$signif
   }
@@ -99,7 +100,7 @@ MantelCor.default <- function (cor.x, cor.y, permutations = 1000, ...,
 
 CreateWithinLandMat <- function(num.land, land.dim){
   num.traits = num.land * land.dim
-  matrix(as.logical(bdiag(rlply(num.land, matrix(1, land.dim, land.dim)))), num.traits, num.traits)
+  matrix(as.logical(Matrix::bdiag(rlply(num.land, matrix(1, land.dim, land.dim)))), num.traits, num.traits)
 }
 
 lower.tri.land <- function(x, landmark.dim = NULL){

@@ -20,6 +20,7 @@ Useful links:
 
 Authors:
 \itemize{
+  \item Diogo Melo \email{diogro@gmail.com} (\href{https://orcid.org/0000-0002-7603-0092}{ORCID})
   \item Ana Paula Assis (\href{https://orcid.org/0000-0001-8170-6352}{ORCID})
   \item Fabio Andrade Machado (\href{https://orcid.org/0000-0002-0215-9926}{ORCID})
   \item Guilherme Garcia
