@@ -15,7 +15,7 @@ data(ratones)
 }
 \description{
 Skull distances measured from landmarks in 5 mice lines: 4 body weight selection lines and 1 control line. 
-Originally published in Penna, A., Melo, D. et. al (2017) 10.1111/evo.13304
+Originally published in Penna, A., Melo, D. et. al (2017) \doi{10.1111/evo.13304}
 }
 \examples{
 data(ratones)
