@@ -78,3 +78,22 @@ test_that("TreeDriftTest returns resonable results",
           })
 
           
+test_that("DriftTest sampling correction works",
+{
+  set.seed(42)
+  p <- 6; m <- 21
+  cov.matrix <- RandomMatrix(p, 1, 1, 10, LKJ = FALSE)
+  means <- array(rnorm(m * p, sd = 3), c(m, p))
+  n <- rep(30, m)
+  uncorrected <- DriftTest(means, cov.matrix, FALSE)
+  expect_equal(uncorrected[-6], DriftTest(means, cov.matrix, FALSE, sample.sizes = NULL)[-6])
+  corrected <- DriftTest(means, cov.matrix, FALSE, sample.sizes = n)
+  expect_equal(names(corrected), names(uncorrected))
+  expected <- exp(uncorrected$log.between_group_variance) - eigen(cov.matrix)$values / 30
+  expected[expected <= 0] <- NA
+  expect_equal(corrected$log.between_group_variance, log(expected))
+  expect_error(DriftTest(means, cov.matrix, FALSE, sample.sizes = n[-1]))
+  # pure sampling error: most axes have no divergence beyond sampling and are dropped
+  zero.means <- t(replicate(m, colMeans(MASS::mvrnorm(30, rep(0, p), cov.matrix))))
+  expect_warning(try(DriftTest(zero.means, cov.matrix, FALSE, sample.sizes = n), silent = TRUE))
+})
