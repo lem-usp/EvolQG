@@ -7,10 +7,24 @@
 #'@param means list or array of species means being compared. array must have means in the rows.
 #'@param cov.matrix ancestral covariance matrix for all populations
 #'@param show.plot Logical. If TRUE, plot of eigenvalues of ancestral matrix by between group variance is showed.
+#'@param sample.sizes Optional vector with the number of individuals used to estimate each mean, in the same
+#'order as \code{means}. If supplied, the expected sampling variance of the means along each eigenvector
+#'(eigenvalue times the average of 1/sample.sizes) is subtracted from the between group variances before
+#'the regression. See Details.
+#'@details Means estimated from samples carry sampling variance proportional to the within-group matrix
+#'(W/n), so when divergence among groups is small relative to W/n the between group variances are dominated
+#'by sampling error and the slope tends to one regardless of the process that produced the divergence. If
+#'\code{sample.sizes} is supplied, this expected sampling variance is subtracted. Axes whose corrected
+#'variance is not positive (no detectable divergence beyond sampling error) are set to NA, excluded from the
+#'regression, and reported with a warning. The corrected slope is a less attenuated estimate of the
+#'scaling between divergence and within-group variation, but it is also noisier, so the test based on it is
+#'not more powerful than the uncorrected test; it is most useful for estimating the slope and for checking
+#'whether divergence along each axis exceeds sampling error. When sample.sizes is NULL (default) the
+#'results are identical to previous versions.
 #'@return list of results containing:
 #'@return regression: the linear regression between the log of the eigenvalues of the ancestral matrix and the log of the between group variance (projected on the eigenvectors of the ancestral matrix)
 #'@return coefficient_CI_95: confidence intervals for the regression coefficients
-#'@return log.between_group_variance: log of the between group variance (projected on the ancestral matrix eigenvectors)
+#'@return log.between_group_variance: log of the between group variance (projected on the ancestral matrix eigenvectors), corrected for sampling variance if sample.sizes is supplied (NA for axes with non-positive corrected variance)
 #'@return log.W_eVals: log of the ancestral matrix eigenvalues
 #'@return plot: plot of the regression using ggplot2
 #'@note If the regression coefficient is significantly different to one, the null hypothesis of drift is rejected.
@@ -28,7 +42,7 @@
 #'means = array(rnorm(40*10), c(10, 40)) 
 #'cov.matrix = RandomMatrix(40, 1, 1, 10)
 #'DriftTest(means, cov.matrix)
-DriftTest <- function(means, cov.matrix, show.plot=TRUE)
+DriftTest <- function(means, cov.matrix, show.plot=TRUE, sample.sizes = NULL)
 {
   if(is.data.frame(means) | (!is.array(means) & !is.list(means)))
     stop("means must be in a list or an array.")
@@ -41,12 +55,27 @@ DriftTest <- function(means, cov.matrix, show.plot=TRUE)
   W.pc <- eigen(cov.matrix)
   projection.Wpc <- as.matrix(mean.array) %*% W.pc$vectors #projecting the means in 
                                                            #the principal components of W
-  log.B_variance <- log(apply(projection.Wpc, 2, var)) #variance between groups
+  B_variance <- apply(projection.Wpc, 2, var) #variance between groups
+  if(!is.null(sample.sizes)){
+    if(length(sample.sizes) != nrow(mean.array))
+      stop("sample.sizes must have one value per group in means.")
+    if(any(sample.sizes < 2)) stop("all sample.sizes must be at least 2.")
+    B_variance <- B_variance - W.pc$values * mean(1/sample.sizes) # expected sampling variance of the means
+    n.dropped <- sum(B_variance <= 0)
+    if(n.dropped > 0){
+      warning(paste(n.dropped, "axes with between group variance not larger than the expected sampling",
+                    "variance were excluded from the regression."))
+      B_variance[B_variance <= 0] <- NA
+    }
+    if(sum(!is.na(B_variance)) < 3)
+      stop("fewer than 3 axes with between group variance larger than the expected sampling variance.")
+  }
+  log.B_variance <- log(B_variance)
   log.W_eVals <- log(W.pc$values) 
   regression <- lm(log.B_variance~log.W_eVals)
-  reg.plot <- ggplot(data.frame(log.B_variance, 
-                                log.W_eVals, 
-                                names = 1:(dim(mean.array)[2])), 
+  reg.plot <- ggplot(na.omit(data.frame(log.B_variance, 
+                                        log.W_eVals, 
+                                        names = 1:(dim(mean.array)[2]))), 
                      aes(log.W_eVals, log.B_variance)) + 
               geom_text(aes(label = names)) + 
               geom_smooth(method = "lm", color = 'black') + 

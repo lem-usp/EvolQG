@@ -4,7 +4,7 @@
 \alias{DriftTest}
 \title{Test drift hypothesis}
 \usage{
-DriftTest(means, cov.matrix, show.plot = TRUE)
+DriftTest(means, cov.matrix, show.plot = TRUE, sample.sizes = NULL)
 }
 \arguments{
 \item{means}{list or array of species means being compared. array must have means in the rows.}
@@ -12,6 +12,11 @@ DriftTest(means, cov.matrix, show.plot = TRUE)
 \item{cov.matrix}{ancestral covariance matrix for all populations}
 
 \item{show.plot}{Logical. If TRUE, plot of eigenvalues of ancestral matrix by between group variance is showed.}
+
+\item{sample.sizes}{Optional vector with the number of individuals used to estimate each mean, in the same
+order as \code{means}. If supplied, the expected sampling variance of the means along each eigenvector
+(eigenvalue times the average of 1/sample.sizes) is subtracted from the between group variances before
+the regression. See Details.}
 }
 \value{
 list of results containing:
@@ -20,7 +25,7 @@ regression: the linear regression between the log of the eigenvalues of the ance
 
 coefficient_CI_95: confidence intervals for the regression coefficients
 
-log.between_group_variance: log of the between group variance (projected on the ancestral matrix eigenvectors)
+log.between_group_variance: log of the between group variance (projected on the ancestral matrix eigenvectors), corrected for sampling variance if sample.sizes is supplied (NA for axes with non-positive corrected variance)
 
 log.W_eVals: log of the ancestral matrix eigenvalues
 
@@ -30,6 +35,18 @@ plot: plot of the regression using ggplot2
 Given a set of covariance matrices and means for terminals, test the hypothesis
 that observed divergence is larger/smaller than expected by drift alone using a regression of
 the between-group variances on the within-group eigenvalues.
+}
+\details{
+Means estimated from samples carry sampling variance proportional to the within-group matrix
+(W/n), so when divergence among groups is small relative to W/n the between group variances are dominated
+by sampling error and the slope tends to one regardless of the process that produced the divergence. If
+\code{sample.sizes} is supplied, this expected sampling variance is subtracted. Axes whose corrected
+variance is not positive (no detectable divergence beyond sampling error) are set to NA, excluded from the
+regression, and reported with a warning. The corrected slope is a less attenuated estimate of the
+scaling between divergence and within-group variation, but it is also noisier, so the test based on it is
+not more powerful than the uncorrected test; it is most useful for estimating the slope and for checking
+whether divergence along each axis exceeds sampling error. When sample.sizes is NULL (default) the
+results are identical to previous versions.
 }
 \note{
 If the regression coefficient is significantly different to one, the null hypothesis of drift is rejected.
